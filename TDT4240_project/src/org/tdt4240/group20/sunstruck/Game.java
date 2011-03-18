@@ -4,8 +4,8 @@ import org.tdt4240.group20.sunstruck.gameobject.GameObjectFactory;
 import org.tdt4240.group20.sunstruck.gameobject.Player;
 import org.tdt4240.group20.sunstruck.gui.GUI;
 import org.tdt4240.group20.sunstruck.input.Input;
-import org.tdt4240.group20.sunstruck.world.MapGenerator;
 import org.tdt4240.group20.sunstruck.world.World;
+import org.tdt4240.group20.sunstruck.world.map.MapGenerator;
 
 public class Game {
 	/** singleton pattern? should we implement an interface here? 
