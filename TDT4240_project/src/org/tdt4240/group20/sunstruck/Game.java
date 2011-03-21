@@ -9,12 +9,12 @@ import org.tdt4240.group20.sunstruck.world.World;
 import org.tdt4240.group20.sunstruck.world.map.MapGenerator;
 
 public class Game {
-	/** singleton pattern? should we implement an interface here? 
+	/** should we implement an interface here? 
 	 *  could be a goal in  modifiabilty...
 	 **/
 	
 
-	public static Game GAME = null;
+	public static Game GAME = null; /** use a singleton pattern? */
 	public static enum DIFFICULTIES {EASY, MEDIUM, HARD}
 	private double UPDATERATE = 1.0; // physics update rate
 	private DIFFICULTIES difficulty;
