@@ -18,10 +18,7 @@ public class GameObjectFactory {
 	
 	public GameObject getProductA(String str) { // TODO remove test method
 		System.out.println("PRODUCING PRODUCT A");
-		GameObject o = new ProductA(str);
-		o.setType(TYPES.ENTITY1);
-		o.setArmour(15);
-		return o;
+		return new ProductA(str);
 	}
 	
 	public GameObject getProductB() { // TODO remove test method

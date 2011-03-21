@@ -15,6 +15,7 @@ public class ProductA extends GameObject { // TODO remove test class
 	
 	public ProductA(String str) {
 		testStr = str;
+		setType(TYPES.ENTITY3);
 	}
 	
 	public String getTestStr() {
