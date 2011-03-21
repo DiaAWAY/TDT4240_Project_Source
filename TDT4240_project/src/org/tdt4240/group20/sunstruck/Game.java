@@ -1,5 +1,6 @@
 package org.tdt4240.group20.sunstruck;
 
+import org.tdt4240.group20.sunstruck.behavior.Behavior;
 import org.tdt4240.group20.sunstruck.gameobject.GameObjectFactory;
 import org.tdt4240.group20.sunstruck.gameobject.Player;
 import org.tdt4240.group20.sunstruck.gui.GUI;
@@ -36,6 +37,7 @@ public class Game {
 	}
 	
 	public void start() {
+		Behavior.initFilters();
 		world.add(goFactory.getProductA());
 		world.add(goFactory.getProductB());
 		world.add(goFactory.getProductA("Hii"));
