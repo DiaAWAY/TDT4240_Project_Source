@@ -13,7 +13,7 @@ public class GameObjectFactory {
 		GameObject o = new ProductA();
 		o.setType(TYPES.ENTITY1);
 		o.setArmour(10);
-		return new ProductA();
+		return o;
 	}
 	
 	public GameObject getProductA(String str) { // TODO remove test method

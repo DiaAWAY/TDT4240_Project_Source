@@ -10,7 +10,7 @@ public class ProductA extends GameObject { // TODO remove test class
 	String testStr = "";
 	
 	public ProductA() {
-		this("");
+		this("default");
 	}
 	
 	public ProductA(String str) {
@@ -23,7 +23,7 @@ public class ProductA extends GameObject { // TODO remove test class
 
 	@Override
 	public void update() {
-		System.out.println("PRODUCT A UPDATING! type:"+getType());
+		System.out.println("PRODUCT A UPDATING! type:"+getType() + " special product a property:'"+getTestStr()+"'");
 		// TODO Auto-generated method stub
 		
 	}
