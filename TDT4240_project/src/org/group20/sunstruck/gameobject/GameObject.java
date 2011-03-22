@@ -1,5 +1,6 @@
 package org.group20.sunstruck.gameobject;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actors.Image;
 
 public abstract class GameObject {
@@ -9,61 +10,24 @@ public abstract class GameObject {
 	}
 
 	TYPES type = TYPES.UNKNOWN;
-	int armour = 0;
-	int speed = 0;
-	int weapon = 0;
-	int shield = 0;
+
 	GameObject weaponType = null;
 	Image sprite = null;
-	int X = 0;
-	int Y = 0;
+	Vector2 position = new Vector2();
+	Vector2 direction = new Vector2();
+	float speed = 0;
+	double armour = 0;
+	double weapon = 0;
+	double shield = 0;
+	
 
 	public abstract void update();
 
 	public abstract void dispose();
 	
-	public int getX() {
-		return X;
-	}
-
-	public void setX(int x) {
-		X = x;
-	}
-
-	public int getY() {
-		return Y;
-	}
-
-	public void setY(int y) {
-		Y = y;
-	}
 
 	public TYPES getType() {
 		return type;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-	public int getWeapon() {
-		return weapon;
-	}
-
-	public void setWeapon(int weapon) {
-		this.weapon = weapon;
-	}
-
-	public int getShield() {
-		return shield;
-	}
-
-	public void setShield(int shield) {
-		this.shield = shield;
 	}
 
 	public GameObject getWeaponType() {
@@ -78,12 +42,52 @@ public abstract class GameObject {
 		this.type = t;
 	}
 
-	public int getArmour() {
-		return this.armour;
+	public Vector2 getPosition() {
+		return position;
 	}
 
-	public void setArmour(int a) {
-		this.armour = a;
+	public void setPosition(Vector2 position) {
+		this.position = position;
+	}
+
+	public Vector2 getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Vector2 direction) {
+		this.direction = direction;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public double getArmour() {
+		return armour;
+	}
+
+	public void setArmour(double armour) {
+		this.armour = armour;
+	}
+
+	public double getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(double weapon) {
+		this.weapon = weapon;
+	}
+
+	public double getShield() {
+		return shield;
+	}
+
+	public void setShield(double shield) {
+		this.shield = shield;
 	}
 
 	public void setSprite(Image sprite) {
