@@ -8,22 +8,24 @@ public class MapGenerator {
 
 	private MapSegment currentSegment = null;
 	private ArrayList<MapSegment> segments = new ArrayList<MapSegment>();
-	
+
 	public MapGenerator() {
 		initMapSegments();
 	}
-	
+
 	private void initMapSegments() {
 		segments.add(new MapSegment1());
 		segments.add(new MapSegment2());
 	}
-	
+
 	/**
-	 * returns the next segment 
+	 * returns the next segment
+	 * 
 	 * @return MapSegment - the next segment
 	 */
 	public MapSegment getNext() {
-		currentSegment = segments.get((int)(Math.random()*(segments.size()-1)));
+		currentSegment = segments
+				.get((int) (Math.random() * (segments.size() - 1)));
 		return currentSegment; // placeholder
 	}
 }

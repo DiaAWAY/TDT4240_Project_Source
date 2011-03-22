@@ -19,12 +19,10 @@ public abstract class GameObject {
 	double armour = 0;
 	double weapon = 0;
 	double shield = 0;
-	
 
 	public abstract void update();
 
 	public abstract void dispose();
-	
 
 	public TYPES getType() {
 		return type;
