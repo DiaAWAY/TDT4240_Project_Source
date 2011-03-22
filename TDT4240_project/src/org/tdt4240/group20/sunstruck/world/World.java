@@ -6,15 +6,21 @@ import java.util.List;
 import org.tdt4240.group20.sunstruck.behavior.Behavior;
 import org.tdt4240.group20.sunstruck.gameobject.GameObject;
 
+import com.badlogic.gdx.math.Vector2;
 
-public class World {
+
+public class World extends com.badlogic.gdx.physics.box2d.World {
+
+	public World(Vector2 gravity, boolean doSleep) {
+		super(gravity, doSleep);
+	}
 
 	private List<GameObject> world = new ArrayList<GameObject>();
 
 	/**
 	 * Applies behavior and adds the gameobject to the world
 	 * @param o
-	 * @return boolean - wether the item was added or not
+	 * @return boolean - whether the item was added or not
 	 */
 	public boolean add(GameObject o) {
 		if (!world.contains(o)) {

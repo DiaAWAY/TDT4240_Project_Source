@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>TDT4240_Project_android</name>
+	<name>TDT4240_Project_Android</name>
 	<comment></comment>
 	<projects>
+		<project>TDT4240_Project</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

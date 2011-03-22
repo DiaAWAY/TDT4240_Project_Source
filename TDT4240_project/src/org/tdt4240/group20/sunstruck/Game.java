@@ -8,6 +8,8 @@ import org.tdt4240.group20.sunstruck.input.Input;
 import org.tdt4240.group20.sunstruck.world.World;
 import org.tdt4240.group20.sunstruck.world.map.MapGenerator;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Game {
 	/** should we implement an interface here? 
 	 *  could be a goal in  modifiabilty...
@@ -22,7 +24,7 @@ public class Game {
 	private Player player = new Player();
 	private Shop shop = new Shop();
 	private MapGenerator map = new MapGenerator();
-	private World world = new World();
+	private World world = new World(new Vector2(0.0f, 0.5f), false); // TODO set to true for performance?
 	private Input input = new Input();
 	private GUI gui = new GUI();
 	private float totalTime;
