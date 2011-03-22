@@ -6,7 +6,7 @@ import org.tdt4240.group20.sunstruck.world.map.segments.*;
 
 public class MapGenerator {
 
-	private MapSegment lastSegment = null;
+	private MapSegment currentSegment = null;
 	private ArrayList<MapSegment> segments = new ArrayList<MapSegment>();
 	
 	public MapGenerator() {
@@ -22,8 +22,7 @@ public class MapGenerator {
 	 * @return
 	 */
 	public MapSegment getNext() {
-		int index = (int)(Math.random()*(segments.size()-1));
-		lastSegment = segments.get(index);
-		return segments.get(index); // placeholder
+		currentSegment = segments.get((int)(Math.random()*(segments.size()-1)));
+		return currentSegment; // placeholder
 	}
 }

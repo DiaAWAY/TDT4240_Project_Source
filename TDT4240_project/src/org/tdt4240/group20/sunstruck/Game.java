@@ -11,15 +11,14 @@ import org.tdt4240.group20.sunstruck.world.map.MapGenerator;
 import com.badlogic.gdx.math.Vector2;
 
 public class Game {
-	/** should we implement an interface here? 
-	 *  could be a goal in  modifiabilty...
+	/** 
+	 * should we implement an interface here? 
+	 * could be a goal in  modifiabilty...
 	 **/
-	
 
-	public static Game GAME = null; /** use a singleton pattern? */
 	public static enum DIFFICULTIES {EASY, MEDIUM, HARD}
+	private DIFFICULTIES DIFFICULTY;
 	private double UPDATERATE = 1.0; // physics update rate
-	private DIFFICULTIES difficulty;
 	private GameObjectFactory goFactory = new GameObjectFactory();
 	private Player player = new Player();
 	private Shop shop = new Shop();
@@ -29,13 +28,20 @@ public class Game {
 	private GUI gui = new GUI();
 	private float totalTime;
 
-	public Game() {
+	private Game() {
 		this(DIFFICULTIES.MEDIUM);
 	}
 
-	public Game(DIFFICULTIES d) {
+	private Game(DIFFICULTIES d) {
 		setDifficulty(d);
-		Game.GAME = this;
+	}
+	
+	private static class GameHolder { // singleton holder
+		public static final Game INSTANCE = new Game();
+	}
+	
+	public static Game getInstance() {
+		return GameHolder.INSTANCE;
 	}
 	
 	public void start() {
@@ -109,12 +115,12 @@ public class Game {
 		return gui;
 	}
 
-	public void setDifficulty(DIFFICULTIES difficulty) {
-		this.difficulty = difficulty;
+	public void setDifficulty(DIFFICULTIES d) {
+		this.DIFFICULTY = d;
 	}
 
 	public DIFFICULTIES getDifficulty() {
-		return difficulty;
+		return DIFFICULTY;
 	}
 
 	public void setUpdateRate(double updaterate) {

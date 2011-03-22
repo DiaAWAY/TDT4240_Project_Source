@@ -10,12 +10,10 @@ import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Main implements ApplicationListener 
 {
 	float r = 1, g = 0, b = 0;
-	private Game game = new Game();
 	private double time = 0;
 	private boolean run = true;
 	
@@ -25,9 +23,9 @@ public class Main implements ApplicationListener
 	@Override 
 	public void create () {
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId() + ", surface created");
-		Gdx.input.setInputProcessor(game.getInput());
+		Gdx.input.setInputProcessor(Game.getInstance().getInput());
 		time = System.currentTimeMillis(); // TODO replace this with a more accurate method
-		game.start();
+		Game.getInstance().start();
 	
 		/** test code START */
 		if (mesh == null) {
@@ -56,8 +54,8 @@ public class Main implements ApplicationListener
 		Gdx.gl.glClearColor(255, 0, 255, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		// UPDATE THE WORLD
-		if (run && (System.currentTimeMillis() - time) > 1000/game.getUpdateRate()) {
-			game.update();
+		if (run && (System.currentTimeMillis() - time) > 1000/Game.getInstance().getUpdateRate()) {
+			Game.getInstance().update();
 			time = System.currentTimeMillis();
 		}
 		// FETCH THE WORLD DATA
