@@ -1,5 +1,7 @@
 package org.group20.sunstruck.interfaces;
 
+import java.util.Collection;
+
 import org.group20.sunstruck.Shop;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
 import org.group20.sunstruck.gameobject.Player;
@@ -7,6 +9,7 @@ import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
 import org.group20.sunstruck.world.World;
 import org.group20.sunstruck.world.map.MapGenerator;
+import org.group20.sunstruck.world.map.segments.MapSegment;
 
 public interface GameInterface {
 	
@@ -52,5 +55,5 @@ public interface GameInterface {
 
 	double getUpdateRate();
 
-	void getDrawables();
+	Collection<MapSegment> getDrawables();
 }
