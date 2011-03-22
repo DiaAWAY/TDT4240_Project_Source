@@ -6,8 +6,9 @@ import java.util.List;
 import org.tdt4240.group20.sunstruck.behavior.Behavior;
 import org.tdt4240.group20.sunstruck.gameobject.GameObject;
 
+
 public class World {
-	
+
 	private List<GameObject> world = new ArrayList<GameObject>();
 
 	/**
