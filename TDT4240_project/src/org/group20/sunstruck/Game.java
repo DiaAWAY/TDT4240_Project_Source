@@ -7,22 +7,17 @@ import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
 import org.group20.sunstruck.world.World;
 import org.group20.sunstruck.world.map.MapGenerator;
+import org.group20.sunstruck.interfaces.GameInterface;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Game {
-	/** 
-	 * should we implement an interface here? 
-	 * could be a goal in  modifiabilty...
-	 **/
-
-	public static enum DIFFICULTIES {EASY, MEDIUM, HARD}
+public class Game implements GameInterface {
+	
 	private DIFFICULTIES DIFFICULTY;
 	private double UPDATERATE = 1.0; // physics update rate
 	private GameObjectFactory goFactory = new GameObjectFactory();
 	private Player player = new Player();
 	private Shop shop = new Shop();
-	private MapGenerator map = new MapGenerator();
 	private World world = new World(new Vector2(0.0f, 0.5f), false); // TODO set to true for performance?
 	private Input input = new Input();
 	private GUI gui = new GUI();
@@ -84,11 +79,11 @@ public class Game {
 	}
 
 	public void setMap(MapGenerator map) {
-		this.map = map;
+		world.setMap(map);
 	}
 
 	public MapGenerator getMap() {
-		return map;
+		return world.getMap();
 	}
 
 	public void setWorld(World world) {
@@ -129,5 +124,10 @@ public class Game {
 
 	public double getUpdateRate() {
 		return UPDATERATE;
+	}
+
+	public void getDrawables() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -5,17 +5,19 @@ import java.util.List;
 
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.gameobject.GameObject;
+import org.group20.sunstruck.world.map.MapGenerator;
 
 import com.badlogic.gdx.math.Vector2;
 
 
 public class World extends com.badlogic.gdx.physics.box2d.World {
 
+	private List<GameObject> world = new ArrayList<GameObject>();
+	private MapGenerator map = new MapGenerator();
+	
 	public World(Vector2 gravity, boolean doSleep) {
 		super(gravity, doSleep);
 	}
-
-	private List<GameObject> world = new ArrayList<GameObject>();
 
 	/**
 	 * Applies behavior and adds the gameobject to the world
@@ -35,5 +37,13 @@ public class World extends com.badlogic.gdx.physics.box2d.World {
 		for (GameObject o : world) {
 			o.update();
 		}
+	}
+
+	public void setMap(MapGenerator map) {
+		this.map = map;
+	}
+
+	public MapGenerator getMap() {
+		return map;
 	}
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Main implements ApplicationListener {
 	float r = 1, g = 0, b = 0;
@@ -17,12 +18,14 @@ public class Main implements ApplicationListener {
 
 	private Mesh mesh; // test code
 	private Texture texture; // test code
+	private SpriteBatch sprites;
 
 	@Override
 	public void create() {
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
 		Gdx.input.setInputProcessor(Game.getInstance().getInput());
+		sprites = new SpriteBatch();
 		time = System.currentTimeMillis(); // TODO replace this with a more
 											// accurate method
 		Game.getInstance().start();
@@ -63,7 +66,7 @@ public class Main implements ApplicationListener {
 			time = System.currentTimeMillis();
 		}
 		// FETCH THE WORLD DATA
-		// game.getWorld().getDrawables();
+		Game.getInstance().getDrawables();
 
 		mesh.render(GL10.GL_TRIANGLE_FAN, 0, 4);
 	}
