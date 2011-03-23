@@ -21,7 +21,7 @@ public class Input{
 	Vector2 newPosition = new Vector2();
 	//Vector to store the speed of the ship.
 	Vector2 speed = new Vector2();
-	
+	   
 	//Boolean to store whether the fire button has been pressed.
 	boolean hasFired = false;
 	//Boolean to store whether the accelerometer has been activated.
