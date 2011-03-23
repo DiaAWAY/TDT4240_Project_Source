@@ -14,7 +14,6 @@ public abstract class GameObject {
 	GameObject weaponType = null;
 	Image sprite = null;
 	Vector2 position = new Vector2();
-	Vector2 direction = new Vector2();
 	float speed = 0;
 	double armour = 0;
 	double weapon = 0;
@@ -46,14 +45,6 @@ public abstract class GameObject {
 
 	public void setPosition(Vector2 position) {
 		this.position = position;
-	}
-
-	public Vector2 getDirection() {
-		return direction;
-	}
-
-	public void setDirection(Vector2 direction) {
-		this.direction = direction;
 	}
 
 	public float getSpeed() {
@@ -94,6 +85,10 @@ public abstract class GameObject {
 
 	public Image getSprite() {
 		return sprite;
+	}
+	
+	public void shoot(){
+		
 	}
 
 }

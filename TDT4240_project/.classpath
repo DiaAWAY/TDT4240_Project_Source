@@ -10,6 +10,10 @@
 	<classpathentry kind="lib" path="libs/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-sources.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-twl.jar"/>
-	<classpathentry kind="lib" path="libs/gdx.jar"/>
+	<classpathentry kind="lib" path="libs/gdx.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Users/Knut Esten/My Dropbox/workspace/TDT4240_Project_Source/TDT4240_project/libs/docs/api/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

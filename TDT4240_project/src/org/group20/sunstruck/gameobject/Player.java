@@ -15,8 +15,7 @@ public class Player extends GameObject {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		//TODO Auto-generated method stub
 	}
 
 	@Override

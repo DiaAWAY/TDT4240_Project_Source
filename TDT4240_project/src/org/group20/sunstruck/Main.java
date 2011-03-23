@@ -22,7 +22,6 @@ public class Main implements ApplicationListener {
 	public void create() {
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
-		Gdx.input.setInputProcessor(Game.getInstance().getInput());
 		time = System.currentTimeMillis(); // TODO replace this with a more
 											// accurate method
 		Game.getInstance().start();
