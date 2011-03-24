@@ -3,9 +3,9 @@ package org.group20.sunstruck.input;
 
 
 import org.group20.sunstruck.Game;
+import org.group20.sunstruck.gui.GUI;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
@@ -33,16 +33,10 @@ public class Input{
 	Sprite controlCircle;
 	Sprite fireButton;
 	
-	public Input(){
-		controlCircle = new Sprite();
-		fireButton = new Sprite();
-		
-		Texture controlCircleTexture = null;
-		Texture fireButtonTexture = null;
-		
-		controlCircle.setTexture(controlCircleTexture);
-		fireButton.setTexture(fireButtonTexture);
-	}
+	public Input(GUI gui){
+		controlCircle = gui.getControlCircle();
+		fireButton = gui.getFireButton();
+	}	
 	
 	/**
 	 * Updates the ship position according to the input, checks if the fire button has been pressed, and if the accelerometer has been activated. 

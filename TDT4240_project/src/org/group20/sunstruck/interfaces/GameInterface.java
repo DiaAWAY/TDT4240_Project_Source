@@ -7,11 +7,16 @@ import org.group20.sunstruck.gameobject.GameObjectFactory;
 import org.group20.sunstruck.gameobject.Player;
 import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
-import org.group20.sunstruck.world.World;
 import org.group20.sunstruck.world.map.MapGenerator;
 import org.group20.sunstruck.world.map.segments.MapSegment;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.physics.box2d.World;
+
 public interface GameInterface {
+	void setTextureAtlas(TextureAtlas textureAtlas);
+	
+	TextureAtlas getTextureAtlas();
 	
 	public static enum DIFFICULTIES {EASY, MEDIUM, HARD}
 
@@ -51,9 +56,9 @@ public interface GameInterface {
 
 	DIFFICULTIES getDifficulty();
 
-	void setUpdateRate(double updaterate);
+	void setUpdateRate(float updaterate);
 
-	double getUpdateRate();
+	float getUpdateRate();
 
 	Collection<MapSegment> getDrawables();
 }

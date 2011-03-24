@@ -1,7 +1,7 @@
 package org.group20.sunstruck.gameobject;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.actors.Image;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.Body;
 
 public abstract class GameObject {
 
@@ -12,9 +12,16 @@ public abstract class GameObject {
 	TYPES type = TYPES.UNKNOWN;
 
 	GameObject weaponType = null;
-	Image sprite = null;
+	
+	Sprite sprite = null;
+	
+	//These are not needed as long as we use physics.
+	/*
 	Vector2 position = new Vector2();
 	Vector2 direction = new Vector2();
+	*/
+	Body body = null;
+	
 	float speed = 0;
 	double armour = 0;
 	double weapon = 0;
@@ -24,6 +31,23 @@ public abstract class GameObject {
 
 	public abstract void dispose();
 
+	
+	
+	public Sprite getSprite(){
+		return sprite;
+	}
+	public void setSprite(Sprite sprite){
+		this.sprite = sprite;
+	}
+	public Body getBody(){
+		return body;
+	}
+	
+	public void setBody(Body body){
+		this.body = body;
+	}
+	
+	
 	public TYPES getType() {
 		return type;
 	}
@@ -38,22 +62,6 @@ public abstract class GameObject {
 
 	public void setType(TYPES t) {
 		this.type = t;
-	}
-
-	public Vector2 getPosition() {
-		return position;
-	}
-
-	public void setPosition(Vector2 position) {
-		this.position = position;
-	}
-
-	public Vector2 getDirection() {
-		return direction;
-	}
-
-	public void setDirection(Vector2 direction) {
-		this.direction = direction;
 	}
 
 	public float getSpeed() {
@@ -88,12 +96,5 @@ public abstract class GameObject {
 		this.shield = shield;
 	}
 
-	public void setSprite(Image sprite) {
-		this.sprite = sprite;
-	}
-
-	public Image getSprite() {
-		return sprite;
-	}
 
 }
