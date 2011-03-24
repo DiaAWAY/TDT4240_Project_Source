@@ -91,21 +91,23 @@ public class Input{
 	}
 
 	private boolean hitMoveCircle(float inputX, float inputY) {
+		System.out.println(inputX + " " + inputY + " " + controlCircle.getX() + " " + controlCircle.getY());
 		//Get coordinates relative to the moveCircle.
-		inputX = inputX - controlCircle.getX() + controlCircle.getWidth();
-		inputY = inputY - controlCircle.getY() + controlCircle.getHeight();
+		inputX = inputX - controlCircle.getX() + controlCircle.getWidth()/2;
+		inputY = inputY - controlCircle.getY() + controlCircle.getHeight()/2;
 		
 //		Bruker x og y som kateter og bruker hypotenus for Œ sjekke om trykket er innenfor sirkelen
-		if (Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2)) < controlCircle.getHeight()/2) 
+		if (Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2)) < controlCircle.getHeight()/2){
 			return true;
+		}
 		else
 			return false;
 	}
 
 	private void changePlayerSpeed(float inputX, float inputY){
 		//Get coordinates relative to the moveCircle.
-		inputX = inputX - controlCircle.getX() + controlCircle.getWidth();
-		inputY = inputY - controlCircle.getY() + controlCircle.getHeight();
+		inputX = inputX - controlCircle.getX() + controlCircle.getWidth()/2;
+		inputY = inputY - controlCircle.getY() + controlCircle.getHeight()/2;
 		
 		//Get how near the touch is to the edge of the move circle.
 		float scaleSpeed = (float)(Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2))/(controlCircle.getHeight()/2));

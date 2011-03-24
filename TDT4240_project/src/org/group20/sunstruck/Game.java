@@ -14,30 +14,24 @@ import org.group20.sunstruck.world.map.MapGenerator;
 import org.group20.sunstruck.world.map.segments.MapSegment;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Game implements GameInterface {
-	private float updateRate = 1.0f; // physics update rate
-	
-	private float totalTime;
-	
-	private Vector2 initGravity = new Vector2(0,0);
-	
+	private float updateRate = 1.0f; // physics update rate	
+	private float totalTime;	
+	private Vector2 initGravity = new Vector2(0,0);	
 	private DIFFICULTIES difficulty;
 	
-	private GameObjectFactory goFactory = new GameObjectFactory();
-	
-	private Player player = new Player();
-	
-	private Shop shop = new Shop();
-	
-	private World world;
-	
-	private Input input;
-	
-	private GUI gui = new GUI();
+	private GameObjectFactory goFactory = new GameObjectFactory();	
+	private Player player;	
+	private Shop shop;	
+	private World world;	
+	private Input input;	
+	private GUI gui;
 
 	private TextureAtlas textureAtlas;
 	
@@ -46,10 +40,17 @@ public class Game implements GameInterface {
 	private Game() {
 		this(DIFFICULTIES.MEDIUM);
 		world = new World(initGravity, true);
-		textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
+		//textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
+		gui = new GUI();
 		input = new Input(gui);
 	}
-
+	
+	public void initializePlayer(){
+		player = new Player(new Vector2(0,0),4, 4, new TextureRegion(new Texture(Gdx.files.internal("data/TIE_Bomber.png"))), 10, 100, 1000, 100,1000);
+		gameObjectList.add(player);
+	}
+	
+	
 	private Game(DIFFICULTIES d) {
 		setDifficulty(d);
 	}

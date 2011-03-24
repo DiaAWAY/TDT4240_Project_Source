@@ -1,34 +1,47 @@
 package org.group20.sunstruck;
 
-import org.group20.physicsTest.GameObject;
-import org.group20.sunstruck.world.map.segments.MapSegment;
+import java.util.Iterator;
+
+import org.group20.sunstruck.gameobject.GameObject;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Mesh;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+
 
 public class Main implements ApplicationListener {
 	private static final boolean Object = false;
+	
 	float r = 1, g = 0, b = 0;
+	
 	private double time = 0;
+	
 	private boolean run = true;
+	
+	private OrthographicCamera camera;
 
+	private SpriteBatch spriteBatch;
+	private SpriteBatch guiBatch;
+	
+	/*	
 	private Mesh mesh; // test code
 	private Texture texture; // test code
-	private SpriteBatch spriteBatch;
+	*/
 
 	@Override
 	public void create() {
+		Game.getInstance().initializePlayer();
+		
+		camera = new OrthographicCamera(300, 300);                
+        camera.position.set(0, 0, 0);
+        
+		spriteBatch = new SpriteBatch();
+		guiBatch = new SpriteBatch();
+		
 		/*
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
@@ -60,49 +73,39 @@ public class Main implements ApplicationListener {
 			Gdx.graphics.getGL10().glEnable(GL10.GL_TEXTURE_2D);
 		}
 		/** test code END */
-		
 	}
 
 	@Override
 	public void render() {
-
-        world.step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
-        Body b = gos.get(0).getBody();
-        
-        float ascal = 1;
-        float vscal = 1;
-        
-        Vector2 v = b.getWorldVector(new Vector2(0, 200));
-        float sum = Math.abs(v.x) + Math.abs(v.y);
-        float xk = v.x/sum;
-        float yk = v.y/sum;
-        
-        Vector2 f = new Vector2(yk, -xk);
-        Vector2 p = b.getWorldPoint(new Vector2(1,1));
-        
-        v.mul(vscal);
-        f.mul(ascal);
-        System.out.println(v +" "+f);
-        
-        b.setLinearVelocity(v);
-        b.applyForce(f,p);
-        
+		//Background colour.
         GL10 gl = Gdx.app.getGraphics().getGL10();
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        
+        //Get input-updates.
+        Game.getInstance().getInput().update();
+	     
+        //Draw GUI objects.
+        guiBatch.begin();
+        for(Sprite sprite : Game.getInstance().getGui().getSpriteList())
+        	sprite.draw(guiBatch);
+        guiBatch.end();
+   
+        //Update physics.
+		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);		
+        
+		//Update camera.
         camera.update();
         camera.apply(gl);
-
-      //  renderer.render(world);
-        
-
+		
+        //Draw game objects.
 		spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
-       	for(GameObject go : gos){
-       		Texture texture = go.getTexture();
+       	for(GameObject go : Game.getInstance().getGameObjectList()){
+       		TextureRegion texture = go.getTexture();
        		float x, y, originX, originY, width, height, scaleX, scaleY, rotation;
-       
-       		height = go.height;
-       		width = go.width;
+
+       		width = go.getWidth();
+       		height = go.getHeight();
        		
        		rotation = (float) (go.getBody().getAngle()*180/Math.PI);
        		
@@ -114,10 +117,8 @@ public class Main implements ApplicationListener {
        		
        		scaleX = width;
        		scaleY = height;       	
-       		
        		spriteBatch.draw(new TextureRegion(texture), x, y, originX, originY, width, height, scaleX, scaleY, rotation);
        	}
-       		
         spriteBatch.end();
 		
 	

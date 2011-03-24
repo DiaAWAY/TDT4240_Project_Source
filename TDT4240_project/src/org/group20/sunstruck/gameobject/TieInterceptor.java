@@ -1,16 +1,19 @@
 package org.group20.sunstruck.gameobject;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
-/**
- * Example class for products of the GameObjectFactory
- * @author DiaAWAY
- *
- */
-public class ProductB extends GameObject { // TODO remove test class
+public class TieInterceptor extends GameObject{
 
-	public ProductB(Vector2 position, float width, float height,
+	
+	public TieInterceptor(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
 			float hull, float weapon, float shield) {
 		super(position, width, height, textureRegion, density, speed, hull, weapon,
@@ -20,9 +23,6 @@ public class ProductB extends GameObject { // TODO remove test class
 
 	@Override
 	public void update() {
-		System.out.println("PRODUCT B UPDATING! type:"+getType());
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -30,4 +30,5 @@ public class ProductB extends GameObject { // TODO remove test class
 		// TODO Auto-generated method stub
 		
 	}
+
 }
