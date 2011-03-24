@@ -1,5 +1,7 @@
 package org.group20.sunstruck.gameobject;
 
+import org.group20.sunstruck.Game;
+
 /**
  * Example class for products of the GameObjectFactory
  * @author DiaAWAY
@@ -24,7 +26,7 @@ public class ProductA extends GameObject { // TODO remove test class
 
 	@Override
 	public void update() {
-		System.out.println("PRODUCT A UPDATING! type:"+getType() + " special product a property:'"+getTestStr()+"'");
+		if(Game.DEBUG) System.out.println("PRODUCT A UPDATING! type:"+getType() + " special product a property:'"+getTestStr()+"'");
 		// TODO Auto-generated method stub
 		
 	}

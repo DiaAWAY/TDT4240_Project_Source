@@ -1,5 +1,6 @@
 package org.group20.sunstruck.gameobject;
 
+import org.group20.sunstruck.Game;
 import org.group20.sunstruck.gameobject.GameObject.TYPES;
 
 public class GameObjectFactory {
@@ -9,7 +10,7 @@ public class GameObjectFactory {
 	}
 	
 	public GameObject getProductA() {// TODO remove test method
-		System.out.println("PRODUCING PRODUCT A");
+		if(Game.DEBUG) System.out.println("PRODUCING PRODUCT A");
 		GameObject o = new ProductA();
 		o.setType(TYPES.ENTITY1);
 		o.setArmour(10);
@@ -17,12 +18,12 @@ public class GameObjectFactory {
 	}
 	
 	public GameObject getProductA(String str) { // TODO remove test method
-		System.out.println("PRODUCING PRODUCT A");
+		if(Game.DEBUG) System.out.println("PRODUCING PRODUCT A");
 		return new ProductA(str);
 	}
 	
 	public GameObject getProductB() { // TODO remove test method
-		System.out.println("PRODUCING PRODUCT B");
+		if(Game.DEBUG) System.out.println("PRODUCING PRODUCT B");
 		GameObject o = new ProductB();
 		o.setType(TYPES.ENTITY2);
 		return o;

@@ -3,6 +3,7 @@ package org.group20.sunstruck.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.group20.sunstruck.Game;
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.world.map.MapGenerator;
@@ -33,7 +34,7 @@ public class World extends com.badlogic.gdx.physics.box2d.World {
 	}
 	
 	public void update() {
-		System.out.println("WORLD UPDATING");
+		if(Game.DEBUG) System.out.println("WORLD UPDATING");
 		for (GameObject o : world) {
 			o.update();
 		}

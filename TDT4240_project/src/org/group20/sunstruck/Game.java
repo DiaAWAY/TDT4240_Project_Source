@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Game implements GameInterface {
 	
+	public static final boolean DEBUG = false;
 	private DIFFICULTIES difficulty;
 	private GameObjectFactory goFactory = new GameObjectFactory();
 	private Player player = new Player();
@@ -53,7 +54,7 @@ public class Game implements GameInterface {
 	public void update() {
 		world.update();
 		totalTime++;
-		System.out.println("Total game updates: " + totalTime);
+		if(Game.DEBUG) System.out.println("Total game updates: " + totalTime);
 	}
 	
 	// Getter's and setter's
@@ -129,9 +130,13 @@ public class Game implements GameInterface {
 	public double getUpdateRate() {
 		return updateRate;
 	}
-
+	
 	public Collection<MapSegment> getDrawables() {
+		// TODO replace test code with production code
 		ArrayList<MapSegment> list = new ArrayList<MapSegment>();
+		list.add(world.getMap().getNext());
+		list.add(world.getMap().getNext());
+		list.add(world.getMap().getNext());
 		return list;
 	}
 }

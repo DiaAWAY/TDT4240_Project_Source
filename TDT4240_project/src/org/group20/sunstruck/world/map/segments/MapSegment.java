@@ -13,8 +13,11 @@ public abstract class MapSegment {
 	private Texture texture = null;
 
 	public Texture getTexture() {
-		//return texture;
-		return new Texture(Gdx.files.internal("data/placeholder.png")); // TODO remove placeholder with real code :)
+		return texture; 
+	}
+	
+	public void setTexture(Texture t) {
+		texture = t;
 	}
 
 	public MAPTYPES getType() {
