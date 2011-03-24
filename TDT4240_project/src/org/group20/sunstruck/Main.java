@@ -1,5 +1,7 @@
 package org.group20.sunstruck;
 
+import org.group20.sunstruck.world.map.segments.MapSegment;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Main implements ApplicationListener {
+	private static final boolean Object = false;
 	float r = 1, g = 0, b = 0;
 	private double time = 0;
 	private boolean run = true;
@@ -66,9 +69,11 @@ public class Main implements ApplicationListener {
 			time = System.currentTimeMillis();
 		}
 		// FETCH THE WORLD DATA
-		Game.getInstance().getDrawables();
-
-		mesh.render(GL10.GL_TRIANGLE_FAN, 0, 4);
+		for (MapSegment m : Game.getInstance().getDrawables()) {
+			System.out.println(m);
+			mesh.render(GL10.GL_TRIANGLE_FAN, 0, 4);
+			m.getTexture().bind();
+		}
 	}
 
 	@Override

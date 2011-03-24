@@ -1,26 +1,30 @@
 package org.group20.sunstruck;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
 import org.group20.sunstruck.gameobject.Player;
 import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
+import org.group20.sunstruck.interfaces.GameInterface;
 import org.group20.sunstruck.world.World;
 import org.group20.sunstruck.world.map.MapGenerator;
-import org.group20.sunstruck.interfaces.GameInterface;
+import org.group20.sunstruck.world.map.segments.MapSegment;
 
 import com.badlogic.gdx.math.Vector2;
 
 public class Game implements GameInterface {
 	
-	private DIFFICULTIES DIFFICULTY;
-	private double UPDATERATE = 1.0; // physics update rate
+	private DIFFICULTIES difficulty;
 	private GameObjectFactory goFactory = new GameObjectFactory();
 	private Player player = new Player();
 	private Shop shop = new Shop();
 	private World world = new World(new Vector2(0.0f, 0.5f), false); // TODO set to true for performance?
 	private Input input = new Input();
 	private GUI gui = new GUI();
+	private double updateRate = 1.0; // physics update rate
 	private float totalTime;
 
 	private Game() {
@@ -111,23 +115,23 @@ public class Game implements GameInterface {
 	}
 
 	public void setDifficulty(DIFFICULTIES d) {
-		this.DIFFICULTY = d;
+		this.difficulty = d;
 	}
 
 	public DIFFICULTIES getDifficulty() {
-		return DIFFICULTY;
+		return difficulty;
 	}
 
 	public void setUpdateRate(double updaterate) {
-		UPDATERATE = updaterate;
+		updateRate = updaterate;
 	}
 
 	public double getUpdateRate() {
-		return UPDATERATE;
+		return updateRate;
 	}
 
-	public void getDrawables() {
-		// TODO Auto-generated method stub
-		
+	public Collection<MapSegment> getDrawables() {
+		ArrayList<MapSegment> list = new ArrayList<MapSegment>();
+		return list;
 	}
 }
