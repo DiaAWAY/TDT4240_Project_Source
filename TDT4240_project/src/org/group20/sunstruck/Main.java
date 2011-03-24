@@ -45,7 +45,6 @@ public class Main implements ApplicationListener {
 					Color.WHITE.toFloatBits(), 0, 0 });
 
 			mesh.setIndices(new short[] { 0, 1, 2, 3 });
-			
 		}
 		/** test code END */
 	}
