@@ -72,7 +72,7 @@ public class Game implements GameInterface {
 		System.out.println("Total game updates: " + totalTime);
 	}
 	
-	// Getter's and setter's (No shit)
+	// Getter's and setter's (No shit) 
 
 	public void setGoFactory(GameObjectFactory goFactory) {
 		this.goFactory = goFactory;

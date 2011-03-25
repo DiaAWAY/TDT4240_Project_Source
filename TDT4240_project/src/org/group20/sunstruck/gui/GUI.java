@@ -30,7 +30,7 @@ public class GUI {
 		fireButton = new Sprite(fireButtonTexture);
 		
 		//Sets the positions of the control sprites.
-		controlCircle.setPosition(0, Gdx.graphics.getWidth()-controlCircle.getWidth());
+		controlCircle.setPosition(0, Gdx.graphics.getHeight()-controlCircle.getHeight());
 		fireButton.setPosition(0, 0);
 		
 		spriteList.add(controlCircle);

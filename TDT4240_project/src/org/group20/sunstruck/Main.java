@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 
 public class Main implements ApplicationListener {
@@ -27,6 +28,8 @@ public class Main implements ApplicationListener {
 	private SpriteBatch spriteBatch;
 	private SpriteBatch guiBatch;
 	
+	Box2DDebugRenderer renderer;
+	
 	/*	
 	private Mesh mesh; // test code
 	private Texture texture; // test code
@@ -36,11 +39,17 @@ public class Main implements ApplicationListener {
 	public void create() {
 		Game.getInstance().initializePlayer();
 		
-		camera = new OrthographicCamera(300, 300);                
+		//Scales the width.
+		float scale = (float)Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
+		System.out.println("Scale: " +scale);
+		System.out.println("Dimentions: "+Gdx.graphics.getWidth()+"x"+Gdx.graphics.getHeight());
+		camera = new OrthographicCamera(100, 100*scale);        
         camera.position.set(0, 0, 0);
         
 		spriteBatch = new SpriteBatch();
 		guiBatch = new SpriteBatch();
+		
+		renderer = new Box2DDebugRenderer();
 		
 		/*
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
@@ -76,22 +85,32 @@ public class Main implements ApplicationListener {
 	}
 
 	@Override
-	public void render() {
+	public void render() {		
+		time+= Gdx.graphics.getDeltaTime();
+		if(time>= 0.01){
+			Game.getInstance().getInput().update();
+			Game.getInstance().getPlayer().update();
+			time = 0;
+			if(Game.getInstance().getInput().getHasFiredBomb())
+				System.out.println("ohjoy");
+		}
+		
 		//Background colour.
         GL10 gl = Gdx.app.getGraphics().getGL10();
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         
         //Get input-updates.
-        Game.getInstance().getInput().update();
+       // Game.getInstance().getInput().update();
 	     
         //Draw GUI objects.
         guiBatch.begin();
         for(Sprite sprite : Game.getInstance().getGui().getSpriteList())
         	sprite.draw(guiBatch);
         guiBatch.end();
-   
+        
         //Update physics.
-		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);		
+		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
+		//renderer.render(Game.getInstance().getWorld());
         
 		//Update camera.
         camera.update();
@@ -120,6 +139,7 @@ public class Main implements ApplicationListener {
        		spriteBatch.draw(new TextureRegion(texture), x, y, originX, originY, width, height, scaleX, scaleY, rotation);
        	}
         spriteBatch.end();
+        
 		
 	
 		

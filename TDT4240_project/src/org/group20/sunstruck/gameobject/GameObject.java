@@ -3,6 +3,7 @@ package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -40,7 +41,7 @@ public abstract class GameObject {
 	public GameObject(Vector2 position, float width, float height, TextureRegion textureRegion, float density, float speed, float hull, float weapon, float shield){
 		
 		texture = textureRegion;
-		
+
 		//Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
