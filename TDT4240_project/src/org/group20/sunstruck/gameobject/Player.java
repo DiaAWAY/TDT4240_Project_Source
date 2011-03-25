@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends GameObject {
 	private long start = System.currentTimeMillis();
-	private long realoadTime = 500;
+	private long reloadTime = 500;
 	
 	public Player(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
@@ -25,7 +25,7 @@ public class Player extends GameObject {
 	public void update() {
 		body.setLinearVelocity(Game.getInstance().getInput().getNewVelocity());
 		long time = System.currentTimeMillis() - start;
-		if(time>realoadTime)
+		if(time>reloadTime)
 			if(Game.getInstance().getInput().getHasFired()){
 				shoot();
 				start = System.currentTimeMillis();
@@ -34,7 +34,7 @@ public class Player extends GameObject {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub 
+		// TODO Auto-generated method stub   
 		
 	}
 	
