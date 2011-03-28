@@ -5,14 +5,7 @@ import org.group20.sunstruck.gameobject.GameObject;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Mesh;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.VertexAttributes.Usage;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,8 +24,10 @@ public class Main implements ApplicationListener {
 	private MapSegment first;
 	private MapSegment last;
 	private OrthographicCamera camera;
+
 	private SpriteBatch spriteBatch;
 	private SpriteBatch guiBatch;
+	
 	Box2DDebugRenderer renderer;
 	
 	/*	
@@ -58,6 +53,7 @@ public class Main implements ApplicationListener {
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
 		Gdx.input.setInputProcessor(Game.getInstance().getInput());
+		sprites = new SpriteBatch();
 		time = System.currentTimeMillis(); // TODO replace this with a more
 											// accurate method
 		Game.getInstance().start();
@@ -71,17 +67,23 @@ public class Main implements ApplicationListener {
 					"a_color"), new VertexAttribute(Usage.TextureCoordinates,
 					2, "a_texCoords"));
 
-			mesh.setVertices(new float[] { -1.0f, -1.0f, 0,
-					Color.WHITE.toFloatBits(), 0, 1, 1.0f, -1.0f, 0,
-					Color.WHITE.toFloatBits(), 1, 1, 1.0f, 1.0f, 0,
-					Color.WHITE.toFloatBits(), 1, 0, -1.0f, 1.0f, 0,
+			mesh.setVertices(new float[] { -0.5f, -0.5f, 0,
+					Color.WHITE.toFloatBits(), 0, 1, 0.5f, -0.5f, 0,
+					Color.WHITE.toFloatBits(), 1, 1, 0.5f, 0.5f, 0,
+					Color.WHITE.toFloatBits(), 1, 0, -0.5f, 0.5f, 0,
 					Color.WHITE.toFloatBits(), 0, 0 });
 
 			mesh.setIndices(new short[] { 0, 1, 2, 3 });
+
+			FileHandle imageFileHandle = Gdx.files
+					.internal("data/placeholder.png");
+			texture = new Texture(imageFileHandle);
+			texture.bind();
+			Gdx.graphics.getGL10().glEnable(GL10.GL_TEXTURE_2D);
 		}
 		/** test code END */
 	}
-	
+
 	@Override
 	public void render() {		
 		time+= Gdx.graphics.getDeltaTime();
@@ -148,7 +150,6 @@ public class Main implements ApplicationListener {
 			Game.getInstance().update();
 			time = System.currentTimeMillis();
 		}
-		
 		// FETCH THE WORLD DATA
 		Gdx.gl11.glPushMatrix();
 		Gdx.graphics.getGL11().glEnable(GL10.GL_TEXTURE_2D);

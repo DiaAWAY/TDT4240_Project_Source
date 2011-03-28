@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.group20.sunstruck.behavior.Behavior;
+import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
 import org.group20.sunstruck.gameobject.Player;
 import org.group20.sunstruck.gui.GUI;
