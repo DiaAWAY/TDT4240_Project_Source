@@ -1,17 +1,11 @@
 package org.group20.sunstruck.gameobject;
 
-import org.group20.sunstruck.Game;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Example class for products of the GameObjectFactory
- * @author DiaAWAY
- *
- */
-public class ProductB extends GameObject { // TODO remove test class
+public class Projectile extends GameObject{
 
-	public ProductB(Vector2 position, float width, float height,
+	public Projectile(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
 			float hull, float weapon, float shield) {
 		super(position, width, height, textureRegion, density, speed, hull, weapon,
@@ -20,15 +14,15 @@ public class ProductB extends GameObject { // TODO remove test class
 	}
 
 	@Override
-	public void update() {
-		if(Game.DEBUG) System.out.println("PRODUCT B UPDATING! type:"+getType());
+	public void dispose() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void dispose() {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

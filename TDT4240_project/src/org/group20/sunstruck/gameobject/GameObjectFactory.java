@@ -8,12 +8,12 @@ public class GameObjectFactory {
 	public GameObjectFactory() {
 
 	}
-	
+	/*
 	public GameObject getProductA() {// TODO remove test method
 		if(Game.DEBUG) System.out.println("PRODUCING PRODUCT A");
 		GameObject o = new ProductA();
 		o.setType(TYPES.ENTITY1);
-		o.setArmour(10);
+		o.setHull(10);
 		return o;
 	}
 	
@@ -28,4 +28,5 @@ public class GameObjectFactory {
 		o.setType(TYPES.ENTITY2);
 		return o;
 	}
+	*/
 }

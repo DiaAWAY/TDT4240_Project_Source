@@ -1,10 +1,17 @@
 package org.group20.sunstruck.gameobject;
 
+
+import org.group20.sunstruck.Game;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.actors.Image;
-
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 public abstract class GameObject {
-
+	
 	public static enum TYPES {
 		UNKNOWN, ENTITY1, ENTITY2, ENTITY3
 	}
@@ -12,18 +19,72 @@ public abstract class GameObject {
 	TYPES type = TYPES.UNKNOWN;
 
 	GameObject weaponType = null;
-	Image sprite = null;
-	Vector2 position = new Vector2();
-	Vector2 direction = new Vector2();
+	
+	Body body = null;
+	
 	float speed = 0;
-	double armour = 0;
-	double weapon = 0;
-	double shield = 0;
-
+	float hull = 0;
+	float weapon = 0;
+	float shield = 0;
+	
+	//height and width of the body-rectangle.
+	float width = 0;
+	float height = 0;
+	
 	public abstract void update();
 
-	public abstract void dispose();
 
+	public abstract void dispose();	
+	
+	TextureRegion texture = null;
+
+	public GameObject(Vector2 position, float width, float height, TextureRegion textureRegion, float density, float speed, float hull, float weapon, float shield){
+		
+		texture = textureRegion;
+
+		//Defines the body and creates it
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.x = position.x;
+		bodyDef.position.y = position.y;
+		body = Game.getInstance().getWorld().createBody(bodyDef);
+		
+		//Creates the box used for collision, and attaches it to the body. Disposes of the shape to free memory.
+		PolygonShape bodyPoly = new PolygonShape();
+		bodyPoly.setAsBox(width, height);
+		body.createFixture(bodyPoly, density);
+		bodyPoly.dispose();
+		
+		this.width 	= width;
+		this.height = height;
+		this.speed 	= speed;
+		this.hull 	= hull;
+		this.weapon = weapon;
+		this.shield = shield;
+	}
+	
+	public float getWidth(){
+		return width;
+	}
+	public float getHeight(){
+		return height;
+	}
+	public TextureRegion getTexture(){
+		return texture;
+	}
+	
+	public Body getBody(){
+		return body;
+	}
+	
+	public void setBody(Body body){
+		this.body = body;
+	}
+
+	public void setType(TYPES type) {
+		this.type = type;
+	}
+	
 	public TYPES getType() {
 		return type;
 	}
@@ -35,26 +96,7 @@ public abstract class GameObject {
 	public void setWeaponType(GameObject weaponType) {
 		this.weaponType = weaponType;
 	}
-
-	public void setType(TYPES t) {
-		this.type = t;
-	}
-
-	public Vector2 getPosition() {
-		return position;
-	}
-
-	public void setPosition(Vector2 position) {
-		this.position = position;
-	}
-
-	public Vector2 getDirection() {
-		return direction;
-	}
-
-	public void setDirection(Vector2 direction) {
-		this.direction = direction;
-	}
+	
 
 	public float getSpeed() {
 		return speed;
@@ -64,19 +106,19 @@ public abstract class GameObject {
 		this.speed = speed;
 	}
 
-	public double getArmour() {
-		return armour;
+	public double getHull() {
+		return hull;
 	}
 
-	public void setArmour(double armour) {
-		this.armour = armour;
+	public void setHull(float hull) {
+		this.hull = hull;
 	}
 
 	public double getWeapon() {
 		return weapon;
 	}
 
-	public void setWeapon(double weapon) {
+	public void setWeapon(float weapon) {
 		this.weapon = weapon;
 	}
 
@@ -84,16 +126,7 @@ public abstract class GameObject {
 		return shield;
 	}
 
-	public void setShield(double shield) {
+	public void setShield(float shield) {
 		this.shield = shield;
 	}
-
-	public void setSprite(Image sprite) {
-		this.sprite = sprite;
-	}
-
-	public Image getSprite() {
-		return sprite;
-	}
-
 }
