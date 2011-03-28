@@ -1,30 +1,54 @@
 package org.group20.sunstruck;
 
-import org.group20.sunstruck.world.map.segments.MapSegment;
+
+import org.group20.sunstruck.gameobject.GameObject;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Mesh;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+
 
 public class Main implements ApplicationListener {
 	private static final boolean Object = false;
+	
 	float r = 1, g = 0, b = 0;
+	
 	private double time = 0;
+	
 	private boolean run = true;
+	
+	private OrthographicCamera camera;
 
+	private SpriteBatch spriteBatch;
+	private SpriteBatch guiBatch;
+	
+	Box2DDebugRenderer renderer;
+	
+	/*	
 	private Mesh mesh; // test code
 	private Texture texture; // test code
-	private SpriteBatch sprites;
+	*/
 
 	@Override
 	public void create() {
+		Game.getInstance().initializePlayer();
+		
+		//Scales the width.
+		float scale = (float)Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
+		camera = new OrthographicCamera(7, 7*scale);        
+        camera.position.set(0, 0, 0);
+        
+		spriteBatch = new SpriteBatch();
+		guiBatch = new SpriteBatch();
+		
+		renderer = new Box2DDebugRenderer();
+		
+		/*
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
 		Gdx.input.setInputProcessor(Game.getInstance().getInput());
@@ -33,7 +57,7 @@ public class Main implements ApplicationListener {
 											// accurate method
 		Game.getInstance().start();
 
-		/** test code START */
+		/ test code START /
 		if (mesh == null) {
 			mesh = new Mesh(true, 4, 4, new VertexAttribute(Usage.Position, 3,
 					"a_position"), new VertexAttribute(Usage.ColorPacked, 4,
@@ -58,7 +82,62 @@ public class Main implements ApplicationListener {
 	}
 
 	@Override
-	public void render() {
+	public void render() {		
+		time+= Gdx.graphics.getDeltaTime();
+		if(time>= 0.01){
+			Game.getInstance().getInput().update();
+			Game.getInstance().getPlayer().update();
+			time = 0;
+			if(Game.getInstance().getInput().getHasFiredBomb())
+				System.out.println("ohjoy");
+		}
+		
+		//Background colour.
+        GL10 gl = Gdx.app.getGraphics().getGL10();
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	     
+        //Draw GUI objects.
+        guiBatch.begin();
+        for(Sprite sprite : Game.getInstance().getGui().getSpriteList())
+        	sprite.draw(guiBatch);
+        guiBatch.end();
+        
+        //Update physics.
+		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
+		renderer.render(Game.getInstance().getWorld());
+		
+		//Update camera.
+        camera.update();
+        camera.apply(gl);
+		
+        //Draw game objects.
+		spriteBatch.setProjectionMatrix(camera.combined);
+        spriteBatch.begin();
+       	for(GameObject go : Game.getInstance().getGameObjectList()){
+       		TextureRegion texture = go.getTexture();
+       		float x, y, originX, originY, width, height, scaleX, scaleY, rotation;
+
+       		width = go.getWidth();
+       		height = go.getHeight();
+       		
+       		rotation = (float) (go.getBody().getAngle()*180/Math.PI);
+       		
+       		x = go.getBody().getPosition().x-width/2;
+       		y = go.getBody().getPosition().y-height/2;
+       		
+       		originX = width/2;
+       		originY = height/2;
+       		
+       		scaleX = 2;
+       		scaleY = 2;       	
+       		spriteBatch.draw(new TextureRegion(texture), x, y, originX, originY, width, height, scaleX, scaleY, rotation);
+       	}
+        spriteBatch.end();
+        
+		renderer.render(Game.getInstance().getWorld());
+	
+		
+		/*
 		Gdx.gl.glClearColor(255, 0, 255, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		// UPDATE THE WORLD
@@ -74,6 +153,7 @@ public class Main implements ApplicationListener {
 			mesh.render(GL10.GL_TRIANGLE_FAN, 0, 4);
 			m.getTexture().bind();
 		}
+		*/
 	}
 
 	@Override

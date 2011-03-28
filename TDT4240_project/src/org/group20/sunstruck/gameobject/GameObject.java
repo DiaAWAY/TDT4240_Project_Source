@@ -1,15 +1,15 @@
-package org.group20.physicsTest;
+package org.group20.sunstruck.gameobject;
+
+
+import org.group20.sunstruck.Game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-
 public abstract class GameObject {
 	
 	public static enum TYPES {
@@ -27,7 +27,12 @@ public abstract class GameObject {
 	float weapon = 0;
 	float shield = 0;
 	
+	//height and width of the body-rectangle.
+	float width = 0;
+	float height = 0;
+	
 	public abstract void update();
+
 
 	public abstract void dispose();	
 	
@@ -36,13 +41,13 @@ public abstract class GameObject {
 	public GameObject(Vector2 position, float width, float height, TextureRegion textureRegion, float density, float speed, float hull, float weapon, float shield){
 		
 		texture = textureRegion;
-		
+
 		//Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.x = position.x;
 		bodyDef.position.y = position.y;
-		body = Game.getInstance().getWorld.createBody(bodyDef);
+		body = Game.getInstance().getWorld().createBody(bodyDef);
 		
 		//Creates the box used for collision, and attaches it to the body. Disposes of the shape to free memory.
 		PolygonShape bodyPoly = new PolygonShape();
@@ -50,12 +55,20 @@ public abstract class GameObject {
 		body.createFixture(bodyPoly, density);
 		bodyPoly.dispose();
 		
-		this.speed = speed;
-		this.hull = hull;
+		this.width 	= width;
+		this.height = height;
+		this.speed 	= speed;
+		this.hull 	= hull;
 		this.weapon = weapon;
 		this.shield = shield;
 	}
 	
+	public float getWidth(){
+		return width;
+	}
+	public float getHeight(){
+		return height;
+	}
 	public TextureRegion getTexture(){
 		return texture;
 	}
@@ -66,6 +79,10 @@ public abstract class GameObject {
 	
 	public void setBody(Body body){
 		this.body = body;
+	}
+
+	public void setType(TYPES type) {
+		this.type = type;
 	}
 	
 	public TYPES getType() {
@@ -79,10 +96,7 @@ public abstract class GameObject {
 	public void setWeaponType(GameObject weaponType) {
 		this.weaponType = weaponType;
 	}
-
-	public void setType(TYPES type) {
-		this.type = type;
-	}
+	
 
 	public float getSpeed() {
 		return speed;
@@ -115,5 +129,4 @@ public abstract class GameObject {
 	public void setShield(float shield) {
 		this.shield = shield;
 	}
-
 }
