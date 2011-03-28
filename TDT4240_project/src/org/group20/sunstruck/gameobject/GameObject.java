@@ -51,7 +51,7 @@ public abstract class GameObject {
 		
 		//Creates the box used for collision, and attaches it to the body. Disposes of the shape to free memory.
 		PolygonShape bodyPoly = new PolygonShape();
-		bodyPoly.setAsBox(width, height);
+		bodyPoly.setAsBox(width/2, height/2);
 		body.createFixture(bodyPoly, density);
 		bodyPoly.dispose();
 		

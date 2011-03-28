@@ -14,6 +14,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 
 public class Main implements ApplicationListener {
+	//The width and height of the orthographical camera
+	public static final float CAMERA_WIDTH = 10;
+	
 	private static final boolean Object = false;
 	
 	float r = 1, g = 0, b = 0;
@@ -29,6 +32,8 @@ public class Main implements ApplicationListener {
 	
 	Box2DDebugRenderer renderer;
 	
+	int counter = 0;
+	
 	/*	
 	private Mesh mesh; // test code
 	private Texture texture; // test code
@@ -38,16 +43,15 @@ public class Main implements ApplicationListener {
 	public void create() {
 		Game.getInstance().initializePlayer();
 		
-		//Scales the width.
-		float scale = (float)Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
-		camera = new OrthographicCamera(7, 7*scale);        
+		//Scales the height.
+		camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_WIDTH*Gdx.graphics.getHeight()/Gdx.graphics.getWidth());        
         camera.position.set(0, 0, 0);
+        
         
 		spriteBatch = new SpriteBatch();
 		guiBatch = new SpriteBatch();
 		
 		renderer = new Box2DDebugRenderer();
-		
 		/*
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
@@ -82,7 +86,7 @@ public class Main implements ApplicationListener {
 	}
 
 	@Override
-	public void render() {		
+	public void render() {
 		time+= Gdx.graphics.getDeltaTime();
 		if(time>= 0.01){
 			Game.getInstance().getInput().update();
@@ -104,7 +108,6 @@ public class Main implements ApplicationListener {
         
         //Update physics.
 		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
-		renderer.render(Game.getInstance().getWorld());
 		
 		//Update camera.
         camera.update();
@@ -113,28 +116,30 @@ public class Main implements ApplicationListener {
         //Draw game objects.
 		spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
+        
        	for(GameObject go : Game.getInstance().getGameObjectList()){
        		TextureRegion texture = go.getTexture();
-       		float x, y, originX, originY, width, height, scaleX, scaleY, rotation;
+       		float x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation;
 
-       		width = go.getWidth();
-       		height = go.getHeight();
+       		halfWidth = go.getWidth()/2;
+       		halfHeight = go.getHeight()/2;
        		
        		rotation = (float) (go.getBody().getAngle()*180/Math.PI);
        		
-       		x = go.getBody().getPosition().x-width/2;
-       		y = go.getBody().getPosition().y-height/2;
+       		x = go.getBody().getPosition().x-halfWidth/2;
+       		y = go.getBody().getPosition().y-halfHeight/2;
        		
-       		originX = width/2;
-       		originY = height/2;
+       		originX = halfWidth/2;
+       		originY = halfHeight/2;
        		
        		scaleX = 2;
        		scaleY = 2;       	
-       		spriteBatch.draw(new TextureRegion(texture), x, y, originX, originY, width, height, scaleX, scaleY, rotation);
+       		spriteBatch.draw(new TextureRegion(texture), x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation);
        	}
+       	
         spriteBatch.end();
         
-		renderer.render(Game.getInstance().getWorld());
+		//renderer.render(Game.getInstance().getWorld());
 	
 		
 		/*

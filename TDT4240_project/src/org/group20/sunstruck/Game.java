@@ -39,20 +39,21 @@ public class Game implements GameInterface {
 	
 	private Game() {
 		this(DIFFICULTIES.MEDIUM);
-		world = new World(initGravity, true);
-		//textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
-		gui = new GUI();
-		input = new Input(gui);
 	}
 	
 	public void initializePlayer(){
-		player = new Player(new Vector2(0,0),0.5f, 0.5f, new TextureRegion(new Texture(Gdx.files.internal("data/TIE_Interceptor.png"))), 10, 10, 1, 1,1);
+		player = new Player(new Vector2(0,0),0.5f, 0.5f, new TextureRegion(new Texture(Gdx.files.internal("data/TIE_Interceptor.png"))), 1, 10, 1, 1,1);
 		gameObjectList.add(player);
 	}
 	
 	
 	private Game(DIFFICULTIES d) {
 		setDifficulty(d);
+
+		world = new World(initGravity, true);
+		//textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
+		gui = new GUI();
+		input = new Input(gui);
 	}
 	
 	private static class GameHolder { // singleton holder

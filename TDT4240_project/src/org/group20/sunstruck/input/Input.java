@@ -111,14 +111,19 @@ public class Input{
 		float scaleSpeed = (float)(Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2))/(controlCircle.getHeight()/2));
 		scaleSpeed = (float) Math.pow(scaleSpeed, 0.7);
 		
+		float x = 0;
+		float y = 0;
+		
 		//If the touch is close to the center of the move circle, the scaleSpeed variable will be set to 0 (i.e. no movement).
 		if(scaleSpeed < 0.2)
 			scaleSpeed = 0;
+		else{
+			//Get the unit vector (enhetsvektor)
+			x = inputX/(Math.abs(inputX)+Math.abs(inputY));
+			y = inputY/(Math.abs(inputY)+Math.abs(inputX));
+		}
 		
-		//Get the unit vector (enhetsvektor)
-		float x = inputX/(Math.abs(inputX)+Math.abs(inputY));
-		float y = inputY/(Math.abs(inputY)+Math.abs(inputX));
-		
+	
 		//Get the players speed, to adjust the speed according to updates.
 		float playerSpeed = Game.getInstance().getPlayer().getSpeed();
 		
