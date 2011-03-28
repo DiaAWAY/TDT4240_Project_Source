@@ -23,7 +23,7 @@ public class Behavior {
 	
 	public static boolean applyBehavior(GameObject go) {
 		// TODO implement methods and variables that enables us to select behavior depending on gamestates
-		filters.get((int)(Math.random()*(filters.size()-1))).applyFilter(go); // lol
+		filters.get((int)(Math.random()*(filters.size()-1)+0.5)).applyFilter(go); // lol
 		// TODO add implementation
 		return false;
 	}

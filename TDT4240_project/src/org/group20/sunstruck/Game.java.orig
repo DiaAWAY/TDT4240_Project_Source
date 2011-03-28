@@ -38,7 +38,11 @@ public class Game implements GameInterface {
 	}
 	
 	public void initializePlayer(){
+<<<<<<< HEAD
+		player = new Player(new Vector2(0,0),1f, 1f, new TextureRegion(new Texture(Gdx.files.internal("data/TIE_Interceptor.png"))), 1, 15, 1, 1,1);
+=======
 		player = new Player(new Vector2(0,0),0.5f, 0.5f, textureAtlas.findRegion("TIE"), 10, 10, 1, 1,1);
+>>>>>>> upstream/master
 		gameObjectList.add(player);
 	}
 	
@@ -47,6 +51,7 @@ public class Game implements GameInterface {
 		setDifficulty(d);
 
 		world = new World(initGravity, true);
+		//textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
 		gui = new GUI();
 		input = new Input(gui);
 	}
