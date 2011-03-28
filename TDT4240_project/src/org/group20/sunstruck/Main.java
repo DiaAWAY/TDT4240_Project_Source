@@ -6,12 +6,10 @@ import org.group20.sunstruck.world.map.segments.MapSegment;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -21,8 +19,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 
 public class Main implements ApplicationListener {
-//	private static final boolean Object = false;
-//	private float r = 1, g = 0, b = 0;
 	private double time = 0;
 	private boolean run = true;
 	private float xOffset = 0;
@@ -31,10 +27,10 @@ public class Main implements ApplicationListener {
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
 	private SpriteBatch guiBatch;
-	Box2DDebugRenderer renderer;
-	private Mesh mesh; // test code
-	private Texture texture; // test code
+	private Box2DDebugRenderer renderer;
+	private Mesh mesh;
 	private float bgScale = 1.0f;
+	private float bgSpeed = 0.01f;
 	
 	@Override
 	public void create() {
@@ -156,7 +152,7 @@ public class Main implements ApplicationListener {
 
 		Gdx.graphics.getGL11().glDisable(GL10.GL_TEXTURE_2D);
 		Gdx.gl11.glPopMatrix();
-		xOffset += 0.1;
+		xOffset += bgSpeed;
 		if (xOffset > bgScale*2) {
 			MapSegment temp = last;
 			first = temp;
@@ -184,7 +180,7 @@ public class Main implements ApplicationListener {
 	}
 
 	@Override
-	public void resize(int arg0, int arg1) {
+	public void resize(int x, int y) {
 
 	}
 
