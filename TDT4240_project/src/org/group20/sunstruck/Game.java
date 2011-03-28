@@ -46,7 +46,7 @@ public class Game implements GameInterface {
 	}
 	
 	public void initializePlayer(){
-		player = new Player(new Vector2(0,0),4, 4, new TextureRegion(new Texture(Gdx.files.internal("data/TIE_Bomber.png"))), 10, 100, 1000, 100,1000);
+		player = new Player(new Vector2(0,0),0.5f, 0.5f, new TextureRegion(new Texture(Gdx.files.internal("data/TIE_Interceptor.png"))), 10, 10, 1, 1,1);
 		gameObjectList.add(player);
 	}
 	

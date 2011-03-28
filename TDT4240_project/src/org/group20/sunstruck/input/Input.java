@@ -122,8 +122,6 @@ public class Input{
 		//Get the players speed, to adjust the speed according to updates.
 		float playerSpeed = Game.getInstance().getPlayer().getSpeed();
 		
-		playerSpeed = 100;
-		
 		x = x * playerSpeed * scaleSpeed;
 		y = y * playerSpeed * scaleSpeed;
 		

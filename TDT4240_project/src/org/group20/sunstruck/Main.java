@@ -1,6 +1,5 @@
 package org.group20.sunstruck;
 
-import java.util.Iterator;
 
 import org.group20.sunstruck.gameobject.GameObject;
 
@@ -41,9 +40,7 @@ public class Main implements ApplicationListener {
 		
 		//Scales the width.
 		float scale = (float)Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
-		System.out.println("Scale: " +scale);
-		System.out.println("Dimentions: "+Gdx.graphics.getWidth()+"x"+Gdx.graphics.getHeight());
-		camera = new OrthographicCamera(100, 100*scale);        
+		camera = new OrthographicCamera(7, 7*scale);        
         camera.position.set(0, 0, 0);
         
 		spriteBatch = new SpriteBatch();
@@ -98,9 +95,6 @@ public class Main implements ApplicationListener {
 		//Background colour.
         GL10 gl = Gdx.app.getGraphics().getGL10();
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        
-        //Get input-updates.
-       // Game.getInstance().getInput().update();
 	     
         //Draw GUI objects.
         guiBatch.begin();
@@ -110,8 +104,8 @@ public class Main implements ApplicationListener {
         
         //Update physics.
 		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
-		//renderer.render(Game.getInstance().getWorld());
-        
+		renderer.render(Game.getInstance().getWorld());
+		
 		//Update camera.
         camera.update();
         camera.apply(gl);
@@ -134,13 +128,13 @@ public class Main implements ApplicationListener {
        		originX = width/2;
        		originY = height/2;
        		
-       		scaleX = width;
-       		scaleY = height;       	
+       		scaleX = 2;
+       		scaleY = 2;       	
        		spriteBatch.draw(new TextureRegion(texture), x, y, originX, originY, width, height, scaleX, scaleY, rotation);
        	}
         spriteBatch.end();
         
-		
+		renderer.render(Game.getInstance().getWorld());
 	
 		
 		/*

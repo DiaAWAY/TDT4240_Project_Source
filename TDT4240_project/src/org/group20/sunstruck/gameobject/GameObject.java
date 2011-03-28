@@ -55,10 +55,10 @@ public abstract class GameObject {
 		body.createFixture(bodyPoly, density);
 		bodyPoly.dispose();
 		
-		this.width = width;
+		this.width 	= width;
 		this.height = height;
-		this.speed = speed;
-		this.hull = hull;
+		this.speed 	= speed;
+		this.hull 	= hull;
 		this.weapon = weapon;
 		this.shield = shield;
 	}
