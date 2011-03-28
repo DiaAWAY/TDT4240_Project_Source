@@ -1,40 +1,51 @@
 package org.group20.sunstruck.gameobject;
 
+import org.group20.sunstruck.Game;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /**
  * Example class for products of the GameObjectFactory
+ * 
  * @author DiaAWAY
- *
+ * 
  */
-public class ProductA extends GameObject { 
-	
+public class ProductA extends GameObject {
+
+	private String testStr = "";
+
 	public ProductA(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
 			float hull, float weapon, float shield) {
-		super(position, width, height, textureRegion, density, speed, hull, weapon,
-				shield);
+		this(position, width, height, textureRegion, density, speed, hull,
+				weapon, shield, "default");
 	}
 
+	public ProductA(Vector2 position, float width, float height,
+			TextureRegion textureRegion, float density, float speed,
+			float hull, float weapon, float shield, String string) {
+		super(position, width, height, textureRegion, density, speed, hull,
+				weapon, shield);
+		testStr = string;
+		setType(TYPES.ENTITY3);
+	}
 
-	String testStr = "";
-	
-	
 	public String getTestStr() {
 		return testStr;
 	}
 
 	@Override
 	public void update() {
-		System.out.println("PRODUCT A UPDATING! type:"+getType() + " special product a property:'"+getTestStr()+"'");
+		if (Game.DEBUG)
+			System.out.println("PRODUCT A UPDATING! type:" + getType()
+					+ " special product a property:'" + getTestStr() + "'");
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

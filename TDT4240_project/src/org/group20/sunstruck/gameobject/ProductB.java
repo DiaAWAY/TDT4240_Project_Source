@@ -1,5 +1,6 @@
 package org.group20.sunstruck.gameobject;
 
+import org.group20.sunstruck.Game;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -20,7 +21,7 @@ public class ProductB extends GameObject { // TODO remove test class
 
 	@Override
 	public void update() {
-		System.out.println("PRODUCT B UPDATING! type:"+getType());
+		if(Game.DEBUG) System.out.println("PRODUCT B UPDATING! type:"+getType());
 		// TODO Auto-generated method stub
 		
 	}
