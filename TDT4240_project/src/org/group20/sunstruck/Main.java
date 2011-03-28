@@ -25,7 +25,7 @@ public class Main implements ApplicationListener {
 //	private float r = 1, g = 0, b = 0;
 	private double time = 0;
 	private boolean run = true;
-	private float yOffset = 0;
+	private float xOffset = 0;
 	private MapSegment first;
 	private MapSegment last;
 	private OrthographicCamera camera;
@@ -34,14 +34,16 @@ public class Main implements ApplicationListener {
 	Box2DDebugRenderer renderer;
 	private Mesh mesh; // test code
 	private Texture texture; // test code
-
+	private float bgScale = 1.0f;
+	
 	@Override
 	public void create() {
 		Game.getInstance().initializePlayer();
 		
 		//Scales the width.
 		float scale = (float)Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
-		camera = new OrthographicCamera(7, 7*scale);        
+		camera = new OrthographicCamera(7, 7*scale);
+		bgScale = 7*scale/2;
         camera.position.set(0, 0, 0);
         
 		spriteBatch = new SpriteBatch();
@@ -52,26 +54,23 @@ public class Main implements ApplicationListener {
 		
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
-		//Gdx.input.setInputProcessor(Game.getInstance().getInput());
-		//sprites = new SpriteBatch();
-		time = System.currentTimeMillis(); // TODO replace this with a more
-											// accurate method
+
 		Game.getInstance().start();
 		first = Game.getInstance().getMap().getNext();
 		last = Game.getInstance().getMap().getNext();
 
-		/* test code START */
+		/* mesh configuration START */
 		if (mesh == null) {
 			mesh = new Mesh(true, 4, 4, new VertexAttribute(Usage.Position, 3,
 					"a_position"), new VertexAttribute(Usage.ColorPacked, 4,
 					"a_color"), new VertexAttribute(Usage.TextureCoordinates,
 					2, "a_texCoords"));
 
-			mesh.setVertices(new float[] { -0.5f, -0.5f, 0,
-					Color.WHITE.toFloatBits(), 0, 1, 0.5f, -0.5f, 0,
-					Color.WHITE.toFloatBits(), 1, 1, 0.5f, 0.5f, 0,
-					Color.WHITE.toFloatBits(), 1, 0, -0.5f, 0.5f, 0,
-					Color.WHITE.toFloatBits(), 0, 0 });
+			mesh.setVertices(new float[] { 
+					-1.0f*bgScale, -1.0f*bgScale, 0, Color.WHITE.toFloatBits(), 0, 1, 
+					 1.0f*bgScale, -1.0f*bgScale, 0, Color.WHITE.toFloatBits(), 1, 1, 
+					 1.0f*bgScale,  1.0f*bgScale, 0, Color.WHITE.toFloatBits(), 1, 0, 
+					-1.0f*bgScale,  1.0f*bgScale, 0, Color.WHITE.toFloatBits(), 0, 0 });
 
 			mesh.setIndices(new short[] { 0, 1, 2, 3 });
 
@@ -81,7 +80,7 @@ public class Main implements ApplicationListener {
 			texture.bind();
 			Gdx.graphics.getGL10().glEnable(GL10.GL_TEXTURE_2D);
 		}
-		/** test code END */
+		/** mesh configuration END */
 	}
 
 	@Override
@@ -99,6 +98,9 @@ public class Main implements ApplicationListener {
 		//Background color.
         GL10 gl = Gdx.app.getGraphics().getGL10();
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        
+        // Draw background
+        drawBackground();
 	     
         //Draw GUI objects.
         guiBatch.begin();
@@ -138,37 +140,34 @@ public class Main implements ApplicationListener {
        	}
         spriteBatch.end();
 		renderer.render(Game.getInstance().getWorld());
-
-//		// UPDATE THE WORLD
-//		if (run
-//				&& (System.currentTimeMillis() - time) > 1000 / Game
-//						.getInstance().getUpdateRate()) {
-//			Game.getInstance().update();
-//			time = System.currentTimeMillis();
-//		}
-		// DRAW THE BACKGROUND
+	}
+	
+	/**
+	 * pushes the current matrix, draws the backgrounds then pops the matrix.
+	 */
+	private void drawBackground() {
 		Gdx.gl11.glPushMatrix();
 		Gdx.graphics.getGL11().glEnable(GL10.GL_TEXTURE_2D);
-
-		Gdx.gl11.glTranslatef(0, -yOffset, 0);
+		
+		Gdx.gl11.glTranslatef(-xOffset, 0, 0);
 		first.getTexture().bind();
 		mesh.render(GL10.GL_TRIANGLE_FAN, 0, 4);
-		Gdx.gl11.glTranslatef(0, yOffset, 0);
+		Gdx.gl11.glTranslatef(xOffset, 0, 0);
 
-		Gdx.gl11.glTranslatef(0, 2.0f, 0);
-		Gdx.gl11.glTranslatef(0, -yOffset, 0);
+		Gdx.gl11.glTranslatef(bgScale*2, 0, 0);
+		Gdx.gl11.glTranslatef(-xOffset, 0, 0);
 		last.getTexture().bind();
 		mesh.render(GL10.GL_TRIANGLE_FAN, 0, 4);
-		Gdx.gl11.glTranslatef(0, yOffset, 0);
+		Gdx.gl11.glTranslatef(xOffset, 0, 0);
 
 		Gdx.graphics.getGL11().glDisable(GL10.GL_TEXTURE_2D);
 		Gdx.gl11.glPopMatrix();
-		yOffset += 0.01;
-		if (yOffset > 2) {
+		xOffset += 0.1;
+		if (xOffset > bgScale*2) {
 			MapSegment temp = last;
 			first = temp;
 			last = Game.getInstance().getMap().getNext();
-			yOffset = 0;
+			xOffset = 0;
 		}
 	}
 

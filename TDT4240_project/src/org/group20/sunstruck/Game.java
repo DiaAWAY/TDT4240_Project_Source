@@ -24,6 +24,7 @@ public class Game implements GameInterface {
 	private Vector2 initGravity = new Vector2(0,0);	
 	private DIFFICULTIES difficulty;
 	private GameObjectFactory goFactory = new GameObjectFactory();	
+	private MapGenerator map = new MapGenerator();
 	private Player player;	
 	private Shop shop;	
 	private World world;	
@@ -127,14 +128,12 @@ public class Game implements GameInterface {
 
 	@Override
 	public void setMap(MapGenerator map) {
-		// TODO Auto-generated method stub
-		
+		this.map = map;
 	}
 
 	@Override
 	public MapGenerator getMap() {
-		// TODO Auto-generated method stub
-		return null;
+		return map;
 	}
 
 	@Override
