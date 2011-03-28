@@ -18,7 +18,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 public class Main implements ApplicationListener {
 	public static float bgScale = 1.0f;
-	public static float bgSpeed = 0.01f;
+	public static float bgSpeed = 0.1f;
 	private Mesh mesh;
 	private MapSegment last;
 	private MapSegment first;
@@ -155,8 +155,7 @@ public class Main implements ApplicationListener {
 		Gdx.gl11.glPopMatrix();
 		xOffset += bgSpeed;
 		if (xOffset > bgScale * 2) {
-			MapSegment temp = last;
-			first = temp;
+			first = last;
 			last = Game.getInstance().getMap().getNext();
 			xOffset = 0;
 		}
