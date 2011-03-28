@@ -72,13 +72,79 @@ public class Main implements ApplicationListener {
 
 			mesh.setIndices(new short[] { 0, 1, 2, 3 });
 		}
-		/** mesh configuration END */
+		/* mesh configuration END */
 	}
 
 	@Override
 	public void render() {
 		if (!run)
 			return;
+		
+		//Update game objects
+		updateGameObjects();
+		
+		//Draw background
+		drawBackground();
+
+		//Draw GUI objects.
+		drawGui();
+
+		//Update physics and camera.
+		updatePhysicsAndCamera();
+
+		//Draw game objects.
+		drawGameObjects();
+
+		//renderer.render(Game.getInstance().getWorld());
+	}
+
+	private void drawGameObjects() {		
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		for (GameObject go : Game.getInstance().getGameObjectList()) {
+			TextureRegion texture = go.getTexture();
+			float x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation;
+	
+			halfWidth = go.getWidth() / 2;
+			halfHeight = go.getHeight() / 2;
+	
+			rotation = (float) (go.getBody().getAngle() * 180 / Math.PI);
+	
+			x = go.getBody().getPosition().x - halfWidth / 2;
+			y = go.getBody().getPosition().y - halfHeight / 2;
+	
+			originX = halfWidth / 2;
+			originY = halfHeight / 2;
+	
+			scaleX = 2;
+			scaleY = 2;
+			spriteBatch.draw(new TextureRegion(texture), x, y, originX,
+					originY, halfWidth, halfHeight, scaleX, scaleY, rotation);
+		}
+		spriteBatch.end();
+		
+	}
+
+	private void updatePhysicsAndCamera() {
+		// Update physics.
+		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
+		
+		// Update camera.
+		GL10 gl = Gdx.app.getGraphics().getGL10();
+		camera.update();
+		camera.apply(gl);
+		
+	}
+
+	private void drawGui() {
+		guiBatch.begin();
+		for (Sprite sprite : Game.getInstance().getGui().getSpriteList())
+			sprite.draw(guiBatch);
+		guiBatch.end();
+		
+	}
+
+	private void updateGameObjects() {
 		time += Gdx.graphics.getDeltaTime();
 		if (time >= 0.01) {
 			Game.getInstance().getInput().update();
@@ -87,54 +153,7 @@ public class Main implements ApplicationListener {
 			if (Game.getInstance().getInput().getHasFiredBomb())
 				System.out.println("ohjoy");
 		}
-
-		// Background colour.
-		GL10 gl = Gdx.app.getGraphics().getGL10();
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		// Draw background
-		drawBackground();
-		// Draw GUI objects.
-		guiBatch.begin();
-		for (Sprite sprite : Game.getInstance().getGui().getSpriteList())
-			sprite.draw(guiBatch);
-		guiBatch.end();
-
-		// Update physics.
-		Game.getInstance().getWorld()
-				.step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
-		renderer.render(Game.getInstance().getWorld());
-
-		// Update camera.
-		camera.update();
-		camera.apply(gl);
-
-		// Draw game objects.
-		spriteBatch.setProjectionMatrix(camera.combined);
-		spriteBatch.begin();
-		for (GameObject go : Game.getInstance().getGameObjectList()) {
-			TextureRegion texture = go.getTexture();
-			float x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation;
-
-			halfWidth = go.getWidth() / 2;
-			halfHeight = go.getHeight() / 2;
-
-			rotation = (float) (go.getBody().getAngle() * 180 / Math.PI);
-
-			x = go.getBody().getPosition().x - halfWidth / 2;
-			y = go.getBody().getPosition().y - halfHeight / 2;
-
-			originX = halfWidth / 2;
-			originY = halfHeight / 2;
-
-			scaleX = 2;
-			scaleY = 2;
-			spriteBatch.draw(new TextureRegion(texture), x, y, originX,
-					originY, halfWidth, halfHeight, scaleX, scaleY, rotation);
-		}
-
-		spriteBatch.end();
-
-		// renderer.render(Game.getInstance().getWorld());
+		
 	}
 
 	/**

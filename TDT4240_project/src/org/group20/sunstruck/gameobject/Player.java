@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends GameObject {
 	private long start = System.currentTimeMillis();
-	private long reloadTime = 100;
+	private long reloadTime = 1000;
 	
 	public Player(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
@@ -44,6 +44,7 @@ public class Player extends GameObject {
 		long time = System.currentTimeMillis() - start;
 		if(time>reloadTime)
 			if(Game.getInstance().getInput().getHasFired()){
+				System.out.println("hest");
 				shoot();
 				start = System.currentTimeMillis();
 			}
@@ -56,8 +57,8 @@ public class Player extends GameObject {
 	}
 	
 	private void shoot(){
-		Vector2 pos = body.getWorldCenter().add((float)(width/2+0.25),0);
-		Projectile laser = new Projectile(pos, 0.5f, 0.01f, new TextureRegion(new Texture(Gdx.files.internal("data/redLaser.png"))), 1, 20f, 0, 0, 0);
+		Vector2 pos = body.getWorldCenter().add((float)(width/2+2),0);
+		Projectile laser = new Projectile(pos, 4f, 0.25f, new TextureRegion(new Texture(Gdx.files.internal("data/redLaser.png"))), 1, 20f, 0, 0, 0);
 		
 		Vector2 vel = new Vector2(1, 0);
 		vel.mul(laser.getSpeed());

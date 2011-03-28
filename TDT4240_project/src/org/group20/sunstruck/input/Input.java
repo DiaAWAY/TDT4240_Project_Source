@@ -39,6 +39,8 @@ public class Input{
 	 * Updates the ship position according to the input, checks if the fire button has been pressed, and if the accelerometer has been activated. 
 	 */
 	public void update(){
+		hasFired = false;
+		hasFiredBomb = false;
 		//Loops through the number of pointers to check.
 		for(int i = 0; i < NUMBER_OF_POINTERS; i++)
 			if(Gdx.input.isTouched(i)){
@@ -154,9 +156,11 @@ public class Input{
 	 * @return true if fire button was pressed.
 	 */
 	public boolean getHasFired(){
+		/*
 		boolean temp = hasFired;
 		hasFired = false;
-		return temp;
+		*/
+		return hasFired;
 	}
 	
 	/**
@@ -164,9 +168,11 @@ public class Input{
 	 * @return true if bomb was fired.
 	 */
 	public boolean getHasFiredBomb(){
+		/*
 		boolean temp = hasFiredBomb;
 		hasFiredBomb = false;
-		return temp;
+		*/
+		return hasFiredBomb;
 	}
 
 
