@@ -159,7 +159,7 @@ public class Main implements ApplicationListener {
 	/**
 	 * pushes the current matrix, draws the backgrounds then pops the matrix.
 	 */
-	private void drawBackground() {
+	private void drawBackground() { 
 		Gdx.gl11.glPushMatrix();
 		Gdx.graphics.getGL11().glEnable(GL10.GL_TEXTURE_2D);
 

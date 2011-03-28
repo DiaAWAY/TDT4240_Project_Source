@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends GameObject {
 	private long start = System.currentTimeMillis();
-	private long reloadTime = 1000;
+	private long reloadTime = 100;
 	
 	public Player(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
@@ -25,20 +25,24 @@ public class Player extends GameObject {
 	
 	@Override
 	public void update() {
-		boolean setVelocityToZero = false;
+		boolean setXSpeedToZero = false;
+		boolean setYSpeedToZero = false;
 		
 		body.setLinearVelocity(Game.getInstance().getInput().getNewVelocity());
 		
 		if(body.getWorldCenter().x < -Main.CAMERA_WIDTH/2 && body.getLinearVelocity().x < 0)
-			setVelocityToZero = true;
+			setXSpeedToZero = true;
 		if(body.getWorldCenter().x > Main.CAMERA_WIDTH/2 && body.getLinearVelocity().x > 0)
-			setVelocityToZero = true;
+			setXSpeedToZero = true;
 		if(body.getWorldCenter().y < -Main.CAMERA_WIDTH*Gdx.graphics.getHeight()/(2*Gdx.graphics.getWidth()) && body.getLinearVelocity().y < 0)
-			setVelocityToZero = true;
+			setYSpeedToZero = true;
 		if(body.getWorldCenter().y > Main.CAMERA_WIDTH*Gdx.graphics.getHeight()/(2*Gdx.graphics.getWidth()) && body.getLinearVelocity().y > 0)
-			setVelocityToZero = true;
-		if(setVelocityToZero)
-			body.setLinearVelocity(new Vector2(0,0));
+			setYSpeedToZero = true;
+		
+		if(setXSpeedToZero)
+			body.setLinearVelocity(new Vector2(0,body.getLinearVelocity().y));
+		if(setYSpeedToZero)
+			body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 0));
 				
 				
 		long time = System.currentTimeMillis() - start;
@@ -57,8 +61,8 @@ public class Player extends GameObject {
 	}
 	
 	private void shoot(){
-		Vector2 pos = body.getWorldCenter().add((float)(width/2+2),0);
-		Projectile laser = new Projectile(pos, 4f, 0.25f, new TextureRegion(new Texture(Gdx.files.internal("data/redLaser.png"))), 1, 20f, 0, 0, 0);
+		Vector2 pos = body.getWorldCenter().add((float)(width/2+0.5),0);
+		Projectile laser = new Projectile(pos, 1f, 0.05f, new TextureRegion(new Texture(Gdx.files.internal("data/redLaser.png"))), 1, 20f, 0, 0, 0);
 		
 		Vector2 vel = new Vector2(1, 0);
 		vel.mul(laser.getSpeed());
