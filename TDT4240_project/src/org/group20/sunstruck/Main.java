@@ -73,12 +73,6 @@ public class Main implements ApplicationListener {
 					-1.0f*bgScale,  1.0f*bgScale, 0, Color.WHITE.toFloatBits(), 0, 0 });
 
 			mesh.setIndices(new short[] { 0, 1, 2, 3 });
-
-			FileHandle imageFileHandle = Gdx.files
-					.internal("data/placeholder.png");
-			texture = new Texture(imageFileHandle);
-			texture.bind();
-			Gdx.graphics.getGL10().glEnable(GL10.GL_TEXTURE_2D);
 		}
 		/** mesh configuration END */
 	}
