@@ -1,6 +1,5 @@
 package org.group20.sunstruck;
 
-
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.world.map.segments.MapSegment;
 
@@ -17,37 +16,36 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
-
 public class Main implements ApplicationListener {
-	private double time = 0;
-	private boolean run = true;
-	private float xOffset = 0;
-	private MapSegment first;
-	private MapSegment last;
-	private OrthographicCamera camera;
-	private SpriteBatch spriteBatch;
-	private SpriteBatch guiBatch;
-	private Box2DDebugRenderer renderer;
+	public static float bgScale = 1.0f;
+	public static float bgSpeed = 0.01f;
 	private Mesh mesh;
-	private float bgScale = 1.0f;
-	private float bgSpeed = 0.01f;
-	
+	private MapSegment last;
+	private MapSegment first;
+	private SpriteBatch guiBatch;
+	private SpriteBatch spriteBatch;
+	private OrthographicCamera camera;
+	private Box2DDebugRenderer renderer;
+	private double time = 0;
+	private float xOffset = 0;
+	private boolean run = true;
+
 	@Override
 	public void create() {
 		Game.getInstance().initializePlayer();
-		
-		//Scales the width.
-		float scale = (float)Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
-		camera = new OrthographicCamera(7, 7*scale);
-		bgScale = 7*scale/2;
-        camera.position.set(0, 0, 0);
-        
+
+		// Scales the width.
+		float scale = (float) Gdx.graphics.getHeight()
+				/ Gdx.graphics.getWidth();
+		camera = new OrthographicCamera(7, 7 * scale);
+		bgScale = 7 * scale / 2;
+		camera.position.set(0, 0, 0);
+
 		spriteBatch = new SpriteBatch();
 		guiBatch = new SpriteBatch();
-		
+
 		renderer = new Box2DDebugRenderer();
-		
-		
+
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
 
@@ -62,11 +60,12 @@ public class Main implements ApplicationListener {
 					"a_color"), new VertexAttribute(Usage.TextureCoordinates,
 					2, "a_texCoords"));
 
-			mesh.setVertices(new float[] { 
-					-1.0f*bgScale, -1.0f*bgScale, 0, Color.WHITE.toFloatBits(), 0, 1, 
-					 1.0f*bgScale, -1.0f*bgScale, 0, Color.WHITE.toFloatBits(), 1, 1, 
-					 1.0f*bgScale,  1.0f*bgScale, 0, Color.WHITE.toFloatBits(), 1, 0, 
-					-1.0f*bgScale,  1.0f*bgScale, 0, Color.WHITE.toFloatBits(), 0, 0 });
+			mesh.setVertices(new float[] { -1.0f * bgScale, -1.0f * bgScale, 0,
+					Color.WHITE.toFloatBits(), 0, 1, 1.0f * bgScale,
+					-1.0f * bgScale, 0, Color.WHITE.toFloatBits(), 1, 1,
+					1.0f * bgScale, 1.0f * bgScale, 0,
+					Color.WHITE.toFloatBits(), 1, 0, -1.0f * bgScale,
+					1.0f * bgScale, 0, Color.WHITE.toFloatBits(), 0, 0 });
 
 			mesh.setIndices(new short[] { 0, 1, 2, 3 });
 		}
@@ -75,76 +74,79 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void render() {
-		if (!run) return;
-		time+= Gdx.graphics.getDeltaTime();
-		if(time>= 0.01){
+		if (!run)
+			return;
+		time += Gdx.graphics.getDeltaTime();
+		if (time >= 0.01) {
 			Game.getInstance().getInput().update();
 			Game.getInstance().getPlayer().update();
 			time = 0;
-			if(Game.getInstance().getInput().getHasFiredBomb())
+			if (Game.getInstance().getInput().getHasFiredBomb())
 				System.out.println("ohjoy");
 		}
-		
-		//Background color.
-        GL10 gl = Gdx.app.getGraphics().getGL10();
-        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        
-        // Draw background
-        drawBackground();
-	     
-        //Draw GUI objects.
-        guiBatch.begin();
-        for(Sprite sprite : Game.getInstance().getGui().getSpriteList())
-        	sprite.draw(guiBatch);
-        guiBatch.end();
-        
-        //Update physics.
-		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
-		renderer.render(Game.getInstance().getWorld());
-		
-		//Update camera.
-        camera.update();
-        camera.apply(gl);
-		
-        //Draw game objects.
-		spriteBatch.setProjectionMatrix(camera.combined);
-        spriteBatch.begin();
-       	for(GameObject go : Game.getInstance().getGameObjectList()){
-       		TextureRegion texture = go.getTexture();
-       		float x, y, originX, originY, width, height, scaleX, scaleY, rotation;
 
-       		width = go.getWidth();
-       		height = go.getHeight();
-       		
-       		rotation = (float) (go.getBody().getAngle()*180/Math.PI);
-       		
-       		x = go.getBody().getPosition().x-width/2;
-       		y = go.getBody().getPosition().y-height/2;
-       		
-       		originX = width/2;
-       		originY = height/2;
-       		
-       		scaleX = 2;
-       		scaleY = 2;       	
-       		spriteBatch.draw(new TextureRegion(texture), x, y, originX, originY, width, height, scaleX, scaleY, rotation);
-       	}
-        spriteBatch.end();
+		// Background color.
+		GL10 gl = Gdx.app.getGraphics().getGL10();
+		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		// Draw background
+		drawBackground();
+
+		// Draw GUI objects.
+		guiBatch.begin();
+		for (Sprite sprite : Game.getInstance().getGui().getSpriteList())
+			sprite.draw(guiBatch);
+		guiBatch.end();
+
+		// Update physics.
+		Game.getInstance().getWorld()
+				.step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
+		renderer.render(Game.getInstance().getWorld());
+
+		// Update camera.
+		camera.update();
+		camera.apply(gl);
+
+		// Draw game objects.
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		for (GameObject go : Game.getInstance().getGameObjectList()) {
+			TextureRegion texture = go.getTexture();
+			float x, y, originX, originY, width, height, scaleX, scaleY, rotation;
+
+			width = go.getWidth();
+			height = go.getHeight();
+
+			rotation = (float) (go.getBody().getAngle() * 180 / Math.PI);
+
+			x = go.getBody().getPosition().x - width / 2;
+			y = go.getBody().getPosition().y - height / 2;
+
+			originX = width / 2;
+			originY = height / 2;
+
+			scaleX = 2;
+			scaleY = 2;
+			spriteBatch.draw(new TextureRegion(texture), x, y, originX,
+					originY, width, height, scaleX, scaleY, rotation);
+		}
+		spriteBatch.end();
 		renderer.render(Game.getInstance().getWorld());
 	}
-	
+
 	/**
 	 * pushes the current matrix, draws the backgrounds then pops the matrix.
 	 */
 	private void drawBackground() {
 		Gdx.gl11.glPushMatrix();
 		Gdx.graphics.getGL11().glEnable(GL10.GL_TEXTURE_2D);
-		
+
 		Gdx.gl11.glTranslatef(-xOffset, 0, 0);
 		first.getTexture().bind();
 		mesh.render(GL10.GL_TRIANGLE_FAN, 0, 4);
 		Gdx.gl11.glTranslatef(xOffset, 0, 0);
 
-		Gdx.gl11.glTranslatef(bgScale*2, 0, 0);
+		Gdx.gl11.glTranslatef(bgScale * 2, 0, 0);
 		Gdx.gl11.glTranslatef(-xOffset, 0, 0);
 		last.getTexture().bind();
 		mesh.render(GL10.GL_TRIANGLE_FAN, 0, 4);
@@ -153,7 +155,7 @@ public class Main implements ApplicationListener {
 		Gdx.graphics.getGL11().glDisable(GL10.GL_TEXTURE_2D);
 		Gdx.gl11.glPopMatrix();
 		xOffset += bgSpeed;
-		if (xOffset > bgScale*2) {
+		if (xOffset > bgScale * 2) {
 			MapSegment temp = last;
 			first = temp;
 			last = Game.getInstance().getMap().getNext();
