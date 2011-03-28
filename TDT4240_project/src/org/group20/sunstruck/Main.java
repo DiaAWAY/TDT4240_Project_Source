@@ -17,7 +17,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 public class Main implements ApplicationListener {
-	//The width and height of the orthographical camera
+	// The width and height of the orthographical camera
 	public static final float CAMERA_WIDTH = 10;
 	public static float bgScale = 1.0f;
 	public static float bgSpeed = 0.1f;
@@ -36,17 +36,18 @@ public class Main implements ApplicationListener {
 	public void create() {
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
-		
+
 		Game.getInstance().initializePlayer();
-		
-//Scales the width.
-		float scale = (float)Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
+
+		// Scales the width.
+		float scale = (float) Gdx.graphics.getHeight()
+				/ Gdx.graphics.getWidth();
 		bgScale = CAMERA_WIDTH * scale / 2;
 
-		//Scales the height.
-		camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_WIDTH*scale);        
-        	camera.position.set(0, 0, 0);
-		
+		// Scales the height.
+		camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_WIDTH * scale);
+		camera.position.set(0, 0, 0);
+
 		spriteBatch = new SpriteBatch();
 		guiBatch = new SpriteBatch();
 		renderer = new Box2DDebugRenderer();
@@ -86,52 +87,54 @@ public class Main implements ApplicationListener {
 			if (Game.getInstance().getInput().getHasFiredBomb())
 				System.out.println("ohjoy");
 		}
-		
-		//Background colour.
-        	GL10 gl = Gdx.app.getGraphics().getGL10();
-	        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	     	// Draw background
-		drawBackground();
-        	//Draw GUI objects.
-	        guiBatch.begin();
-	        for(Sprite sprite : Game.getInstance().getGui().getSpriteList())
-	        	sprite.draw(guiBatch);
-	        guiBatch.end();
-	        
-	        //Update physics.
-		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
-		renderer.render(Game.getInstance().getWorld());
-		
-		//Update camera.
-        	camera.update();
-	        camera.apply(gl);
-		
-        	//Draw game objects.
-		spriteBatch.setProjectionMatrix(camera.combined);
-	        spriteBatch.begin();
-       		for(GameObject go : Game.getInstance().getGameObjectList()){
-       			TextureRegion texture = go.getTexture();
-	       		float x, y, originX, originY, width, height, scaleX, scaleY, rotation;
 
-		halfWidth = go.getWidth()/2;
-       		halfHeight = go.getHeight()/2;
-       		
-       		rotation = (float) (go.getBody().getAngle()*180/Math.PI);
-       		
-       		x = go.getBody().getPosition().x-halfWidth/2;
-       		y = go.getBody().getPosition().y-halfHeight/2;
-       		
-       		originX = halfWidth/2;
-       		originY = halfHeight/2;
-       		
-       		scaleX = 2;
-       		scaleY = 2;       	
-       		spriteBatch.draw(new TextureRegion(texture), x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation);
-       	}
-       	
-        spriteBatch.end();
-        
-		//renderer.render(Game.getInstance().getWorld());
+		// Background colour.
+		GL10 gl = Gdx.app.getGraphics().getGL10();
+		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		// Draw background
+		drawBackground();
+		// Draw GUI objects.
+		guiBatch.begin();
+		for (Sprite sprite : Game.getInstance().getGui().getSpriteList())
+			sprite.draw(guiBatch);
+		guiBatch.end();
+
+		// Update physics.
+		Game.getInstance().getWorld()
+				.step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
+		renderer.render(Game.getInstance().getWorld());
+
+		// Update camera.
+		camera.update();
+		camera.apply(gl);
+
+		// Draw game objects.
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		for (GameObject go : Game.getInstance().getGameObjectList()) {
+			TextureRegion texture = go.getTexture();
+			float x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation;
+
+			halfWidth = go.getWidth() / 2;
+			halfHeight = go.getHeight() / 2;
+
+			rotation = (float) (go.getBody().getAngle() * 180 / Math.PI);
+
+			x = go.getBody().getPosition().x - halfWidth / 2;
+			y = go.getBody().getPosition().y - halfHeight / 2;
+
+			originX = halfWidth / 2;
+			originY = halfHeight / 2;
+
+			scaleX = 2;
+			scaleY = 2;
+			spriteBatch.draw(new TextureRegion(texture), x, y, originX,
+					originY, halfWidth, halfHeight, scaleX, scaleY, rotation);
+		}
+
+		spriteBatch.end();
+
+		// renderer.render(Game.getInstance().getWorld());
 	}
 
 	/**
