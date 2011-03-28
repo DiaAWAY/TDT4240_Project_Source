@@ -2,11 +2,18 @@ package org.group20.sunstruck;
 
 
 import org.group20.sunstruck.gameobject.GameObject;
+import org.group20.sunstruck.world.map.segments.MapSegment;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.VertexAttribute;
+import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,26 +21,19 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 
 public class Main implements ApplicationListener {
-	private static final boolean Object = false;
-	
-	float r = 1, g = 0, b = 0;
-	
+//	private static final boolean Object = false;
+//	private float r = 1, g = 0, b = 0;
 	private double time = 0;
 	private boolean run = true;
 	private float yOffset = 0;
 	private MapSegment first;
 	private MapSegment last;
 	private OrthographicCamera camera;
-
 	private SpriteBatch spriteBatch;
 	private SpriteBatch guiBatch;
-	
 	Box2DDebugRenderer renderer;
-	
-	/*	
 	private Mesh mesh; // test code
 	private Texture texture; // test code
-	*/
 
 	@Override
 	public void create() {
@@ -49,18 +49,18 @@ public class Main implements ApplicationListener {
 		
 		renderer = new Box2DDebugRenderer();
 		
-		/*
+		
 		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 				+ ", surface created");
-		Gdx.input.setInputProcessor(Game.getInstance().getInput());
-		sprites = new SpriteBatch();
+		//Gdx.input.setInputProcessor(Game.getInstance().getInput());
+		//sprites = new SpriteBatch();
 		time = System.currentTimeMillis(); // TODO replace this with a more
 											// accurate method
 		Game.getInstance().start();
 		first = Game.getInstance().getMap().getNext();
 		last = Game.getInstance().getMap().getNext();
 
-		/ test code START /
+		/* test code START */
 		if (mesh == null) {
 			mesh = new Mesh(true, 4, 4, new VertexAttribute(Usage.Position, 3,
 					"a_position"), new VertexAttribute(Usage.ColorPacked, 4,
@@ -85,7 +85,8 @@ public class Main implements ApplicationListener {
 	}
 
 	@Override
-	public void render() {		
+	public void render() {
+		if (!run) return;
 		time+= Gdx.graphics.getDeltaTime();
 		if(time>= 0.01){
 			Game.getInstance().getInput().update();
@@ -95,7 +96,7 @@ public class Main implements ApplicationListener {
 				System.out.println("ohjoy");
 		}
 		
-		//Background colour.
+		//Background color.
         GL10 gl = Gdx.app.getGraphics().getGL10();
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 	     
@@ -136,21 +137,16 @@ public class Main implements ApplicationListener {
        		spriteBatch.draw(new TextureRegion(texture), x, y, originX, originY, width, height, scaleX, scaleY, rotation);
        	}
         spriteBatch.end();
-        
 		renderer.render(Game.getInstance().getWorld());
-	
-		
-		/*
-		Gdx.gl.glClearColor(255, 0, 255, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		// UPDATE THE WORLD
-		if (run
-				&& (System.currentTimeMillis() - time) > 1000 / Game
-						.getInstance().getUpdateRate()) {
-			Game.getInstance().update();
-			time = System.currentTimeMillis();
-		}
-		// FETCH THE WORLD DATA
+
+//		// UPDATE THE WORLD
+//		if (run
+//				&& (System.currentTimeMillis() - time) > 1000 / Game
+//						.getInstance().getUpdateRate()) {
+//			Game.getInstance().update();
+//			time = System.currentTimeMillis();
+//		}
+		// DRAW THE BACKGROUND
 		Gdx.gl11.glPushMatrix();
 		Gdx.graphics.getGL11().glEnable(GL10.GL_TEXTURE_2D);
 
@@ -174,7 +170,6 @@ public class Main implements ApplicationListener {
 			last = Game.getInstance().getMap().getNext();
 			yOffset = 0;
 		}
-		*/
 	}
 
 	@Override

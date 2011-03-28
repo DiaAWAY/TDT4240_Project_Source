@@ -1,7 +1,6 @@
 package org.group20.sunstruck;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.gameobject.GameObject;
@@ -11,8 +10,6 @@ import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
 import org.group20.sunstruck.interfaces.GameInterface;
 import org.group20.sunstruck.world.map.MapGenerator;
-import org.group20.sunstruck.world.map.segments.MapSegment;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,20 +18,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Game implements GameInterface {
+	public static boolean DEBUG = false;
 	private float updateRate = 1.0f; // physics update rate	
 	private float totalTime;	
 	private Vector2 initGravity = new Vector2(0,0);	
 	private DIFFICULTIES difficulty;
-	
 	private GameObjectFactory goFactory = new GameObjectFactory();	
 	private Player player;	
 	private Shop shop;	
 	private World world;	
 	private Input input;	
 	private GUI gui;
-
 	private TextureAtlas textureAtlas;
-	
 	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
 	
 	private Game() {
@@ -128,15 +123,6 @@ public class Game implements GameInterface {
 
 	public float getUpdateRate() {
 		return updateRate;
-	}
-	
-	public Collection<MapSegment> getDrawables() {
-		// TODO replace test code with production code
-		ArrayList<MapSegment> list = new ArrayList<MapSegment>();
-		list.add(world.getMap().getNext());
-		list.add(world.getMap().getNext());
-		list.add(world.getMap().getNext());
-		return list;
 	}
 
 	@Override
