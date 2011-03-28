@@ -32,22 +32,21 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void create() {
+		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
+				+ ", surface created");
+		
 		Game.getInstance().initializePlayer();
 
 		// Scales the width.
 		float scale = (float) Gdx.graphics.getHeight()
 				/ Gdx.graphics.getWidth();
 		camera = new OrthographicCamera(7, 7 * scale);
-		bgScale = 7 * scale / 2;
 		camera.position.set(0, 0, 0);
+		bgScale = 7 * scale / 2;
 
 		spriteBatch = new SpriteBatch();
 		guiBatch = new SpriteBatch();
-
 		renderer = new Box2DDebugRenderer();
-
-		Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
-				+ ", surface created");
 
 		Game.getInstance().start();
 		first = Game.getInstance().getMap().getNext();
