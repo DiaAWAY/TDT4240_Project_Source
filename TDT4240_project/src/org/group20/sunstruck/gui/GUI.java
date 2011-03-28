@@ -3,6 +3,8 @@ package org.group20.sunstruck.gui;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.group20.sunstruck.Game;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,8 +24,8 @@ public class GUI {
 		TextureRegion fireButtonTexture = Game.getInstance().getTextureAtlas().findRegion("fireButton");
 		*/
 		
-		TextureRegion controlCircleTexture = new TextureRegion(new Texture(Gdx.files.internal("data/controlCircle.png")));
-		TextureRegion fireButtonTexture = new TextureRegion(new Texture(Gdx.files.internal("data/fireButton.png")));
+		TextureRegion controlCircleTexture = Game.textureAtlas.findRegion("controlCircle");
+		TextureRegion fireButtonTexture = Game.textureAtlas.findRegion("fireButton");
 		
 		//Makes the sprites with corresponding textures.
 		controlCircle = new Sprite(controlCircleTexture);

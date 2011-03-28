@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Game implements GameInterface {
 	public static boolean DEBUG = false;
+	public static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
 	private float updateRate = 1.0f; // physics update rate	
 	private float totalTime;	
 	private Vector2 initGravity = new Vector2(0,0);	
@@ -30,7 +31,6 @@ public class Game implements GameInterface {
 	private World world;	
 	private Input input;	
 	private GUI gui;
-	private TextureAtlas textureAtlas;
 	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
 	
 	private Game() {
@@ -42,7 +42,7 @@ public class Game implements GameInterface {
 	}
 	
 	public void initializePlayer(){
-		player = new Player(new Vector2(0,0),0.5f, 0.5f, new TextureRegion(new Texture(Gdx.files.internal("data/TIE_Interceptor.png"))), 10, 10, 1, 1,1);
+		player = new Player(new Vector2(0,0),0.5f, 0.5f, textureAtlas.findRegion("TIE"), 10, 10, 1, 1,1);
 		gameObjectList.add(player);
 	}
 	

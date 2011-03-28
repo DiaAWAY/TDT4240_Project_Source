@@ -68,7 +68,7 @@ public class Main implements ApplicationListener {
 
 			mesh.setIndices(new short[] { 0, 1, 2, 3 });
 		}
-		/** mesh configuration END */
+		/* mesh configuration END */
 	}
 
 	@Override
@@ -98,8 +98,7 @@ public class Main implements ApplicationListener {
 		guiBatch.end();
 
 		// Update physics.
-		Game.getInstance().getWorld()
-				.step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
+		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
 		renderer.render(Game.getInstance().getWorld());
 
 		// Update camera.
@@ -111,6 +110,7 @@ public class Main implements ApplicationListener {
 		spriteBatch.begin();
 		for (GameObject go : Game.getInstance().getGameObjectList()) {
 			TextureRegion texture = go.getTexture();
+			System.out.println(go + " " + go.getTexture());
 			float x, y, originX, originY, width, height, scaleX, scaleY, rotation;
 
 			width = go.getWidth();
