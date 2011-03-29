@@ -20,7 +20,7 @@ public class Main implements ApplicationListener {
 	// The width and height of the orthographical camera
 	public static final float CAMERA_WIDTH = 10;
 	public static float bgScale = 1.0f;
-	public static float bgSpeed = 0.1f;
+	public static float bgSpeed = 0.001f;
 	private Mesh mesh;
 	private MapSegment last;
 	private MapSegment first;

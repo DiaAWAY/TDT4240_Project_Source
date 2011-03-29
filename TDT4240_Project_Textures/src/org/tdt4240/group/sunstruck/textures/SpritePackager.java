@@ -10,6 +10,6 @@ public class SpritePackager {
         settings.maxWidth = 4096;
         settings.maxHeight = 4096;
         settings.incremental = true;
-        TexturePacker.process(settings, "Sprites", "Sheets");
+        TexturePacker.process(settings, "Textures", "Sheets");
     }
 }
