@@ -10,14 +10,16 @@ import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
 import org.group20.sunstruck.interfaces.GameInterface;
 import org.group20.sunstruck.world.map.MapGenerator;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Game implements GameInterface {
+public class Game implements GameInterface, ContactListener{
 	public static boolean DEBUG = false;
 	public static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
 	private float updateRate = 1.0f; // physics update rate	
@@ -32,6 +34,7 @@ public class Game implements GameInterface {
 	private Input input;	
 	private GUI gui;
 	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
+	private float time;
 	
 	private Game() {
 		this(DIFFICULTIES.MEDIUM);
@@ -47,6 +50,7 @@ public class Game implements GameInterface {
 		setDifficulty(d);
 
 		world = new World(initGravity, true);
+		world.setContactListener(this);
 		gui = new GUI();
 		input = new Input(gui);
 	}
@@ -66,7 +70,38 @@ public class Game implements GameInterface {
 	public void update() {
 		totalTime++;
 		if(Game.DEBUG) System.out.println("Total game updates: " + totalTime);
+		
+		time += Gdx.graphics.getDeltaTime();
+		if (time >= 0.01) {
+			Game.getInstance().getInput().update();
+			Game.getInstance().getPlayer().update();
+			time = 0;
+			if (Game.getInstance().getInput().getHasFiredBomb())
+				System.out.println("ohjoy");
+		}
 	}
+
+	@Override
+	public void beginContact(Contact contact) {
+		Body A = contact.getFixtureA().getBody();
+		Body B = contact.getFixtureB().getBody();
+		
+		for(GameObject go : gameObjectList){
+			if(go.getBody().equals(A) && B.equals(Main.eastBorder))
+				go.dispose();
+			if(go.getBody().equals(B) && A.equals(Main.eastBorder))
+				go.dispose();
+		}
+	}
+
+	@Override
+	public void endContact(Contact contact) {
+		
+	}
+	
+	
+	
+	
 	
 	// Getter's and setter's (No shit) 
 

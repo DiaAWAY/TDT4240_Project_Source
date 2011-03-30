@@ -14,13 +14,21 @@ import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class Main implements ApplicationListener {
 	// The width and height of the orthographical camera
 	public static final float CAMERA_WIDTH = 10;
 	public static float bgScale = 1.0f;
 	public static float bgSpeed = 0.001f;
+	public static Body eastBorder;
+	public static Body northBorder;
+	public static Body westBorder;
+	public static Body southBorder;
 	private Mesh mesh;
 	private MapSegment last;
 	private MapSegment first;
@@ -39,15 +47,29 @@ public class Main implements ApplicationListener {
 
 		Game.getInstance().initializePlayer();
 
-		// Scales the width.
+		// Scales the height.
 		float scale = (float) Gdx.graphics.getHeight()
 				/ Gdx.graphics.getWidth();
 		bgScale = CAMERA_WIDTH * scale / 2;
-
-		// Scales the height.
+		
 		camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_WIDTH * scale);
 		camera.position.set(0, 0, 0);
-
+		
+		//Make physical borders.
+		PolygonShape eastBorderPoly = new PolygonShape();
+		eastBorderPoly.setAsBox(1, CAMERA_WIDTH*scale);
+		
+		BodyDef eastBorderDef = new BodyDef();
+		eastBorderDef.position.x = CAMERA_WIDTH/2-0.5f;
+		eastBorderDef.position.y = 0;
+		eastBorderDef.type = BodyType.StaticBody;
+		
+		eastBorder = Game.getInstance().getWorld().createBody(eastBorderDef);
+		eastBorder.createFixture(eastBorderPoly, 1000000000);
+		eastBorderPoly.dispose();
+		
+	
+		
 		spriteBatch = new SpriteBatch();
 		guiBatch = new SpriteBatch();
 		renderer = new Box2DDebugRenderer();
@@ -81,7 +103,7 @@ public class Main implements ApplicationListener {
 			return;
 		
 		//Update game objects
-		updateGameObjects();
+		Game.getInstance().update();
 		
 		//Draw background
 		drawBackground();
@@ -95,7 +117,7 @@ public class Main implements ApplicationListener {
 		//Draw game objects.
 		drawGameObjects();
 
-		//renderer.render(Game.getInstance().getWorld());
+		renderer.render(Game.getInstance().getWorld());
 	}
 
 	private void drawGameObjects() {		
@@ -144,17 +166,6 @@ public class Main implements ApplicationListener {
 		
 	}
 
-	private void updateGameObjects() {
-		time += Gdx.graphics.getDeltaTime();
-		if (time >= 0.01) {
-			Game.getInstance().getInput().update();
-			Game.getInstance().getPlayer().update();
-			time = 0;
-			if (Game.getInstance().getInput().getHasFiredBomb())
-				System.out.println("ohjoy");
-		}
-		
-	}
 
 	/**
 	 * pushes the current matrix, draws the backgrounds then pops the matrix.

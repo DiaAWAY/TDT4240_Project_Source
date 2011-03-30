@@ -1,0 +1,279 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x6e6c569f, pid=1364, tid=3248
+#
+# JRE version: 6.0_23-b05
+# Java VM: Java HotSpot(TM) Client VM (19.0-b09 mixed mode, sharing windows-x86 )
+# Problematic frame:
+# C  [gdx.dll+0x569f]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x035d3c00):  JavaThread "AWT-EventQueue-0" [_thread_in_native, id=3248, stack(0x03a60000,0x03ab0000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x000000f2
+
+Registers:
+EAX=0x00000005, EBX=0x33535890, ECX=0xde28fae8, EDX=0x000000ea
+ESP=0x03aaedc4, EBP=0x03aaee0c, ESI=0x000000ee, EDI=0x6e716260
+EIP=0x6e6c569f, EFLAGS=0x00210212
+
+Register to memory mapping:
+
+EAX=0x00000005
+0x00000005 is pointing to unknown location
+
+EBX=0x33535890
+{method} 
+ - klass: {other class}
+
+ECX=0xde28fae8
+0xde28fae8 is pointing to unknown location
+
+EDX=0x000000ea
+0x000000ea is pointing to unknown location
+
+ESP=0x03aaedc4
+0x03aaedc4 is pointing into the stack for thread: 0x035d3c00
+"AWT-EventQueue-0" prio=6 tid=0x035d3c00 nid=0xcb0 runnable [0x03aae000]
+   java.lang.Thread.State: RUNNABLE
+
+EBP=0x03aaee0c
+0x03aaee0c is pointing into the stack for thread: 0x035d3c00
+"AWT-EventQueue-0" prio=6 tid=0x035d3c00 nid=0xcb0 runnable [0x03aae000]
+   java.lang.Thread.State: RUNNABLE
+
+ESI=0x000000ee
+0x000000ee is pointing to unknown location
+
+EDI=0x6e716260
+0x6e716260 is pointing to unknown location
+
+
+Top of Stack: (sp=0x03aaedc4)
+0x03aaedc4:   00000100 00000000 0000000b 77c90320
+0x03aaedd4:   76f5818b 00000078 00000000 03aaedf8
+0x03aaede4:   6d9da792 00000078 6d7f29de 00000000
+0x03aaedf4:   01326358 03aaee0c 6d7f2bf8 33535890
+0x03aaee04:   03b2c590 035d3c00 03aaee78 6e71631c
+0x03aaee14:   6e716260 000000ee 000000e0 6e71634c
+0x03aaee24:   6e716260 000000f4 00000005 6e7162ef
+0x03aaee34:   6e716260 000000c3 00000005 6e716307 
+
+Instructions: (pc=0x6e6c569f)
+0x6e6c568f:   00 55 89 e5 57 56 53 83 ec 3c 8b 75 0c 8b 7d 08
+0x6e6c569f:   f3 0f 10 56 04 0f 2e d2 7a 38 75 36 f3 0f 10 4e 
+
+
+Stack: [0x03a60000,0x03ab0000],  sp=0x03aaedc4,  free space=315k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [gdx.dll+0x569f]
+C  [gdx.dll+0x5631c]
+C  [gdx.dll+0x1913]
+j  com.badlogic.gdx.physics.box2d.Body.jniDestroyFixture(JJ)V+0
+j  com.badlogic.gdx.physics.box2d.Body.destroyFixture(Lcom/badlogic/gdx/physics/box2d/Fixture;)V+9
+j  org.group20.sunstruck.gameobject.Projectile.dispose()V+18
+j  org.group20.sunstruck.Game.beginContact(Lcom/badlogic/gdx/physics/box2d/Contact;)V+91
+j  com.badlogic.gdx.physics.box2d.World.beginContact(J)V+23
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xf33c9]
+V  [jvm.dll+0x188a91]
+V  [jvm.dll+0xf344d]
+V  [jvm.dll+0xfd07f]
+V  [jvm.dll+0xffe77]
+C  [gdx.dll+0x4cdb1]
+C  [gdx.dll+0x4cc81]
+C  [gdx.dll+0x8a7d]
+C  [gdx.dll+0x1cfd9]
+C  [gdx.dll+0x1d500]
+C  [gdx.dll+0x1d61d]
+C  [gdx.dll+0x4b0c]
+j  com.badlogic.gdx.physics.box2d.World.jniStep(JFII)V+0
+j  com.badlogic.gdx.physics.box2d.World.step(FII)V+8
+j  org.group20.sunstruck.Main.updatePhysicsAndCamera()V+22
+j  org.group20.sunstruck.Main.render()V+23
+j  com.badlogic.gdx.backends.jogl.JoglGraphics.display(Ljavax/media/opengl/GLAutoDrawable;)V+28
+j  com.sun.opengl.impl.GLDrawableHelper.display(Ljavax/media/opengl/GLAutoDrawable;)V+29
+j  javax.media.opengl.GLCanvas$DisplayAction.run()V+80
+j  com.sun.opengl.impl.GLDrawableHelper.invokeGL(Ljavax/media/opengl/GLDrawable;Ljavax/media/opengl/GLContext;Ljava/lang/Runnable;Ljava/lang/Runnable;)V+418
+j  javax.media.opengl.GLCanvas$DisplayOnEventDispatchThreadAction.run()V+35
+j  java.awt.event.InvocationEvent.dispatch()V+11
+j  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V+26
+j  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z+204
+j  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V+30
+j  java.awt.EventDispatchThread.pumpEventsForHierarchy(ILjava/awt/Conditional;Ljava/awt/Component;)V+11
+j  java.awt.EventDispatchThread.pumpEvents(ILjava/awt/Conditional;)V+4
+j  java.awt.EventDispatchThread.pumpEvents(Ljava/awt/Conditional;)V+3
+j  java.awt.EventDispatchThread.run()V+9
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xf33c9]
+V  [jvm.dll+0x188a91]
+V  [jvm.dll+0xf3587]
+V  [jvm.dll+0xf35eb]
+V  [jvm.dll+0x11e780]
+V  [jvm.dll+0x1ea6c4]
+V  [jvm.dll+0x18843c]
+C  [msvcr71.dll+0x9565]
+C  [kernel32.dll+0x43823]
+C  [ntdll.dll+0x3a9bd]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.badlogic.gdx.physics.box2d.Body.jniDestroyFixture(JJ)V+0
+j  com.badlogic.gdx.physics.box2d.Body.destroyFixture(Lcom/badlogic/gdx/physics/box2d/Fixture;)V+9
+j  org.group20.sunstruck.gameobject.Projectile.dispose()V+18
+j  org.group20.sunstruck.Game.beginContact(Lcom/badlogic/gdx/physics/box2d/Contact;)V+91
+j  com.badlogic.gdx.physics.box2d.World.beginContact(J)V+23
+v  ~StubRoutines::call_stub
+j  com.badlogic.gdx.physics.box2d.World.jniStep(JFII)V+0
+j  com.badlogic.gdx.physics.box2d.World.step(FII)V+8
+j  org.group20.sunstruck.Main.updatePhysicsAndCamera()V+22
+j  org.group20.sunstruck.Main.render()V+23
+j  com.badlogic.gdx.backends.jogl.JoglGraphics.display(Ljavax/media/opengl/GLAutoDrawable;)V+28
+j  com.sun.opengl.impl.GLDrawableHelper.display(Ljavax/media/opengl/GLAutoDrawable;)V+29
+j  javax.media.opengl.GLCanvas$DisplayAction.run()V+80
+j  com.sun.opengl.impl.GLDrawableHelper.invokeGL(Ljavax/media/opengl/GLDrawable;Ljavax/media/opengl/GLContext;Ljava/lang/Runnable;Ljava/lang/Runnable;)V+418
+j  javax.media.opengl.GLCanvas$DisplayOnEventDispatchThreadAction.run()V+35
+j  java.awt.event.InvocationEvent.dispatch()V+11
+j  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V+26
+j  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z+204
+j  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V+30
+j  java.awt.EventDispatchThread.pumpEventsForHierarchy(ILjava/awt/Conditional;Ljava/awt/Component;)V+11
+j  java.awt.EventDispatchThread.pumpEvents(ILjava/awt/Conditional;)V+4
+j  java.awt.EventDispatchThread.pumpEvents(Ljava/awt/Conditional;)V+3
+j  java.awt.EventDispatchThread.run()V+9
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x03679c00 JavaThread "D3D Screen Updater" daemon [_thread_blocked, id=2224, stack(0x07c60000,0x07cb0000)]
+  0x01329c00 JavaThread "DestroyJavaVM" [_thread_blocked, id=3940, stack(0x002c0000,0x00310000)]
+  0x0375ec00 JavaThread "Thread-3" [_thread_blocked, id=3008, stack(0x07c10000,0x07c60000)]
+=>0x035d3c00 JavaThread "AWT-EventQueue-0" [_thread_in_native, id=3248, stack(0x03a60000,0x03ab0000)]
+  0x035d3800 JavaThread "AWT-Windows" daemon [_thread_in_native, id=2832, stack(0x03a10000,0x03a60000)]
+  0x035d3000 JavaThread "AWT-Shutdown" [_thread_blocked, id=3052, stack(0x039c0000,0x03a10000)]
+  0x0358dc00 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=3860, stack(0x03870000,0x038c0000)]
+  0x011cd000 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=3328, stack(0x034d0000,0x03520000)]
+  0x011c9400 JavaThread "CompilerThread0" daemon [_thread_blocked, id=1752, stack(0x03480000,0x034d0000)]
+  0x011bc000 JavaThread "Attach Listener" daemon [_thread_blocked, id=2436, stack(0x03430000,0x03480000)]
+  0x011bb000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=1292, stack(0x033e0000,0x03430000)]
+  0x011b6000 JavaThread "Finalizer" daemon [_thread_blocked, id=3696, stack(0x012d0000,0x01320000)]
+  0x011b1400 JavaThread "Reference Handler" daemon [_thread_blocked, id=760, stack(0x01280000,0x012d0000)]
+
+Other Threads:
+  0x011b0000 VMThread [stack: 0x010f0000,0x01140000] [id=2804]
+  0x011d8400 WatcherThread [stack: 0x03520000,0x03570000] [id=1192]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 4928K, used 1023K [0x23200000, 0x23750000, 0x28750000)
+  eden space 4416K,  11% used [0x23200000, 0x2327ff80, 0x23650000)
+  from space 512K, 100% used [0x23650000, 0x236d0000, 0x236d0000)
+  to   space 512K,   0% used [0x236d0000, 0x236d0000, 0x23750000)
+ tenured generation   total 10944K, used 567K [0x28750000, 0x29200000, 0x33200000)
+   the space 10944K,   5% used [0x28750000, 0x287ddf48, 0x287de000, 0x29200000)
+ compacting perm gen  total 12288K, used 3510K [0x33200000, 0x33e00000, 0x37200000)
+   the space 12288K,  28% used [0x33200000, 0x3356d9e8, 0x3356da00, 0x33e00000)
+    ro space 10240K,  51% used [0x37200000, 0x3772bd20, 0x3772be00, 0x37c00000)
+    rw space 12288K,  54% used [0x37c00000, 0x38297d58, 0x38297e00, 0x38800000)
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Program Files\Java\jre6\bin\javaw.exe
+0x77c30000 - 0x77d4e000 	C:\Windows\system32\ntdll.dll
+0x76f10000 - 0x76fe8000 	C:\Windows\system32\kernel32.dll
+0x766f0000 - 0x767af000 	C:\Windows\system32\ADVAPI32.dll
+0x76920000 - 0x769e3000 	C:\Windows\system32\RPCRT4.dll
+0x76650000 - 0x766ee000 	C:\Windows\system32\USER32.dll
+0x764f0000 - 0x7653b000 	C:\Windows\system32\GDI32.dll
+0x764d0000 - 0x764ee000 	C:\Windows\system32\IMM32.DLL
+0x76800000 - 0x768c7000 	C:\Windows\system32\MSCTF.dll
+0x76540000 - 0x765ea000 	C:\Windows\system32\msvcrt.dll
+0x77db0000 - 0x77db9000 	C:\Windows\system32\LPK.DLL
+0x77dc0000 - 0x77e3d000 	C:\Windows\system32\USP10.dll
+0x7c340000 - 0x7c396000 	C:\Program Files\Java\jre6\bin\msvcr71.dll
+0x6d7f0000 - 0x6da9c000 	C:\Program Files\Java\jre6\bin\client\jvm.dll
+0x748b0000 - 0x748e3000 	C:\Windows\system32\WINMM.dll
+0x76cb0000 - 0x76df4000 	C:\Windows\system32\ole32.dll
+0x76e00000 - 0x76e8c000 	C:\Windows\system32\OLEAUT32.dll
+0x74870000 - 0x748a8000 	C:\Windows\system32\OLEACC.dll
+0x76310000 - 0x7633c000 	C:\Windows\system32\apphelp.dll
+0x6d7a0000 - 0x6d7ac000 	C:\Program Files\Java\jre6\bin\verify.dll
+0x6d320000 - 0x6d33f000 	C:\Program Files\Java\jre6\bin\java.dll
+0x6d280000 - 0x6d288000 	C:\Program Files\Java\jre6\bin\hpi.dll
+0x77d50000 - 0x77d57000 	C:\Windows\system32\PSAPI.DLL
+0x6d7e0000 - 0x6d7ef000 	C:\Program Files\Java\jre6\bin\zip.dll
+0x6d000000 - 0x6d14a000 	C:\Program Files\Java\jre6\bin\awt.dll
+0x735c0000 - 0x73601000 	C:\Windows\system32\WINSPOOL.DRV
+0x75190000 - 0x75324000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.6000.16386_none_5d07289e07e1d100\COMCTL32.dll
+0x765f0000 - 0x76645000 	C:\Windows\system32\SHLWAPI.dll
+0x71ee0000 - 0x71eec000 	C:\Windows\system32\DWMAPI.DLL
+0x753f0000 - 0x7542f000 	C:\Windows\system32\uxtheme.dll
+0x6e6c0000 - 0x6e738000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\gdx.dll
+0x6d350000 - 0x6d356000 	C:\Program Files\Java\jre6\bin\jawt.dll
+0x10000000 - 0x10005000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\gluegen-rt-win32.dll
+0x003f0000 - 0x003f5000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\jogl_awt-win32.dll
+0x03ab0000 - 0x03afd000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\jogl-win32.dll
+0x73070000 - 0x7313b000 	C:\Windows\system32\OPENGL32.dll
+0x73440000 - 0x73463000 	C:\Windows\system32\GLU32.dll
+0x73210000 - 0x732f6000 	C:\Windows\system32\DDRAW.dll
+0x74f30000 - 0x74f36000 	C:\Windows\system32\DCIMAN32.dll
+0x769f0000 - 0x76b79000 	C:\Windows\system32\SETUPAPI.dll
+0x6d230000 - 0x6d27f000 	C:\Program Files\Java\jre6\bin\fontmanager.dll
+0x6f3e0000 - 0x6f59a000 	C:\Windows\system32\d3d9.dll
+0x75be0000 - 0x75be8000 	C:\Windows\system32\VERSION.dll
+0x70cd0000 - 0x70cd6000 	C:\Windows\system32\d3d8thk.dll
+0x03c00000 - 0x0414c000 	C:\Windows\system32\nvd3dum.dll
+0x07070000 - 0x070e2000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\lwjgl.dll
+0x070f0000 - 0x07140000 	C:\Users\KNUTES~1\AppData\Local\Temp\libgdx\3089703099\OpenAL32.dll
+0x77160000 - 0x77c2e000 	C:\Windows\system32\SHELL32.dll
+0x6c550000 - 0x6c5c1000 	C:\Windows\system32\dsound.dll
+0x75830000 - 0x7584a000 	C:\Windows\system32\POWRPROF.dll
+0x770d0000 - 0x77154000 	C:\Windows\system32\CLBCatQ.DLL
+0x75560000 - 0x75587000 	C:\Windows\System32\MMDevApi.dll
+0x75590000 - 0x755bd000 	C:\Windows\system32\WINTRUST.dll
+0x75e90000 - 0x75f81000 	C:\Windows\system32\CRYPT32.dll
+0x75fd0000 - 0x75fe2000 	C:\Windows\system32\MSASN1.dll
+0x76390000 - 0x763ae000 	C:\Windows\system32\USERENV.dll
+0x76370000 - 0x76384000 	C:\Windows\system32\Secur32.dll
+0x77d80000 - 0x77da9000 	C:\Windows\system32\imagehlp.dll
+0x745c0000 - 0x745e1000 	C:\Windows\System32\audioses.dll
+0x74550000 - 0x745b6000 	C:\Windows\System32\audioeng.dll
+0x75750000 - 0x75757000 	C:\Windows\System32\AVRT.dll
+0x69500000 - 0x69d99000 	C:\Windows\system32\nvoglv32.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=Cp1252 
+java_command: org.group20.sunstruck.MainDesktop
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:/Program Files/Java/jre6/bin/client;C:/Program Files/Java/jre6/bin;C:/Program Files/Java/jre6/lib/i386;C:\Program Files\MiKTeX 2.9\miktex\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\emacs-23.1\bin;C:\Program Files\Mozart\bin;C:\Program Files\Graphviz2.26.3\bin;C:\Program Files\Git\cmd
+USERNAME=Knut Esten
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 15 Stepping 6, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows Vista Build 6000 
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 15 stepping 6, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3
+
+Memory: 4k page, physical 2094948k(882600k free), swap 4415480k(2745064k free)
+
+vm_info: Java HotSpot(TM) Client VM (19.0-b09) for windows-x86 JRE (1.6.0_23-b05), built on Nov 12 2010 15:00:43 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Wed Mar 30 15:20:40 2011
+elapsed time: 8 seconds
+

@@ -6,6 +6,7 @@ import org.group20.sunstruck.Main;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
 
 
 public class Player extends GameObject {
@@ -58,7 +59,12 @@ public class Player extends GameObject {
 		
 	}
 	
+	public String toString(){
+		return "Player";
+	}
+	
 	private void shoot(){
+		
 		Vector2 pos = body.getWorldCenter().add((float) (width/2 +0.5), 0);
 		
 		// TODO use gameobjectfactory!
@@ -67,6 +73,7 @@ public class Player extends GameObject {
 		Vector2 vel = new Vector2(1, 0);
 		vel.mul(laser.getSpeed());
 		laser.getBody().setLinearVelocity(vel);
+		laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
 		
 		Game.getInstance().getGameObjectList().add(laser);
 	}
