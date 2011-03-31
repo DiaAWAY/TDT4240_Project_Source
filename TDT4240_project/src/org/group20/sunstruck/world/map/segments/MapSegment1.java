@@ -7,6 +7,6 @@ public class MapSegment1 extends MapSegment {
 	public MapSegment1() {
 		// initialize texture
 		setType(MAPTYPES.TUNDRA);
-		setTexture(Game.textureAtlas.findRegion("seaworldBGPlaceholder").getTexture());
+		setTextureRegion(Game.textureAtlas.findRegion("seaworldBGPlaceholder"));
 	}
 }

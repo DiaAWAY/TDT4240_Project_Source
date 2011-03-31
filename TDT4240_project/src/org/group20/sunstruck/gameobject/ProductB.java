@@ -16,7 +16,6 @@ public class ProductB extends GameObject { // TODO remove test class
 			float hull, float weapon, float shield) {
 		super(position, width, height, textureRegion, density, speed, hull, weapon,
 				shield);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
