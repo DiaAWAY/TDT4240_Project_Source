@@ -17,16 +17,16 @@ public class ProductA extends GameObject {
 
 	public ProductA(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
-			float hull, float weapon, float shield) {
+			float hull, float weapon, float shield, float impactDamage) {
 		this(position, width, height, textureRegion, density, speed, hull,
-				weapon, shield, "default");
+				weapon, shield, impactDamage, "default");
 	}
 
 	public ProductA(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
-			float hull, float weapon, float shield, String string) {
+			float hull, float weapon, float shield, float impactDamage, String string) {
 		super(position, width, height, textureRegion, density, speed, hull,
-				weapon, shield, shield);
+				weapon, shield, impactDamage);
 		testStr = string;
 		setType(TYPES.ENTITY3);
 	}

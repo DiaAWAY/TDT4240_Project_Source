@@ -3,86 +3,107 @@ Textures1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-controlCircle
+seaworldBGPlaceholder2
   rotate: false
   xy: 0, 0
+  size: 512, 1024
+  orig: 512, 1024
+  offset: 0, 0
+  index: -1
+seaworldBGPlaceholder
+  rotate: false
+  xy: 0, 1025
+  size: 512, 1024
+  orig: 512, 1024
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 0, 2050
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+controlCircle
+  rotate: false
+  xy: 0, 2563
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 TIEFighter
   rotate: false
-  xy: 0, 129
+  xy: 129, 2563
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 TIEBomber
   rotate: false
-  xy: 0, 194
+  xy: 194, 2563
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 fireButton
   rotate: false
-  xy: 0, 259
+  xy: 259, 2563
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 guiUpgradeWeaponPressed
   rotate: false
-  xy: 0, 324
+  xy: 324, 2563
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeWeapon
   rotate: false
-  xy: 0, 357
+  xy: 324, 2596
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeSpeedPressed
   rotate: false
-  xy: 0, 390
+  xy: 324, 2629
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeSpeed
   rotate: false
-  xy: 0, 423
+  xy: 0, 2692
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeShieldPressed
   rotate: false
-  xy: 0, 456
+  xy: 129, 2692
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeShield
   rotate: false
-  xy: 0, 489
+  xy: 258, 2692
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeHullPressed
   rotate: false
-  xy: 0, 522
+  xy: 0, 2725
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeHull
   rotate: false
-  xy: 0, 555
+  xy: 129, 2725
   size: 128, 32
   orig: 128, 32
   offset: 0, 0

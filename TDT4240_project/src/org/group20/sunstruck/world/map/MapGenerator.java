@@ -15,6 +15,8 @@ public class MapGenerator {
 
 	private void initMapSegments() {
 		segments.add(new MapSegment1());
+		segments.add(new MapSegment2());
+		segments.add(new MapSegment3());
 	}
 
 	/**

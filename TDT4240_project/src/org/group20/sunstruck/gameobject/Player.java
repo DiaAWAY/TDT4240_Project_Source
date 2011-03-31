@@ -1,33 +1,29 @@
 package org.group20.sunstruck.gameobject;
 
-import java.util.Iterator;
-
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.Main;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 
 public class Player extends GameObject {
+
+	private int score;	
+	private long reloadTimeGun = 100;
+	private long reloadTimeBomb = 1000;
+	private long startGun = System.currentTimeMillis();
+	private long startBomb = System.currentTimeMillis();
+	
+	
 	public Player(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
 			float hull, float weapon, float shield, float impactDamage) {
 		super(position, width, height, textureRegion, density, speed, hull, weapon,
 				shield, impactDamage);
-		// TODO Auto-generated constructor stub
 	}
-
-	private long startGun = System.currentTimeMillis();
-	private long reloadTimeGun = 100;
-	private long startBomb = System.currentTimeMillis();
-	private long reloadTimeBomb = 1000;
-	
-
-	private int score;
 	
 	@Override
 	public void update() {	
@@ -95,13 +91,14 @@ public class Player extends GameObject {
 		Vector2 pos = body.getWorldCenter().add((float) (width/2 +0.6), 0);
 		
 		// TODO use gameobjectfactory!
-		Projectile laser = new Projectile(pos, 1f, 1f, Game.textureAtlas.findRegion("TIEFighter"), 10, 10, 0, 0, 0, 10);
+		Projectile laser = new Projectile(pos, 1f, 1f, Game.textureAtlas.findRegion("redLaser"), 10, 10, 0, 0, 0, 10);
 		Vector2 vel = new Vector2(1, 0);
 		vel.mul(laser.getSpeed());
 		laser.getBody().setLinearVelocity(vel);
 		//laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
 		Game.getInstance().getGameObjectList().add(laser);
 	}
+	
 	public void setScore(int score) {
 		this.score = score;
 	}

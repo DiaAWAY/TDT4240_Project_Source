@@ -14,9 +14,9 @@ public class ProductB extends GameObject { // TODO remove test class
 
 	public ProductB(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
-			float hull, float weapon, float shield) {
+			float hull, float weapon, float shield, float impactDamage) {
 		super(position, width, height, textureRegion, density, speed, hull, weapon,
-				shield);
+				shield, impactDamage);
 		// TODO Auto-generated constructor stub
 	}
 
