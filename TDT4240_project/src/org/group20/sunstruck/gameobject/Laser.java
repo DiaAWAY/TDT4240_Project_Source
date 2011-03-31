@@ -9,20 +9,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
-public class Projectile extends GameObject{
+public class Laser extends GameObject{
 	public boolean isBomb = false;
-	
-	public Projectile(Vector2 position, float width, float height,
-			TextureRegion textureRegion, float density, float speed,
-			float hull, float weapon, float shield, float impactDamage) {
-		super(position, width, height, textureRegion, density, speed, hull, weapon,
-				shield, impactDamage);
-		// TODO Auto-generated constructor stub
-	}
 
 	@Override
 	public void dispose() {
-		Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
+		Game.getInstance().getDestroyedBodiesList().add(body);
 	}
 	
 	public String toString(){

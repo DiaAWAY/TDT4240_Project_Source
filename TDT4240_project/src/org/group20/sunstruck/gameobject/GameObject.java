@@ -28,6 +28,8 @@ public abstract class GameObject {
 	// height and width of the body-rectangle.
 	float width = 0;
 	float height = 0;
+	
+	Body body = null;
 
 	public abstract void update();
 
@@ -36,36 +38,6 @@ public abstract class GameObject {
 	public abstract void dispose();
 
 	TextureRegion textureRegion = null;
-	/*
-	public GameObject(Vector2 position, float width, float height,
-			TextureRegion textureRegion, float density, float speed,
-			float hull, float weapon, float shield, float impactDamage) {
-
-		texture = textureRegion;
-
-		// Defines the body and creates it
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.DynamicBody;
-		bodyDef.position.x = position.x;
-		bodyDef.position.y = position.y;
-		body = Game.getInstance().getWorld().createBody(bodyDef);
-
-		// Creates the box used for collision, and attaches it to the body.
-		// Disposes of the shape to free memory.
-		PolygonShape bodyPoly = new PolygonShape();
-		bodyPoly.setAsBox(width/2, height/2);
-		body.createFixture(bodyPoly, density);
-		bodyPoly.dispose();
-
-		this.width = width;
-		this.height = height;
-		this.speed = speed;
-		this.hull = hull;
-		this.weapon = weapon;
-		this.shield = shield;
-		this.impactDamage = impactDamage;
-	}
-	*/
 
 	public TYPES getType() {
 		return type;
@@ -105,6 +77,34 @@ public abstract class GameObject {
 
 	public TextureRegion getTexture() {
 		return textureRegion;
+	}
+	
+	public Body getBody(){
+		return body;
+	}
+
+	public void setWeaponType(GameObject weaponType) {
+		this.weaponType = weaponType;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public void setHull(float hull) {
+		this.hull = hull;
+	}
+
+	public void setWeapon(float weapon) {
+		this.weapon = weapon;
+	}
+
+	public void setShield(float shield) {
+		this.shield = shield;
+	}
+
+	public void setImpactDamage(float impactDamage) {
+		this.impactDamage = impactDamage;
 	}
 	
 }

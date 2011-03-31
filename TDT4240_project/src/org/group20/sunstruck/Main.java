@@ -1,5 +1,7 @@
 package org.group20.sunstruck;
 
+import java.util.Iterator;
+
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.world.map.segments.MapSegment;
 
@@ -16,9 +18,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Main implements ApplicationListener {
 	// The width and height of the orthographical camera
@@ -180,7 +182,15 @@ public class Main implements ApplicationListener {
 	private void drawGameObjects() {		
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
-		for (GameObject go : Game.getInstance().getGameObjectList()) {
+		
+		GameObject go = null;
+		Iterator<Body> it = Game.getInstance().getWorld().getBodies();
+		while(it.hasNext()) {
+			go = (GameObject) it.next().getUserData();
+			
+			if(go == null)
+				continue;
+			
 			TextureRegion texture = go.getTexture();
 			float x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation;
 			

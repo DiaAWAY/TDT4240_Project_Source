@@ -13,14 +13,6 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 
 public class Player extends GameObject {
-	public Player(Vector2 position, float width, float height,
-			TextureRegion textureRegion, float density, float speed,
-			float hull, float weapon, float shield, float impactDamage) {
-		super(position, width, height, textureRegion, density, speed, hull, weapon,
-				shield, impactDamage);
-		// TODO Auto-generated constructor stub
-	}
-
 	private long startGun = System.currentTimeMillis();
 	private long reloadTimeGun = 100;
 	private long startBomb = System.currentTimeMillis();
@@ -68,21 +60,13 @@ public class Player extends GameObject {
 	}
 
 	private void fireBomb() {		
-		Vector2 pos = body.getWorldCenter().add((float) (width/2 +0.6), 0);
-	
-		// TODO use gameobjectfactory!
-		Projectile laser = new Projectile(pos, 1f, 1f, Game.textureAtlas.findRegion("TIEFighter"),  1000, 0.1f, 0, 0, 0, 10);
-		Vector2 vel = new Vector2(1, 0);
-		vel.mul(laser.getSpeed());
-		laser.getBody().setLinearVelocity(vel);
-		laser.isBomb = true;
 		//laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
-		Game.getInstance().getGameObjectList().add(laser);
+		//Game.getInstance().getGameObjectList().add(laser);
 	}
 
 	@Override
 	public void dispose() {
-		Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
+		//Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
 		
 	}
 	
@@ -91,16 +75,7 @@ public class Player extends GameObject {
 	}
 	
 	private void shoot(){
-		
-		Vector2 pos = body.getWorldCenter().add((float) (width/2 +0.6), 0);
-		
-		// TODO use gameobjectfactory!
-		Projectile laser = new Projectile(pos, 1f, 1f, Game.textureAtlas.findRegion("TIEFighter"), 10, 10, 0, 0, 0, 10);
-		Vector2 vel = new Vector2(1, 0);
-		vel.mul(laser.getSpeed());
-		laser.getBody().setLinearVelocity(vel);
-		//laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
-		Game.getInstance().getGameObjectList().add(laser);
+		Game.getInstance().getGoFactory().getLaser(this);
 	}
 	public void setScore(int score) {
 		this.score = score;
@@ -112,7 +87,6 @@ public class Player extends GameObject {
 
 	@Override
 	public void contact(WorldManifold worldManifold, float impactDamage) {
-		impactDamage = 0;
 		shield -= impactDamage;
 		if(shield < 0){
 			hull += shield;
