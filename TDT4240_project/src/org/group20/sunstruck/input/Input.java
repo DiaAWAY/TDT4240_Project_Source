@@ -15,7 +15,7 @@ public class Input{
 	//How fast the ship should brake.
 	final float BRAKE_FACTOR = 0.93f;
 	//How fast the phone must accelerate to activate the bomb.
-	final float ACCELERATION_THRESHOLD = 17;
+	final float ACCELERATION_THRESHOLD = 13;
 	   
 	//Boolean to store whether the fire button has been pressed.
 	boolean hasFired = false;
@@ -136,6 +136,7 @@ public class Input{
 		newVelocity.set(x, y);
 		
 		velocityChanged = true;
+		
 	}
 
 	private void brakePlayerSpeed(){

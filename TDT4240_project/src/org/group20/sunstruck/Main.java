@@ -36,7 +36,6 @@ public class Main implements ApplicationListener {
 	private SpriteBatch spriteBatch;
 	private OrthographicCamera camera;
 	private Box2DDebugRenderer renderer;
-	private double time = 0;
 	private float xOffset = 0;
 	private boolean run = true;
 
@@ -55,21 +54,58 @@ public class Main implements ApplicationListener {
 		camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_WIDTH * scale);
 		camera.position.set(0, 0, 0);
 		
-		//Make physical borders.
+		//East border.
 		PolygonShape eastBorderPoly = new PolygonShape();
-		eastBorderPoly.setAsBox(1, CAMERA_WIDTH*scale);
+		eastBorderPoly.setAsBox(0, CAMERA_WIDTH*scale);
 		
 		BodyDef eastBorderDef = new BodyDef();
-		eastBorderDef.position.x = CAMERA_WIDTH/2-0.5f;
+		eastBorderDef.position.x = CAMERA_WIDTH;
 		eastBorderDef.position.y = 0;
 		eastBorderDef.type = BodyType.StaticBody;
 		
 		eastBorder = Game.getInstance().getWorld().createBody(eastBorderDef);
-		eastBorder.createFixture(eastBorderPoly, 1000000000);
+		eastBorder.createFixture(eastBorderPoly, 10);
 		eastBorderPoly.dispose();
 		
-	
+		//West border
+		PolygonShape westBorderPoly = new PolygonShape();
+		westBorderPoly.setAsBox(0, CAMERA_WIDTH*scale);
 		
+		BodyDef westBorderDef = new BodyDef();
+		westBorderDef.position.x = -CAMERA_WIDTH;
+		westBorderDef.position.y = 0;
+		westBorderDef.type = BodyType.StaticBody;
+		
+		westBorder = Game.getInstance().getWorld().createBody(westBorderDef);
+		westBorder.createFixture(westBorderPoly, 10);
+		westBorderPoly.dispose();
+		
+		//North border
+		PolygonShape northBorderPoly = new PolygonShape();
+		northBorderPoly.setAsBox(CAMERA_WIDTH, 0);
+		
+		BodyDef northBorderDef = new BodyDef();
+		northBorderDef.position.x = 0;
+		northBorderDef.position.y = CAMERA_WIDTH*scale;
+		northBorderDef.type = BodyType.StaticBody;
+		
+		northBorder = Game.getInstance().getWorld().createBody(northBorderDef);
+		northBorder.createFixture(northBorderPoly, 10);
+		northBorderPoly.dispose();
+		
+		//North border
+		PolygonShape southBorderPoly = new PolygonShape();
+		southBorderPoly.setAsBox(CAMERA_WIDTH, 0);
+		
+		BodyDef southBorderDef = new BodyDef();
+		southBorderDef.position.x = 0;
+		southBorderDef.position.y = -CAMERA_WIDTH*scale;
+		southBorderDef.type = BodyType.StaticBody;
+		
+		southBorder = Game.getInstance().getWorld().createBody(southBorderDef);
+		southBorder.createFixture(southBorderPoly, 10);
+		southBorderPoly.dispose();
+	
 		spriteBatch = new SpriteBatch();
 		guiBatch = new SpriteBatch();
 		renderer = new Box2DDebugRenderer();
@@ -117,7 +153,7 @@ public class Main implements ApplicationListener {
 		//Draw game objects.
 		drawGameObjects();
 
-		renderer.render(Game.getInstance().getWorld());
+		//renderer.render(Game.getInstance().getWorld());
 	}
 
 	private void drawGameObjects() {		

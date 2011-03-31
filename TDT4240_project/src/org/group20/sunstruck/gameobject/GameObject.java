@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public abstract class GameObject {
 
@@ -25,6 +26,7 @@ public abstract class GameObject {
 	float hull = 0;
 	float weapon = 0;
 	float shield = 0;
+	float impactDamage = 0;
 
 	// height and width of the body-rectangle.
 	float width = 0;
@@ -32,13 +34,15 @@ public abstract class GameObject {
 
 	public abstract void update();
 
+	public abstract void contact(WorldManifold worldManifold, float impactDamage);
+	
 	public abstract void dispose();
 
 	TextureRegion texture = null;
 
 	public GameObject(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
-			float hull, float weapon, float shield) {
+			float hull, float weapon, float shield, float impactDamage) {
 
 		texture = textureRegion;
 
@@ -62,6 +66,16 @@ public abstract class GameObject {
 		this.hull = hull;
 		this.weapon = weapon;
 		this.shield = shield;
+		this.impactDamage = impactDamage;
+	}
+	
+	
+	public float getImpactDamage() {
+		return impactDamage;
+	}
+
+	public void setImpactDamage(float impactDamage) {
+		this.impactDamage = impactDamage;
 	}
 
 	public float getWidth() {

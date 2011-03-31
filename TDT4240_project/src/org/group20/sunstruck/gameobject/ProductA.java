@@ -3,6 +3,7 @@ package org.group20.sunstruck.gameobject;
 import org.group20.sunstruck.Game;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 /**
  * Example class for products of the GameObjectFactory
@@ -25,7 +26,7 @@ public class ProductA extends GameObject {
 			TextureRegion textureRegion, float density, float speed,
 			float hull, float weapon, float shield, String string) {
 		super(position, width, height, textureRegion, density, speed, hull,
-				weapon, shield);
+				weapon, shield, shield);
 		testStr = string;
 		setType(TYPES.ENTITY3);
 	}
@@ -47,5 +48,11 @@ public class ProductA extends GameObject {
 	public void dispose() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void contact(WorldManifold worldManifold, float impactDamage) {
+		// TODO Auto-generated method stub
+		
 	}
 }

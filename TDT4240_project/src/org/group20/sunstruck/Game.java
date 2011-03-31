@@ -17,7 +17,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public class Game implements GameInterface, ContactListener{
 	public static boolean DEBUG = false;
@@ -34,6 +36,7 @@ public class Game implements GameInterface, ContactListener{
 	private Input input;	
 	private GUI gui;
 	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
+	private ArrayList<GameObject> gameObjectsToBeDestroyed = new ArrayList<GameObject>();
 	private float time;
 	
 	private Game() {
@@ -41,7 +44,8 @@ public class Game implements GameInterface, ContactListener{
 	}
 	
 	public void initializePlayer(){
-		player = new Player(new Vector2(0,0),1f, 1f, textureAtlas.findRegion("TIEBomber"), 10, 10, 1, 1,1);
+		player = new Player(new Vector2(0,0),1f, 1f, textureAtlas.findRegion("TIEBomber"), 1, 10, 1000, 1000,1000, 100);
+		player.getBody().setFixedRotation(true);
 		gameObjectList.add(player);
 	}
 	
@@ -67,31 +71,46 @@ public class Game implements GameInterface, ContactListener{
 		Behavior.initFilters();
 	}
 
-	public void update() {
+	public synchronized void update() {
+		clearGameObjectsToBeDestroyed();
+		
 		totalTime++;
 		if(Game.DEBUG) System.out.println("Total game updates: " + totalTime);
 		
 		time += Gdx.graphics.getDeltaTime();
 		if (time >= 0.01) {
-			Game.getInstance().getInput().update();
-			Game.getInstance().getPlayer().update();
+			input.update();
+			for(int i = 0; i < gameObjectList.size(); i++)
+				gameObjectList.get(i).update();
 			time = 0;
-			if (Game.getInstance().getInput().getHasFiredBomb())
-				System.out.println("ohjoy");
 		}
 	}
 
 	@Override
-	public void beginContact(Contact contact) {
+	public void  beginContact(Contact contact) {
 		Body A = contact.getFixtureA().getBody();
 		Body B = contact.getFixtureB().getBody();
 		
+		GameObject goA = null;
+		GameObject goB = null;
+		
 		for(GameObject go : gameObjectList){
-			if(go.getBody().equals(A) && B.equals(Main.eastBorder))
-				go.dispose();
-			if(go.getBody().equals(B) && A.equals(Main.eastBorder))
-				go.dispose();
+			if(go.getBody().equals(A))
+				goA = go;
+			if(go.getBody().equals(B))
+				goB = go;
 		}
+		
+		if(goA!=null)
+			if(goB!=null)
+				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
+			else
+				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+		if(goB!=null)
+			if(goA!=null)
+				goB.contact(contact.GetWorldManifold(), goB.getImpactDamage());
+			else
+				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 	}
 
 	@Override
@@ -99,11 +118,22 @@ public class Game implements GameInterface, ContactListener{
 		
 	}
 	
-	
+	private void clearGameObjectsToBeDestroyed(){
+		for(GameObject go : gameObjectsToBeDestroyed){
+			//Remove from physics
+			world.destroyBody(go.getBody());
+			//Remove from gameObjectList
+			gameObjectList.remove(go);
+		}
+		gameObjectsToBeDestroyed.clear();
+	}
 	
 	
 	
 	// Getter's and setter's (No shit) 
+	public ArrayList<GameObject> getGameObjectsToBeDestroyed(){
+		return gameObjectsToBeDestroyed;
+	}
 
 	public void setGoFactory(GameObjectFactory goFactory) {
 		this.goFactory = goFactory;
