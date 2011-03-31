@@ -75,7 +75,9 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	public synchronized void update() {
-		clearGameObjectsToBeDestroyed();
+		synchronized (this) {
+			clearGameObjectsToBeDestroyed();
+		}
 
 		totalTime++;
 		if (Game.DEBUG)
@@ -84,10 +86,10 @@ public class Game implements GameInterface, ContactListener {
 		time += Gdx.graphics.getDeltaTime();
 		if (time >= 0.01) {
 			input.update();
-			for (GameObject o : gameObjectList) {
-				o.update();
-				if (!(o instanceof Player) && Math.random() > 0.99)
-					Behavior.applyBehavior(o);
+			for (int i = 0; i < gameObjectList.size(); i++) {
+				gameObjectList.get(i).update();
+				if (!(gameObjectList.get(i) instanceof Player))
+					Behavior.applyBehavior(gameObjectList.get(i));
 			}
 			time = 0;
 		}
@@ -102,14 +104,12 @@ public class Game implements GameInterface, ContactListener {
 
 		GameObject goA = null;
 		GameObject goB = null;
-
 		for (GameObject go : gameObjectList) {
 			if (go.getBody().equals(A))
 				goA = go;
 			if (go.getBody().equals(B))
 				goB = go;
 		}
-
 		if (goA != null)
 			if (goB != null)
 				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
@@ -138,7 +138,8 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	private void spawnEnemies() {
-		TieInterceptor t = new TieInterceptor(new Vector2(6, (int)(Math.random()*14-6)), 1f, 1f,
+		TieInterceptor t = new TieInterceptor(new Vector2(6,
+				(int) (Math.random() * 14 - 6)), 1f, 1f,
 				textureAtlas.findRegion("TIEFighter"), 1, 10, 10, 10, 10, 100);
 		t.getBody().setFixedRotation(true);
 		gameObjectList.add(t);

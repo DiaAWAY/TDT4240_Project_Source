@@ -17,12 +17,13 @@ public class Projectile extends GameObject{
 			float hull, float weapon, float shield, float impactDamage) {
 		super(position, width, height, textureRegion, density, speed, hull, weapon,
 				shield, impactDamage);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void dispose() {
-		Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
+		synchronized(Game.getInstance().getGameObjectsToBeDestroyed()) {
+			Game.getInstance().getGameObjectsToBeDestroyed().add(this);
+		}
 	}
 	
 	public String toString(){

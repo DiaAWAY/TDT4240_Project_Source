@@ -14,11 +14,10 @@ public class Filter1 implements Filter {
 
 	@Override
 	public void applyFilter(Body body) {
-		if(Game.DEBUG) System.out.println("FILTER1 HAS BEEN APPLIED");
 		Vector2 player = Game.getInstance().getPlayer().getBody().getWorldCenter();
 		Vector2 direction = player.sub(body.getWorldCenter());
 		direction.nor();
-		direction.mul(2);
+		//direction.mul(2);
 		body.applyLinearImpulse(direction, body.getWorldCenter());
 	}
 

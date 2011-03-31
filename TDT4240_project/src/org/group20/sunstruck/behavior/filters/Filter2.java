@@ -16,10 +16,9 @@ public class Filter2 implements Filter {
 	
 	@Override
 	public void applyFilter(Body body) {
-		Vector2 direction = new Vector2(0, (float) Math.sin(d));
-		body.setLinearVelocity(new Vector2(-1, 0));
-		body.applyLinearImpulse(direction, body.getPosition());
-		
+	if (Math.random() > 0.8) {
+		body.applyForce(new Vector2(-1, (float) Math.sin(d)*3), body.getPosition());
+	}
 		if (d == up) {
 			d = down;
 		} else {
