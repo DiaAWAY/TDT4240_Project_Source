@@ -71,7 +71,7 @@ public class Player extends GameObject {
 		Vector2 pos = body.getWorldCenter().add((float) (width/2 +0.6), 0);
 	
 		// TODO use gameobjectfactory!
-		Projectile laser = new Projectile(pos, 1f, 1f, Game.textureAtlas.findRegion("redLaser"),  1000, 0.1f, 0, 0, 0, 10);
+		Projectile laser = new Projectile(pos, 1f, 1f, Game.textureAtlas.findRegion("TIEFighter"),  1000, 0.1f, 0, 0, 0, 10);
 		Vector2 vel = new Vector2(1, 0);
 		vel.mul(laser.getSpeed());
 		laser.getBody().setLinearVelocity(vel);
@@ -95,7 +95,7 @@ public class Player extends GameObject {
 		Vector2 pos = body.getWorldCenter().add((float) (width/2 +0.6), 0);
 		
 		// TODO use gameobjectfactory!
-		Projectile laser = new Projectile(pos, 0.1f, 0.1f, Game.textureAtlas.findRegion("redLaser"), 10, 10, 0, 0, 0, 10);
+		Projectile laser = new Projectile(pos, 1f, 1f, Game.textureAtlas.findRegion("TIEFighter"), 10, 10, 0, 0, 0, 10);
 		Vector2 vel = new Vector2(1, 0);
 		vel.mul(laser.getSpeed());
 		laser.getBody().setLinearVelocity(vel);

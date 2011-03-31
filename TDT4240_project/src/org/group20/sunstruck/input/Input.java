@@ -3,6 +3,7 @@ package org.group20.sunstruck.input;
 
 
 import org.group20.sunstruck.Game;
+import org.group20.sunstruck.Shop;
 import org.group20.sunstruck.gui.GUI;
 
 import com.badlogic.gdx.Gdx;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 public class Input{
+	
 	//How many simultaneous touches to the screen are to be checked. 
 	final int NUMBER_OF_POINTERS = 2;
 	//How fast the ship should brake.
@@ -39,6 +41,20 @@ public class Input{
 	 * Updates the ship position according to the input, checks if the fire button has been pressed, and if the accelerometer has been activated. 
 	 */
 	public void update(){
+		if(Shop.isActive)
+			updateShop();
+		else
+			updatePlayer();
+		
+		
+	}
+	
+	private void updateShop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void updatePlayer(){
 		hasFired = false;
 		hasFiredBomb = false;
 		//Loops through the number of pointers to check.

@@ -138,14 +138,24 @@ public class Main implements ApplicationListener {
 		if (!run)
 			return;
 		
-		//Update game objects
-		Game.getInstance().update();
-		
+		Gdx.gl.glClearColor(1, 1, 1, 
+				1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
 		//Draw background
 		drawBackground();
 
-		//Draw GUI objects.
-		drawGui();
+		if(Shop.isActive){
+			drawGuiShop();
+			drawGameObjects();
+			return;
+		}
+		
+		//Update game objects
+		Game.getInstance().update();
+		
+		//Draw GUI controls objects.
+		drawGuiControls();
 
 		//Update physics and camera.
 		updatePhysicsAndCamera();
@@ -154,6 +164,17 @@ public class Main implements ApplicationListener {
 		drawGameObjects();
 
 		//renderer.render(Game.getInstance().getWorld());
+		
+	}
+
+	private void drawGuiShop() {	
+		guiBatch.begin();
+		for(Sprite sprite : Game.getInstance().getGui().getShopSpriteList())
+			sprite.draw(guiBatch);
+		guiBatch.end();
+		
+		
+		
 	}
 
 	private void drawGameObjects() {		
@@ -162,7 +183,7 @@ public class Main implements ApplicationListener {
 		for (GameObject go : Game.getInstance().getGameObjectList()) {
 			TextureRegion texture = go.getTexture();
 			float x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation;
-	
+			
 			halfWidth = go.getWidth() / 2;
 			halfHeight = go.getHeight() / 2;
 	
@@ -176,6 +197,7 @@ public class Main implements ApplicationListener {
 	
 			scaleX = 2;
 			scaleY = 2;
+			
 			spriteBatch.draw(new TextureRegion(texture), x, y, originX,
 					originY, halfWidth, halfHeight, scaleX, scaleY, rotation);
 		}
@@ -194,9 +216,9 @@ public class Main implements ApplicationListener {
 		
 	}
 
-	private void drawGui() {
+	private void drawGuiControls() {
 		guiBatch.begin();
-		for (Sprite sprite : Game.getInstance().getGui().getSpriteList())
+		for (Sprite sprite : Game.getInstance().getGui().getControlSpriteList())
 			sprite.draw(guiBatch);
 		guiBatch.end();
 		
