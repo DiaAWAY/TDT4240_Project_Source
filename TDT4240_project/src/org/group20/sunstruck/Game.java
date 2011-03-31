@@ -86,7 +86,7 @@ public class Game implements GameInterface, ContactListener {
 			input.update();
 			for (GameObject o : gameObjectList) {
 				o.update();
-				if (!(o instanceof Player))
+				if (!(o instanceof Player) && Math.random() > 0.99)
 					Behavior.applyBehavior(o);
 			}
 			time = 0;

@@ -1,7 +1,5 @@
 package org.group20.sunstruck.behavior.filters;
 
-import org.group20.sunstruck.Game;
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -12,10 +10,21 @@ import com.badlogic.gdx.physics.box2d.Body;
  */
 public class Filter2 implements Filter {
 
+	private double d = Math.PI/2;
+	private double up = Math.PI/2;
+	private double down = (3*Math.PI)/2;
+	
 	@Override
 	public void applyFilter(Body body) {
-		if(Game.DEBUG) System.out.println("FILTER2 HAS BEEN APPLIED");
-		body.setLinearVelocity(new Vector2(-2,0));
+		Vector2 direction = new Vector2(0, (float) Math.sin(d));
+		body.setLinearVelocity(new Vector2(-1, 0));
+		body.applyLinearImpulse(direction, body.getPosition());
+		
+		if (d == up) {
+			d = down;
+		} else {
+			d = up;
+		}
 	}
 
 }

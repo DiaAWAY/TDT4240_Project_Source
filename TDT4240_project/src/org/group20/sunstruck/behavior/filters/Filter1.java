@@ -19,7 +19,7 @@ public class Filter1 implements Filter {
 		Vector2 direction = player.sub(body.getWorldCenter());
 		direction.nor();
 		direction.mul(2);
-		body.setLinearVelocity(direction);
+		body.applyLinearImpulse(direction, body.getWorldCenter());
 	}
 
 }
