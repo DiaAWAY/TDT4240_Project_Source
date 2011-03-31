@@ -1,75 +1,89 @@
 
-Sprites1.png
+Textures1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-seaworldBGPlaceholder2
-  rotate: false
-  xy: 0, 0
-  size: 512, 1024
-  orig: 512, 1024
-  offset: 0, 0
-  index: -1
-seaworldBGPlaceholder
-  rotate: false
-  xy: 0, 1025
-  size: 512, 1024
-  orig: 512, 1024
-  offset: 0, 0
-  index: -1
 controlCircle
   rotate: false
-  xy: 0, 2050
-  size: 126, 125
+  xy: 0, 0
+  size: 128, 128
   orig: 128, 128
-  offset: 1, 2
+  offset: 0, 0
   index: -1
-TIE
+TIEFighter
   rotate: false
-  xy: 127, 2050
+  xy: 0, 129
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-placeholder
+TIEBomber
   rotate: false
-  xy: 192, 2050
+  xy: 0, 194
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 fireButton
   rotate: false
-  xy: 257, 2050
+  xy: 0, 259
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-TIE
+guiUpgradeWeaponPressed
   rotate: false
-  xy: 127, 2115
-  size: 49, 52
-  orig: 64, 64
-  offset: 9, 6
-  index: -1
-yellowLaser
-  rotate: false
-  xy: 127, 2168
-  size: 1, 1
-  orig: 1, 1
+  xy: 0, 324
+  size: 128, 32
+  orig: 128, 32
   offset: 0, 0
   index: -1
-redLaser
+guiUpgradeWeapon
   rotate: false
-  xy: 127, 2170
-  size: 1, 1
-  orig: 1, 1
+  xy: 0, 357
+  size: 128, 32
+  orig: 128, 32
   offset: 0, 0
   index: -1
-blueLaser
+guiUpgradeSpeedPressed
   rotate: false
-  xy: 127, 2172
-  size: 1, 1
-  orig: 1, 1
+  xy: 0, 390
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeSpeed
+  rotate: false
+  xy: 0, 423
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeShieldPressed
+  rotate: false
+  xy: 0, 456
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeShield
+  rotate: false
+  xy: 0, 489
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeHullPressed
+  rotate: false
+  xy: 0, 522
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeHull
+  rotate: false
+  xy: 0, 555
+  size: 128, 32
+  orig: 128, 32
   offset: 0, 0
   index: -1

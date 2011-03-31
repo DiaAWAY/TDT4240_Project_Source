@@ -3,6 +3,7 @@ package org.group20.sunstruck.input;
 
 
 import org.group20.sunstruck.Game;
+import org.group20.sunstruck.Shop;
 import org.group20.sunstruck.gui.GUI;
 
 import com.badlogic.gdx.Gdx;
@@ -10,12 +11,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 public class Input{
+	
 	//How many simultaneous touches to the screen are to be checked. 
 	final int NUMBER_OF_POINTERS = 2;
 	//How fast the ship should brake.
 	final float BRAKE_FACTOR = 0.93f;
 	//How fast the phone must accelerate to activate the bomb.
-	final float ACCELERATION_THRESHOLD = 17;
+	final float ACCELERATION_THRESHOLD = 13;
 	   
 	//Boolean to store whether the fire button has been pressed.
 	boolean hasFired = false;
@@ -39,6 +41,22 @@ public class Input{
 	 * Updates the ship position according to the input, checks if the fire button has been pressed, and if the accelerometer has been activated. 
 	 */
 	public void update(){
+		if(Shop.isActive)
+			updateShop();
+		else
+			updatePlayer();
+		
+		
+	}
+	
+	private void updateShop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void updatePlayer(){
+		hasFired = false;
+		hasFiredBomb = false;
 		//Loops through the number of pointers to check.
 		for(int i = 0; i < NUMBER_OF_POINTERS; i++)
 			if(Gdx.input.isTouched(i)){
@@ -111,14 +129,19 @@ public class Input{
 		float scaleSpeed = (float)(Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2))/(controlCircle.getHeight()/2));
 		scaleSpeed = (float) Math.pow(scaleSpeed, 0.7);
 		
+		float x = 0;
+		float y = 0;
+		
 		//If the touch is close to the center of the move circle, the scaleSpeed variable will be set to 0 (i.e. no movement).
 		if(scaleSpeed < 0.2)
 			scaleSpeed = 0;
+		else{
+			//Get the unit vector (enhetsvektor)
+			x = inputX/(Math.abs(inputX)+Math.abs(inputY));
+			y = inputY/(Math.abs(inputY)+Math.abs(inputX));
+		}
 		
-		//Get the unit vector (enhetsvektor)
-		float x = inputX/(Math.abs(inputX)+Math.abs(inputY));
-		float y = inputY/(Math.abs(inputY)+Math.abs(inputX));
-		
+	
 		//Get the players speed, to adjust the speed according to updates.
 		float playerSpeed = Game.getInstance().getPlayer().getSpeed();
 		
@@ -129,6 +152,7 @@ public class Input{
 		newVelocity.set(x, y);
 		
 		velocityChanged = true;
+		
 	}
 
 	private void brakePlayerSpeed(){
@@ -149,9 +173,11 @@ public class Input{
 	 * @return true if fire button was pressed.
 	 */
 	public boolean getHasFired(){
+		/*
 		boolean temp = hasFired;
 		hasFired = false;
-		return temp;
+		*/
+		return hasFired;
 	}
 	
 	/**
@@ -159,9 +185,11 @@ public class Input{
 	 * @return true if bomb was fired.
 	 */
 	public boolean getHasFiredBomb(){
+		/*
 		boolean temp = hasFiredBomb;
 		hasFiredBomb = false;
-		return temp;
+		*/
+		return hasFiredBomb;
 	}
 
 

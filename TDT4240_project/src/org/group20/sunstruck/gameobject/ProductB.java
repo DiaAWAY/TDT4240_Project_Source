@@ -3,6 +3,7 @@ package org.group20.sunstruck.gameobject;
 import org.group20.sunstruck.Game;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 /**
  * Example class for products of the GameObjectFactory
@@ -16,6 +17,7 @@ public class ProductB extends GameObject { // TODO remove test class
 			float hull, float weapon, float shield) {
 		super(position, width, height, textureRegion, density, speed, hull, weapon,
 				shield);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -27,6 +29,12 @@ public class ProductB extends GameObject { // TODO remove test class
 
 	@Override
 	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void contact(WorldManifold worldManifold, float impactDamage) {
 		// TODO Auto-generated method stub
 		
 	}
