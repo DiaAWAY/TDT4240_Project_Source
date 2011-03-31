@@ -13,15 +13,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 public abstract class GameObject {
 
 	public static enum TYPES {
-		UNKNOWN, ENTITY1, ENTITY2, ENTITY3
+		PLAYER, ENEMY, BULLET, UNKNOWN
 	}
 
 	TYPES type = TYPES.UNKNOWN;
 
 	GameObject weaponType = null;
-
-	Body body = null;
-
 	float speed = 0;
 	float hull = 0;
 	float weapon = 0;
@@ -38,8 +35,8 @@ public abstract class GameObject {
 	
 	public abstract void dispose();
 
-	TextureRegion texture = null;
-
+	TextureRegion textureRegion = null;
+	/*
 	public GameObject(Vector2 position, float width, float height,
 			TextureRegion textureRegion, float density, float speed,
 			float hull, float weapon, float shield, float impactDamage) {
@@ -68,14 +65,34 @@ public abstract class GameObject {
 		this.shield = shield;
 		this.impactDamage = impactDamage;
 	}
-	
-	
-	public float getImpactDamage() {
-		return impactDamage;
+	*/
+
+	public TYPES getType() {
+		return type;
 	}
 
-	public void setImpactDamage(float impactDamage) {
-		this.impactDamage = impactDamage;
+	public GameObject getWeaponType() {
+		return weaponType;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
+	public float getHull() {
+		return hull;
+	}
+
+	public float getWeapon() {
+		return weapon;
+	}
+
+	public float getShield() {
+		return shield;
+	}
+
+	public float getImpactDamage() {
+		return impactDamage;
 	}
 
 	public float getWidth() {
@@ -87,62 +104,7 @@ public abstract class GameObject {
 	}
 
 	public TextureRegion getTexture() {
-		return texture;
+		return textureRegion;
 	}
-
-	public Body getBody() {
-		return body;
-	}
-
-	public void setBody(Body body) {
-		this.body = body;
-	}
-
-	public void setType(TYPES type) {
-		this.type = type;
-	}
-
-	public TYPES getType() {
-		return type;
-	}
-
-	public GameObject getWeaponType() {
-		return weaponType;
-	}
-
-	public void setWeaponType(GameObject weaponType) {
-		this.weaponType = weaponType;
-	}
-
-	public float getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(float speed) {
-		this.speed = speed;
-	}
-
-	public double getHull() {
-		return hull;
-	}
-
-	public void setHull(float hull) {
-		this.hull = hull;
-	}
-
-	public double getWeapon() {
-		return weapon;
-	}
-
-	public void setWeapon(float weapon) {
-		this.weapon = weapon;
-	}
-
-	public double getShield() {
-		return shield;
-	}
-
-	public void setShield(float shield) {
-		this.shield = shield;
-	}
+	
 }
