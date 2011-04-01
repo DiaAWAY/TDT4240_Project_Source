@@ -24,128 +24,146 @@ background
   orig: 512, 512
   offset: 0, 0
   index: -1
-stars3
-  rotate: false
-  xy: 0, 2563
-  size: 320, 480
-  orig: 320, 480
-  offset: 0, 0
-  index: -1
-stars2
-  rotate: false
-  xy: 0, 3044
-  size: 320, 480
-  orig: 320, 480
-  offset: 0, 0
-  index: -1
-stars1
-  rotate: false
-  xy: 0, 3525
-  size: 320, 480
-  orig: 320, 480
-  offset: 0, 0
-  index: -1
 controlCircle
   rotate: false
-  xy: 321, 2563
+  xy: 0, 2563
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-TIEFighter
+enemy1
   rotate: false
-  xy: 321, 2692
+<<<<<<< HEAD
+  xy: 129, 2563
   size: 64, 64
   orig: 64, 64
+=======
+  xy: 0, 129
+  size: 124, 123
+  orig: 124, 124
+>>>>>>> knutesten-master
   offset: 0, 0
   index: -1
 TIEBomber
   rotate: false
-  xy: 386, 2692
+<<<<<<< HEAD
+  xy: 194, 2563
+=======
+  xy: 0, 253
+>>>>>>> knutesten-master
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 fireButton
   rotate: false
-  xy: 321, 2757
+<<<<<<< HEAD
+  xy: 259, 2563
+=======
+  xy: 0, 318
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+enemy2
+  rotate: false
+  xy: 0, 383
+>>>>>>> knutesten-master
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 guiUpgradeWeaponPressed
   rotate: false
-  xy: 321, 2822
+<<<<<<< HEAD
+  xy: 324, 2563
+=======
+  xy: 0, 448
+>>>>>>> knutesten-master
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeWeapon
   rotate: false
-  xy: 321, 2855
+<<<<<<< HEAD
+  xy: 324, 2596
+=======
+  xy: 0, 481
+>>>>>>> knutesten-master
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeSpeedPressed
   rotate: false
-  xy: 321, 2888
+<<<<<<< HEAD
+  xy: 324, 2629
+=======
+  xy: 0, 514
+>>>>>>> knutesten-master
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeSpeed
   rotate: false
-  xy: 321, 2921
+<<<<<<< HEAD
+  xy: 0, 2692
+=======
+  xy: 0, 547
+>>>>>>> knutesten-master
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeShieldPressed
   rotate: false
-  xy: 321, 2954
+<<<<<<< HEAD
+  xy: 129, 2692
+=======
+  xy: 0, 580
+>>>>>>> knutesten-master
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeShield
   rotate: false
-  xy: 321, 2987
+<<<<<<< HEAD
+  xy: 258, 2692
+=======
+  xy: 0, 613
+>>>>>>> knutesten-master
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeHullPressed
   rotate: false
-  xy: 321, 3044
+<<<<<<< HEAD
+  xy: 0, 2725
+=======
+  xy: 0, 646
+>>>>>>> knutesten-master
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeHull
   rotate: false
-  xy: 321, 3077
+<<<<<<< HEAD
+  xy: 129, 2725
+=======
+  xy: 0, 679
+>>>>>>> knutesten-master
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
-yellowLaser
-  rotate: false
-  xy: 450, 2563
-  size: 1, 1
-  orig: 1, 1
-  offset: 0, 0
-  index: -1
 redLaser
   rotate: false
-  xy: 452, 2563
-  size: 1, 1
-  orig: 1, 1
-  offset: 0, 0
-  index: -1
-blueLaser
-  rotate: false
-  xy: 454, 2563
+  xy: 125, 129
   size: 1, 1
   orig: 1, 1
   offset: 0, 0

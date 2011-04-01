@@ -3,12 +3,8 @@ package org.group20.sunstruck.gameobject;
 import org.group20.sunstruck.Game;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public abstract class GameObject {
 
@@ -17,8 +13,6 @@ public abstract class GameObject {
 	}
 
 	TYPES type = TYPES.UNKNOWN;
-	
-	boolean isDisposed = false;
 
 	boolean isDisposed = false;
 	GameObject weaponType = null;
@@ -31,15 +25,15 @@ public abstract class GameObject {
 	// height and width of the body-rectangle.
 	float width = 0;
 	float height = 0;
-	
+
 	Body body = null;
 
 	public abstract void update();
 
 	public abstract void contact(WorldManifold worldManifold, float impactDamage);
-	
-	public void dispose(){
-		if(!isDisposed){
+
+	public void dispose() {
+		if (!isDisposed) {
 			Game.getInstance().getDestroyedBodiesList().add(body);
 			isDisposed = true;
 		}
@@ -86,8 +80,8 @@ public abstract class GameObject {
 	public TextureRegion getTexture() {
 		return textureRegion;
 	}
-	
-	public Body getBody(){
+
+	public Body getBody() {
 		return body;
 	}
 
@@ -114,5 +108,5 @@ public abstract class GameObject {
 	public void setImpactDamage(float impactDamage) {
 		this.impactDamage = impactDamage;
 	}
-	
+
 }
