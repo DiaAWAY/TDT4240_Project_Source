@@ -1,7 +1,7 @@
 package org.group20.sunstruck.behavior.filters;
 
-import org.group20.sunstruck.Game;
-import org.group20.sunstruck.gameobject.GameObject;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 
 /**
  * Example filter for the Behavior class
@@ -10,10 +10,20 @@ import org.group20.sunstruck.gameobject.GameObject;
  */
 public class Filter2 implements Filter {
 
+	private double d = Math.PI/2;
+	private final double up = Math.PI/2;
+	private final double down = (3*Math.PI)/2;
+	
 	@Override
-	public void applyFilter(GameObject go) {
-		// TODO Auto-generated method stub
-		if(Game.DEBUG) System.out.println("FILTER2 HAS BEEN APPLIED");
+	public void applyFilter(Body body) {
+	if (Math.random() > 0.8) {
+		body.applyForce(new Vector2(-1, (float) Math.sin(d)*10), body.getPosition());
+	}
+		if (d == up) {
+			d = down;
+		} else {
+			d = up;
+		}
 	}
 
 }

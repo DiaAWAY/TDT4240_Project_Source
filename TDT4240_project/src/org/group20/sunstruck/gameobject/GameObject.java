@@ -20,6 +20,7 @@ public abstract class GameObject {
 	
 	boolean isDisposed = false;
 
+	boolean isDisposed = false;
 	GameObject weaponType = null;
 	float speed = 0;
 	float hull = 0;

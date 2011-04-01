@@ -1,6 +1,6 @@
 package org.group20.sunstruck.behavior.filters;
 
-import org.group20.sunstruck.gameobject.GameObject;
+import com.badlogic.gdx.physics.box2d.Body;
 
 /**
  * Interface for the behavior filters used in Behavior
@@ -9,5 +9,5 @@ import org.group20.sunstruck.gameobject.GameObject;
  */
 public interface Filter {
 
-	public void applyFilter(GameObject go);
+	public void applyFilter(Body b);
 }
