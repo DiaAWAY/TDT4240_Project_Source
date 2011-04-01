@@ -26,7 +26,7 @@ public class Main implements ApplicationListener {
 	// The width and height of the orthographical camera
 	public static final float CAMERA_WIDTH = 10;
 	public static float bgScale = 1.0f;
-	public static float bgSpeed = 0.001f;
+	public static float bgSpeed = 2.0f;
 	public static Body eastBorder;
 	public static Body northBorder;
 	public static Body westBorder;
@@ -38,7 +38,9 @@ public class Main implements ApplicationListener {
 	private SpriteBatch backgroundBatch;
 	private OrthographicCamera camera;
 	private Box2DDebugRenderer renderer;
+	private float bgYOffset = 10;
 	private int bgIteration = 0;
+	private float time = 0;
 	private boolean run = true;
 
 	@Override
@@ -125,10 +127,10 @@ public class Main implements ApplicationListener {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		//Draw background
+		// Draw background
 		drawBackground();
 
-		if(Shop.isActive){
+		if (Shop.isActive) {
 			drawGuiShop();
 			drawGameObjects();
 			return;
@@ -165,19 +167,19 @@ public class Main implements ApplicationListener {
 	private void drawGameObjects() {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
-		
+
 		GameObject go = null;
 		Iterator<Body> it = Game.getInstance().getWorld().getBodies();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			go = (GameObject) it.next().getUserData();
-			
-			if(go == null)
+
+			if (go == null)
 				continue;
 			float x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation;
-			
+
 			halfWidth = go.getWidth() / 2;
 			halfHeight = go.getHeight() / 2;
-	
+
 			rotation = (float) (go.getBody().getAngle() * 180 / Math.PI);
 
 			x = go.getBody().getPosition().x - halfWidth / 2;
@@ -224,18 +226,24 @@ public class Main implements ApplicationListener {
 		float bgPosition = bgIteration * bgSpeed;
 		if (rf != null && rl != null) {
 			backgroundBatch.begin();
-			backgroundBatch.draw(rf, -bgPosition, 0);
-			backgroundBatch.draw(rl, -bgPosition + rf.getRegionWidth(), 0);
+			backgroundBatch.draw(rf, -bgPosition, bgYOffset);
+			backgroundBatch.draw(rl, -bgPosition + rf.getRegionWidth(), bgYOffset);
 			backgroundBatch.end();
 		} else {
-			System.out.println("drawBackground(): rf is:"+rf+", rl is:"+rl);
+			System.out.println("drawBackground(): rf is:" + rf + ", rl is:"
+					+ rl);
 		}
-		bgIteration++;
+		time += Gdx.app.getGraphics().getDeltaTime();
+		if (time > 0.01f) {
+			time = 0;
+			bgIteration++;
+		}
 		if (bgPosition > rf.getRegionWidth() - 1) {
 			first = last;
 			last = Game.getInstance().getMap().getNext();
 			bgIteration = 0;
 		}
+
 	}
 
 	@Override

@@ -1,8 +1,6 @@
 package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
-import org.group20.sunstruck.behavior.Behavior;
-import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -11,19 +9,21 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 public abstract class GameObject {
 
 	public static enum TYPES {
-		PLAYER, ENEMY, METEORITE, BULLET, UNKNOWN
+		PLAYER, ENEMY, BULLET, UNKNOWN
 	}
 
 	TYPES type = TYPES.UNKNOWN;
-	BEHAVIOR behavior = BEHAVIOR.LINE;
-	
+
+	boolean isProjectile = false;
 	boolean isDisposed = false;
+	boolean isEnemy = true;
 	GameObject weaponType = null;
 	float speed = 0;
 	float hull = 0;
 	float weapon = 0;
 	float shield = 0;
 	float impactDamage = 0;
+	int score = 0;
 
 	// height and width of the body-rectangle.
 	float width = 0;
@@ -31,9 +31,7 @@ public abstract class GameObject {
 
 	Body body = null;
 
-	public void update(){
-		Behavior.applyBehavior(this);
-	}
+	public abstract void update();
 
 	public abstract void contact(WorldManifold worldManifold, float impactDamage);
 
@@ -113,14 +111,25 @@ public abstract class GameObject {
 	public void setImpactDamage(float impactDamage) {
 		this.impactDamage = impactDamage;
 	}
-
-	public BEHAVIOR getBehavior() {
-		return behavior;
+	
+	public void setScore(int score) {
+		this.score = score;
 	}
 
-	public void setBehavior(BEHAVIOR behavior) {
-		this.behavior = behavior;
+	public int getScore() {
+		return score;
 	}
 	
+	public boolean isDisposed() {
+		return isDisposed;
+	}
+	
+	public boolean isProjectile() {
+		return isProjectile;
+	}
+	
+	public boolean isEnemy() {
+		return isEnemy;
+	}
 
 }

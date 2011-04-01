@@ -4,7 +4,7 @@ import org.group20.sunstruck.Game;
 
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
-public class Enemy1 extends GameObject {
+public class Boss extends GameObject {
 
 	@Override
 	public void update() {
