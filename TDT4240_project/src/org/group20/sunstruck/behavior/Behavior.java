@@ -25,14 +25,14 @@ public class Behavior {
 	}
 
 	public static boolean applyBehavior(GameObject o) {
-		// TODO implement methods and variables that enables us to select
-		// behavior depending on gamestates
-		if (Math.random() > 0.7) {
-			filters.get((int) (Math.random() * (filters.size() - 1) + 0.5))
-					.applyFilter(o.getBody()); // lol
+//		if (Math.random() > 0.7) {
+//			filters.get((int) (Math.random() * (filters.size() - 1) + 0.5))
+//					.applyFilter(o.getBody()); // lol
+//			return true;
+//		}
+		switch (o.getType()) {
+		
 		}
-		// TODO add implementation
-		 //filters.get(0).applyFilter(o.getBody());
 		return false;
 	}
 

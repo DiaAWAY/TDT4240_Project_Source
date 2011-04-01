@@ -7,7 +7,6 @@ import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
 import org.group20.sunstruck.gameobject.Player;
-import org.group20.sunstruck.gameobject.TieInterceptor;
 import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
 import org.group20.sunstruck.interfaces.GameInterface;
@@ -15,27 +14,22 @@ import org.group20.sunstruck.world.map.MapGenerator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Game implements GameInterface, ContactListener {
 	public static boolean DEBUG = false;
 	public static TextureAtlas textureAtlas = new TextureAtlas(
 			Gdx.files.internal("data/pack"));
 	private float updateRate = 1.0f; // physics update rate
-	private float spawnRate = 1.0f;
 	private float totalTime;
 	private Vector2 initGravity = new Vector2(0, 0);
 	private DIFFICULTIES difficulty;
-	private GameObjectFactory goFactory = new GameObjectFactory();	
+	private GameObjectFactory goFactory;	
 	private MapGenerator map = new MapGenerator();
 	private Player player;	
 	private Shop shop;	
@@ -78,7 +72,7 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	public void update() {
-		clearDestoryedBodiesList();
+		clearDestroyedBodiesList();
 		
 		totalTime++;
 		if(Game.DEBUG) System.out.println("Total game updates: " + totalTime);
