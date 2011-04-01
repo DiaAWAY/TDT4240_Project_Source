@@ -1,12 +1,12 @@
 package org.group20.sunstruck.behavior.filters;
 
 
-import com.badlogic.gdx.physics.box2d.Body;
+import org.group20.sunstruck.gameobject.GameObject;
 
 public class Rotation implements Filter {
 
 	@Override
-	public void applyFilter(Body b) {
+	public void applyFilter(GameObject go) {
 		// TODO Auto-generated method stub
 
 	}

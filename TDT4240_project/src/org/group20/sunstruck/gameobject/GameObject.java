@@ -1,6 +1,7 @@
 package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
+import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -13,6 +14,8 @@ public abstract class GameObject {
 	}
 
 	TYPES type = TYPES.UNKNOWN;
+
+	BEHAVIOR behavior = BEHAVIOR.LINE;
 
 	boolean isProjectile = false;
 	boolean isDisposed = false;
@@ -31,7 +34,12 @@ public abstract class GameObject {
 
 	Body body = null;
 
-	public abstract void update();
+	public void update() {
+		if (!isDisposed) {
+			Game.getInstance().getDestroyedBodiesList().add(body);
+			isDisposed = true;
+		}
+	}
 
 	public abstract void contact(WorldManifold worldManifold, float impactDamage);
 
@@ -111,7 +119,7 @@ public abstract class GameObject {
 	public void setImpactDamage(float impactDamage) {
 		this.impactDamage = impactDamage;
 	}
-	
+
 	public void setScore(int score) {
 		this.score = score;
 	}
@@ -119,17 +127,25 @@ public abstract class GameObject {
 	public int getScore() {
 		return score;
 	}
-	
+
 	public boolean isDisposed() {
 		return isDisposed;
 	}
-	
+
 	public boolean isProjectile() {
 		return isProjectile;
 	}
-	
+
 	public boolean isEnemy() {
 		return isEnemy;
+	}
+
+	public BEHAVIOR getBehavior() {
+		return behavior;
+	}
+
+	public void setBehavior(BEHAVIOR behavior) {
+		this.behavior = behavior;
 	}
 
 }
