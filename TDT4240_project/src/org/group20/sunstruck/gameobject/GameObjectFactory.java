@@ -45,7 +45,7 @@ public class GameObjectFactory {
 		this.difficulty = difficulty;
 	}
 
-	public GameObject getPlayer() {
+	public GameObject createPlayer() {
 		GameObject player = new Player();
 
 		// Defines the body and creates it
@@ -79,7 +79,7 @@ public class GameObjectFactory {
 		return player;
 	}
 
-	public GameObject getLaser(GameObject shooter) {
+	public GameObject createLaser(GameObject shooter) {
 		GameObject laser = new Laser();
 
 		laser.type = TYPES.BULLET;
@@ -109,7 +109,7 @@ public class GameObjectFactory {
 		return laser;
 	}
 
-	public GameObject getEnemy1(Vector2 position) {
+	public GameObject createEnemy1(Vector2 position) {
 		GameObject enemy1 = new Enemy1();
 
 		enemy1.type = TYPES.ENEMY;
@@ -143,6 +143,6 @@ public class GameObjectFactory {
 
 	public void generateWeaponShot(GameObject weaponType, GameObject shooter) {
 		if (weaponType instanceof Laser)
-			getLaser(shooter);
+			createLaser(shooter);
 	}
 }

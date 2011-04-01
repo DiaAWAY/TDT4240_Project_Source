@@ -25,13 +25,10 @@ public class Behavior {
 	}
 
 	public static boolean applyBehavior(GameObject o) {
-//		if (Math.random() > 0.7) {
-//			filters.get((int) (Math.random() * (filters.size() - 1) + 0.5))
-//					.applyFilter(o.getBody()); // lol
-//			return true;
-//		}
-		switch (o.getType()) {
-		
+		if (Math.random() > 0.7) {
+			filters.get((int) (Math.random() * (filters.size() - 1) + 0.5))
+					.applyFilter(o.getBody()); // lol
+			return true;
 		}
 		return false;
 	}

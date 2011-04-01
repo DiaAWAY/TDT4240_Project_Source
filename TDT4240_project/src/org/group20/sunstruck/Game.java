@@ -38,7 +38,8 @@ public class Game implements GameInterface, ContactListener {
 	private GUI gui; 
 	private ArrayList<Body> destroyedBodiesList = new ArrayList<Body>();
 	private float time;
-	
+	private boolean bossMode = false;
+	private int bossTimer = 0;
 	private float enemySpawnTime = 0;
 	
 	private Game() {
@@ -46,7 +47,7 @@ public class Game implements GameInterface, ContactListener {
 	}
 	
 	public void initializePlayer(){
-		player = (Player)goFactory.getPlayer();
+		player = (Player)goFactory.createPlayer();
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -98,14 +99,27 @@ public class Game implements GameInterface, ContactListener {
 			time = 0;
 		}
 		
+		// SPAWNING ENEMIES
+		if (!bossMode) {
+			spawnEnemy();
+		} else {
+			spawnBoss();
+		}
+	}
+	
+	private void spawnEnemy() {
 		enemySpawnTime+=Gdx.graphics.getDeltaTime();
 		if(enemySpawnTime >= 0.1){
-			
-			goFactory.getEnemy1(new Vector2(7, 0));
-			
+			goFactory.createEnemy1(new Vector2(7, 0));			
 			enemySpawnTime = 0;
 		}
-		
+	}
+	
+	private void spawnBoss() {
+		bossTimer+=Gdx.graphics.getDeltaTime();
+		if (bossTimer > 5) {
+			goFactory.createEnemy1(new Vector2(7, 0));
+		}
 	}
 
 	@Override
@@ -143,12 +157,9 @@ public class Game implements GameInterface, ContactListener {
 		for(Body body : destroyedBodiesList){
 			System.out.println(body);
 			world.destroyBody(body);
-			
 		}
 		destroyedBodiesList.clear();
 	}
-	
-	
 	
 	// Getter's and setter's (No shit) 
 
@@ -219,13 +230,13 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	@Override
-	public void setWorld(com.badlogic.gdx.physics.box2d.World world) {
+	public void setWorld(World world) {
 		this.world = world;
 		
 	}
 
 	@Override
-	public com.badlogic.gdx.physics.box2d.World getWorld() {
+	public World getWorld() {
 		return world;
 	}
 	

@@ -8,7 +8,7 @@ public class Enemy1 extends GameObject {
 
 	@Override
 	public void update() {
-
+		
 	}
 
 	@Override
