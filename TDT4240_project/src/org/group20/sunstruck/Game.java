@@ -89,6 +89,8 @@ public class Game implements GameInterface, ContactListener{
 			Iterator<Body> it = world.getBodies();
 			while(it.hasNext()){
 				body = it.next();
+				if(body == null)
+					continue;
 				if(body.getType() == BodyType.StaticBody)
 					continue;
 				go = (GameObject) body.getUserData();
@@ -99,7 +101,7 @@ public class Game implements GameInterface, ContactListener{
 		}
 		
 		enemySpawnTime+=Gdx.graphics.getDeltaTime();
-		if(enemySpawnTime >= 5){
+		if(enemySpawnTime >= 0.1){
 			
 			goFactory.getEnemy1(new Vector2(7, 0));
 			
@@ -141,8 +143,9 @@ public class Game implements GameInterface, ContactListener{
 	
 	private void clearDestoryedBodiesList(){
 		for(Body body : destroyedBodiesList){
-			//Remove from physics
+			System.out.println(body);
 			world.destroyBody(body);
+			
 		}
 		destroyedBodiesList.clear();
 	}

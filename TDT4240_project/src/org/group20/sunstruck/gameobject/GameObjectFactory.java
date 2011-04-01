@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 public class GameObjectFactory {
 	private final float PLAYER_SIZE 						= 1;
 	private final float PLAYER_DENSITY 						= 10;
+	private final GameObject PLAYER_START_WEAPON_TYPE		= new Laser();
 	private final float PLAYER_START_SPEED 					= 10;
 	private final float PLAYER_START_HULL 					= 100;
 	private final float PLAYER_START_WEAPON 				= 10;
@@ -62,6 +63,7 @@ public class GameObjectFactory {
 		
 		player.body.setFixedRotation(true);
 		
+		player.weaponType 	= PLAYER_START_WEAPON_TYPE;
 		player.type 		= TYPES.PLAYER;
 		player.textureRegion= PLAYER_START_TEXTURE_REGION;
 		player.height	 	= PLAYER_SIZE;
@@ -134,5 +136,12 @@ public class GameObjectFactory {
 		bodyPoly.dispose();
 		
 		return enemy1;
+	}
+
+	public void generateWeaponShot(GameObject weaponType, GameObject shooter) {
+		if(weaponType instanceof Laser)
+			getLaser(shooter);
+			
+		
 	}
 }

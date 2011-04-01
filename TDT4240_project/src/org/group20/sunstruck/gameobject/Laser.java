@@ -14,7 +14,10 @@ public class Laser extends GameObject{
 
 	@Override
 	public void dispose() {
-		Game.getInstance().getDestroyedBodiesList().add(body);
+		if(!isDisposed){
+			Game.getInstance().getDestroyedBodiesList().add(this.body);
+			isDisposed = true;
+		}
 	}
 	
 	public String toString(){
@@ -23,23 +26,6 @@ public class Laser extends GameObject{
 
 	@Override
 	public void update() {
-		if(isBomb){
-			Vector2 gravityCenter = body.getWorldCenter();
-			Vector2 force = null;
-			float scalarGravity = 10;
-			Iterator<Body> bodyIt = Game.getInstance().getWorld().getBodies();
-			Body body = null;
-			while(bodyIt.hasNext()){
-				body = bodyIt.next();
-				if(body.equals(this.body))
-					continue;
-				force = gravityCenter.tmp().sub(body.getWorldCenter());
-				force.mul(1/(Math.abs(force.x)+Math.abs(force.y)));
-				force.mul(scalarGravity);
-				force.mul(body.getMass());
-				body.applyForce(force, body.getWorldCenter());
-			}
-		}
 		
 	}
 

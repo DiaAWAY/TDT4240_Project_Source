@@ -17,6 +17,8 @@ public abstract class GameObject {
 	}
 
 	TYPES type = TYPES.UNKNOWN;
+	
+	boolean isDisposed = false;
 
 	GameObject weaponType = null;
 	float speed = 0;
@@ -35,7 +37,12 @@ public abstract class GameObject {
 
 	public abstract void contact(WorldManifold worldManifold, float impactDamage);
 	
-	public abstract void dispose();
+	public void dispose(){
+		if(!isDisposed){
+			Game.getInstance().getDestroyedBodiesList().add(body);
+			isDisposed = true;
+		}
+	}
 
 	TextureRegion textureRegion = null;
 

@@ -57,6 +57,23 @@ public class Player extends GameObject {
 				fireBomb();
 				startBomb = System.currentTimeMillis();
 			}
+		
+
+		Vector2 gravityCenter = body.getWorldCenter();
+		Vector2 force = null;
+		float scalarGravity = 10;
+		Iterator<Body> bodyIt = Game.getInstance().getWorld().getBodies();
+		Body body = null;
+		while(bodyIt.hasNext()){
+			body = bodyIt.next();
+			if(body.equals(this.body))
+				continue;
+			force = gravityCenter.tmp().sub(body.getWorldCenter());
+			force.mul(1/(Math.abs(force.x)+Math.abs(force.y)));
+			force.mul(scalarGravity);
+			force.mul(body.getMass());
+			body.applyForce(force, body.getWorldCenter());
+		}
 	}
 
 	private void fireBomb() {		
@@ -75,7 +92,7 @@ public class Player extends GameObject {
 	}
 	
 	private void shoot(){
-		Game.getInstance().getGoFactory().getLaser(this);
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, this);
 	}
 	public void setScore(int score) {
 		this.score = score;

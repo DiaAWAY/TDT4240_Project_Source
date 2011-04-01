@@ -17,7 +17,10 @@ public class Enemy1 extends GameObject {
 
 	@Override
 	public void dispose() {
-		Game.getInstance().getDestroyedBodiesList().add(body);
+		if(!isDisposed){
+			Game.getInstance().getDestroyedBodiesList().add(this.body);
+			isDisposed = true;
+		}
 		
 
 	}
