@@ -36,8 +36,20 @@ public class GameObjectFactory {
 	private final float ENEMY1_START_HULL = 30;
 	private final float ENEMY1_START_SHIELD = 20;
 	private final float ENEMY1_START_IMPACT_DAMAGE = 10;
+	private final int ENEMY1_SCORE = 10;
 	private final TextureRegion ENEMY1_TEXTURE_REGION = Game.textureAtlas
 			.findRegion("enemy1");
+	
+	private final float BOSS_DENSITY = 100;
+	private final float BOSS_SIZE = 2;
+	private final float BOSS_START_SPEED = 1;
+	private final float BOSS_START_WEAPON = 10;
+	private final float BOSS_START_HULL = 30;
+	private final float BOSS_START_SHIELD = 20;
+	private final float BOSS_START_IMPACT_DAMAGE = 10;
+	private final int BOSS_SCORE = 10;
+	private final TextureRegion BOSS_TEXTURE_REGION = Game.textureAtlas
+			.findRegion("enemy2");	
 
 	private DIFFICULTIES difficulty;
 
@@ -86,7 +98,8 @@ public class GameObjectFactory {
 		laser.textureRegion = LASER_TEXTURE_REGION;
 		laser.width = LASER_START_WIDTH;
 		laser.height = LASER_START_HEIGHT;
-
+		laser.isProjectile = true;
+		
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -105,7 +118,7 @@ public class GameObjectFactory {
 
 		laser.body.setLinearVelocity(new Vector2(LASER_START_SPEED, 0));
 		laser.impactDamage = shooter.weapon;
-
+		laser.body.setFixedRotation(true);
 		return laser;
 	}
 
@@ -121,6 +134,7 @@ public class GameObjectFactory {
 		enemy1.weapon = ENEMY1_START_WEAPON;
 		enemy1.shield = ENEMY1_START_SHIELD;
 		enemy1.impactDamage = ENEMY1_START_IMPACT_DAMAGE;
+		enemy1.score = ENEMY1_SCORE;
 
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
@@ -140,6 +154,39 @@ public class GameObjectFactory {
 
 		return enemy1;
 	}
+	
+	public GameObject createBoss(Vector2 position) {
+		GameObject boss = new Boss();
+
+		boss.type = TYPES.ENEMY;
+		boss.textureRegion = BOSS_TEXTURE_REGION;
+		boss.width = BOSS_SIZE;
+		boss.height = BOSS_SIZE;
+		boss.speed = BOSS_START_SPEED;
+		boss.hull = BOSS_START_HULL;
+		boss.weapon = BOSS_START_WEAPON;
+		boss.shield = BOSS_START_SHIELD;
+		boss.impactDamage = BOSS_START_IMPACT_DAMAGE;
+		boss.score = BOSS_SCORE;
+
+		// Defines the body and creates it
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.x = position.x;
+		bodyDef.position.y = position.y;
+		boss.body = Game.getInstance().getWorld().createBody(bodyDef);
+		boss.body.setUserData(boss);
+
+		// Creates the box used for collision, and attaches it to the body.
+		// Disposes of the shape to free memory.
+		PolygonShape bodyPoly = new PolygonShape();
+		bodyPoly.setAsBox(BOSS_SIZE / 2, BOSS_SIZE / 2);
+		boss.body.createFixture(bodyPoly, BOSS_DENSITY);
+		boss.body.setLinearVelocity(new Vector2(-1, 0).mul(boss.speed));
+		bodyPoly.dispose();
+
+		return boss;
+	}	
 
 	public void generateWeaponShot(GameObject weaponType, GameObject shooter) {
 		if (weaponType instanceof Laser)

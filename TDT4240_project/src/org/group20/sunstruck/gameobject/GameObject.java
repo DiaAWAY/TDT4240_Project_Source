@@ -14,13 +14,16 @@ public abstract class GameObject {
 
 	TYPES type = TYPES.UNKNOWN;
 
+	boolean isProjectile = false;
 	boolean isDisposed = false;
+	boolean isEnemy = true;
 	GameObject weaponType = null;
 	float speed = 0;
 	float hull = 0;
 	float weapon = 0;
 	float shield = 0;
 	float impactDamage = 0;
+	int score = 0;
 
 	// height and width of the body-rectangle.
 	float width = 0;
@@ -107,6 +110,26 @@ public abstract class GameObject {
 
 	public void setImpactDamage(float impactDamage) {
 		this.impactDamage = impactDamage;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getScore() {
+		return score;
+	}
+	
+	public boolean isDisposed() {
+		return isDisposed;
+	}
+	
+	public boolean isProjectile() {
+		return isProjectile;
+	}
+	
+	public boolean isEnemy() {
+		return isEnemy;
 	}
 
 }

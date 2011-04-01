@@ -16,7 +16,11 @@ public class Player extends GameObject {
 	private long reloadTimeGun = 100;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
-	private int score;
+	
+	public Player() {
+		super();
+		isEnemy = false;
+	}
 	
 	@Override
 	public void update() {
@@ -95,14 +99,6 @@ public class Player extends GameObject {
 	
 	private void shoot(){
 		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, this);
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public int getScore() {
-		return score;
 	}
 
 	@Override
