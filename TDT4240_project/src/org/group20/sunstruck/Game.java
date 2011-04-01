@@ -99,9 +99,9 @@ public class Game implements GameInterface, ContactListener {
 		}
 		
 		enemySpawnTime+=Gdx.graphics.getDeltaTime();
-		if(enemySpawnTime >= 0.1){
+		if(enemySpawnTime >= 3){
 			
-			goFactory.getEnemy1(new Vector2(7, 0));
+			goFactory.getEnemy1(new Vector2(7, 0)).setBehavior(Behavior.BEHAVIOR.SIN_VEL);
 			
 			enemySpawnTime = 0;
 		}

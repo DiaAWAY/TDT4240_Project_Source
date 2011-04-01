@@ -60,7 +60,7 @@ public class Player extends GameObject {
 				startBomb = System.currentTimeMillis();
 			}
 		
-
+/*
 		Vector2 gravityCenter = body.getWorldCenter();
 		Vector2 force = null;
 		float scalarGravity = 10;
@@ -76,6 +76,7 @@ public class Player extends GameObject {
 			force.mul(body.getMass());
 			body.applyForce(force, body.getWorldCenter());
 		}
+		*/
 	}
 
 	private void fireBomb() {		

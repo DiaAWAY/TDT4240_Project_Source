@@ -52,7 +52,7 @@ public class Main implements ApplicationListener {
 				/ Gdx.graphics.getWidth();
 		bgScale = CAMERA_WIDTH * scale / 2;
 
-		camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_WIDTH * scale);
+		camera = new OrthographicCamera(CAMERA_WIDTH*2, CAMERA_WIDTH * scale*2);
 		camera.position.set(0, 0, 0);
 
 		// East border.

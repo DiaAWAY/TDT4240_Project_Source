@@ -1,6 +1,8 @@
 package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
+import org.group20.sunstruck.behavior.Behavior;
+import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -9,11 +11,12 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 public abstract class GameObject {
 
 	public static enum TYPES {
-		PLAYER, ENEMY, BULLET, UNKNOWN
+		PLAYER, ENEMY, METEORITE, BULLET, UNKNOWN
 	}
 
 	TYPES type = TYPES.UNKNOWN;
-
+	BEHAVIOR behavior = BEHAVIOR.LINE;
+	
 	boolean isDisposed = false;
 	GameObject weaponType = null;
 	float speed = 0;
@@ -28,7 +31,9 @@ public abstract class GameObject {
 
 	Body body = null;
 
-	public abstract void update();
+	public void update(){
+		Behavior.applyBehavior(this);
+	}
 
 	public abstract void contact(WorldManifold worldManifold, float impactDamage);
 
@@ -108,5 +113,14 @@ public abstract class GameObject {
 	public void setImpactDamage(float impactDamage) {
 		this.impactDamage = impactDamage;
 	}
+
+	public BEHAVIOR getBehavior() {
+		return behavior;
+	}
+
+	public void setBehavior(BEHAVIOR behavior) {
+		this.behavior = behavior;
+	}
+	
 
 }

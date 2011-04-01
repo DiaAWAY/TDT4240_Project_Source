@@ -20,11 +20,6 @@ public class Laser extends GameObject{
 	}
 
 	@Override
-	public void update() {
-		
-	}
-
-	@Override
 	public void contact(WorldManifold worldManifold, float impactDamage) {
 		dispose();
 		

@@ -1,15 +1,12 @@
 package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
+import org.group20.sunstruck.behavior.Behavior;
 
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public class Enemy1 extends GameObject {
 
-	@Override
-	public void update() {
-
-	}
 
 	@Override
 	public void dispose() {

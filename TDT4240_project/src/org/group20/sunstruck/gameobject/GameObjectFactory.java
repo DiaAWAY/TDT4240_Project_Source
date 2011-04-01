@@ -31,7 +31,7 @@ public class GameObjectFactory {
 
 	private final float ENEMY1_DENSITY = 100;
 	private final float ENEMY1_SIZE = 2;
-	private final float ENEMY1_START_SPEED = 1;
+	private final float ENEMY1_START_SPEED = 10;
 	private final float ENEMY1_START_WEAPON = 10;
 	private final float ENEMY1_START_HULL = 30;
 	private final float ENEMY1_START_SHIELD = 20;
@@ -103,7 +103,11 @@ public class GameObjectFactory {
 		laser.body.createFixture(bodyPoly, LASER_DENSITY);
 		bodyPoly.dispose();
 
-		laser.body.setLinearVelocity(new Vector2(LASER_START_SPEED, 0));
+		if(shooter instanceof Player)	
+			laser.body.setLinearVelocity(new Vector2(1, 0));
+		else
+			laser.body.setLinearVelocity(new Vector2(-1,0));
+		laser.body.setLinearVelocity(laser.body.getLinearVelocity().tmp().mul(laser.speed));
 		laser.impactDamage = shooter.weapon;
 
 		return laser;

@@ -1,10 +1,13 @@
 package org.group20.sunstruck.behavior;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.group20.sunstruck.behavior.filters.Filter;
-import org.group20.sunstruck.behavior.filters.Filter1;
-import org.group20.sunstruck.behavior.filters.Filter2;
+import org.group20.sunstruck.behavior.filters.Force;
+import org.group20.sunstruck.behavior.filters.Rotation;
+import org.group20.sunstruck.behavior.filters.Velocity;
+import org.group20.sunstruck.behavior.filters.LinearMovement;
 import org.group20.sunstruck.gameobject.GameObject;
 
 /**
@@ -12,28 +15,31 @@ import org.group20.sunstruck.gameobject.GameObject;
  * GameObjects, various filters (Filter) will be used to determine what kinds of
  * behaviors to use.
  * 
- * @author DiaAWAY
+ * @author Knut Esten
  * 
  */
 public class Behavior {
+	public static enum BEHAVIOR {
+		LINEAR_MOVEMENT, KAMIKAZE, SIN_VEL, SIN_FOR,LINE, SPRAY
+	}
 
-	private static ArrayList<Filter> filters = new ArrayList<Filter>();
+	public static enum FILTERS {
+		FORCE, VELOCITY, ROTATION
+	}
+
+	public static HashMap<FILTERS, Filter> filters = new HashMap<FILTERS, Filter>();
 
 	public static void initFilters() {
-		filters.add(new Filter1());
-		filters.add(new Filter2());
+		filters.put(FILTERS.FORCE, new Force());
+		filters.put(FILTERS.VELOCITY, new Velocity());
+		filters.put(FILTERS.ROTATION, new Rotation());
 	}
 
-	public static boolean applyBehavior(GameObject o) {
-//		if (Math.random() > 0.7) {
-//			filters.get((int) (Math.random() * (filters.size() - 1) + 0.5))
-//					.applyFilter(o.getBody()); // lol
-//			return true;
-//		}
-		switch (o.getType()) {
+	public static void applyBehavior(GameObject go) {		
+		if(go.getBehavior() == null)
+			go.setBehavior(BEHAVIOR.LINE);
 		
-		}
-		return false;
+		filters.get(FILTERS.VELOCITY).applyFilter(go);
+		
 	}
-
 }
