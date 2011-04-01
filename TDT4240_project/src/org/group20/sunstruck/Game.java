@@ -75,7 +75,7 @@ public class Game implements GameInterface, ContactListener{
 	}
 
 	public void update() {
-		clearDestoryedBodiesList();
+		clearDestroyedBodiesList();
 		
 		totalTime++;
 		if(Game.DEBUG) System.out.println("Total game updates: " + totalTime);
@@ -141,7 +141,7 @@ public class Game implements GameInterface, ContactListener{
 		
 	}
 	
-	private void clearDestoryedBodiesList(){
+	private void clearDestroyedBodiesList(){
 		for(Body body : destroyedBodiesList){
 			System.out.println(body);
 			world.destroyBody(body);
