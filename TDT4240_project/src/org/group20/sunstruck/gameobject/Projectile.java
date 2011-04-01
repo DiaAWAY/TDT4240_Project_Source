@@ -21,8 +21,9 @@ public class Projectile extends GameObject{
 
 	@Override
 	public void dispose() {
-		synchronized(Game.getInstance().getGameObjectsToBeDestroyed()) {
-			Game.getInstance().getGameObjectsToBeDestroyed().add(this);
+		if (!isDisposed) {
+			isDisposed = true;
+			Game.getInstance().addToDestroy(this);
 		}
 	}
 	

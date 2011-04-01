@@ -83,7 +83,10 @@ public class Player extends GameObject {
 
 	@Override
 	public void dispose() {
-		Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject) this);
+		if (!isDisposed) {
+			isDisposed = true;
+			Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject) this);
+		}
 
 	}
 

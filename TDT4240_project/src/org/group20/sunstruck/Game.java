@@ -75,9 +75,7 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	public synchronized void update() {
-		synchronized (this) {
-			clearGameObjectsToBeDestroyed();
-		}
+		clearGameObjectsToBeDestroyed();
 
 		totalTime++;
 		if (Game.DEBUG)
@@ -93,7 +91,7 @@ public class Game implements GameInterface, ContactListener {
 			}
 			time = 0;
 		}
-		if (Math.random() > 0.99)
+		if (Math.random() > 0.95)
 			spawnEnemies();
 	}
 
@@ -131,6 +129,7 @@ public class Game implements GameInterface, ContactListener {
 		for (GameObject go : gameObjectsToBeDestroyed) {
 			// Remove from physics
 			world.destroyBody(go.getBody());
+
 			// Remove from gameObjectList
 			gameObjectList.remove(go);
 		}
@@ -148,6 +147,10 @@ public class Game implements GameInterface, ContactListener {
 	// Getter's and setter's (No shit)
 	public ArrayList<GameObject> getGameObjectsToBeDestroyed() {
 		return gameObjectsToBeDestroyed;
+	}
+
+	public void addToDestroy(GameObject go) {
+		gameObjectsToBeDestroyed.add(go);
 	}
 
 	public void setGoFactory(GameObjectFactory goFactory) {

@@ -18,6 +18,7 @@ public abstract class GameObject {
 
 	TYPES type = TYPES.UNKNOWN;
 
+	boolean isDisposed = false;
 	GameObject weaponType = null;
 
 	Body body = null;

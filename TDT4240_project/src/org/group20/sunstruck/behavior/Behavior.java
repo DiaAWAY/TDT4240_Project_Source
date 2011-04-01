@@ -32,7 +32,7 @@ public class Behavior {
 					.applyFilter(o.getBody()); // lol
 		}
 		// TODO add implementation
-		// filters.get(1).applyFilter(o.getBody());
+		 //filters.get(0).applyFilter(o.getBody());
 		return false;
 	}
 
