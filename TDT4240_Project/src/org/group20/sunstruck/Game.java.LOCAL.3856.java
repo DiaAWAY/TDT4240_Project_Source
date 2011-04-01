@@ -1,7 +1,6 @@
 package org.group20.sunstruck;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.gameobject.GameObject;
@@ -18,13 +17,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Game implements GameInterface, ContactListener {
 	public static boolean DEBUG = false;
@@ -35,24 +30,27 @@ public class Game implements GameInterface, ContactListener {
 	private float totalTime;
 	private Vector2 initGravity = new Vector2(0, 0);
 	private DIFFICULTIES difficulty;
-	private GameObjectFactory goFactory = new GameObjectFactory();	
+	private GameObjectFactory goFactory = new GameObjectFactory();
 	private MapGenerator map = new MapGenerator();
-	private Player player;	
-	private Shop shop;	
-	private World world;	
-	private Input input;	
-	private GUI gui; 
-	private ArrayList<Body> destroyedBodiesList = new ArrayList<Body>();
+	private Player player;
+	private Shop shop;
+	private World world;
+	private Input input;
+	private GUI gui;
+	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
+	private ArrayList<GameObject> gameObjectsToBeDestroyed = new ArrayList<GameObject>();
 	private float time;
-	
-	private float enemySpawnTime = 0;
-	
+
 	private Game() {
 		this(DIFFICULTIES.MEDIUM);
 	}
-	
-	public void initializePlayer(){
-		player = (Player)goFactory.getPlayer();
+
+	public void initializePlayer() {
+		player = new Player(new Vector2(0, 0), 1f, 1f,
+				textureAtlas.findRegion("TIEBomber"), 1, 10, 1000, 1000, 1000,
+				100);
+		player.getBody().setFixedRotation(true);
+		gameObjectList.add(player);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -62,7 +60,6 @@ public class Game implements GameInterface, ContactListener {
 		world.setContactListener(this);
 		gui = new GUI();
 		input = new Input(gui);
-		goFactory = new GameObjectFactory(d);
 	}
 
 	private static class GameHolder { // singleton holder
@@ -77,41 +74,25 @@ public class Game implements GameInterface, ContactListener {
 		Behavior.initFilters();
 	}
 
-	public void update() {
-		clearDestoryedBodiesList();
-		
+	public synchronized void update() {
+		clearGameObjectsToBeDestroyed();
+
 		totalTime++;
-		if(Game.DEBUG) System.out.println("Total game updates: " + totalTime);
-		
+		if (Game.DEBUG)
+			System.out.println("Total game updates: " + totalTime);
+
 		time += Gdx.graphics.getDeltaTime();
 		if (time >= 0.01) {
 			input.update();
-			
-			Body body = null;
-			GameObject go = null;
-			Iterator<Body> it = world.getBodies();
-			while(it.hasNext()){
-				body = it.next();
-				if(body == null)
-					continue;
-				if(body.getType() == BodyType.StaticBody)
-					continue;
-				go = (GameObject) body.getUserData();
-				go.update();
-				if (!(go instanceof Player))
-					Behavior.applyBehavior(go);
+			for (int i = 0; i < gameObjectList.size(); i++) {
+				gameObjectList.get(i).update();
+				if (!(gameObjectList.get(i) instanceof Player))
+					Behavior.applyBehavior(gameObjectList.get(i));
 			}
 			time = 0;
 		}
-		
-		enemySpawnTime+=Gdx.graphics.getDeltaTime();
-		if(enemySpawnTime >= 0.1){
-			
-			goFactory.getEnemy1(new Vector2(7, 0));
-			
-			enemySpawnTime = 0;
-		}
-		
+		if (Math.random() > 0.95)
+			spawnEnemies();
 	}
 
 	@Override
@@ -121,20 +102,19 @@ public class Game implements GameInterface, ContactListener {
 
 		GameObject goA = null;
 		GameObject goB = null;
-
-		if(A.getType() != BodyType.StaticBody)
-			goA = (GameObject) contact.getFixtureA().getBody().getUserData();
-		if(B.getType() != BodyType.StaticBody)
-			goB = (GameObject) contact.getFixtureB().getBody().getUserData();
-		
-		if(goA!=null)
-			if(goB!=null)
+		for (GameObject go : gameObjectList) {
+			if (go.getBody().equals(A))
+				goA = go;
+			if (go.getBody().equals(B))
+				goB = go;
+		}
+		if (goA != null)
+			if (goB != null)
 				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
 			else
 				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
-		
-		if(goB!=null)
-			if(goA!=null)
+		if (goB != null)
+			if (goA != null)
 				goB.contact(contact.GetWorldManifold(), goB.getImpactDamage());
 			else
 				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
@@ -142,21 +122,36 @@ public class Game implements GameInterface, ContactListener {
 
 	@Override
 	public void endContact(Contact contact) {
-		
+
 	}
-	
-	private void clearDestroyedBodiesList(){
-		for(Body body : destroyedBodiesList){
-			System.out.println(body);
-			world.destroyBody(body);
-			
+
+	private void clearGameObjectsToBeDestroyed() {
+		for (GameObject go : gameObjectsToBeDestroyed) {
+			// Remove from physics
+			world.destroyBody(go.getBody());
+
+			// Remove from gameObjectList
+			gameObjectList.remove(go);
 		}
-		destroyedBodiesList.clear();
+		gameObjectsToBeDestroyed.clear();
 	}
-	
-	
-	
-	// Getter's and setter's (No shit) 
+
+	private void spawnEnemies() {
+		TieInterceptor t = new TieInterceptor(new Vector2(6,
+				(int) (Math.random() * 14 - 6)), 1f, 1f,
+				textureAtlas.findRegion("TIEFighter"), 1, 10, 10, 10, 10, 100);
+		t.getBody().setFixedRotation(true);
+		gameObjectList.add(t);
+	}
+
+	// Getter's and setter's (No shit)
+	public ArrayList<GameObject> getGameObjectsToBeDestroyed() {
+		return gameObjectsToBeDestroyed;
+	}
+
+	public void addToDestroy(GameObject go) {
+		gameObjectsToBeDestroyed.add(go);
+	}
 
 	public void setGoFactory(GameObjectFactory goFactory) {
 		this.goFactory = goFactory;
@@ -227,16 +222,26 @@ public class Game implements GameInterface, ContactListener {
 	@Override
 	public void setWorld(com.badlogic.gdx.physics.box2d.World world) {
 		this.world = world;
-		
+
 	}
 
 	@Override
 	public com.badlogic.gdx.physics.box2d.World getWorld() {
 		return world;
 	}
-	
-	public ArrayList<Body> getDestroyedBodiesList(){
-		return destroyedBodiesList;
-		
+
+	@Override
+	public void setTextureAtlas(TextureAtlas textureAtlas) {
+		this.textureAtlas = textureAtlas;
+
+	}
+
+	@Override
+	public TextureAtlas getTextureAtlas() {
+		return textureAtlas;
+	}
+
+	public ArrayList<GameObject> getGameObjectList() {
+		return gameObjectList;
 	}
 }

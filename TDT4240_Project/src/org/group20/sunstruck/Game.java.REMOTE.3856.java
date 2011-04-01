@@ -7,7 +7,6 @@ import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
 import org.group20.sunstruck.gameobject.Player;
-import org.group20.sunstruck.gameobject.TieInterceptor;
 import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
 import org.group20.sunstruck.interfaces.GameInterface;
@@ -15,7 +14,6 @@ import org.group20.sunstruck.world.map.MapGenerator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -26,16 +24,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-public class Game implements GameInterface, ContactListener {
+public class Game implements GameInterface, ContactListener{
 	public static boolean DEBUG = false;
-	public static TextureAtlas textureAtlas = new TextureAtlas(
-			Gdx.files.internal("data/pack"));
-	private float updateRate = 1.0f; // physics update rate
-	private float spawnRate = 1.0f;
-	private float totalTime;
-	private Vector2 initGravity = new Vector2(0, 0);
+	public static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
+	private float updateRate = 1.0f; // physics update rate	
+	private float totalTime;	
+	private Vector2 initGravity = new Vector2(0,0);	
 	private DIFFICULTIES difficulty;
-	private GameObjectFactory goFactory = new GameObjectFactory();	
+	private GameObjectFactory goFactory;	
 	private MapGenerator map = new MapGenerator();
 	private Player player;	
 	private Shop shop;	
@@ -54,7 +50,8 @@ public class Game implements GameInterface, ContactListener {
 	public void initializePlayer(){
 		player = (Player)goFactory.getPlayer();
 	}
-
+	
+	
 	private Game(DIFFICULTIES d) {
 		setDifficulty(d);
 
@@ -64,15 +61,15 @@ public class Game implements GameInterface, ContactListener {
 		input = new Input(gui);
 		goFactory = new GameObjectFactory(d);
 	}
-
+	
 	private static class GameHolder { // singleton holder
 		public static final Game INSTANCE = new Game();
 	}
-
+	
 	public static Game getInstance() {
 		return GameHolder.INSTANCE;
 	}
-
+	
 	public void start() {
 		Behavior.initFilters();
 	}
@@ -98,9 +95,8 @@ public class Game implements GameInterface, ContactListener {
 					continue;
 				go = (GameObject) body.getUserData();
 				go.update();
-				if (!(go instanceof Player))
-					Behavior.applyBehavior(go);
 			}
+			
 			time = 0;
 		}
 		
@@ -115,10 +111,10 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	@Override
-	public void beginContact(Contact contact) {
+	public void  beginContact(Contact contact) {
 		Body A = contact.getFixtureA().getBody();
 		Body B = contact.getFixtureB().getBody();
-
+		
 		GameObject goA = null;
 		GameObject goB = null;
 
@@ -145,7 +141,7 @@ public class Game implements GameInterface, ContactListener {
 		
 	}
 	
-	private void clearDestroyedBodiesList(){
+	private void clearDestoryedBodiesList(){
 		for(Body body : destroyedBodiesList){
 			System.out.println(body);
 			world.destroyBody(body);

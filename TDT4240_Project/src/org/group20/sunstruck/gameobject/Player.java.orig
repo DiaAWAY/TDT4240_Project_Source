@@ -9,15 +9,31 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public class Player extends GameObject {
+<<<<<<< HEAD
 
-public class Player extends GameObject {
+	private int score;
+	private long reloadTimeGun = 100;
+	private long reloadTimeBomb = 1000;
+	private long startGun = System.currentTimeMillis();
+	private long startBomb = System.currentTimeMillis();
 
+	public Player(Vector2 position, float width, float height,
+			TextureRegion textureRegion, float density, float speed,
+			float hull, float weapon, float shield, float impactDamage) {
+		super(position, width, height, textureRegion, density, speed, hull,
+				weapon, shield, impactDamage);
+	}
+
+=======
 	private long startGun = System.currentTimeMillis();
 	private long reloadTimeGun = 100;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
+	
+
 	private int score;
 	
+>>>>>>> knutesten-master
 	@Override
 	public void update() {
 
@@ -78,23 +94,63 @@ public class Player extends GameObject {
 		}
 	}
 
+<<<<<<< HEAD
+	private void fireBomb() {
+		Vector2 pos = body.getWorldCenter().add((float) (width / 2 + 0.6), 0);
+
+		// TODO use gameobjectfactory!
+		Projectile laser = new Projectile(pos, 1f, 1f,
+				Game.textureAtlas.findRegion("TIEFighter"), 1000, 0.1f, 0, 0,
+				0, 10);
+		Vector2 vel = new Vector2(1, 0);
+		vel.mul(laser.getSpeed());
+		laser.getBody().setLinearVelocity(vel);
+		laser.isBomb = true;
+		// laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
+		Game.getInstance().getGameObjectList().add(laser);
+=======
 	private void fireBomb() {		
 		//laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
 		//Game.getInstance().getGameObjectList().add(laser);
+>>>>>>> knutesten-master
 	}
 
 	@Override
 	public void dispose() {
-		Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
+<<<<<<< HEAD
+		if (!isDisposed) {
+			isDisposed = true;
+			Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject) this);
+		}
+
+=======
+		//Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
 		
+>>>>>>> knutesten-master
 	}
 
 	public String toString() {
 		return "Player";
 	}
+<<<<<<< HEAD
+
+	private void shoot() {
+
+		Vector2 pos = body.getWorldCenter().add((float) (width / 2 + 0.6), 0);
+
+		// TODO use gameobjectfactory!
+		Projectile laser = new Projectile(pos, 1f, 1f,
+				Game.textureAtlas.findRegion("redLaser"), 10, 10, 0, 0, 0, 10);
+		Vector2 vel = new Vector2(1, 0);
+		vel.mul(laser.getSpeed());
+		laser.getBody().setLinearVelocity(vel);
+		// laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
+		Game.getInstance().getGameObjectList().add(laser);
+=======
 	
 	private void shoot(){
 		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, this);
+>>>>>>> knutesten-master
 	}
 
 	public void setScore(int score) {

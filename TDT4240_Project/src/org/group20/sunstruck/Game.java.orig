@@ -21,10 +21,12 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+<<<<<<< HEAD
+=======
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+>>>>>>> knutesten-master
 
 public class Game implements GameInterface, ContactListener {
 	public static boolean DEBUG = false;
@@ -35,7 +37,30 @@ public class Game implements GameInterface, ContactListener {
 	private float totalTime;
 	private Vector2 initGravity = new Vector2(0, 0);
 	private DIFFICULTIES difficulty;
-	private GameObjectFactory goFactory = new GameObjectFactory();	
+<<<<<<< HEAD
+	private GameObjectFactory goFactory = new GameObjectFactory();
+	private MapGenerator map = new MapGenerator();
+	private Player player;
+	private Shop shop;
+	private World world;
+	private Input input;
+	private GUI gui;
+	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
+	private ArrayList<GameObject> gameObjectsToBeDestroyed = new ArrayList<GameObject>();
+	private float time;
+
+	private Game() {
+		this(DIFFICULTIES.MEDIUM);
+	}
+
+	public void initializePlayer() {
+		player = new Player(new Vector2(0, 0), 1f, 1f,
+				textureAtlas.findRegion("TIEBomber"), 1, 10, 1000, 1000, 1000,
+				100);
+		player.getBody().setFixedRotation(true);
+		gameObjectList.add(player);
+=======
+	private GameObjectFactory goFactory;	
 	private MapGenerator map = new MapGenerator();
 	private Player player;	
 	private Shop shop;	
@@ -53,6 +78,7 @@ public class Game implements GameInterface, ContactListener {
 	
 	public void initializePlayer(){
 		player = (Player)goFactory.getPlayer();
+>>>>>>> knutesten-master
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -77,15 +103,33 @@ public class Game implements GameInterface, ContactListener {
 		Behavior.initFilters();
 	}
 
+<<<<<<< HEAD
+	public synchronized void update() {
+		clearGameObjectsToBeDestroyed();
+
+=======
 	public void update() {
 		clearDestoryedBodiesList();
 		
+>>>>>>> knutesten-master
 		totalTime++;
-		if(Game.DEBUG) System.out.println("Total game updates: " + totalTime);
-		
+		if (Game.DEBUG)
+			System.out.println("Total game updates: " + totalTime);
+
 		time += Gdx.graphics.getDeltaTime();
 		if (time >= 0.01) {
 			input.update();
+<<<<<<< HEAD
+			for (int i = 0; i < gameObjectList.size(); i++) {
+				gameObjectList.get(i).update();
+				if (!(gameObjectList.get(i) instanceof Player))
+					Behavior.applyBehavior(gameObjectList.get(i));
+			}
+			time = 0;
+		}
+		if (Math.random() > 0.95)
+			spawnEnemies();
+=======
 			
 			Body body = null;
 			GameObject go = null;
@@ -98,9 +142,8 @@ public class Game implements GameInterface, ContactListener {
 					continue;
 				go = (GameObject) body.getUserData();
 				go.update();
-				if (!(go instanceof Player))
-					Behavior.applyBehavior(go);
 			}
+			
 			time = 0;
 		}
 		
@@ -112,6 +155,7 @@ public class Game implements GameInterface, ContactListener {
 			enemySpawnTime = 0;
 		}
 		
+>>>>>>> knutesten-master
 	}
 
 	@Override
@@ -121,6 +165,21 @@ public class Game implements GameInterface, ContactListener {
 
 		GameObject goA = null;
 		GameObject goB = null;
+<<<<<<< HEAD
+		for (GameObject go : gameObjectList) {
+			if (go.getBody().equals(A))
+				goA = go;
+			if (go.getBody().equals(B))
+				goB = go;
+		}
+		if (goA != null)
+			if (goB != null)
+				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
+			else
+				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+		if (goB != null)
+			if (goA != null)
+=======
 
 		if(A.getType() != BodyType.StaticBody)
 			goA = (GameObject) contact.getFixtureA().getBody().getUserData();
@@ -135,6 +194,7 @@ public class Game implements GameInterface, ContactListener {
 		
 		if(goB!=null)
 			if(goA!=null)
+>>>>>>> knutesten-master
 				goB.contact(contact.GetWorldManifold(), goB.getImpactDamage());
 			else
 				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
@@ -142,21 +202,52 @@ public class Game implements GameInterface, ContactListener {
 
 	@Override
 	public void endContact(Contact contact) {
-		
+
 	}
+<<<<<<< HEAD
+
+	private void clearGameObjectsToBeDestroyed() {
+		for (GameObject go : gameObjectsToBeDestroyed) {
+			// Remove from physics
+			world.destroyBody(go.getBody());
+
+			// Remove from gameObjectList
+			gameObjectList.remove(go);
+=======
 	
-	private void clearDestroyedBodiesList(){
+	private void clearDestoryedBodiesList(){
 		for(Body body : destroyedBodiesList){
 			System.out.println(body);
 			world.destroyBody(body);
 			
+>>>>>>> knutesten-master
 		}
 		destroyedBodiesList.clear();
 	}
+<<<<<<< HEAD
+
+	private void spawnEnemies() {
+		TieInterceptor t = new TieInterceptor(new Vector2(6,
+				(int) (Math.random() * 14 - 6)), 1f, 1f,
+				textureAtlas.findRegion("TIEFighter"), 1, 10, 10, 10, 10, 100);
+		t.getBody().setFixedRotation(true);
+		gameObjectList.add(t);
+	}
+
+	// Getter's and setter's (No shit)
+	public ArrayList<GameObject> getGameObjectsToBeDestroyed() {
+		return gameObjectsToBeDestroyed;
+	}
+=======
 	
 	
 	
 	// Getter's and setter's (No shit) 
+>>>>>>> knutesten-master
+
+	public void addToDestroy(GameObject go) {
+		gameObjectsToBeDestroyed.add(go);
+	}
 
 	public void setGoFactory(GameObjectFactory goFactory) {
 		this.goFactory = goFactory;
@@ -227,16 +318,33 @@ public class Game implements GameInterface, ContactListener {
 	@Override
 	public void setWorld(com.badlogic.gdx.physics.box2d.World world) {
 		this.world = world;
-		
+
 	}
 
 	@Override
 	public com.badlogic.gdx.physics.box2d.World getWorld() {
 		return world;
 	}
+<<<<<<< HEAD
+
+	@Override
+	public void setTextureAtlas(TextureAtlas textureAtlas) {
+		this.textureAtlas = textureAtlas;
+
+	}
+
+	@Override
+	public TextureAtlas getTextureAtlas() {
+		return textureAtlas;
+	}
+
+	public ArrayList<GameObject> getGameObjectList() {
+		return gameObjectList;
+=======
 	
 	public ArrayList<Body> getDestroyedBodiesList(){
 		return destroyedBodiesList;
 		
+>>>>>>> knutesten-master
 	}
 }
