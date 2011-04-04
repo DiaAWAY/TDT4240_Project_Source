@@ -93,8 +93,8 @@ public class Game implements GameInterface, ContactListener {
 			}
 			time = 0;
 		}
-		if (Math.random() > 0.99)
-			spawnEnemies();
+//		if (Math.random() > 0.99)
+//			spawnEnemies();
 	}
 
 	@Override
