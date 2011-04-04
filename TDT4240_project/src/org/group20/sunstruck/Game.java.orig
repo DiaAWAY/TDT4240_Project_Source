@@ -102,6 +102,10 @@ public class Game implements GameInterface, ContactListener {
 			}
 			time = 0;
 		}
+<<<<<<< HEAD
+//		if (Math.random() > 0.99)
+//			spawnEnemies();
+=======
 
 		// SPAWNING ENEMIES
 		if (!bossMode) {
@@ -132,6 +136,7 @@ public class Game implements GameInterface, ContactListener {
 			goFactory.createBoss(new Vector2(7, 0));
 			bossTimer = 0;
 		}
+>>>>>>> origin/master
 	}
 
 	@Override

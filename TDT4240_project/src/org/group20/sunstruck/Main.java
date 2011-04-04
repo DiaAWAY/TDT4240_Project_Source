@@ -1,26 +1,32 @@
 package org.group20.sunstruck;
 
+import java.util.Iterator;
+
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.world.map.segments.MapSegment;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.VertexAttribute;
+import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Main implements ApplicationListener {
 	// The width and height of the orthographical camera
 	public static final float CAMERA_WIDTH = 10;
 	public static float bgScale = 1.0f;
-	public static float bgSpeed = 3.0f;
+	public static float bgSpeed = 2.0f;
 	public static Body eastBorder;
 	public static Body northBorder;
 	public static Body westBorder;
@@ -32,7 +38,9 @@ public class Main implements ApplicationListener {
 	private SpriteBatch backgroundBatch;
 	private OrthographicCamera camera;
 	private Box2DDebugRenderer renderer;
+	private float bgYOffset = 10;
 	private int bgIteration = 0;
+	private float time = 0;
 	private boolean run = true;
 
 	@Override
@@ -119,10 +127,12 @@ public class Main implements ApplicationListener {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+		// Draw background
+		drawBackground();
+
 		if (Shop.isActive) {
-			drawBackground();
-			drawGameObjects();
 			drawGuiShop();
+			drawGameObjects();
 			return;
 		}
 
@@ -157,11 +167,18 @@ public class Main implements ApplicationListener {
 	private void drawGameObjects() {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
-		for (GameObject go : Game.getInstance().getGameObjectList()) {
+
+		GameObject go = null;
+		Iterator<Body> it = Game.getInstance().getWorld().getBodies();
+		while (it.hasNext()) {
+			go = (GameObject) it.next().getUserData();
+
+			if (go == null)
+				continue;
 			float x, y, originX, originY, halfWidth, halfHeight, scaleX, scaleY, rotation;
 
-			halfWidth = go.getWidth();
-			halfHeight = go.getHeight();
+			halfWidth = go.getWidth() / 2;
+			halfHeight = go.getHeight() / 2;
 
 			rotation = (float) (go.getBody().getAngle() * 180 / Math.PI);
 
@@ -209,18 +226,24 @@ public class Main implements ApplicationListener {
 		float bgPosition = bgIteration * bgSpeed;
 		if (rf != null && rl != null) {
 			backgroundBatch.begin();
-			backgroundBatch.draw(rf, -bgPosition, 0);
-			backgroundBatch.draw(rl, -bgPosition + rf.getRegionWidth(), 0);
+			backgroundBatch.draw(rf, -bgPosition, bgYOffset);
+			backgroundBatch.draw(rl, -bgPosition + rf.getRegionWidth(), bgYOffset);
 			backgroundBatch.end();
 		} else {
-			System.out.println("drawBackground(): rf is:"+rf+", rl is:"+rl);
+			System.out.println("drawBackground(): rf is:" + rf + ", rl is:"
+					+ rl);
 		}
-		bgIteration++;
+		time += Gdx.app.getGraphics().getDeltaTime();
+		if (time > 0.01f) {
+			time = 0;
+			bgIteration++;
+		}
 		if (bgPosition > rf.getRegionWidth() - 1) {
 			first = last;
 			last = Game.getInstance().getMap().getNext();
 			bgIteration = 0;
 		}
+
 	}
 
 	@Override

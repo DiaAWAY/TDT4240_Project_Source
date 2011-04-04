@@ -11,13 +11,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 public class Filter2 implements Filter {
 
 	private double d = Math.PI/2;
-	private double up = Math.PI/2;
-	private double down = (3*Math.PI)/2;
+	private final double up = Math.PI/2;
+	private final double down = (3*Math.PI)/2;
 	
 	@Override
 	public void applyFilter(Body body) {
 	if (Math.random() > 0.8) {
-		body.applyForce(new Vector2(-1, (float) Math.sin(d)*3), body.getPosition());
+		body.applyForce(new Vector2(-1, (float) Math.sin(d)*10), body.getPosition());
 	}
 		if (d == up) {
 			d = down;
