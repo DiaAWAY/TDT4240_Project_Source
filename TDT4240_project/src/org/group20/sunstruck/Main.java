@@ -54,7 +54,8 @@ public class Main implements ApplicationListener {
 				/ Gdx.graphics.getWidth();
 		bgScale = CAMERA_WIDTH * scale / 2;
 
-		camera = new OrthographicCamera(CAMERA_WIDTH*2, CAMERA_WIDTH * scale*2);
+		camera = new OrthographicCamera(CAMERA_WIDTH * 2, CAMERA_WIDTH * scale
+				* 2);
 		camera.position.set(0, 0, 0);
 
 		// East border.
@@ -130,6 +131,9 @@ public class Main implements ApplicationListener {
 		// Draw background
 		drawBackground();
 
+		// Draw GUI controls objects.
+		drawGuiControls();
+
 		if (Shop.isActive) {
 			drawGuiShop();
 			drawGameObjects();
@@ -145,14 +149,8 @@ public class Main implements ApplicationListener {
 		// Update camera
 		updateCamera();
 
-		// Draw background
-		drawBackground();
-
 		// Draw game objects.
 		drawGameObjects();
-
-		// Draw GUI controls objects.
-		drawGuiControls();
 
 		// renderer.render(Game.getInstance().getWorld());
 	}
@@ -199,8 +197,8 @@ public class Main implements ApplicationListener {
 	}
 
 	private void updatePhysics() {
-		Game.getInstance().getWorld()
-				.step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
+		Game.getInstance().getWorld().step(
+				Gdx.app.getGraphics().getDeltaTime(), 8, 3);
 	}
 
 	private void updateCamera() {
@@ -227,7 +225,8 @@ public class Main implements ApplicationListener {
 		if (rf != null && rl != null) {
 			backgroundBatch.begin();
 			backgroundBatch.draw(rf, -bgPosition, bgYOffset);
-			backgroundBatch.draw(rl, -bgPosition + rf.getRegionWidth(), bgYOffset);
+			backgroundBatch.draw(rl, -bgPosition + rf.getRegionWidth(),
+					bgYOffset);
 			backgroundBatch.end();
 		} else {
 			System.out.println("drawBackground(): rf is:" + rf + ", rl is:"

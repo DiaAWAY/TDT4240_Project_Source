@@ -29,7 +29,7 @@ public class GameObjectFactory {
 	private final TextureRegion LASER_TEXTURE_REGION = Game.textureAtlas
 			.findRegion("redLaser");
 
-	private final float ENEMY1_DENSITY = 100;
+	private final float ENEMY1_DENSITY = 10;
 	private final float ENEMY1_SIZE = 2;
 	private final float ENEMY1_START_SPEED = 10;
 	private final float ENEMY1_START_WEAPON = 10;
@@ -39,7 +39,7 @@ public class GameObjectFactory {
 	private final int ENEMY1_SCORE = 10;
 	private final TextureRegion ENEMY1_TEXTURE_REGION = Game.textureAtlas
 			.findRegion("enemy1");
-	
+
 	private final float BOSS_DENSITY = 100;
 	private final float BOSS_SIZE = 2;
 	private final float BOSS_START_SPEED = 1;
@@ -49,7 +49,7 @@ public class GameObjectFactory {
 	private final float BOSS_START_IMPACT_DAMAGE = 10;
 	private final int BOSS_SCORE = 10;
 	private final TextureRegion BOSS_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("enemy2");	
+			.findRegion("enemy2");
 
 	private DIFFICULTIES difficulty;
 
@@ -99,7 +99,8 @@ public class GameObjectFactory {
 		laser.width = LASER_START_WIDTH;
 		laser.height = LASER_START_HEIGHT;
 		laser.isProjectile = true;
-		
+		laser.speed = LASER_START_SPEED;
+
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -116,11 +117,12 @@ public class GameObjectFactory {
 		laser.body.createFixture(bodyPoly, LASER_DENSITY);
 		bodyPoly.dispose();
 
-		if(shooter instanceof Player)	
+		if (shooter instanceof Player)
 			laser.body.setLinearVelocity(new Vector2(1, 0));
 		else
-			laser.body.setLinearVelocity(new Vector2(-1,0));
-		laser.body.setLinearVelocity(laser.body.getLinearVelocity().tmp().mul(laser.speed));
+			laser.body.setLinearVelocity(new Vector2(-1, 0));
+		laser.body.setLinearVelocity(laser.body.getLinearVelocity().tmp().mul(
+				laser.speed));
 		laser.impactDamage = shooter.weapon;
 		laser.body.setFixedRotation(true);
 		return laser;
@@ -158,7 +160,7 @@ public class GameObjectFactory {
 
 		return enemy1;
 	}
-	
+
 	public GameObject createBoss(Vector2 position) {
 		GameObject boss = new Boss();
 
@@ -190,7 +192,7 @@ public class GameObjectFactory {
 		bodyPoly.dispose();
 
 		return boss;
-	}	
+	}
 
 	public void generateWeaponShot(GameObject weaponType, GameObject shooter) {
 		if (weaponType instanceof Laser)

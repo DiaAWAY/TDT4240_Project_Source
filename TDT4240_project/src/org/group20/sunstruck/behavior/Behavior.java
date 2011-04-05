@@ -20,7 +20,7 @@ import org.group20.sunstruck.gameobject.GameObject;
  */
 public class Behavior {
 	public static enum BEHAVIOR {
-		LINEAR_MOVEMENT, KAMIKAZE, SIN_VEL, SIN_FOR,LINE, SPRAY
+		LINEAR_MOVEMENT, KAMIKAZE_FOR, KAMIKAZE_VEL, SIN_VEL, SIN_FOR,LINE, SPRAY
 	}
 
 	public static enum FILTERS {

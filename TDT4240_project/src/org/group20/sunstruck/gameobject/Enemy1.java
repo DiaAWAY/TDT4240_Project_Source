@@ -6,10 +6,6 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public class Enemy1 extends GameObject {
 
-	@Override
-	public void update() {
-		
-	}
 
 	@Override
 	public void dispose() {

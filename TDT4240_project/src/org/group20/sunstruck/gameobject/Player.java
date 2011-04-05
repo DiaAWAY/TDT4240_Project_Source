@@ -16,12 +16,12 @@ public class Player extends GameObject {
 	private long reloadTimeGun = 100;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
-	
+
 	public Player() {
 		super();
 		isEnemy = false;
 	}
-	
+
 	@Override
 	public void update() {
 
@@ -63,42 +63,26 @@ public class Player extends GameObject {
 				fireBomb();
 				startBomb = System.currentTimeMillis();
 			}
-		
-/*
-		Vector2 gravityCenter = body.getWorldCenter();
-		Vector2 force = null;
-		float scalarGravity = 10;
-		Iterator<Body> bodyIt = Game.getInstance().getWorld().getBodies();
-		Body body = null;
-		while(bodyIt.hasNext()){
-			body = bodyIt.next();
-			if(body.equals(this.body))
-				continue;
-			force = gravityCenter.tmp().sub(body.getWorldCenter());
-			force.mul(1/(Math.abs(force.x)+Math.abs(force.y)));
-			force.mul(scalarGravity);
-			force.mul(body.getMass());
-			body.applyForce(force, body.getWorldCenter());
-		}
-		*/
+
+
 	}
 
-	private void fireBomb() {		
-		//laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
-		//Game.getInstance().getGameObjectList().add(laser);
+	private void fireBomb() {
+		// laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
+		// Game.getInstance().getGameObjectList().add(laser);
 	}
 
 	@Override
 	public void dispose() {
-		//Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
-		
+		// Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
+
 	}
 
 	public String toString() {
 		return "Player";
 	}
-	
-	private void shoot(){
+
+	private void shoot() {
 		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, this);
 	}
 

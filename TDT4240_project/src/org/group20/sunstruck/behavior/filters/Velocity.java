@@ -1,5 +1,6 @@
 package org.group20.sunstruck.behavior.filters;
 
+import org.group20.sunstruck.Game;
 import org.group20.sunstruck.Main;
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.Body;
  *
  */
 public class Velocity implements Filter {
+	
 
 	
 	@Override
@@ -28,11 +30,11 @@ public class Velocity implements Filter {
 		Vector2 velocity = new Vector2();
 		float randomize = (float) Math.random();
 		
-		TYPES type = go.getType();
 		Body body = go.getBody();
 
 		if(behavior == BEHAVIOR.LINE){
 			go.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
+			return;
 		}
 		
 		if(behavior == BEHAVIOR.SPRAY){
@@ -42,24 +44,42 @@ public class Velocity implements Filter {
 			velocity = new Vector2(-Main.CAMERA_WIDTH/2, y).sub(body.getPosition().x, body.getPosition().y);
 			velocity.nor().mul(go.getSpeed());
 			body.setLinearVelocity(velocity);
+			go.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
+			return;
 		}
 		
 		if(behavior == BEHAVIOR.SIN_VEL){
-			float x = body.getPosition().x;
-			float y = (float)Math.sin(x);
-			y = y*6;
+			float len = 5/Main.CAMERA_WIDTH;
 			
-			velocity.set(1, y);
+			float x = body.getPosition().x;
+			float vy = (float)(Math.cos(x*len));
+			
+			float a = Main.CAMERA_WIDTH*Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
+			a = a/5f;
+			vy = vy*a;
+			
+			velocity.set(1, vy);
+			velocity.nor();
 			velocity.mul(go.getSpeed());
 			velocity.mul(-1);
 			
 			
 			body.setLinearVelocity(velocity);
+			return;
 			
 		}
 		
+		if(behavior == BEHAVIOR.KAMIKAZE_VEL){
+			velocity = Game.getInstance().getPlayer().getBody().getWorldCenter().tmp().sub(body.getPosition());
+			velocity.nor();
+			velocity.mul(go.getSpeed());
+			body.setLinearVelocity(velocity);
+			go.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
+		}
+			
 		
-		//Behavior.filters.get(FILTERS.FORCE).applyFilter(go);
+		
+		Behavior.filters.get(FILTERS.FORCE).applyFilter(go);
 	
 	}
 

@@ -1,6 +1,7 @@
 package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
+import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -35,10 +36,7 @@ public abstract class GameObject {
 	Body body = null;
 
 	public void update() {
-		if (!isDisposed) {
-			Game.getInstance().getDestroyedBodiesList().add(body);
-			isDisposed = true;
-		}
+		Behavior.applyBehavior(this);
 	}
 
 	public abstract void contact(WorldManifold worldManifold, float impactDamage);
