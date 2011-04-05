@@ -1,7 +1,6 @@
 package org.group20.sunstruck.world.map.segments;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class MapSegment {
 
@@ -10,11 +9,14 @@ public abstract class MapSegment {
 	}
 
 	private MapSegment.MAPTYPES type = MAPTYPES.DEFAULT;
-	private Texture texture = null;
+	private TextureRegion texReg = null;
 
-	public Texture getTexture() {
-		//return texture;
-		return new Texture(Gdx.files.internal("data/placeholder.png")); // TODO remove placeholder with real code :)
+	public TextureRegion getTextureRegion() {
+		return texReg;
+	}
+
+	public void setTextureRegion(TextureRegion t) {
+		texReg = t;
 	}
 
 	public MAPTYPES getType() {

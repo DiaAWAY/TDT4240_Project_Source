@@ -1,0 +1,170 @@
+
+Textures1.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+seaworldBGPlaceholder2
+  rotate: false
+  xy: 0, 0
+  size: 512, 1024
+  orig: 512, 1024
+  offset: 0, 0
+  index: -1
+seaworldBGPlaceholder
+  rotate: false
+  xy: 0, 1025
+  size: 512, 1024
+  orig: 512, 1024
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 0, 2050
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+controlCircle
+  rotate: false
+  xy: 0, 2563
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+enemy1
+  rotate: false
+<<<<<<< HEAD
+  xy: 129, 2563
+  size: 64, 64
+  orig: 64, 64
+=======
+  xy: 0, 129
+  size: 124, 123
+  orig: 124, 124
+>>>>>>> knutesten-master
+  offset: 0, 0
+  index: -1
+TIEBomber
+  rotate: false
+<<<<<<< HEAD
+  xy: 194, 2563
+=======
+  xy: 0, 253
+>>>>>>> knutesten-master
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireButton
+  rotate: false
+<<<<<<< HEAD
+  xy: 259, 2563
+=======
+  xy: 0, 318
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+enemy2
+  rotate: false
+  xy: 0, 383
+>>>>>>> knutesten-master
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+guiUpgradeWeaponPressed
+  rotate: false
+<<<<<<< HEAD
+  xy: 324, 2563
+=======
+  xy: 0, 448
+>>>>>>> knutesten-master
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeWeapon
+  rotate: false
+<<<<<<< HEAD
+  xy: 324, 2596
+=======
+  xy: 0, 481
+>>>>>>> knutesten-master
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeSpeedPressed
+  rotate: false
+<<<<<<< HEAD
+  xy: 324, 2629
+=======
+  xy: 0, 514
+>>>>>>> knutesten-master
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeSpeed
+  rotate: false
+<<<<<<< HEAD
+  xy: 0, 2692
+=======
+  xy: 0, 547
+>>>>>>> knutesten-master
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeShieldPressed
+  rotate: false
+<<<<<<< HEAD
+  xy: 129, 2692
+=======
+  xy: 0, 580
+>>>>>>> knutesten-master
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeShield
+  rotate: false
+<<<<<<< HEAD
+  xy: 258, 2692
+=======
+  xy: 0, 613
+>>>>>>> knutesten-master
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeHullPressed
+  rotate: false
+<<<<<<< HEAD
+  xy: 0, 2725
+=======
+  xy: 0, 646
+>>>>>>> knutesten-master
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiUpgradeHull
+  rotate: false
+<<<<<<< HEAD
+  xy: 129, 2725
+=======
+  xy: 0, 679
+>>>>>>> knutesten-master
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+redLaser
+  rotate: false
+  xy: 125, 129
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
