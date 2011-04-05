@@ -7,8 +7,8 @@ public class SpritePackager {
 	public static void main (String[] args) throws Exception {
         Settings settings = new Settings();
         settings.padding = 1;
-        settings.maxWidth = 4096;
-        settings.maxHeight = 4096;
+        settings.maxWidth = 1024;
+        settings.maxHeight = 1024;
         settings.incremental = true;
         TexturePacker.process(settings, "Textures", "../TDT4240_Project/data");
     }

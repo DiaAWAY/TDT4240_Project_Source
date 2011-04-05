@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -43,7 +44,6 @@ public class Main implements ApplicationListener {
 		// Gdx.app.log("Simple Test", "Thread=" + Thread.currentThread().getId()
 		// + ", surface created");
 		Game.getInstance().initializePlayer();
-
 		// Scales the height.
 		float scale = (float) Gdx.graphics.getHeight()
 				/ Gdx.graphics.getWidth();
@@ -119,7 +119,7 @@ public class Main implements ApplicationListener {
 		if (!run)
 			return;
 
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor((float)Math.random(), 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		// Draw background
@@ -254,6 +254,7 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void resume() {
+//		Game.textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
 		run = true;
 	}
 

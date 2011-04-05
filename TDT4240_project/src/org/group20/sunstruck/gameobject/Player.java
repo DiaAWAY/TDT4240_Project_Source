@@ -4,6 +4,7 @@ import org.group20.sunstruck.Game;
 import org.group20.sunstruck.Main;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
@@ -13,7 +14,8 @@ public class Player extends GameObject {
 	private long reloadTimeGun = 100;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
-
+	public static Sound pew = Gdx.audio.newSound(Gdx.files.internal("data/pew.wav"));
+	
 	public Player() {
 		super(Game.textureAtlas.findRegion("shipLarge2"), TYPES.ENEMY,
 				BEHAVIOR.LINEAR_MOVEMENT, false, false, new Laser(), 5, 20, 5,
@@ -83,6 +85,7 @@ public class Player extends GameObject {
 
 	private void shoot() {
 		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, this);
+		Player.pew.play();
 	}
 
 	@Override

@@ -157,41 +157,31 @@ public class Game implements GameInterface, ContactListener {
 		if (B.getType() != BodyType.StaticBody)
 			goB = (GameObject) contact.getFixtureB().getBody().getUserData();
 
-		if (goA != null) {
-			if (goB != null) {
-				if (goB.isEnemy() && goA.isEnemy()) {
-					if (goB.isProjectile()) {// enemy projectile hits another
-												// enemy
-						// destroy projectile
-						goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
-					}
-					return;
-				}
-				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
-			} else {
-				goA.setScore(0); // object hits borders and is removed, no score
-									// for this item
-				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
-			}
+		// --- check if bodies are hitting the wall and act accordingly ---
+		if (goA == null && goB != null) {
+			goB.setScore(0); // player won't get any score for this
+			goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			return;
+		} else if (goA != null && goB == null) {
+			goA.setScore(0); // player won't get any score for this
+			goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			return;
 		}
-
-		if (goB != null) {
-			if (goA != null) {
-				if (goA.isEnemy() && goB.isEnemy()) {
-					if (goA.isProjectile()) {// enemy projectile hits another
-												// enemy
-						// destroy projectile
-						goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
-					}
-					return;
-				}
-				goB.contact(contact.GetWorldManifold(), goB.getImpactDamage());
-			} else {
-				goB.setScore(0); // object hits borders and is removed, no score
-									// for this item
+		
+		// --- let's check if enemies are shooting at each other! ---
+		if (goB.isEnemy() && goA.isEnemy()) { // enemy objects hitting each other
+			if (goB.isProjectile()) {
 				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 			}
+			if (goA.isProjectile()) {
+				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			}
+			return;
 		}
+		
+		// okay, now we're talking! enemy or player damage!
+		goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
+		goB.contact(contact.GetWorldManifold(), goA.getImpactDamage());
 	}
 
 	@Override
@@ -324,5 +314,10 @@ public class Game implements GameInterface, ContactListener {
 	 */
 	public void setBossInterval(int i) {
 		this.bossInterval = i;
+	}
+
+	public void derp() {
+		getMap().derp();
+		
 	}
 }
