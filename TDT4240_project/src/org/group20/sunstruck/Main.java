@@ -35,7 +35,7 @@ public class Main implements ApplicationListener {
 	private SpriteBatch backgroundBatch;
 	private OrthographicCamera camera;
 	private Box2DDebugRenderer renderer;
-	private float bgYOffset = 10;
+	private float bgYOffset = 0;
 	private int bgIteration = 0;
 	private float time = 0;
 	private boolean run = true;
@@ -223,8 +223,8 @@ public class Main implements ApplicationListener {
 		float bgPosition = bgIteration * bgSpeed;
 		if (rf != null && rl != null) {
 			backgroundBatch.begin();
-			backgroundBatch.draw(rf, -bgPosition, bgYOffset);
-			backgroundBatch.draw(rl, -bgPosition + rf.getRegionWidth(), bgYOffset);
+			backgroundBatch.draw(rf, -bgPosition, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			backgroundBatch.draw(rl, -bgPosition + Gdx.graphics.getWidth(), 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			backgroundBatch.end();
 		} else {
 			System.out.println("drawBackground(): rf is:" + rf + ", rl is:"
@@ -235,7 +235,7 @@ public class Main implements ApplicationListener {
 			time = 0;
 			bgIteration++;
 		}
-		if (bgPosition > rf.getRegionWidth() - 1) {
+		if (bgPosition > Gdx.graphics.getWidth() - 1) {
 			first = last;
 			last = Game.getInstance().getMap().getNext();
 			bgIteration = 0;

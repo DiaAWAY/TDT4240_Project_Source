@@ -18,8 +18,6 @@ public abstract class MapSegment {
 	}
 	
 	public void setTextureRegion(TextureRegion t) {
-		t.setRegionWidth(Gdx.graphics.getWidth());
-		t.setRegionHeight(Gdx.graphics.getHeight());
 		texReg = t;
 	}
 
