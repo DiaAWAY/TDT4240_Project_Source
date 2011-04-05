@@ -215,7 +215,7 @@ public class Game implements GameInterface, ContactListener {
 	public void setShop(Shop shop) {
 		this.shop = shop;
 	}
-
+ 
 	public Shop getShop() {
 		return shop;
 	}

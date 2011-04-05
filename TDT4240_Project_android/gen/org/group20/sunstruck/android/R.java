@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package org.group20.tdt4240;
+package org.group20.sunstruck.android;
 
 public final class R {
     public static final class attr {

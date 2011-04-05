@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="org.group20.tdt4240"
+      package="org.group20.sunstruck.android"
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk minSdkVersion="3" targetSdkVersion="8"/>
