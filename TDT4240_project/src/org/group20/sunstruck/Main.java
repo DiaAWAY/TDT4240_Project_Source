@@ -218,8 +218,10 @@ public class Main implements ApplicationListener {
 		float bgPosition = bgIteration * bgSpeed;
 		if (rf != null && rl != null) {
 			backgroundBatch.begin();
-			backgroundBatch.draw(rf, -bgPosition, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			backgroundBatch.draw(rl, -bgPosition + Gdx.graphics.getWidth(), 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			backgroundBatch.draw(rf, -bgPosition, 0, Gdx.graphics.getWidth(),
+					Gdx.graphics.getHeight());
+			backgroundBatch.draw(rl, -bgPosition + Gdx.graphics.getWidth(), 0,
+					Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			backgroundBatch.end();
 		} else {
 			System.out.println("drawBackground(): rf is:" + rf + ", rl is:"

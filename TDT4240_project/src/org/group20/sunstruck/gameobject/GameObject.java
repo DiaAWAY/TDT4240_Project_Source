@@ -10,8 +10,30 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public abstract class GameObject {
 
+	protected GameObject(TextureRegion textureRegion, TYPES type,
+			BEHAVIOR behavior, boolean isProjectile, boolean isEnemy,
+			GameObject weaponType, float speed, float impactDamage, float hull,
+			float weapon, float shield, float width, float reloadTime,
+			int BURST_COUNT, int PAUSE_COUNT, float density) {
+		this.textureRegion = textureRegion;
+		this.type = type;
+		this.behavior = behavior;
+		this.isProjectile = isProjectile;
+		this.isEnemy = isEnemy;
+		this.weaponType = weaponType;
+		this.speed = speed;
+		this.hull = hull;
+		this.weapon = weapon;
+		this.shield = shield;
+		this.impactDamage = impactDamage;
+		this.width = width;
+		this.height = width * textureRegion.getRegionHeight()
+				/ textureRegion.getRegionWidth();
+		this.density = density;
+	}
+
 	public static enum TYPES {
-		PLAYER, ENEMY, BULLET, UNKNOWN
+		PLAYER, ENEMY, BULLET, UNKNOWN, ASTEROID
 	}
 
 	TYPES type = TYPES.UNKNOWN;
@@ -29,6 +51,15 @@ public abstract class GameObject {
 	float impactDamage = 0;
 	int score = 0;
 
+	long reloadTime = 200;
+	long start = System.currentTimeMillis();
+	int shotCount = 0;
+
+	int BURST_COUNT = 3;
+	int PAUSE_COUNT = 9;
+
+	float density = 0;
+
 	// height and width of the body-rectangle.
 	float width = 0;
 	float height = 0;
@@ -37,6 +68,26 @@ public abstract class GameObject {
 
 	public void update() {
 		Behavior.applyBehavior(this);
+		if (!isProjectile) {
+			long time = System.currentTimeMillis() - start;
+			if (behavior != BEHAVIOR.KAMIKAZE_FOR)
+				if (time > reloadTime) {
+					shoot();
+					start = System.currentTimeMillis();
+				}
+		}
+	}
+
+	private void shoot() {
+		shotCount++;
+		if (shotCount <= BURST_COUNT) {
+			Game.getInstance().getGoFactory()
+					.generateWeaponShot(weaponType, this);
+		} else if (shotCount <= BURST_COUNT + PAUSE_COUNT) {
+			return;
+		} else
+			shotCount = 0;
+
 	}
 
 	public abstract void contact(WorldManifold worldManifold, float impactDamage);

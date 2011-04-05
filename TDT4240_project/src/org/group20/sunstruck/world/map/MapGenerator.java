@@ -25,7 +25,8 @@ public class MapGenerator {
 	 * @return MapSegment - the next segment
 	 */
 	public MapSegment getNext() {
-		currentSegment = segments.get((int) (Math.random() * (segments.size()-1)+0.5));
+		currentSegment = segments.get((int) (Math.random()
+				* (segments.size() - 1) + 0.5));
 		return currentSegment; // place holder
 	}
 }

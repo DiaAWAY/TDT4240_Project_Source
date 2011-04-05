@@ -2,24 +2,20 @@ package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
+
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
-public class Laser extends GameObject {
+public class SmallKamikazeEnemy extends GameObject {
 
-	public Laser() {
-		super(Game.textureAtlas.findRegion("redLaser"), TYPES.BULLET,
-				BEHAVIOR.LINEAR_MOVEMENT, true, true, null, 10, 0, 0, 0, 0, 0,
-				0, 0, 0, 1);
-		width = 1;
-		height = 0.1f;
+	public SmallKamikazeEnemy() {
+		super(Game.textureAtlas.findRegion("shipSmall3"), TYPES.ENEMY,
+				BEHAVIOR.KAMIKAZE_VEL, false, true, new Laser(), 1, 20, 5, 0,
+				10, 1, 200, 3, 9, 1);
 	}
-
-	public boolean isBomb = false;
 
 	@Override
 	public void contact(WorldManifold worldManifold, float impactDamage) {
 		dispose();
-
 	}
 
 }

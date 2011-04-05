@@ -1,13 +1,11 @@
 package org.group20.sunstruck.behavior;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.group20.sunstruck.behavior.filters.Filter;
 import org.group20.sunstruck.behavior.filters.Force;
 import org.group20.sunstruck.behavior.filters.Rotation;
 import org.group20.sunstruck.behavior.filters.Velocity;
-import org.group20.sunstruck.behavior.filters.LinearMovement;
 import org.group20.sunstruck.gameobject.GameObject;
 
 /**
@@ -20,7 +18,7 @@ import org.group20.sunstruck.gameobject.GameObject;
  */
 public class Behavior {
 	public static enum BEHAVIOR {
-		LINEAR_MOVEMENT, KAMIKAZE_FOR, KAMIKAZE_VEL, SIN_VEL, SIN_FOR,LINE, SPRAY
+		LINEAR_MOVEMENT, KAMIKAZE_FOR, KAMIKAZE_VEL, SIN_VEL, SIN_FOR, LINE, SPRAY
 	}
 
 	public static enum FILTERS {
@@ -35,11 +33,11 @@ public class Behavior {
 		filters.put(FILTERS.ROTATION, new Rotation());
 	}
 
-	public static void applyBehavior(GameObject go) {		
-		if(go.getBehavior() == null)
+	public static void applyBehavior(GameObject go) {
+		if (go.getBehavior() == null)
 			go.setBehavior(BEHAVIOR.LINE);
-		
+
 		filters.get(FILTERS.VELOCITY).applyFilter(go);
-		
+
 	}
 }

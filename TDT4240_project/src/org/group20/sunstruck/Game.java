@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.group20.sunstruck.behavior.Behavior;
-import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import org.group20.sunstruck.gameobject.Boss;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
 import org.group20.sunstruck.gameobject.Player;
+import org.group20.sunstruck.gameobject.SmallKamikazeEnemy;
 import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
 import org.group20.sunstruck.interfaces.GameInterface;
@@ -74,10 +74,12 @@ public class Game implements GameInterface, ContactListener {
 		return GameHolder.INSTANCE;
 	}
 
+	@Override
 	public void start() {
 		Behavior.initFilters();
 	}
 
+	@Override
 	public void update() {
 		clearDestroyedBodiesList();
 
@@ -119,10 +121,10 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 10.0) {
+			if (enemySpawnTime >= 3.0) {
 				System.out.println("Spawning enemy!");
-				goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7))
-						.setBehavior(BEHAVIOR.SPRAY);
+				goFactory.createEnemy(new Vector2(7, (int) Math.random() * 7),
+						new SmallKamikazeEnemy());
 				enemySpawnTime = 0;
 			}
 		}
@@ -135,7 +137,7 @@ public class Game implements GameInterface, ContactListener {
 					+ "}, remaining time:" + bossTimer + "/5.0");
 			if (bossTimer >= 5.0) {
 				System.out.println("Spawning boss!");
-				goFactory.createBoss(new Vector2(7, 0));
+				// goFactory.createBoss(new Vector2(7, 0));
 				bossAlive = true;
 				bossTimer = 0;
 			}
@@ -217,58 +219,72 @@ public class Game implements GameInterface, ContactListener {
 
 	// Getter's and setter's (No shit)
 
+	@Override
 	public void setGoFactory(GameObjectFactory goFactory) {
 		this.goFactory = goFactory;
 	}
 
+	@Override
 	public GameObjectFactory getGoFactory() {
 		return goFactory;
 	}
 
+	@Override
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
+	@Override
 	public Player getPlayer() {
 		return player;
 	}
 
+	@Override
 	public void setShop(Shop shop) {
 		this.shop = shop;
 	}
 
+	@Override
 	public Shop getShop() {
 		return shop;
 	}
 
+	@Override
 	public void setInput(Input input) {
 		this.input = input;
 	}
 
+	@Override
 	public Input getInput() {
 		return input;
 	}
 
+	@Override
 	public void setGui(GUI gui) {
 		this.gui = gui;
 	}
 
+	@Override
 	public GUI getGui() {
 		return gui;
 	}
 
+	@Override
 	public void setDifficulty(DIFFICULTIES d) {
 		this.difficulty = d;
 	}
 
+	@Override
 	public DIFFICULTIES getDifficulty() {
 		return difficulty;
 	}
 
+	@Override
 	public void setUpdateRate(float updaterate) {
 		updateRate = updaterate;
 	}
 
+	@Override
 	public float getUpdateRate() {
 		return updateRate;
 	}
