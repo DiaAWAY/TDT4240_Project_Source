@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.group20.sunstruck.behavior.Behavior;
+import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import org.group20.sunstruck.gameobject.Boss;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
@@ -24,8 +25,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Game implements GameInterface, ContactListener {
 	public static boolean DEBUG = false;
-	public static TextureAtlas textureAtlas = new TextureAtlas(
-			Gdx.files.internal("data/pack"));
+	public static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files
+			.internal("data/pack"));
 	private float updateRate = 1.0f; // physics update rate
 	private float totalTime;
 	private Vector2 initGravity = new Vector2(0, 0);
@@ -42,8 +43,9 @@ public class Game implements GameInterface, ContactListener {
 	private boolean bossMode = false;
 	private boolean bossAlive = false;
 	private float bossTimer = 0;
-	private int bossCount = 1; 
-	private int bossInterval = 100; // playerScore > bossInterval*bossCount => spawn boss
+	private int bossCount = 1;
+	private int bossInterval = 100; // playerScore > bossInterval*bossCount =>
+									// spawn boss
 	private float enemySpawnTime = 0;
 
 	private Game() {
@@ -97,15 +99,13 @@ public class Game implements GameInterface, ContactListener {
 					continue;
 				go = (GameObject) body.getUserData();
 				go.update();
-				if (!(go instanceof Player))
-					Behavior.applyBehavior(go);
 			}
 			time = 0;
 		}
 
 		// SPAWNING ENEMIES
 		if (!bossMode) {
-			if (player.getScore() > bossInterval*bossCount) {
+			if (player.getScore() > bossInterval * bossCount) {
 				bossMode = true;
 			} else {
 				spawnEnemy();
@@ -114,12 +114,13 @@ public class Game implements GameInterface, ContactListener {
 			spawnBoss();
 		}
 	}
-
 	private void spawnEnemy() {
+		
 		enemySpawnTime += Gdx.graphics.getDeltaTime();
-		if (!bossMode && enemySpawnTime >= 5.0) {
+		if (!bossMode && enemySpawnTime >= 10.0) {
 			System.out.println("Spawning enemy!");
-			goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7));
+			goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7))
+					.setBehavior(BEHAVIOR.SPRAY);
 			bossAlive = true;
 			enemySpawnTime = 0;
 		}
@@ -276,9 +277,12 @@ public class Game implements GameInterface, ContactListener {
 		return destroyedBodiesList;
 
 	}
+
 	/**
-	 * The boss interval decides at which score values bosses spawn.
-	 * example: value set to 100 will spawn bosses when scores are above 100, 200, 300, etc.
+	 * The boss interval decides at which score values bosses spawn. example:
+	 * value set to 100 will spawn bosses when scores are above 100, 200, 300,
+	 * etc.
+	 * 
 	 * @param i
 	 */
 	public void setBossInterval(int i) {

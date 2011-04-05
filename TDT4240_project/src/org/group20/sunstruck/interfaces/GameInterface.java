@@ -10,9 +10,10 @@ import org.group20.sunstruck.world.map.MapGenerator;
 import com.badlogic.gdx.physics.box2d.World;
 
 public interface GameInterface {
-	
-	
-	public static enum DIFFICULTIES {EASY, MEDIUM, HARD}
+
+	public static enum DIFFICULTIES {
+		EASY, MEDIUM, HARD
+	}
 
 	void start();
 

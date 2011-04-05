@@ -51,6 +51,8 @@ public class GameObjectFactory {
 	private final int BOSS_SCORE = 10;
 	private final TextureRegion BOSS_TEXTURE_REGION = Game.textureAtlas
 			.findRegion("enemy2");
+<<<<<<< HEAD
+=======
 	
 	private final float METEORITE_DENSITY = 100;
 	private final float METEORITE_START_SPEED = 0;
@@ -58,6 +60,7 @@ public class GameObjectFactory {
 	private final float METEORITE_START_IMPACT_DAMAGE = 30;
 	private final int METEORITE_SCORE = 5;
 	private final TextureRegion METEORITE_TEXTURE_REGION = Game.textureAtlas.findRegion("enemy1");
+>>>>>>> knutesten-master
 
 	private DIFFICULTIES difficulty;
 
@@ -107,12 +110,16 @@ public class GameObjectFactory {
 		laser.width = LASER_START_WIDTH;
 		laser.height = LASER_START_HEIGHT;
 		laser.isProjectile = true;
+<<<<<<< HEAD
+
+=======
 		laser.speed = LASER_START_SPEED;
 
 
 		float angle = shooter.getBody().getAngle();
 		Vector2 direction = new Vector2(0,0);
 		
+>>>>>>> knutesten-master
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -219,6 +226,8 @@ public class GameObjectFactory {
 
 		return boss;
 	}
+<<<<<<< HEAD
+=======
 	
 	public GameObject createMeteorite(Vector2 position, float size){
 		GameObject meteorite = new Meteorite();
@@ -246,6 +255,7 @@ public class GameObjectFactory {
 		
 		return meteorite;
 	}
+>>>>>>> knutesten-master
 
 	public void generateWeaponShot(GameObject weaponType, GameObject shooter) {
 		GameObject shot = null;
