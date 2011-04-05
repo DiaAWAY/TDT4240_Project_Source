@@ -25,8 +25,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Game implements GameInterface, ContactListener {
 	public static boolean DEBUG = false;
-	public static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files
-			.internal("data/pack"));
+	public static TextureAtlas textureAtlas = new TextureAtlas(
+			Gdx.files.internal("data/pack"));
 	private float updateRate = 1.0f; // physics update rate
 	private float totalTime;
 	private Vector2 initGravity = new Vector2(0, 0);
@@ -114,8 +114,9 @@ public class Game implements GameInterface, ContactListener {
 			spawnBoss();
 		}
 	}
+
 	private void spawnEnemy() {
-		
+
 		enemySpawnTime += Gdx.graphics.getDeltaTime();
 		if (!bossMode && enemySpawnTime >= 10.0) {
 			System.out.println("Spawning enemy!");
@@ -150,23 +151,32 @@ public class Game implements GameInterface, ContactListener {
 
 		if (goA != null) {
 			if (goB != null) {
-				if (goB.isEnemy() && goA.isEnemy())
+				if (goB.isEnemy() && goA.isEnemy()) {
+					if (goB.isProjectile()) {// enemy projectile hits another enemy
+						// destroy projectile
+						goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+					}
 					return;
+				}
 				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
 			} else {
-				goA.setScore(0);
+				goA.setScore(0); // object hits borders and is removed, no score for this item
 				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 			}
 		}
 
 		if (goB != null) {
 			if (goA != null) {
-				if (goA.isEnemy()
-						&& goB.isEnemy())
+				if (goA.isEnemy() && goB.isEnemy()) {
+					if (goA.isProjectile()) {// enemy projectile hits another enemy
+						// destroy projectile
+						goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+					}
 					return;
+				}
 				goB.contact(contact.GetWorldManifold(), goB.getImpactDamage());
 			} else {
-				goB.setScore(0);
+				goB.setScore(0); // object hits borders and is removed, no score for this item
 				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 			}
 		}
@@ -215,7 +225,7 @@ public class Game implements GameInterface, ContactListener {
 	public void setShop(Shop shop) {
 		this.shop = shop;
 	}
- 
+
 	public Shop getShop() {
 		return shop;
 	}
