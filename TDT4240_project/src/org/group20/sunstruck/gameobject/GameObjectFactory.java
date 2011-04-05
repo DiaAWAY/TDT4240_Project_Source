@@ -6,6 +6,7 @@ import org.group20.sunstruck.interfaces.GameInterface.DIFFICULTIES;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class GameObjectFactory {
@@ -46,6 +47,14 @@ public class GameObjectFactory {
 			generateBoxBody(enemy, position, 0);
 
 		return enemy;
+	}
+	
+	public GameObject createAsteroid(Vector2 position, int size){
+		GameObject asteroid = new Asteroid(size);
+		
+		generateCircleBody(asteroid, position);
+		
+		return asteroid;
 	}
 
 	// public GameObject createBoss(Vector2 position) {
@@ -120,8 +129,23 @@ public class GameObjectFactory {
 				shot.isEnemy = false;
 		}
 	}
+	private void generateCircleBody(GameObject go, Vector2 position){
+		// Defines the body and creates it
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(position);
+		go.body = Game.getInstance().getWorld().createBody(bodyDef);
+		
+		CircleShape circleShape = new CircleShape();
+		circleShape.setRadius(go.width);
+		go.body.createFixture(circleShape, go.density);
+		circleShape.dispose();
+		
+		go.body.setUserData(go);
+		
+	}
 
-	public void generateBoxBody(GameObject go, Vector2 position, float angle) {
+	private void generateBoxBody(GameObject go, Vector2 position, float angle) {
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -138,7 +162,7 @@ public class GameObjectFactory {
 
 	}
 
-	public void setBulletSpeed(GameObject go, Vector2 direction) {
+	private void setBulletSpeed(GameObject go, Vector2 direction) {
 		if (go instanceof Player)
 			go.body.setLinearVelocity(new Vector2(1, 0));
 		else

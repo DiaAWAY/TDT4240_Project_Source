@@ -30,6 +30,8 @@ public abstract class GameObject {
 		this.height = width * textureRegion.getRegionHeight()
 				/ textureRegion.getRegionWidth();
 		this.density = density;
+		this.BURST_COUNT = BURST_COUNT;
+		this.PAUSE_COUNT = PAUSE_COUNT;
 	}
 
 	public static enum TYPES {
@@ -79,11 +81,13 @@ public abstract class GameObject {
 	}
 
 	private void shoot() {
+		if(BURST_COUNT == 0)
+			return;
 		shotCount++;
-		if (shotCount <= BURST_COUNT) {
+		if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
 			Game.getInstance().getGoFactory()
 					.generateWeaponShot(weaponType, this);
-		} else if (shotCount <= BURST_COUNT + PAUSE_COUNT) {
+		} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
 			return;
 		} else
 			shotCount = 0;

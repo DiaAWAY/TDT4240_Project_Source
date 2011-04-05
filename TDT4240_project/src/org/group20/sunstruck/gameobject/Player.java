@@ -14,12 +14,13 @@ public class Player extends GameObject {
 	private long reloadTimeGun = 100;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
-	public static Sound pew = Gdx.audio.newSound(Gdx.files.internal("data/pew.wav"));
+	
+	
 	
 	public Player() {
 		super(Game.textureAtlas.findRegion("shipLarge2"), TYPES.ENEMY,
 				BEHAVIOR.LINEAR_MOVEMENT, false, false, new Laser(), 5, 20, 5,
-				0, 10, 1, 200, 3, 9, 10);
+				0, 10, 3, 200, 3, 9, 10);
 
 	}
 
@@ -85,7 +86,6 @@ public class Player extends GameObject {
 
 	private void shoot() {
 		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, this);
-		Player.pew.play();
 	}
 
 	@Override
