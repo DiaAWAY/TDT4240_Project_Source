@@ -315,4 +315,9 @@ public class Game implements GameInterface, ContactListener {
 	public void setBossInterval(int i) {
 		this.bossInterval = i;
 	}
+
+	public void derp() {
+		getMap().derp();
+		
+	}
 }
