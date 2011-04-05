@@ -117,6 +117,16 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	private void spawnEnemy() {
+<<<<<<< HEAD
+		
+		enemySpawnTime += Gdx.graphics.getDeltaTime();
+		if (!bossMode && enemySpawnTime >= 2.0) {
+			System.out.println("Spawning enemy!");
+			goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7))
+					.setBehavior(BEHAVIOR.SPRAY);
+			bossAlive = true;
+			enemySpawnTime = 0;
+=======
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
 			if (enemySpawnTime >= 10.0) {
@@ -125,6 +135,7 @@ public class Game implements GameInterface, ContactListener {
 						.setBehavior(BEHAVIOR.SPRAY);
 				enemySpawnTime = 0;
 			}
+>>>>>>> upstream/master
 		}
 	}
 

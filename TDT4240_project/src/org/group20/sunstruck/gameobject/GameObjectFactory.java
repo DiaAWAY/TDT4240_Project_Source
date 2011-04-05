@@ -248,7 +248,14 @@ public class GameObjectFactory {
 	}
 
 	public void generateWeaponShot(GameObject weaponType, GameObject shooter) {
+		GameObject shot = null;
 		if (weaponType instanceof Laser)
-			createLaser(shooter);
+			shot = createLaser(shooter);
+		if (shot != null) {
+			if (shooter.isEnemy())
+				shot.isEnemy = true;
+			else
+				shot.isEnemy = false;
+		}
 	}
 }

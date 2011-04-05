@@ -6,7 +6,7 @@
     <uses-sdk minSdkVersion="3" targetSdkVersion="8"/>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name="org.group20.sunstruck.android.AndroidMain"
+        <activity android:name="AndroidMain"
                   android:label="@string/app_name"
                   android:configChanges="keyboard|keyboardHidden|orientation">
             <intent-filter>
