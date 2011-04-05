@@ -114,13 +114,13 @@ public class Game implements GameInterface, ContactListener {
 			spawnBoss();
 		}
 	}
-
 	private void spawnEnemy() {
+		
 		enemySpawnTime += Gdx.graphics.getDeltaTime();
-		if (!bossMode && enemySpawnTime >= 3.0) {
+		if (!bossMode && enemySpawnTime >= 10.0) {
 			System.out.println("Spawning enemy!");
 			goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7))
-					.setBehavior(BEHAVIOR.KAMIKAZE_VEL);
+					.setBehavior(BEHAVIOR.KAMIKAZE_FOR);
 			bossAlive = true;
 			enemySpawnTime = 0;
 		}
