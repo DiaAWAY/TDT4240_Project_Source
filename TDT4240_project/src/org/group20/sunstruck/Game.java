@@ -117,7 +117,7 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		
 		enemySpawnTime += Gdx.graphics.getDeltaTime();
-		if (!bossMode && enemySpawnTime >= 10.0) {
+		if (!bossMode && enemySpawnTime >= 2.0) {
 			System.out.println("Spawning enemy!");
 			goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7))
 					.setBehavior(BEHAVIOR.SPRAY);
