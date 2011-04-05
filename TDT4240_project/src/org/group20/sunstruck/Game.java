@@ -33,20 +33,19 @@ public class Game implements GameInterface {
 	private Input input;	
 	private GUI gui;
 
-	private TextureAtlas textureAtlas;
+	public static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("data/atlas/pack"));
 	
 	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
 	
 	private Game() {
 		this(DIFFICULTIES.MEDIUM);
 		world = new World(initGravity, true);
-		//textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
 		gui = new GUI();
 		input = new Input(gui);
 	}
 	
 	public void initializePlayer(){
-		player = new Player(new Vector2(0,0),0.5f, 0.5f, new TextureRegion(new Texture(Gdx.files.internal("data/TIE_Interceptor.png"))), 10, 10, 1, 1,1);
+		player = new Player(new Vector2(0,0),3.14f, 3.14f, new TextureRegion(new Texture(Gdx.files.internal("data/TIE_Interceptor.png"))), 10, 10, 1, 1,1);
 		gameObjectList.add(player);
 	}
 	

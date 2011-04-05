@@ -3,9 +3,12 @@ package org.group20.sunstruck.gui;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.group20.sunstruck.Game;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
@@ -16,14 +19,15 @@ public class GUI {
 	ArrayList<Sprite> spriteList = new ArrayList<Sprite>();
 
 	public GUI(){
-		/*
-		//Gets the textures.
-		TextureRegion controlCircleTexture = Game.getInstance().getTextureAtlas().findRegion("controlCircle");
-		TextureRegion fireButtonTexture = Game.getInstance().getTextureAtlas().findRegion("fireButton");
-		*/
 		
-		TextureRegion controlCircleTexture = new TextureRegion(new Texture(Gdx.files.internal("data/controlCircle.png")));
-		TextureRegion fireButtonTexture = new TextureRegion(new Texture(Gdx.files.internal("data/fireButton.png")));
+		//Gets the textures.
+		
+		TextureRegion controlCircleTexture = Game.textureAtlas.findRegion("controlCircle");
+		TextureRegion fireButtonTexture = Game.textureAtlas.findRegion("fireButton");
+		
+		
+		//TextureRegion controlCircleTexture = new TextureRegion(new Texture(Gdx.files.internal("data/controlCircle.png")));
+		//TextureRegion fireButtonTexture = new TextureRegion(new Texture(Gdx.files.internal("data/fireButton.png")));
 		
 		//Makes the sprites with corresponding textures.
 		controlCircle = new Sprite(controlCircleTexture);

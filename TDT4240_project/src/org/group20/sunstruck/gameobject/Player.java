@@ -40,7 +40,7 @@ public class Player extends GameObject {
 	
 	private void shoot(){
 		Vector2 pos = body.getWorldCenter().add(width*2, 0);
-		Projectile laser = new Projectile(pos, 1f, 0.5f, new TextureRegion(new Texture(Gdx.files.internal("data/redLaser.png"))), 1, 5, 0, 0, 0);
+		Projectile laser = new Projectile(pos, 1f, 0.5f, new TextureRegion(new Texture(Gdx.files.internal("data/redLaser.png"))), 1000, 5, 0, 0, 0);
 		
 		Vector2 vel = new Vector2(1, 0);
 		vel.mul(laser.getSpeed());

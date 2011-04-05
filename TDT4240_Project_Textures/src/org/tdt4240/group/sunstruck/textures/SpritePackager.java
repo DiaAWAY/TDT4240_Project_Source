@@ -7,9 +7,9 @@ public class SpritePackager {
 	public static void main (String[] args) throws Exception {
         Settings settings = new Settings();
         settings.padding = 1;
-        settings.maxWidth = 512;
-        settings.maxHeight = 512;
+        settings.maxWidth = 4096;
+        settings.maxHeight = 4096;
         settings.incremental = true;
-        TexturePacker.process(settings, "Sprites", "Sheets");
+        TexturePacker.process(settings, "Sprites", "Atlas");
     }
 }

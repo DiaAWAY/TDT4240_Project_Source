@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
@@ -40,7 +41,7 @@ public class Main implements ApplicationListener {
 		
 		//Scales the width.
 		float scale = (float)Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
-		camera = new OrthographicCamera(7, 7*scale);        
+		camera = new OrthographicCamera(10, 10*scale);        
         camera.position.set(0, 0, 0);
         
 		spriteBatch = new SpriteBatch();
@@ -104,7 +105,6 @@ public class Main implements ApplicationListener {
         
         //Update physics.
 		Game.getInstance().getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
-		renderer.render(Game.getInstance().getWorld());
 		
 		//Update camera.
         camera.update();
