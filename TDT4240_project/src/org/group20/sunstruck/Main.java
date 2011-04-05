@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -35,7 +34,6 @@ public class Main implements ApplicationListener {
 	private SpriteBatch backgroundBatch;
 	private OrthographicCamera camera;
 	private Box2DDebugRenderer renderer;
-	private float bgYOffset = 0;
 	private int bgIteration = 0;
 	private float time = 0;
 	private boolean run = true;
