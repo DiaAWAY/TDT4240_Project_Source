@@ -44,7 +44,7 @@ public class Game implements GameInterface, ContactListener {
 	private boolean bossAlive = false;
 	private float bossTimer = 0;
 	private int bossCount = 1;
-	private int bossInterval = 100; // playerScore > bossInterval*bossCount =>
+	private int bossInterval = 20; // playerScore > bossInterval*bossCount =>
 									// spawn boss
 	private float enemySpawnTime = 0;
 
@@ -106,6 +106,7 @@ public class Game implements GameInterface, ContactListener {
 		// SPAWNING ENEMIES
 		if (!bossMode) {
 			if (player.getScore() > bossInterval * bossCount) {
+				System.out.println("Boss mode activated");
 				bossMode = true;
 			} else {
 				spawnEnemy();
@@ -116,23 +117,28 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	private void spawnEnemy() {
-
-		enemySpawnTime += Gdx.graphics.getDeltaTime();
-		if (!bossMode && enemySpawnTime >= 10.0) {
-			System.out.println("Spawning enemy!");
-			goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7))
-					.setBehavior(BEHAVIOR.SPRAY);
-			bossAlive = true;
-			enemySpawnTime = 0;
+		if (!bossMode) {
+			enemySpawnTime += Gdx.graphics.getDeltaTime();
+			if (enemySpawnTime >= 10.0) {
+				System.out.println("Spawning enemy!");
+				goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7))
+						.setBehavior(BEHAVIOR.SPRAY);
+				enemySpawnTime = 0;
+			}
 		}
 	}
 
 	private void spawnBoss() {
-		bossTimer += Gdx.graphics.getDeltaTime();
-		if (!bossAlive && bossTimer >= 5.0) {
-			System.out.println("Spawning boss!");
-			goFactory.createBoss(new Vector2(7, 0));
-			bossTimer = 0;
+		if (!bossAlive) {
+			bossTimer += Gdx.graphics.getDeltaTime();
+			System.out.println("Trying to spawn boss{alive:" + bossAlive
+					+ "}, remaining time:" + bossTimer + "/5.0");
+			if (bossTimer >= 5.0) {
+				System.out.println("Spawning boss!");
+				goFactory.createBoss(new Vector2(7, 0));
+				bossAlive = true;
+				bossTimer = 0;
+			}
 		}
 	}
 
@@ -152,7 +158,8 @@ public class Game implements GameInterface, ContactListener {
 		if (goA != null) {
 			if (goB != null) {
 				if (goB.isEnemy() && goA.isEnemy()) {
-					if (goB.isProjectile()) {// enemy projectile hits another enemy
+					if (goB.isProjectile()) {// enemy projectile hits another
+												// enemy
 						// destroy projectile
 						goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 					}
@@ -160,7 +167,8 @@ public class Game implements GameInterface, ContactListener {
 				}
 				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
 			} else {
-				goA.setScore(0); // object hits borders and is removed, no score for this item
+				goA.setScore(0); // object hits borders and is removed, no score
+									// for this item
 				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 			}
 		}
@@ -168,7 +176,8 @@ public class Game implements GameInterface, ContactListener {
 		if (goB != null) {
 			if (goA != null) {
 				if (goA.isEnemy() && goB.isEnemy()) {
-					if (goA.isProjectile()) {// enemy projectile hits another enemy
+					if (goA.isProjectile()) {// enemy projectile hits another
+												// enemy
 						// destroy projectile
 						goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 					}
@@ -176,7 +185,8 @@ public class Game implements GameInterface, ContactListener {
 				}
 				goB.contact(contact.GetWorldManifold(), goB.getImpactDamage());
 			} else {
-				goB.setScore(0); // object hits borders and is removed, no score for this item
+				goB.setScore(0); // object hits borders and is removed, no score
+									// for this item
 				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 			}
 		}
@@ -196,7 +206,8 @@ public class Game implements GameInterface, ContactListener {
 				System.out.println("Boss Dead!");
 				bossCount++;
 				bossMode = false;
-				enemySpawnTime = -5;
+				bossAlive = false;
+				enemySpawnTime = 0;
 			}
 			System.out.println("player score: " + player.getScore());
 			world.destroyBody(body);
