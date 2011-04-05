@@ -105,7 +105,7 @@ public class Game implements GameInterface, ContactListener {
 
 		// SPAWNING ENEMIES
 		if (!bossMode) {
-			if (player.getScore() > bossInterval * bossCount) {
+			if (player.getScore() >= bossInterval * bossCount) {
 				System.out.println("Boss mode activated");
 				bossMode = true;
 			} else {
