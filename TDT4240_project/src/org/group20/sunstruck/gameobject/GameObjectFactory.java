@@ -109,15 +109,27 @@ public class GameObjectFactory {
 		laser.isProjectile = true;
 		laser.speed = LASER_START_SPEED;
 
+
+		float angle = shooter.getBody().getAngle();
+		Vector2 direction = new Vector2(0,0);
+		
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
-		bodyDef.position.x = shooter.body.getWorldCenter().x;
-		if(shooter instanceof Player)
-			bodyDef.position.x += shooter.width/ 2 + laser.width / 2 + 0.1f;
-		else
-			bodyDef.position.x -= shooter.width / 2 + laser.width / 2 + 0.1f;
-		bodyDef.position.y = shooter.body.getWorldCenter().y;
+		if(shooter instanceof Player){
+			bodyDef.position.x =shooter.body.getWorldCenter().x + shooter.width/ 2 + laser.width / 2 + 0.1f;
+			bodyDef.position.y = shooter.body.getWorldCenter().y;
+		}else{
+			float len = shooter.width/ 2 + laser.width / 2 + 0.1f;
+			float x = (float)Math.cos(angle);
+			float y = (float)Math.sin(angle);
+			direction.set(x, y).mul(-1);
+			
+			bodyDef.position.set(shooter.getBody().getWorldCenter());
+			bodyDef.position.add(direction.tmp().mul(len));
+			
+			bodyDef.angle = (float) (angle);
+		}
 		laser.body = Game.getInstance().getWorld().createBody(bodyDef);
 		laser.body.setUserData(laser);
 
@@ -131,7 +143,9 @@ public class GameObjectFactory {
 		if (shooter instanceof Player)
 			laser.body.setLinearVelocity(new Vector2(1, 0));
 		else
-			laser.body.setLinearVelocity(new Vector2(-1, 0));
+			laser.body.setLinearVelocity(direction);
+			
+		
 		laser.body.setLinearVelocity(laser.body.getLinearVelocity().tmp().mul(
 				laser.speed));
 		laser.impactDamage = shooter.weapon;
@@ -168,7 +182,7 @@ public class GameObjectFactory {
 		bodyPoly.setAsBox(ENEMY1_SIZE / 2, ENEMY1_SIZE / 2);
 		enemy1.body.createFixture(bodyPoly, ENEMY1_DENSITY);
 		enemy1.body.setLinearVelocity(new Vector2(-1, 0).mul(enemy1.speed));
-		bodyPoly.dispose();
+		bodyPoly.dispose(); 
 
 		return enemy1;
 	}

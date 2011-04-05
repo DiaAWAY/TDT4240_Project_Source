@@ -34,7 +34,6 @@ public class Velocity implements Filter {
 
 		if(behavior == BEHAVIOR.LINE){
 			go.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
-			return;
 		}
 		
 		if(behavior == BEHAVIOR.SPRAY){
@@ -45,7 +44,6 @@ public class Velocity implements Filter {
 			velocity.nor().mul(go.getSpeed());
 			body.setLinearVelocity(velocity);
 			go.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
-			return;
 		}
 		
 		if(behavior == BEHAVIOR.SIN_VEL){

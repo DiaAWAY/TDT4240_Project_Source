@@ -120,7 +120,7 @@ public class Game implements GameInterface, ContactListener {
 		if (!bossMode && enemySpawnTime >= 10.0) {
 			System.out.println("Spawning enemy!");
 			goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7))
-					.setBehavior(BEHAVIOR.KAMIKAZE_FOR);
+					.setBehavior(BEHAVIOR.SPRAY);
 			bossAlive = true;
 			enemySpawnTime = 0;
 		}
