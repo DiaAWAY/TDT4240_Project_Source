@@ -39,6 +39,7 @@ public class GUI {
 	ArrayList<Sprite> shopSpriteList = new ArrayList<Sprite>();
 
 	public GUI(){
+		Game.getInstance();
 		TextureAtlas ta = Game.textureAtlas;
 		
 		textureUpgWeapon = ta.findRegion("guiUpgradeWeapon");

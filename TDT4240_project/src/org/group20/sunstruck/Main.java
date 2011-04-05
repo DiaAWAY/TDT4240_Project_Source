@@ -7,23 +7,20 @@ import org.group20.sunstruck.world.map.segments.MapSegment;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Main implements ApplicationListener {
-	// The width and height of the orthographical camera
+	// The width and height of the orthographical, camera
 	public static final float CAMERA_WIDTH = 10;
 	public static float bgScale = 1.0f;
 	public static float bgSpeed = 2.0f;
@@ -261,7 +258,6 @@ public class Main implements ApplicationListener {
 	@Override
 	public void resume() {
 		run = true;
-		// reload data?
 	}
 
 	@Override
