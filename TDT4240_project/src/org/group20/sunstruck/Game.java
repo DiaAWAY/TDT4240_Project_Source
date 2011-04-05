@@ -149,8 +149,7 @@ public class Game implements GameInterface, ContactListener {
 
 		if (goA != null) {
 			if (goB != null) {
-				if (!goB.isProjectile() && !goA.isProjectile() && goB.isEnemy()
-						&& goA.isEnemy())
+				if (goB.isEnemy() && goA.isEnemy())
 					return;
 				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
 			} else {
@@ -161,7 +160,7 @@ public class Game implements GameInterface, ContactListener {
 
 		if (goB != null) {
 			if (goA != null) {
-				if (!goA.isProjectile() && !goB.isProjectile() && goA.isEnemy()
+				if (goA.isEnemy()
 						&& goB.isEnemy())
 					return;
 				goB.contact(contact.GetWorldManifold(), goB.getImpactDamage());

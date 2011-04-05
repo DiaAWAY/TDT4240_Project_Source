@@ -39,7 +39,7 @@ public class GameObjectFactory {
 	private final int ENEMY1_SCORE = 10;
 	private final TextureRegion ENEMY1_TEXTURE_REGION = Game.textureAtlas
 			.findRegion("enemy1");
-	
+
 	private final float BOSS_DENSITY = 100;
 	private final float BOSS_SIZE = 2;
 	private final float BOSS_START_SPEED = 1;
@@ -49,7 +49,7 @@ public class GameObjectFactory {
 	private final float BOSS_START_IMPACT_DAMAGE = 10;
 	private final int BOSS_SCORE = 10;
 	private final TextureRegion BOSS_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("enemy2");	
+			.findRegion("enemy2");
 
 	private DIFFICULTIES difficulty;
 
@@ -99,7 +99,7 @@ public class GameObjectFactory {
 		laser.width = LASER_START_WIDTH;
 		laser.height = LASER_START_HEIGHT;
 		laser.isProjectile = true;
-		
+
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -154,7 +154,7 @@ public class GameObjectFactory {
 
 		return enemy1;
 	}
-	
+
 	public GameObject createBoss(Vector2 position) {
 		GameObject boss = new Boss();
 
@@ -186,10 +186,17 @@ public class GameObjectFactory {
 		bodyPoly.dispose();
 
 		return boss;
-	}	
+	}
 
 	public void generateWeaponShot(GameObject weaponType, GameObject shooter) {
+		GameObject shot = null;
 		if (weaponType instanceof Laser)
-			createLaser(shooter);
+			shot = createLaser(shooter);
+		if (shot != null) {
+			if (shooter.isEnemy())
+				shot.isEnemy = true;
+			else
+				shot.isEnemy = false;
+		}
 	}
 }
