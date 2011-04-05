@@ -1,6 +1,5 @@
 package org.group20.sunstruck;
 
-import com.badlogic.gdx.Gdx;
 
 public class Shop {
 	public static boolean isActive = false;
