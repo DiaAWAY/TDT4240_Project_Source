@@ -1,6 +1,7 @@
 package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
+import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import org.group20.sunstruck.interfaces.GameInterface.DIFFICULTIES;
 
 import com.badlogic.gdx.math.Vector2;
@@ -19,7 +20,7 @@ public class GameObjectFactory {
 
 	public GameObject createPlayer() {
 		GameObject player = new Player();
-		generateBoxBody(player, new Vector2(0, 0), 0);
+		generateBoxBody(player, new Vector2(-4, 0), 0);
 
 		player.body.setFixedRotation(true);
 
@@ -45,16 +46,10 @@ public class GameObjectFactory {
 		GameObject enemy = enemyType;
 		if (enemy instanceof SmallKamikazeEnemy)
 			generateBoxBody(enemy, position, 0);
+		if (enemy instanceof Asteroid)
+			generateCircleBody(enemy, position);
 
 		return enemy;
-	}
-	
-	public GameObject createAsteroid(Vector2 position, int size){
-		GameObject asteroid = new Asteroid(size);
-		
-		generateCircleBody(asteroid, position);
-		
-		return asteroid;
 	}
 
 	// public GameObject createBoss(Vector2 position) {
@@ -119,30 +114,67 @@ public class GameObjectFactory {
 	// }
 
 	public void generateWeaponShot(GameObject weaponType, GameObject shooter) {
-		GameObject shot = null;
 		if (weaponType instanceof Laser)
-			shot = createLaser(shooter);
-		if (shot != null) {
-			if (shooter.isEnemy())
-				shot.isEnemy = true;
-			else
-				shot.isEnemy = false;
-		}
+			createLaser(shooter);
+		if (weaponType instanceof Asteroid)
+			createSmallerAsteroids(shooter);
 	}
-	private void generateCircleBody(GameObject go, Vector2 position){
+
+	private void createSmallerAsteroids(GameObject shooter) {
+		GameObject asteroid1 = new Asteroid(((Asteroid) shooter).size - 1);
+		GameObject asteroid2 = new Asteroid(((Asteroid) shooter).size - 1);
+		GameObject asteroid3 = new Asteroid(((Asteroid) shooter).size - 1);
+		GameObject asteroid4 = new Asteroid(((Asteroid) shooter).size - 1);
+
+		Vector2 position1 = new Vector2(0,0);
+		Vector2 position2 = new Vector2(0,0);
+		Vector2 position3 = new Vector2(0,0);
+		Vector2 position4 = new Vector2(0,0);
+		
+		position1.set(shooter.body.getWorldCenter().tmp()).add(shooter.width/8, shooter.width/8);
+		position2.set(shooter.body.getWorldCenter().tmp()).add(-shooter.width/8, shooter.width/8);
+		position3.set(shooter.body.getWorldCenter().tmp()).add(shooter.width/8, -shooter.width/8);
+		position4.set(shooter.body.getWorldCenter().tmp()).add(-shooter.width/8, -shooter.width/8);
+		
+		System.out.println(position1);
+		
+		generateCircleBody(asteroid1, position1);
+		generateCircleBody(asteroid2, position2);
+		generateCircleBody(asteroid3, position3);
+		generateCircleBody(asteroid4, position4);
+		
+		Vector2 velocity1 = new Vector2(1, 1).nor().mul(shooter.speed);
+		Vector2 velocity2= new Vector2(-1, 1).nor().mul(shooter.speed);
+		Vector2 velocity3 = new Vector2(1, -1).nor().mul(shooter.speed);
+		Vector2 velocity4 = new Vector2(-1, -1).nor().mul(shooter.speed);
+		
+		asteroid1.body.setLinearVelocity(velocity1);
+		asteroid2.body.setLinearVelocity(velocity2);
+		asteroid3.body.setLinearVelocity(velocity3);
+		asteroid4.body.setLinearVelocity(velocity4);
+		
+		asteroid1.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		asteroid2.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		asteroid3.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		asteroid4.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		
+
+	}
+
+	private void generateCircleBody(GameObject go, Vector2 position) {
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.set(position);
 		go.body = Game.getInstance().getWorld().createBody(bodyDef);
-		
+
 		CircleShape circleShape = new CircleShape();
-		circleShape.setRadius(go.width);
+		circleShape.setRadius(go.width / 2);
 		go.body.createFixture(circleShape, go.density);
 		circleShape.dispose();
-		
+
 		go.body.setUserData(go);
-		
+
 	}
 
 	private void generateBoxBody(GameObject go, Vector2 position, float angle) {
@@ -167,8 +199,8 @@ public class GameObjectFactory {
 			go.body.setLinearVelocity(new Vector2(1, 0));
 		else
 			go.body.setLinearVelocity(direction);
-		go.body.setLinearVelocity(go.body.getLinearVelocity().tmp()
-				.mul(go.speed));
+		go.body.setLinearVelocity(go.body.getLinearVelocity().tmp().mul(
+				go.speed));
 
 	}
 
@@ -184,15 +216,15 @@ public class GameObjectFactory {
 
 	private Vector2 getProjectilePosition(GameObject projectile,
 			GameObject shooter, Vector2 direction) {
+		if (shooter instanceof Player){
+			direction.mul(-1);
+			projectile.isEnemy = false;
+		}
 		Vector2 position = new Vector2(0, 0);
 		float len = shooter.width / 2 + projectile.width / 2 + 0.1f;
 		position.set(shooter.getBody().getWorldCenter());
 		position.add(direction.tmp().mul(len));
 
-		// if(shooter instanceof Player)
-		// position.mul(-1);
-
 		return position;
-
 	}
 }

@@ -146,7 +146,7 @@ public class Main implements ApplicationListener {
 		// Draw game objects.
 		drawGameObjects();
 
-		// renderer.render(Game.getInstance().getWorld());
+		 renderer.render(Game.getInstance().getWorld());
 	}
 
 	private void drawGuiShop() {

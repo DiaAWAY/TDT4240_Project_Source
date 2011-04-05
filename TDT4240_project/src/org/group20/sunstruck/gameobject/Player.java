@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 public class Player extends GameObject {
 
 	private long startGun = System.currentTimeMillis();
-	private long reloadTimeGun = 100;
+	private long reloadTimeGun = 200;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
 	
@@ -19,8 +19,8 @@ public class Player extends GameObject {
 	
 	public Player() {
 		super(Game.textureAtlas.findRegion("shipLarge2"), TYPES.ENEMY,
-				BEHAVIOR.LINEAR_MOVEMENT, false, false, new Laser(), 5, 20, 5,
-				0, 10, 3, 200, 3, 9, 10);
+				BEHAVIOR.LINEAR_MOVEMENT, false, false, new Laser(), 15, 20, 5,
+				0, 10, 3, 200, 3, 9, 10, 0);
 
 	}
 

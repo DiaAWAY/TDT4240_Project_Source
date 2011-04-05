@@ -9,7 +9,7 @@ public class Boss extends GameObject {
 	public Boss() {
 		super(Game.textureAtlas.findRegion("shipColossal"), TYPES.ENEMY,
 				BEHAVIOR.LINE, false, true, new Laser(), 5, 20, 5, 0, 10, 4,
-				200, 3, 9, 10);
+				200, 3, 9, 10, 100);
 	}
 
 	@Override

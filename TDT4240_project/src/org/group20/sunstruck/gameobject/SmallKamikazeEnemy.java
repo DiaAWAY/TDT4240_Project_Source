@@ -10,7 +10,7 @@ public class SmallKamikazeEnemy extends GameObject {
 	public SmallKamikazeEnemy() {
 		super(Game.textureAtlas.findRegion("shipSmall3"), TYPES.ENEMY,
 				BEHAVIOR.KAMIKAZE_VEL, false, true, new Laser(), 10, 20, 5, 0,
-				10, 1, 200, 0, 0, 1);
+				10, 1, 200, 0, 0, 1, 10);
 	}
 
 	@Override

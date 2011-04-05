@@ -14,7 +14,7 @@ public abstract class GameObject {
 			BEHAVIOR behavior, boolean isProjectile, boolean isEnemy,
 			GameObject weaponType, float speed, float impactDamage, float hull,
 			float weapon, float shield, float width, float reloadTime,
-			int BURST_COUNT, int PAUSE_COUNT, float density) {
+			int BURST_COUNT, int PAUSE_COUNT, float density, int score) {
 		this.textureRegion = textureRegion;
 		this.type = type;
 		this.behavior = behavior;
@@ -27,11 +27,13 @@ public abstract class GameObject {
 		this.shield = shield;
 		this.impactDamage = impactDamage;
 		this.width = width;
-		this.height = width * textureRegion.getRegionHeight()
-				/ textureRegion.getRegionWidth();
+		if (textureRegion != null)
+			this.height = width * textureRegion.getRegionHeight()
+					/ textureRegion.getRegionWidth();
 		this.density = density;
 		this.BURST_COUNT = BURST_COUNT;
 		this.PAUSE_COUNT = PAUSE_COUNT;
+		this.score = score;
 	}
 
 	public static enum TYPES {
@@ -81,12 +83,12 @@ public abstract class GameObject {
 	}
 
 	private void shoot() {
-		if(BURST_COUNT == 0)
+		if (BURST_COUNT == 0)
 			return;
 		shotCount++;
 		if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
-			Game.getInstance().getGoFactory()
-					.generateWeaponShot(weaponType, this);
+			Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
+					this);
 		} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
 			return;
 		} else

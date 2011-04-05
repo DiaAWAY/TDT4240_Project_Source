@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.group20.sunstruck.behavior.Behavior;
+import org.group20.sunstruck.gameobject.Asteroid;
 import org.group20.sunstruck.gameobject.Boss;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
@@ -44,7 +45,7 @@ public class Game implements GameInterface, ContactListener {
 	private boolean bossAlive = false;
 	private float bossTimer = 0;
 	private int bossCount = 1;
-	private int bossInterval = 20; // playerScore > bossInterval*bossCount =>
+	private int bossInterval = 200; // playerScore > bossInterval*bossCount =>
 									// spawn boss
 	private float enemySpawnTime = 0;
 
@@ -81,6 +82,7 @@ public class Game implements GameInterface, ContactListener {
 
 	@Override
 	public void update() {
+		
 		clearDestroyedBodiesList();
 
 		totalTime++;
@@ -121,9 +123,9 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 3.0) {
+			if (enemySpawnTime >= 2.0) {
 				System.out.println("Spawning enemy!");
-				goFactory.createEnemy(new Vector2(7, (int) Math.random() * 7),
+				goFactory.createEnemy(new Vector2(5, (int) Math.random() * 7),
 						new SmallKamikazeEnemy());
 				enemySpawnTime = 0;
 			}
@@ -148,7 +150,7 @@ public class Game implements GameInterface, ContactListener {
 	public void beginContact(Contact contact) {
 		Body A = contact.getFixtureA().getBody();
 		Body B = contact.getFixtureB().getBody();
-
+		
 		GameObject goA = null;
 		GameObject goB = null;
 
