@@ -1,7 +1,5 @@
 package org.group20.sunstruck.world.map.segments;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class MapSegment {
@@ -14,9 +12,9 @@ public abstract class MapSegment {
 	private TextureRegion texReg = null;
 
 	public TextureRegion getTextureRegion() {
-		return texReg; 
+		return texReg;
 	}
-	
+
 	public void setTextureRegion(TextureRegion t) {
 		texReg = t;
 	}

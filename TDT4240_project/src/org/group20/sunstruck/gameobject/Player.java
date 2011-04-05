@@ -1,13 +1,10 @@
 package org.group20.sunstruck.gameobject;
 
-import java.util.Iterator;
-
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.Main;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public class Player extends GameObject {
@@ -64,7 +61,6 @@ public class Player extends GameObject {
 				startBomb = System.currentTimeMillis();
 			}
 
-
 	}
 
 	private void fireBomb() {
@@ -78,6 +74,7 @@ public class Player extends GameObject {
 
 	}
 
+	@Override
 	public String toString() {
 		return "Player";
 	}

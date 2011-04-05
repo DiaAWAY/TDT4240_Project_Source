@@ -11,10 +11,10 @@ public class Upgrade {
 	public static boolean upgrade(GameObject go, TYPE t, int amount) {
 		switch (t) {
 		case ARMOUR:
-			go.setHull((float) (go.getHull() + amount));
+			go.setHull((go.getHull() + amount));
 			break;
 		case SHIELD:
-			go.setShield((float) (go.getShield() + amount));
+			go.setShield((go.getShield() + amount));
 			break;
 		case SPEED:
 			go.setSpeed(go.getSpeed() + amount);

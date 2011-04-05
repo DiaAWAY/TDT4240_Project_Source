@@ -74,10 +74,12 @@ public class Game implements GameInterface, ContactListener {
 		return GameHolder.INSTANCE;
 	}
 
+	@Override
 	public void start() {
 		Behavior.initFilters();
 	}
 
+	@Override
 	public void update() {
 		clearDestroyedBodiesList();
 
@@ -155,41 +157,67 @@ public class Game implements GameInterface, ContactListener {
 		if (B.getType() != BodyType.StaticBody)
 			goB = (GameObject) contact.getFixtureB().getBody().getUserData();
 
-		if (goA != null) {
-			if (goB != null) {
-				if (goB.isEnemy() && goA.isEnemy()) {
-					if (goB.isProjectile()) {// enemy projectile hits another
-												// enemy
-						// destroy projectile
-						goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
-					}
-					return;
-				}
-				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
-			} else {
-				goA.setScore(0); // object hits borders and is removed, no score
-									// for this item
-				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
-			}
+		// --- check if bodies are hitting the wall and act accordingly ---
+		if (goA == null && goB != null) {
+			goB.setScore(0); // player won't get any score for this
+			goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			return;
+		} else if (goA != null && goB == null) {
+			goA.setScore(0); // player won't get any score for this
+			goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			return;
 		}
-
-		if (goB != null) {
-			if (goA != null) {
-				if (goA.isEnemy() && goB.isEnemy()) {
-					if (goA.isProjectile()) {// enemy projectile hits another
-												// enemy
-						// destroy projectile
-						goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
-					}
-					return;
-				}
-				goB.contact(contact.GetWorldManifold(), goB.getImpactDamage());
-			} else {
-				goB.setScore(0); // object hits borders and is removed, no score
-									// for this item
+		
+		// --- we're not hitting any walls; let's do some contact! ---
+		if (goB.isEnemy() && goA.isEnemy()) { // enemy objects hitting each other
+			if (goB.isProjectile()) {
 				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 			}
+			if (goA.isProjectile()) {
+				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			}
+			return;
 		}
+		
+		// okay, now we're talking! enemiey or player damage!
+		goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
+		goB.contact(contact.GetWorldManifold(), goA.getImpactDamage());
+		
+//		if (goA != null) {
+//			if (goB != null) {
+//				if (goB.isEnemy() && goA.isEnemy()) {
+//					if (goB.isProjectile()) {
+//						goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+//					}
+//					if (goA.isProjectile()) {
+//						goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+//					}
+//					return;
+//				}
+//				goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
+//			} else {
+//				goA.setScore(0); // object hits borders and is removed, no score for this item
+//				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+//			}
+//		}
+//
+//		if (goB != null) {
+//			if (goA != null) {
+//				if (goA.isEnemy() && goB.isEnemy()) {
+//					if (goA.isProjectile()) {
+//						goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+//					}
+//					if (goB.isProjectile()) {
+//						goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+//					}
+//					return;
+//				}
+//				goB.contact(contact.GetWorldManifold(), goB.getImpactDamage());
+//			} else {
+//				goB.setScore(0); // object hits borders and is removed, no score for this item
+//				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+//			}
+//		}
 	}
 
 	@Override
@@ -217,58 +245,72 @@ public class Game implements GameInterface, ContactListener {
 
 	// Getter's and setter's (No shit)
 
+	@Override
 	public void setGoFactory(GameObjectFactory goFactory) {
 		this.goFactory = goFactory;
 	}
 
+	@Override
 	public GameObjectFactory getGoFactory() {
 		return goFactory;
 	}
 
+	@Override
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
+	@Override
 	public Player getPlayer() {
 		return player;
 	}
 
+	@Override
 	public void setShop(Shop shop) {
 		this.shop = shop;
 	}
 
+	@Override
 	public Shop getShop() {
 		return shop;
 	}
 
+	@Override
 	public void setInput(Input input) {
 		this.input = input;
 	}
 
+	@Override
 	public Input getInput() {
 		return input;
 	}
 
+	@Override
 	public void setGui(GUI gui) {
 		this.gui = gui;
 	}
 
+	@Override
 	public GUI getGui() {
 		return gui;
 	}
 
+	@Override
 	public void setDifficulty(DIFFICULTIES d) {
 		this.difficulty = d;
 	}
 
+	@Override
 	public DIFFICULTIES getDifficulty() {
 		return difficulty;
 	}
 
+	@Override
 	public void setUpdateRate(float updaterate) {
 		updateRate = updaterate;
 	}
 
+	@Override
 	public float getUpdateRate() {
 		return updateRate;
 	}

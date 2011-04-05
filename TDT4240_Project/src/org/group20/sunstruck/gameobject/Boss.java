@@ -8,7 +8,7 @@ public class Boss extends GameObject {
 
 	@Override
 	public void update() {
-		
+
 	}
 
 	@Override

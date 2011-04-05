@@ -2,7 +2,10 @@ package org.group20.sunstruck.world.map;
 
 import java.util.ArrayList;
 
-import org.group20.sunstruck.world.map.segments.*;
+import org.group20.sunstruck.world.map.segments.MapSegment;
+import org.group20.sunstruck.world.map.segments.MapSegment1;
+import org.group20.sunstruck.world.map.segments.MapSegment2;
+import org.group20.sunstruck.world.map.segments.MapSegment3;
 
 public class MapGenerator {
 
@@ -25,7 +28,8 @@ public class MapGenerator {
 	 * @return MapSegment - the next segment
 	 */
 	public MapSegment getNext() {
-		currentSegment = segments.get((int) (Math.random() * (segments.size()-1)+0.5));
+		currentSegment = segments.get((int) (Math.random()
+				* (segments.size() - 1) + 0.5));
 		return currentSegment; // place holder
 	}
 }

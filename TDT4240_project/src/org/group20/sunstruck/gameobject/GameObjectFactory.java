@@ -51,13 +51,14 @@ public class GameObjectFactory {
 	private final int BOSS_SCORE = 10;
 	private final TextureRegion BOSS_TEXTURE_REGION = Game.textureAtlas
 			.findRegion("enemy2");
-	
+
 	private final float METEORITE_DENSITY = 100;
 	private final float METEORITE_START_SPEED = 0;
 	private final float METEORITE_START_HULL = 10;
 	private final float METEORITE_START_IMPACT_DAMAGE = 30;
 	private final int METEORITE_SCORE = 5;
-	private final TextureRegion METEORITE_TEXTURE_REGION = Game.textureAtlas.findRegion("enemy1");
+	private final TextureRegion METEORITE_TEXTURE_REGION = Game.textureAtlas
+			.findRegion("enemy1");
 
 	private DIFFICULTIES difficulty;
 
@@ -109,26 +110,26 @@ public class GameObjectFactory {
 		laser.isProjectile = true;
 		laser.speed = LASER_START_SPEED;
 
-
 		float angle = shooter.getBody().getAngle();
-		Vector2 direction = new Vector2(0,0);
-		
+		Vector2 direction = new Vector2(0, 0);
+
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
-		if(shooter instanceof Player){
-			bodyDef.position.x =shooter.body.getWorldCenter().x + shooter.width/ 2 + laser.width / 2 + 0.1f;
+		if (shooter instanceof Player) {
+			bodyDef.position.x = shooter.body.getWorldCenter().x
+					+ shooter.width / 2 + laser.width / 2 + 0.1f;
 			bodyDef.position.y = shooter.body.getWorldCenter().y;
-		}else{
-			float len = shooter.width/ 2 + laser.width / 2 + 0.1f;
-			float x = (float)Math.cos(angle);
-			float y = (float)Math.sin(angle);
+		} else {
+			float len = shooter.width / 2 + laser.width / 2 + 0.1f;
+			float x = (float) Math.cos(angle);
+			float y = (float) Math.sin(angle);
 			direction.set(x, y).mul(-1);
-			
+
 			bodyDef.position.set(shooter.getBody().getWorldCenter());
 			bodyDef.position.add(direction.tmp().mul(len));
-			
-			bodyDef.angle = (float) (angle);
+
+			bodyDef.angle = (angle);
 		}
 		laser.body = Game.getInstance().getWorld().createBody(bodyDef);
 		laser.body.setUserData(laser);
@@ -144,10 +145,9 @@ public class GameObjectFactory {
 			laser.body.setLinearVelocity(new Vector2(1, 0));
 		else
 			laser.body.setLinearVelocity(direction);
-			
-		
-		laser.body.setLinearVelocity(laser.body.getLinearVelocity().tmp().mul(
-				laser.speed));
+
+		laser.body.setLinearVelocity(laser.body.getLinearVelocity().tmp()
+				.mul(laser.speed));
 		laser.impactDamage = shooter.weapon;
 		laser.body.setFixedRotation(true);
 		return laser;
@@ -182,7 +182,7 @@ public class GameObjectFactory {
 		bodyPoly.setAsBox(ENEMY1_SIZE / 2, ENEMY1_SIZE / 2);
 		enemy1.body.createFixture(bodyPoly, ENEMY1_DENSITY);
 		enemy1.body.setLinearVelocity(new Vector2(-1, 0).mul(enemy1.speed));
-		bodyPoly.dispose(); 
+		bodyPoly.dispose();
 
 		return enemy1;
 	}
@@ -219,10 +219,10 @@ public class GameObjectFactory {
 
 		return boss;
 	}
-	
-	public GameObject createMeteorite(Vector2 position, float size){
+
+	public GameObject createMeteorite(Vector2 position, float size) {
 		GameObject meteorite = new Meteorite();
-		
+
 		meteorite.hull = METEORITE_START_HULL;
 		meteorite.width = size;
 		meteorite.height = size;
@@ -230,20 +230,21 @@ public class GameObjectFactory {
 		meteorite.impactDamage = METEORITE_START_IMPACT_DAMAGE;
 		meteorite.speed = METEORITE_START_SPEED;
 		meteorite.textureRegion = METEORITE_TEXTURE_REGION;
-		
+
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.x = position.x;
 		bodyDef.position.y = position.y;
 		meteorite.body = Game.getInstance().getWorld().createBody(bodyDef);
 		meteorite.body.setUserData(meteorite);
-		
+
 		PolygonShape bodyPoly = new PolygonShape();
-		bodyPoly.setAsBox(size/2, size/2);
+		bodyPoly.setAsBox(size / 2, size / 2);
 		meteorite.body.createFixture(bodyPoly, METEORITE_DENSITY);
-		meteorite.body.setLinearVelocity(new Vector2(-1, 0).mul(meteorite.speed));
+		meteorite.body.setLinearVelocity(new Vector2(-1, 0)
+				.mul(meteorite.speed));
 		bodyPoly.dispose();
-		
+
 		return meteorite;
 	}
 

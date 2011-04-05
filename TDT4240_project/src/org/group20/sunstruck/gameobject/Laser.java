@@ -15,6 +15,7 @@ public class Laser extends GameObject {
 		}
 	}
 
+	@Override
 	public String toString() {
 		return "Shot";
 	}
