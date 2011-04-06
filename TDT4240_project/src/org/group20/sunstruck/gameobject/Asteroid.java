@@ -7,7 +7,7 @@ import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.physics.box2d.Contact;
 
 /**
  * Example class for products of the GameObjectFactory
@@ -27,7 +27,7 @@ public class Asteroid extends GameObject { // TODO remove test class
 	}
 
 	public Asteroid(int size) {
-		super(null, TYPES.ASTEROID, BEHAVIOR.LINE, false, true, null, 1, 20,
+		super(null, TYPES.ASTEROID, BEHAVIOR.LINE, null, 1, 20,
 				20, 0, 0, 4, 1000, 0, 0, 10, 10);
 		asteroidTexture.add(Game.textureAtlas.findRegion("asteroidSmall"));
 		asteroidTexture.add(Game.textureAtlas.findRegion("asteroidMedium"));
@@ -36,14 +36,19 @@ public class Asteroid extends GameObject { // TODO remove test class
 		
 		this.weaponType = this;
 		this.size = size;
+		this.impactDamage = 5 + 5*size;
 		textureRegion = asteroidTexture.get(size);
 		width = (float) Math.pow(2, size);
 		height = width;
 	}
 
 	@Override
-	public void contact(WorldManifold worldManifold, float impactDamage) {
-		hull -= impactDamage;
+	public void contact(Contact contact, float impactDamage) {
+		GameObject goA = (GameObject) contact.getFixtureA().getBody().getUserData();
+		GameObject goB = (GameObject) contact.getFixtureB().getBody().getUserData();
+		
+		if(!(goA instanceof Asteroid) || !(goB instanceof Asteroid))
+			hull -= impactDamage;
 		if (hull <= 0) {
 			split = true;
 		}
@@ -54,8 +59,8 @@ public class Asteroid extends GameObject { // TODO remove test class
 		if (split && !hasSplit) {
 			dispose();
 			if (size > 0)
-				Game.getInstance().getGoFactory().generateWeaponShot(
-						weaponType, this);
+//				Game.getInstance().getGoFactory().generateWeaponShot(
+//						weaponType, this);
 			hasSplit = true;
 		}
 

@@ -6,20 +6,18 @@ import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.physics.box2d.Contact;
 
 public abstract class GameObject {
 
 	protected GameObject(TextureRegion textureRegion, TYPES type,
-			BEHAVIOR behavior, boolean isProjectile, boolean isEnemy,
-			GameObject weaponType, float speed, float impactDamage, float hull,
-			float weapon, float shield, float width, float reloadTime,
-			int BURST_COUNT, int PAUSE_COUNT, float density, int score) {
+			BEHAVIOR behavior, GameObject weaponType, float speed,
+			float impactDamage, float hull, float weapon, float shield,
+			float width, float reloadTime, int BURST_COUNT, int PAUSE_COUNT,
+			float density, int score) {
 		this.textureRegion = textureRegion;
 		this.type = type;
 		this.behavior = behavior;
-		this.isProjectile = isProjectile;
-		this.isEnemy = isEnemy;
 		this.weaponType = weaponType;
 		this.speed = speed;
 		this.hull = hull;
@@ -74,11 +72,11 @@ public abstract class GameObject {
 		Behavior.applyBehavior(this);
 		if (!isProjectile) {
 			long time = System.currentTimeMillis() - start;
-			if (behavior != BEHAVIOR.KAMIKAZE_FOR)
-				if (time > reloadTime) {
-					shoot();
-					start = System.currentTimeMillis();
-				}
+			// if (behavior != BEHAVIOR.KAMIKAZE_FOR)
+			if (time > reloadTime) {
+				shoot();
+				start = System.currentTimeMillis();
+			}
 		}
 	}
 
@@ -87,8 +85,8 @@ public abstract class GameObject {
 			return;
 		shotCount++;
 		if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
-			Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
-					this);
+			Game.getInstance().getGoFactory()
+					.generateWeaponShot(weaponType, GameObjectFactory.getProjectilePosition(weaponType, this), this.body.getAngle());
 		} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
 			return;
 		} else
@@ -96,7 +94,7 @@ public abstract class GameObject {
 
 	}
 
-	public abstract void contact(WorldManifold worldManifold, float impactDamage);
+	public abstract void contact(Contact contact, float impactDamage);
 
 	public void dispose() {
 		if (!isDisposed) {

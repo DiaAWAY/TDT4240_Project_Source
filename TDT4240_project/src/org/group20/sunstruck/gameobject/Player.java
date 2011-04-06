@@ -3,10 +3,10 @@ package org.group20.sunstruck.gameobject;
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.Main;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.physics.box2d.Contact;
 
 public class Player extends GameObject {
 
@@ -18,10 +18,10 @@ public class Player extends GameObject {
 	
 	
 	public Player() {
-		super(Game.textureAtlas.findRegion("shipLarge2"), TYPES.ENEMY,
-				BEHAVIOR.LINEAR_MOVEMENT, false, false, new Laser(), 15, 20, 5,
-				0, 10, 3, 200, 3, 9, 10, 0);
-
+		super(Game.textureAtlas.findRegion("shipPlayer"), TYPES.ENEMY,
+				BEHAVIOR.LINEAR_MOVEMENT, new Laser(), 15, 20, 5,
+				0, 10, 3, 1000, 3, 9, 10, 0);
+		isEnemy = false;
 	}
 
 	@Override
@@ -85,11 +85,11 @@ public class Player extends GameObject {
 	}
 
 	private void shoot() {
-		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, this);
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, GameObjectFactory.getProjectilePosition(weaponType, this), this.body.getAngle()).isEnemy = false;
 	}
 
 	@Override
-	public void contact(WorldManifold worldManifold, float impactDamage) {
+	public void contact(Contact contact, float impactDamage) {
 		shield -= impactDamage;
 		if (shield < 0) {
 			hull += shield;
@@ -97,7 +97,6 @@ public class Player extends GameObject {
 			if (hull < 0)
 				dispose();
 		}
-		System.out.println("Shield: " + shield + " Hull: " + hull);
 	}
 
 }

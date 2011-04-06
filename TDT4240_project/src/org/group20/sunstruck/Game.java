@@ -45,7 +45,7 @@ public class Game implements GameInterface, ContactListener {
 	private boolean bossAlive = false;
 	private float bossTimer = 0;
 	private int bossCount = 1;
-	private int bossInterval = 200; // playerScore > bossInterval*bossCount =>
+	private int bossInterval = Integer.MAX_VALUE; // playerScore > bossInterval*bossCount =>
 									// spawn boss
 	private float enemySpawnTime = 0;
 
@@ -54,7 +54,8 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	public void initializePlayer() {
-		player = (Player) goFactory.createPlayer();
+		player = (Player) goFactory.createPlayer(new Vector2(-3,0), 0);
+//		goFactory.createEnemy(new Vector2(3, 0), new Asteroid());
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -82,7 +83,7 @@ public class Game implements GameInterface, ContactListener {
 
 	@Override
 	public void update() {
-		
+
 		clearDestroyedBodiesList();
 
 		totalTime++;
@@ -110,7 +111,7 @@ public class Game implements GameInterface, ContactListener {
 		// SPAWNING ENEMIES
 		if (!bossMode) {
 			if (player.getScore() >= bossInterval * bossCount) {
-				System.out.println("Boss mode activated");
+				// System.out.println("Boss mode activated");
 				bossMode = true;
 			} else {
 				spawnEnemy();
@@ -123,22 +124,50 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 2.0) {
-				System.out.println("Spawning enemy!");
-				goFactory.createEnemy(new Vector2(5, (int) Math.random() * 7),
-						new SmallKamikazeEnemy());
+			if (enemySpawnTime >= 10) {
+				double randomize = Math.random();
+				if (randomize < 1)
+					spawnSmallKamikazeSquad();;
 				enemySpawnTime = 0;
 			}
 		}
+	}
+	
+	private void spawnSmallKamikazeSquad() {
+		int numberOfShips = (int)(Math.random()*5+1);
+		GameObject newEnemy = null;
+		while(numberOfShips-- > 0){
+			newEnemy = new SmallKamikazeEnemy();
+			goFactory.createGameObject(getNewEnemyPosition(newEnemy), newEnemy);
+		}
+		
+	}
+
+	private Vector2 getNewEnemyPosition(GameObject newEnemy) {
+		float x_min, x_max, y_min, y_max, scale, width, height, x, y;
+		
+		scale = (float)Gdx.graphics.getHeight()/ Gdx.graphics.getWidth();
+		x_min = Main.CAMERA_WIDTH;
+		x_max = Main.CAMERA_WIDTH*2;
+		y_min = -Main.CAMERA_WIDTH*scale;
+		y_max = Main.CAMERA_WIDTH*scale;
+		
+		width = newEnemy.getWidth() + 0.2f;
+		height = newEnemy.getHeight() + 0.2f;
+		
+		x = (float) ((x_min+width/2) + (x_max-x_min-width)*Math.random());
+		y = (float) ((y_min+height/2) + (y_max -y_min -height)*Math.random());
+		
+		return new Vector2(x,y);
 	}
 
 	private void spawnBoss() {
 		if (!bossAlive) {
 			bossTimer += Gdx.graphics.getDeltaTime();
-			System.out.println("Trying to spawn boss{alive:" + bossAlive
-					+ "}, remaining time:" + bossTimer + "/5.0");
+			// System.out.println("Trying to spawn boss{alive:" + bossAlive
+			// + "}, remaining time:" + bossTimer + "/5.0");
 			if (bossTimer >= 5.0) {
-				System.out.println("Spawning boss!");
+				// System.out.println("Spawning boss!");
 				// goFactory.createBoss(new Vector2(7, 0));
 				bossAlive = true;
 				bossTimer = 0;
@@ -150,7 +179,7 @@ public class Game implements GameInterface, ContactListener {
 	public void beginContact(Contact contact) {
 		Body A = contact.getFixtureA().getBody();
 		Body B = contact.getFixtureB().getBody();
-		
+
 		GameObject goA = null;
 		GameObject goB = null;
 
@@ -162,28 +191,29 @@ public class Game implements GameInterface, ContactListener {
 		// --- check if bodies are hitting the wall and act accordingly ---
 		if (goA == null && goB != null) {
 			goB.setScore(0); // player won't get any score for this
-			goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			goB.contact(contact, Float.MAX_VALUE);
 			return;
 		} else if (goA != null && goB == null) {
 			goA.setScore(0); // player won't get any score for this
-			goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			goA.contact(contact, Float.MAX_VALUE);
 			return;
 		}
-		
+
 		// --- let's check if enemies are shooting at each other! ---
-		if (goB.isEnemy() && goA.isEnemy()) { // enemy objects hitting each other
+		if (goB.isEnemy() && goA.isEnemy()) { // enemy objects hitting each
+												// other
 			if (goB.isProjectile()) {
-				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+				goB.contact(contact, Float.MAX_VALUE);
 			}
 			if (goA.isProjectile()) {
-				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+				goA.contact(contact, Float.MAX_VALUE);
 			}
 			return;
 		}
-		
+
 		// okay, now we're talking! enemy or player damage!
-		goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
-		goB.contact(contact.GetWorldManifold(), goA.getImpactDamage());
+		goA.contact(contact, goB.getImpactDamage());
+		goB.contact(contact, goA.getImpactDamage());
 	}
 
 	@Override
@@ -197,13 +227,13 @@ public class Game implements GameInterface, ContactListener {
 			player.setScore(player.getScore()
 					+ ((GameObject) body.getUserData()).getScore());
 			if (((GameObject) body.getUserData()) instanceof Boss) {
-				System.out.println("Boss Dead!");
+				// System.out.println("Boss Dead!");
 				bossCount++;
 				bossMode = false;
 				bossAlive = false;
 				enemySpawnTime = 0;
 			}
-			System.out.println("player score: " + player.getScore());
+			// System.out.println("player score: " + player.getScore());
 			world.destroyBody(body);
 		}
 		destroyedBodiesList.clear();
@@ -320,6 +350,6 @@ public class Game implements GameInterface, ContactListener {
 
 	public void derp() {
 		getMap().derp();
-		
+
 	}
 }

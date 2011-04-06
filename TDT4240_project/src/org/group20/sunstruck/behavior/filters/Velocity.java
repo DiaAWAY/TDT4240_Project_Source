@@ -30,7 +30,12 @@ public class Velocity implements Filter {
 		Body body = go.getBody();
 
 		if (behavior == BEHAVIOR.LINE) {
-			velocity.set(-1, 0);
+			float angle = body.getAngle();
+			float x = (float) Math.cos(angle);
+			float y = (float) Math.sin(angle);
+			
+			velocity.set(x, y);
+			velocity.nor();
 			velocity.mul(go.getSpeed());
 			body.setLinearVelocity(velocity);
 			go.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
