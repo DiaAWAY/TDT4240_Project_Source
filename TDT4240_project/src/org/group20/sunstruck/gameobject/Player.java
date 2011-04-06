@@ -18,15 +18,23 @@ public class Player extends GameObject {
 	
 	
 	public Player() {
-		super(Game.textureAtlas.findRegion("shipPlayer"), TYPES.ENEMY,
-				BEHAVIOR.LINEAR_MOVEMENT, new Laser(), 15, 20, 5,
-				0, 10, 3, 1000, 3, 9, 10, 0);
+		super(Game.textureAtlas.findRegion("shipPlayer"), 1);
 		isEnemy = false;
+		type = TYPES.PLAYER;
+		weaponType = new LaserTiny1();
+		hull = 100;
+		currentHull = hull;
+		shield = 100;
+		currentShield = shield;
+		speed = 15;
 	}
 
 	@Override
 	public void update() {
-
+		System.out.println("Shield: "+currentShield + " Hull: "+currentHull);
+		
+		super.shieldRegeneration();
+		
 		boolean setXSpeedToZero = false;
 		boolean setYSpeedToZero = false;
 
@@ -75,6 +83,7 @@ public class Player extends GameObject {
 
 	@Override
 	public void dispose() {
+		System.out.println(score);
 		// Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
 
 	}
@@ -83,20 +92,15 @@ public class Player extends GameObject {
 	public String toString() {
 		return "Player";
 	}
-
+	
 	private void shoot() {
-		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, GameObjectFactory.getProjectilePosition(weaponType, this), this.body.getAngle()).isEnemy = false;
+		Vector2 shotPosition = GameObjectFactory.getProjectilePosition(weaponType, this);
+//		shotPosition.set(new Vector2(0,0));
+
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, shotPosition.tmp().add(0, 0.6f), (float) (this.body.getAngle()+Math.PI/4)).isEnemy = false;
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, shotPosition.tmp(), this.body.getAngle()).isEnemy = false;
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, shotPosition.tmp().sub(0,0.6f), (float) (this.body.getAngle()-Math.PI/4)).isEnemy = false;
 	}
 
-	@Override
-	public void contact(Contact contact, float impactDamage) {
-		shield -= impactDamage;
-		if (shield < 0) {
-			hull += shield;
-			shield = 0;
-			if (hull < 0)
-				dispose();
-		}
-	}
 
 }

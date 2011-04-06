@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.group20.sunstruck.behavior.Behavior;
-import org.group20.sunstruck.gameobject.Asteroid;
 import org.group20.sunstruck.gameobject.Boss;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
 import org.group20.sunstruck.gameobject.Player;
-import org.group20.sunstruck.gameobject.SmallKamikazeEnemy;
 import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.input.Input;
 import org.group20.sunstruck.interfaces.GameInterface;
@@ -55,7 +53,7 @@ public class Game implements GameInterface, ContactListener {
 
 	public void initializePlayer() {
 		player = (Player) goFactory.createPlayer(new Vector2(-3,0), 0);
-//		goFactory.createEnemy(new Vector2(3, 0), new Asteroid());
+		goFactory.createBoss(new Vector2(Main.CAMERA_WIDTH/2, 0), (float) Math.PI);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -124,27 +122,32 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 10) {
+			if (enemySpawnTime >= 1) {
 				double randomize = Math.random();
-				if (randomize < 1)
-					spawnSmallKamikazeSquad();;
+					//spawnSmallKamikazeSquad();
+//				spawnSmallLaserSquad();
 				enemySpawnTime = 0;
 			}
 		}
 	}
+	private void spawnSmallLaserSquad() {
+		int numberOfShips = (int)(Math.random()*5+1);
+		while(numberOfShips-- > 0){
+			goFactory.createSmallLaserShip(getNewEnemyPosition(), (float) Math.PI);
+		}
+		
+	}
 	
 	private void spawnSmallKamikazeSquad() {
 		int numberOfShips = (int)(Math.random()*5+1);
-		GameObject newEnemy = null;
 		while(numberOfShips-- > 0){
-			newEnemy = new SmallKamikazeEnemy();
-			goFactory.createGameObject(getNewEnemyPosition(newEnemy), newEnemy);
+			goFactory.createSmallKamikazeShip(getNewEnemyPosition(), 0);
 		}
 		
 	}
 
-	private Vector2 getNewEnemyPosition(GameObject newEnemy) {
-		float x_min, x_max, y_min, y_max, scale, width, height, x, y;
+	private Vector2 getNewEnemyPosition() {
+		float x_min, x_max, y_min, y_max, scale, widthClearnce, heightClearance, x, y;
 		
 		scale = (float)Gdx.graphics.getHeight()/ Gdx.graphics.getWidth();
 		x_min = Main.CAMERA_WIDTH;
@@ -152,11 +155,11 @@ public class Game implements GameInterface, ContactListener {
 		y_min = -Main.CAMERA_WIDTH*scale;
 		y_max = Main.CAMERA_WIDTH*scale;
 		
-		width = newEnemy.getWidth() + 0.2f;
-		height = newEnemy.getHeight() + 0.2f;
+		widthClearnce = 3f;
+		heightClearance = 3f;
 		
-		x = (float) ((x_min+width/2) + (x_max-x_min-width)*Math.random());
-		y = (float) ((y_min+height/2) + (y_max -y_min -height)*Math.random());
+		x = (float) ((x_min+widthClearnce/2) + (x_max-x_min-widthClearnce)*Math.random());
+		y = (float) ((y_min+heightClearance/2) + (y_max -y_min -heightClearance)*Math.random());
 		
 		return new Vector2(x,y);
 	}

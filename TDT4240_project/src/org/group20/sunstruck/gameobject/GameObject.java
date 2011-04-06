@@ -10,35 +10,19 @@ import com.badlogic.gdx.physics.box2d.Contact;
 
 public abstract class GameObject {
 
-	protected GameObject(TextureRegion textureRegion, TYPES type,
-			BEHAVIOR behavior, GameObject weaponType, float speed,
-			float impactDamage, float hull, float weapon, float shield,
-			float width, float reloadTime, int BURST_COUNT, int PAUSE_COUNT,
-			float density, int score) {
+	protected GameObject(TextureRegion textureRegion,float width) {
 		this.textureRegion = textureRegion;
-		this.type = type;
-		this.behavior = behavior;
-		this.weaponType = weaponType;
-		this.speed = speed;
-		this.hull = hull;
-		this.weapon = weapon;
-		this.shield = shield;
-		this.impactDamage = impactDamage;
 		this.width = width;
 		if (textureRegion != null)
 			this.height = width * textureRegion.getRegionHeight()
 					/ textureRegion.getRegionWidth();
-		this.density = density;
-		this.BURST_COUNT = BURST_COUNT;
-		this.PAUSE_COUNT = PAUSE_COUNT;
-		this.score = score;
 	}
 
 	public static enum TYPES {
 		PLAYER, ENEMY, BULLET, UNKNOWN, ASTEROID
 	}
 
-	TYPES type = TYPES.UNKNOWN;
+	TYPES type = TYPES.ENEMY;
 
 	BEHAVIOR behavior = BEHAVIOR.LINE;
 
@@ -46,12 +30,11 @@ public abstract class GameObject {
 	boolean isDisposed = false;
 	boolean isEnemy = true;
 	GameObject weaponType = null;
-	float speed = 0;
-	float hull = 0;
-	float weapon = 0;
-	float shield = 0;
-	float impactDamage = 0;
-	int score = 0;
+	float speed = 5;
+	float hull = 10;
+	float shield = 10;
+	float impactDamage = 10;
+	int score = 10;
 
 	long reloadTime = 200;
 	long start = System.currentTimeMillis();
@@ -60,7 +43,7 @@ public abstract class GameObject {
 	int BURST_COUNT = 3;
 	int PAUSE_COUNT = 9;
 
-	float density = 0;
+	float density = 10;
 
 	// height and width of the body-rectangle.
 	float width = 0;
@@ -68,14 +51,31 @@ public abstract class GameObject {
 
 	Body body = null;
 
+	float currentShield = shield;
+	float currentHull = hull;
+	
+	long shieldRegenTime = 500;
+	long lastShieldRegen = System.currentTimeMillis();
+	
 	public void update() {
 		Behavior.applyBehavior(this);
-		if (!isProjectile) {
-			long time = System.currentTimeMillis() - start;
-			// if (behavior != BEHAVIOR.KAMIKAZE_FOR)
-			if (time > reloadTime) {
-				shoot();
-				start = System.currentTimeMillis();
+		shieldRegeneration();
+		if(weaponType != null)
+			if (!isProjectile) {
+				long time = System.currentTimeMillis() - start;
+				if (time > reloadTime) {
+					shoot();
+					start = System.currentTimeMillis();
+				}
+			}
+	}
+	
+	void shieldRegeneration(){
+		if(currentShield < shield){
+			long time = System.currentTimeMillis() - lastShieldRegen;
+			if(time > shieldRegenTime){
+				currentShield++;
+				lastShieldRegen = System.currentTimeMillis();
 			}
 		}
 	}
@@ -94,7 +94,15 @@ public abstract class GameObject {
 
 	}
 
-	public abstract void contact(Contact contact, float impactDamage);
+	public void contact(Contact contact, float impactDamage){
+		currentShield-=impactDamage;
+		if(currentShield < 0){
+			currentHull += currentShield;
+			currentShield = 0;
+			if(currentHull <= 0)
+				dispose();
+		}
+	}
 
 	public void dispose() {
 		if (!isDisposed) {
@@ -119,10 +127,6 @@ public abstract class GameObject {
 
 	public float getHull() {
 		return hull;
-	}
-
-	public float getWeapon() {
-		return weapon;
 	}
 
 	public float getShield() {
@@ -159,10 +163,6 @@ public abstract class GameObject {
 
 	public void setHull(float hull) {
 		this.hull = hull;
-	}
-
-	public void setWeapon(float weapon) {
-		this.weapon = weapon;
 	}
 
 	public void setShield(float shield) {

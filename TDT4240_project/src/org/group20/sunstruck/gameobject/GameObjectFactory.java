@@ -17,6 +17,12 @@ public class GameObjectFactory {
 	public GameObjectFactory(DIFFICULTIES difficulty) {
 		this.difficulty = difficulty;
 	}
+	
+	public GameObject createBoss(Vector2 position, float angle){
+		GameObject go = new Boss();
+		generateBoxBody(go, position, angle);
+		return go;
+	}
 
 	public GameObject createPlayer(Vector2 position, float angle) {
 		GameObject player = new Player();
@@ -24,8 +30,13 @@ public class GameObjectFactory {
 		player.body.setFixedRotation(true);
 		return player;
 	}
-	public GameObject createSmallKamikazeEnemy(Vector2 position, float angle){
-		GameObject go = new SmallKamikazeEnemy();
+	public GameObject createSmallKamikazeShip(Vector2 position, float angle){
+		GameObject go = new SmallKamikazeShip();
+		generateBoxBody(go, position, angle);
+		return go;
+	}
+	public GameObject createSmallLaserShip(Vector2 position, float angle){
+		GameObject go = new SmallLaserShip();
 		generateBoxBody(go, position, angle);
 		return go;
 	}
@@ -35,52 +46,29 @@ public class GameObjectFactory {
 		go.body.setAngularVelocity((float) Math.random());
 		return go;
 	}	
-	public GameObject createLaser(Vector2 position, float angle){
-		GameObject go = new Laser();
+	public GameObject createLaserTiny1(Vector2 position, float angle){
+		GameObject go = new LaserTiny1();
 		generateBoxBody(go, position, angle);
 		go.body.setFixedRotation(true);
 		return go;
 	}
-//	public GameObject createLaser(GameObject shooter) {
-//		GameObject laser = new Laser();
-//		
-//
-//		float angle = shooter.getBody().getAngle();
-//		Vector2 direction = getDirection(shooter);
-//		Vector2 position = getProjectilePosition(laser, shooter, direction);
-//
-//		generateBoxBody(laser, position, angle);
-//		setBulletSpeed(laser, direction);
-//
-//		laser.body.setFixedRotation(true);
-//
-//		return laser;
-//	}
-	
-	
-
-	public GameObject createGameObject(Vector2 position, GameObject newGameObject) {
-		if (newGameObject instanceof Player){
-			generateBoxBody(newGameObject, position, 0);
-			newGameObject.body.setFixedRotation(true);
-		}
-		if (newGameObject instanceof SmallKamikazeEnemy)
-			generateBoxBody(newGameObject, position, 0);
-		if (newGameObject instanceof Asteroid){
-			generateCircleBody(newGameObject, position, 0);
-			newGameObject.body.setAngularVelocity((float)Math.random());
-		}
-
-
-		return newGameObject;
+	public GameObject createLaserTiny2(Vector2 position, float angle){
+		GameObject go = new LaserTiny2();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
 	}
+	
+
 
 	public GameObject generateWeaponShot(GameObject weaponType, Vector2 position, float angle) {
 		GameObject go = null;
-		if (weaponType instanceof Laser)
-			go = createLaser(position, angle);
-		if(weaponType instanceof SmallKamikazeEnemy)
-			go = createSmallKamikazeEnemy(position, angle);
+		if (weaponType instanceof LaserTiny1)
+			go = createLaserTiny1(position, angle);
+		if (weaponType instanceof LaserTiny2)
+			go = createLaserTiny2(position, angle);
+		if(weaponType instanceof SmallKamikazeShip)
+			go = createSmallKamikazeShip(position, angle);
 		
 		return go;
 	}

@@ -28,13 +28,23 @@ public class Force implements Filter {
 
 		}
 
-		if (behavior == BEHAVIOR.KAMIKAZE_FOR) {
+		if (behavior == BEHAVIOR.PLAYER_GRAVITY) {
 			force = Game.getInstance().getPlayer().getBody().getPosition()
 					.tmp().sub(body.getPosition());
 			force.nor();
 			force.mul(10 * body.getMass());
 			body.applyForce(force, body.getWorldCenter());
 		}
+		
+		if(behavior == BEHAVIOR.KAMIKAZE_FOR){
+			force = Game.getInstance().getPlayer().getBody()
+			.getWorldCenter().tmp().sub(body.getPosition());
+			force.nor();
+			force.mul(10*body.getMass());
+			body.applyForce(force, body.getWorldCenter());
+			
+		}
+			
 
 		Behavior.filters.get(FILTERS.ROTATION).applyFilter(go);
 
