@@ -23,6 +23,7 @@ public class GameObjectFactory {
 		generateBossBody(bo, position, angle);
 		bo.setKamikazeSpawnPoint(new Vector2(bo.width * 0.3193f,
 				-bo.height * 0.3456f));
+		bo.body.setFixedRotation(true);
 		return bo;
 	}
 

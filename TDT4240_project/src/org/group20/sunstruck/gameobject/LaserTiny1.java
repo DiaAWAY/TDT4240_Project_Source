@@ -11,10 +11,10 @@ public class LaserTiny1 extends GameObject {
 			.findRegion("laserTiny");
 
 	public LaserTiny1() {
-		super(laserTexture, 0.2f);
+		super(laserTexture, 0.1f);
 		isProjectile = true;
 		speed = 15;
-		impactDamage = 10;
+		impactDamage = 15;
 		type = TYPES.BULLET;
 		density = 1;
 

@@ -105,12 +105,12 @@ public abstract class GameObject {
 		shieldRegeneration();
 		long time = 0;
 
-//		if (isExploding)
-//			time = System.currentTimeMillis() - startExplosionTime;
-//		if (time > explosionTime) {
-//			explode();
-//			startExplosionTime = System.currentTimeMillis();
-//		} else 
+		if (isExploding)
+			time = System.currentTimeMillis() - startExplosionTime;
+		if (time > explosionTime) {
+			explode();
+			startExplosionTime = System.currentTimeMillis();
+		} else 
 			
 		if (weaponType != null)
 			if (!isProjectile) {
@@ -132,7 +132,8 @@ public abstract class GameObject {
 		}
 	}
 
-	private void shoot() {
+	void shoot() {
+		System.out.println(BURST_COUNT);
 		if (BURST_COUNT == 0)
 			return;
 		shotCount++;
@@ -150,6 +151,22 @@ public abstract class GameObject {
 
 	}
 
+	public int getBURST_COUNT() {
+		return BURST_COUNT;
+	}
+
+	public void setBURST_COUNT(int bURST_COUNT) {
+		BURST_COUNT = bURST_COUNT;
+	}
+
+	public int getPAUSE_COUNT() {
+		return PAUSE_COUNT;
+	}
+
+	public void setPAUSE_COUNT(int pAUSE_COUNT) {
+		PAUSE_COUNT = pAUSE_COUNT;
+	}
+
 	public void contact(Contact contact, float impactDamage) {
 		currentShield -= impactDamage;
 		if (currentShield < 0) {
@@ -163,7 +180,7 @@ public abstract class GameObject {
 
 	public void dispose() {
 		if (!isDisposed) {
-			//isExploding = true;
+			isExploding = true;
 			isDisposed = true;
 			Game.getInstance().getDestroyedBodiesList().add(body);
 		}
