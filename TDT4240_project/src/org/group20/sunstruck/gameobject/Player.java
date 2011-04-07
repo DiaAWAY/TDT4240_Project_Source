@@ -14,9 +14,7 @@ public class Player extends GameObject {
 	private long reloadTimeGun = 200;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
-	
-	
-	
+
 	public Player() {
 		super(Game.textureAtlas.findRegion("shipPlayer"), 1);
 		isEnemy = false;
@@ -31,10 +29,11 @@ public class Player extends GameObject {
 
 	@Override
 	public void update() {
-		System.out.println("Shield: "+currentShield + " Hull: "+currentHull);
-		
+		System.out
+				.println("Shield: " + currentShield + " Hull: " + currentHull);
+
 		super.shieldRegeneration();
-		
+
 		boolean setXSpeedToZero = false;
 		boolean setYSpeedToZero = false;
 
@@ -92,15 +91,26 @@ public class Player extends GameObject {
 	public String toString() {
 		return "Player";
 	}
-	
+
 	private void shoot() {
-		Vector2 shotPosition = GameObjectFactory.getProjectilePosition(weaponType, this);
-//		shotPosition.set(new Vector2(0,0));
+		Vector2 shotPosition = GameObjectFactory.getProjectilePosition(
+				weaponType, this);
+		// shotPosition.set(new Vector2(0,0));
 
-		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, shotPosition.tmp().add(0, 0.6f), (float) (this.body.getAngle()+Math.PI/4)).isEnemy = false;
-		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, shotPosition.tmp(), this.body.getAngle()).isEnemy = false;
-		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, shotPosition.tmp().sub(0,0.6f), (float) (this.body.getAngle()-Math.PI/4)).isEnemy = false;
+		Game.getInstance()
+				.getGoFactory()
+				.generateWeaponShot(weaponType,
+						shotPosition.tmp().add(0, 0.6f),
+						(float) (this.body.getAngle() + Math.PI / 4)).isEnemy = false;
+		Game.getInstance()
+				.getGoFactory()
+				.generateWeaponShot(weaponType, shotPosition.tmp(),
+						this.body.getAngle()).isEnemy = false;
+		Game.getInstance()
+				.getGoFactory()
+				.generateWeaponShot(weaponType,
+						shotPosition.tmp().sub(0, 0.6f),
+						(float) (this.body.getAngle() - Math.PI / 4)).isEnemy = false;
 	}
-
 
 }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 
 public abstract class GameObject {
 
-	protected GameObject(TextureRegion textureRegion,float width) {
+	protected GameObject(TextureRegion textureRegion, float width) {
 		this.textureRegion = textureRegion;
 		this.width = width;
 		if (textureRegion != null)
@@ -53,14 +53,14 @@ public abstract class GameObject {
 
 	float currentShield = shield;
 	float currentHull = hull;
-	
+
 	long shieldRegenTime = 500;
 	long lastShieldRegen = System.currentTimeMillis();
-	
+
 	public void update() {
 		Behavior.applyBehavior(this);
 		shieldRegeneration();
-		if(weaponType != null)
+		if (weaponType != null)
 			if (!isProjectile) {
 				long time = System.currentTimeMillis() - start;
 				if (time > reloadTime) {
@@ -69,11 +69,11 @@ public abstract class GameObject {
 				}
 			}
 	}
-	
-	void shieldRegeneration(){
-		if(currentShield < shield){
+
+	void shieldRegeneration() {
+		if (currentShield < shield) {
 			long time = System.currentTimeMillis() - lastShieldRegen;
-			if(time > shieldRegenTime){
+			if (time > shieldRegenTime) {
 				currentShield++;
 				lastShieldRegen = System.currentTimeMillis();
 			}
@@ -85,8 +85,12 @@ public abstract class GameObject {
 			return;
 		shotCount++;
 		if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
-			Game.getInstance().getGoFactory()
-					.generateWeaponShot(weaponType, GameObjectFactory.getProjectilePosition(weaponType, this), this.body.getAngle());
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(
+							weaponType,
+							GameObjectFactory.getProjectilePosition(weaponType,
+									this), this.body.getAngle());
 		} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
 			return;
 		} else
@@ -94,12 +98,12 @@ public abstract class GameObject {
 
 	}
 
-	public void contact(Contact contact, float impactDamage){
-		currentShield-=impactDamage;
-		if(currentShield < 0){
+	public void contact(Contact contact, float impactDamage) {
+		currentShield -= impactDamage;
+		if (currentShield < 0) {
 			currentHull += currentShield;
 			currentShield = 0;
-			if(currentHull <= 0)
+			if (currentHull <= 0)
 				dispose();
 		}
 	}

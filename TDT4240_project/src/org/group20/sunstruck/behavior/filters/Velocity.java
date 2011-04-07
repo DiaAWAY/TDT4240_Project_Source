@@ -33,7 +33,7 @@ public class Velocity implements Filter {
 			float angle = body.getAngle();
 			float x = (float) Math.cos(angle);
 			float y = (float) Math.sin(angle);
-			
+
 			velocity.set(x, y);
 			velocity.nor();
 			velocity.mul(go.getSpeed());

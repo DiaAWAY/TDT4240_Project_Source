@@ -32,9 +32,9 @@ public class Asteroid extends GameObject { // TODO remove test class
 		asteroidTexture.add(Game.textureAtlas.findRegion("asteroidMedium"));
 		asteroidTexture.add(Game.textureAtlas.findRegion("asteroidLarge"));
 		asteroidTexture.add(Game.textureAtlas.findRegion("asteroidHuge"));
-		
+
 		this.size = size;
-		this.impactDamage = 5 + 5*size;
+		this.impactDamage = 5 + 5 * size;
 		textureRegion = asteroidTexture.get(size);
 		width = (float) Math.pow(2, size);
 		height = width;
@@ -43,10 +43,12 @@ public class Asteroid extends GameObject { // TODO remove test class
 
 	@Override
 	public void contact(Contact contact, float impactDamage) {
-		GameObject goA = (GameObject) contact.getFixtureA().getBody().getUserData();
-		GameObject goB = (GameObject) contact.getFixtureB().getBody().getUserData();
-		
-		if(!(goA instanceof Asteroid) || !(goB instanceof Asteroid))
+		GameObject goA = (GameObject) contact.getFixtureA().getBody()
+				.getUserData();
+		GameObject goB = (GameObject) contact.getFixtureB().getBody()
+				.getUserData();
+
+		if (!(goA instanceof Asteroid) || !(goB instanceof Asteroid))
 			hull -= impactDamage;
 		if (hull <= 0) {
 			split = true;
@@ -58,9 +60,9 @@ public class Asteroid extends GameObject { // TODO remove test class
 		if (split && !hasSplit) {
 			dispose();
 			if (size > 0)
-//				Game.getInstance().getGoFactory().generateWeaponShot(
-//						weaponType, this);
-			hasSplit = true;
+				// Game.getInstance().getGoFactory().generateWeaponShot(
+				// weaponType, this);
+				hasSplit = true;
 		}
 
 		Behavior.applyBehavior(this);

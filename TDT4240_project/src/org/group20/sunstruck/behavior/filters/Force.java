@@ -32,19 +32,18 @@ public class Force implements Filter {
 			force = Game.getInstance().getPlayer().getBody().getPosition()
 					.tmp().sub(body.getPosition());
 			force.nor();
-			force.mul(10 * body.getMass());
+			force.mul(7 * body.getMass());
 			body.applyForce(force, body.getWorldCenter());
 		}
-		
-		if(behavior == BEHAVIOR.KAMIKAZE_FOR){
-			force = Game.getInstance().getPlayer().getBody()
-			.getWorldCenter().tmp().sub(body.getPosition());
-			force.nor();
-			force.mul(10*body.getMass());
+
+		if (behavior == BEHAVIOR.KAMIKAZE_FOR) {
+			float x = (float) Math.cos(body.getAngle());
+			float y = (float) Math.cos(body.getAngle());
+			force.set(x, y);
+			force.mul(3 * body.getMass());
 			body.applyForce(force, body.getWorldCenter());
-			
+
 		}
-			
 
 		Behavior.filters.get(FILTERS.ROTATION).applyFilter(go);
 

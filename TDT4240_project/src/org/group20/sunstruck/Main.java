@@ -49,7 +49,7 @@ public class Main implements ApplicationListener {
 				/ Gdx.graphics.getWidth();
 		bgScale = CAMERA_WIDTH * scale / 2;
 
-		camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_WIDTH*scale);
+		camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_WIDTH * scale);
 		camera.position.set(0, 0, 0);
 
 		// East border.
@@ -57,7 +57,7 @@ public class Main implements ApplicationListener {
 		eastBorderPoly.setAsBox(0, CAMERA_WIDTH * scale);
 
 		BodyDef eastBorderDef = new BodyDef();
-		eastBorderDef.position.x = CAMERA_WIDTH*2;
+		eastBorderDef.position.x = CAMERA_WIDTH * 2;
 		eastBorderDef.position.y = 0;
 		eastBorderDef.type = BodyType.StaticBody;
 
@@ -70,7 +70,7 @@ public class Main implements ApplicationListener {
 		westBorderPoly.setAsBox(0, CAMERA_WIDTH * scale);
 
 		BodyDef westBorderDef = new BodyDef();
-		westBorderDef.position.x = -CAMERA_WIDTH*2;
+		westBorderDef.position.x = -CAMERA_WIDTH * 2;
 		westBorderDef.position.y = 0;
 		westBorderDef.type = BodyType.StaticBody;
 
@@ -80,7 +80,7 @@ public class Main implements ApplicationListener {
 
 		// North border
 		PolygonShape northBorderPoly = new PolygonShape();
-		northBorderPoly.setAsBox(CAMERA_WIDTH*2, 0);
+		northBorderPoly.setAsBox(CAMERA_WIDTH * 2, 0);
 
 		BodyDef northBorderDef = new BodyDef();
 		northBorderDef.position.x = 0;
@@ -93,7 +93,7 @@ public class Main implements ApplicationListener {
 
 		// North border
 		PolygonShape southBorderPoly = new PolygonShape();
-		southBorderPoly.setAsBox(CAMERA_WIDTH*2, 0);
+		southBorderPoly.setAsBox(CAMERA_WIDTH * 2, 0);
 
 		BodyDef southBorderDef = new BodyDef();
 		southBorderDef.position.x = 0;
@@ -119,7 +119,7 @@ public class Main implements ApplicationListener {
 		if (!run)
 			return;
 
-		Gdx.gl.glClearColor((float)Math.random(), 1, 1, 1);
+		Gdx.gl.glClearColor((float) Math.random(), 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		// Draw background
@@ -146,7 +146,7 @@ public class Main implements ApplicationListener {
 		// Draw game objects.
 		drawGameObjects();
 
-		 renderer.render(Game.getInstance().getWorld());
+		renderer.render(Game.getInstance().getWorld());
 	}
 
 	private void drawGuiShop() {
@@ -254,7 +254,8 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void resume() {
-//		Game.textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
+		// Game.textureAtlas = new
+		// TextureAtlas(Gdx.files.internal("data/pack"));
 		run = true;
 	}
 
