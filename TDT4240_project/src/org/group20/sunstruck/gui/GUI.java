@@ -71,8 +71,8 @@ public class GUI {
 		controlCircle = new Sprite(textureControlCircle);
 		fireButton = new Sprite(textureFireButton);
 
-		controlCircle.setPosition(0,
-				Gdx.graphics.getHeight() - controlCircle.getHeight());
+		controlCircle.setPosition(0, Gdx.graphics.getHeight()
+				- controlCircle.getHeight());
 		fireButton.setPosition(0, 0);
 		/*
 		 * weaponUpgButton .setPosition( Gdx.graphics.getWidth() / 2 -

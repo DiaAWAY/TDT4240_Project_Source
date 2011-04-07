@@ -85,12 +85,9 @@ public abstract class GameObject {
 			return;
 		shotCount++;
 		if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
-			Game.getInstance()
-					.getGoFactory()
-					.generateWeaponShot(
-							weaponType,
-							GameObjectFactory.getProjectilePosition(weaponType,
-									this), this.body.getAngle());
+			Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
+					GameObjectFactory.getProjectilePosition(weaponType, this),
+					this.body.getAngle());
 		} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
 			return;
 		} else

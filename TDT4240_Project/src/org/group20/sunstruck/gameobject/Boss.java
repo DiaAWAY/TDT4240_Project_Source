@@ -26,7 +26,7 @@ public class Boss extends GameObject {
 		speed = 0.1f;
 		isSpawningKamikaze = true;
 	}
-	
+
 	public void update() {
 		Behavior.applyBehavior(this);
 		shieldRegeneration();
@@ -40,45 +40,41 @@ public class Boss extends GameObject {
 				}
 			}
 	}
-	
+
 	private void shoot() {
 		if (BURST_COUNT == 0)
 			return;
 		shotCount++;
 		if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
-			Game.getInstance()
-					.getGoFactory()
-					.generateWeaponShot(
-							weaponType,
-							GameObjectFactory.getProjectilePosition(weaponType,
-									this), this.body.getAngle());
+			Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
+					GameObjectFactory.getProjectilePosition(weaponType, this),
+					this.body.getAngle());
 		} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
 			return;
 		} else
 			shotCount = 0;
 
 	}
-	
+
 	private void launchSquad() {
-		if(isSpawningKamikaze){
-			Game.getInstance()
-			.getGoFactory()
-			.generateWeaponShot(
+		if (isSpawningKamikaze) {
+			Game.getInstance().getGoFactory().generateWeaponShot(
 					new SmallKamikazeShip(),
-					body.getWorldPoint(kamikazeSpawnPoint), this.body.getAngle());
-		}
-		else return;
+					body.getWorldPoint(kamikazeSpawnPoint),
+					this.body.getAngle());
+		} else
+			return;
 	}
-	
-	public Vector2 getKamikazeSpawnPoint(){
+
+	public Vector2 getKamikazeSpawnPoint() {
 		return kamikazeSpawnPoint;
 	}
-	
-	public void setKamikazeSpawnPoint(Vector2 point){
+
+	public void setKamikazeSpawnPoint(Vector2 point) {
 		this.kamikazeSpawnPoint = point;
 	}
-	
-	public void launchKamikazeSquad(){
-		
+
+	public void launchKamikazeSquad() {
+
 	}
 }

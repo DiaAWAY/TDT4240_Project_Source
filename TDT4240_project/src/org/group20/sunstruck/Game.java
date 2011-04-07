@@ -24,8 +24,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Game implements GameInterface, ContactListener {
 	public static boolean DEBUG = false;
-	public static TextureAtlas textureAtlas = new TextureAtlas(
-			Gdx.files.internal("data/pack"));
+	public static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files
+			.internal("data/pack"));
 	private float updateRate = 1.0f; // physics update rate
 	private float totalTime;
 	private Vector2 initGravity = new Vector2(0, 0);
@@ -44,7 +44,7 @@ public class Game implements GameInterface, ContactListener {
 	private float bossTimer = 0;
 	private int bossCount = 1;
 	private int bossInterval = Integer.MAX_VALUE; // playerScore >
-													// bossInterval*bossCount =>
+	// bossInterval*bossCount =>
 	// spawn boss
 	private float enemySpawnTime = 0;
 
@@ -54,8 +54,8 @@ public class Game implements GameInterface, ContactListener {
 
 	public void initializePlayer() {
 		player = (Player) goFactory.createPlayer(new Vector2(-3, 0), 0);
-		goFactory.createBoss(new Vector2(Main.CAMERA_WIDTH/2, 0), (float)
-		Math.PI);
+		goFactory.createBoss(new Vector2(Main.CAMERA_WIDTH / 2, 0),
+				(float) Math.PI);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -114,7 +114,7 @@ public class Game implements GameInterface, ContactListener {
 				// System.out.println("Boss mode activated");
 				bossMode = true;
 			} else {
-				//spawnEnemy();
+				// spawnEnemy();
 			}
 		} else {
 			spawnBoss();
@@ -217,7 +217,7 @@ public class Game implements GameInterface, ContactListener {
 
 		// --- let's check if enemies are shooting at each other! ---
 		if (goB.isEnemy() && goA.isEnemy()) { // enemy objects hitting each
-												// other
+			// other
 			if (goB.isProjectile()) {
 				goB.contact(contact, Float.MAX_VALUE);
 			}

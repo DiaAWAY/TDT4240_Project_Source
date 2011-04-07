@@ -21,7 +21,8 @@ public class GameObjectFactory {
 	public GameObject createBoss(Vector2 position, float angle) {
 		Boss bo = new Boss();
 		generateBossBody(bo, position, angle);
-		bo.setKamikazeSpawnPoint(new Vector2(bo.width*0.3193f,-bo.height*0.3456f));
+		bo.setKamikazeSpawnPoint(new Vector2(bo.width * 0.3193f,
+				-bo.height * 0.3456f));
 		return bo;
 	}
 
@@ -162,7 +163,7 @@ public class GameObjectFactory {
 		go.body.setUserData(go);
 
 	}
-	
+
 	private void generateBossBody(Boss bo, Vector2 position, float angle) {
 		// Defines the body and creates it
 		BodyDef bodyDef = new BodyDef();
@@ -170,20 +171,22 @@ public class GameObjectFactory {
 		bodyDef.position.set(position);
 		bodyDef.angle = angle;
 		bo.body = Game.getInstance().getWorld().createBody(bodyDef);
-		
+
 		CircleShape circleShape = new CircleShape();
-		
+
 		circleShape.setRadius(bo.width * 0.1107f);
 		circleShape.setPosition(new Vector2(bo.width * 0.3875f, 0));
 		bo.body.createFixture(circleShape, bo.density);
 		circleShape.dispose();
-		
+
 		PolygonShape bodyPoly = new PolygonShape();
-		
-		bodyPoly.setAsBox( (bo.width/2) * 0.6298f, (bo.height/2) * 0.8203f, new Vector2(-bo.width * 0.1868f, bo.height * 0.0875f), 0);
+
+		bodyPoly.setAsBox((bo.width / 2) * 0.6298f, (bo.height / 2) * 0.8203f,
+				new Vector2(-bo.width * 0.1868f, bo.height * 0.0875f), 0);
 		bo.body.createFixture(bodyPoly, bo.density);
 
-		bodyPoly.setAsBox( (bo.width/2) * 0.1592f, (bo.height/2) * 0.7051f, new Vector2(bo.width * 0.2076f, -bo.height * 0.0253f), 0);
+		bodyPoly.setAsBox((bo.width / 2) * 0.1592f, (bo.height / 2) * 0.7051f,
+				new Vector2(bo.width * 0.2076f, -bo.height * 0.0253f), 0);
 		bo.body.createFixture(bodyPoly, bo.density);
 		bodyPoly.dispose();
 
