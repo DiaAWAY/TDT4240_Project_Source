@@ -124,9 +124,9 @@ public class Game implements GameInterface, ContactListener {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
 			if (enemySpawnTime >= 3) {
 				double randomize = Math.random();
-					spawnMediumKamikazeSquad();
-					spawnSmallKamikazeSquad();
-					spawnSmallLaserSquad();
+				spawnMediumKamikazeSquad();
+				spawnSmallKamikazeSquad();
+				spawnSmallLaserSquad();
 				enemySpawnTime = 0;
 			}
 		}

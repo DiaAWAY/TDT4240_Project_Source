@@ -13,7 +13,10 @@ public class Rotation implements Filter {
 	public void applyFilter(GameObject go) {
 		BEHAVIOR behavior = go.getBehavior();
 		Body body = go.getBody();
-
+		
+		if(behavior == BEHAVIOR.KAMIKAZE_FOR)
+			return;
+		
 		if (behavior == BEHAVIOR.LINEAR_MOVEMENT) {
 			Vector2 direction = body.getLinearVelocity();
 			direction.nor();
@@ -32,6 +35,9 @@ public class Rotation implements Filter {
 				angle = (float) (Math.PI * 2 - angle);
 
 			body.setTransform(body.getWorldCenter(), angle);
+			
+			if(behavior == BEHAVIOR.KAMIKAZE_FOR_ANGLE)
+				go.setBehavior(BEHAVIOR.KAMIKAZE_FOR);
 		}
 
 	}
