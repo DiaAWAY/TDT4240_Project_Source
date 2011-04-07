@@ -4,7 +4,8 @@ import org.group20.sunstruck.Game;
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
-import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 public class Boss extends GameObject {
 	GameObject weaponType2 = new SmallKamikazeShip();
