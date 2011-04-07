@@ -5,11 +5,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public abstract class MapSegment {
 
 	public static enum MAPTYPES {
-		WINTER, JUNGLE, PLAINS, TUNDRA, WINTER_PLAINS, PLAINS_WINTER, WINTER_TUNDRA, TUNDRA_WINTER, JUNGLE_PLAINS, PLAINS_JUNGLE, TUNDRA_PLAINS, PLAINS_TUNDRA, DEFAULT
+		DESERT, GRASS, WATER, ROCK, LAVA, 
+		DESERT_GRASS, GRASS_DESERT, 
+		GRASS_WATER, WATER_GRASS,
+		GRASS_ROCK, ROCK_GRASS,
+		ROCK_WATER, WATER_ROCK,
+		ROCK_LAVA, LAVA_ROCK,
+		DEFAULT
 	}
-
+	
 	private MapSegment.MAPTYPES type = MAPTYPES.DEFAULT;
 	private TextureRegion texReg = null;
+	private boolean isTransitional = false;
 
 	public TextureRegion getTextureRegion() {
 		return texReg;
@@ -25,5 +32,9 @@ public abstract class MapSegment {
 
 	public void setType(MapSegment.MAPTYPES t) {
 		type = t;
+	}
+	
+	public boolean isTransitional() {
+		return isTransitional;
 	}
 }
