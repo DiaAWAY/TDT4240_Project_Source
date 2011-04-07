@@ -102,20 +102,14 @@ public class Player extends GameObject {
 		 Game.getInstance().getGoFactory().createMediumKamikazeShip(new Vector2(0, 0), (float)
 				 Math.PI).setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
 
-		Game.getInstance()
-				.getGoFactory()
-				.generateWeaponShot(weaponType,
-						shotPosition.tmp().add(0, 0.6f),
-						(float) (this.body.getAngle() + Math.PI / 4)).isEnemy = false;
-		Game.getInstance()
-				.getGoFactory()
-				.generateWeaponShot(weaponType, shotPosition.tmp(),
-						this.body.getAngle()).isEnemy = false;
-		Game.getInstance()
-				.getGoFactory()
-				.generateWeaponShot(weaponType,
-						shotPosition.tmp().sub(0, 0.6f),
-						(float) (this.body.getAngle() - Math.PI / 4)).isEnemy = false;
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
+				shotPosition.tmp().add(0, 0.6f),
+				(float) (this.body.getAngle() + Math.PI / 4)).isEnemy = false;
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
+				shotPosition.tmp(), this.body.getAngle()).isEnemy = false;
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
+				shotPosition.tmp().sub(0, 0.6f),
+				(float) (this.body.getAngle() - Math.PI / 4)).isEnemy = false;
 	}
 
 }

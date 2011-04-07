@@ -94,8 +94,8 @@ public class Velocity implements Filter {
 			// Get the velocity
 			randomize = (float) Math.random();
 			y = randomize * y - y / 2;
-			velocity = new Vector2(-Main.CAMERA_WIDTH / 2, y).sub(
-					body.getPosition().x, body.getPosition().y);
+			velocity = new Vector2(-Main.CAMERA_WIDTH / 2, y).sub(body
+					.getPosition().x, body.getPosition().y);
 			velocity.nor().mul(go.getSpeed());
 			body.setLinearVelocity(velocity);
 			go.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);

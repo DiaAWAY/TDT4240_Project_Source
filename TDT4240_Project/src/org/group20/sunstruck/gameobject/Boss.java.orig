@@ -4,13 +4,21 @@ import org.group20.sunstruck.Game;
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
+<<<<<<< HEAD
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+=======
+import com.badlogic.gdx.math.Vector2;
+>>>>>>> christian/master
 import com.badlogic.gdx.physics.box2d.Contact;
 
 public class Boss extends GameObject {
 	GameObject weaponType2 = new SmallKamikazeShip();
+<<<<<<< HEAD
+	public static TextureRegion shipTexture = Game.textureAtlas.findRegion("shipColossal");
+=======
 	Vector2 kamikazeSpawnPoint;
 	boolean isSpawningKamikaze;
-	public static TextureRegion shipTexture = Game.textureAtlas.findRegion("shipColossal");
+>>>>>>> christian/master
 
 	public Boss() {
 		super(shipTexture, 12);
@@ -22,8 +30,13 @@ public class Boss extends GameObject {
 		weaponType = new LaserTiny1();
 		density = 100000;
 		impactDamage = 100;
+<<<<<<< HEAD
 		behavior = BEHAVIOR.BOSS_GET_IN_POSITION;
 		speed = 1f;
+=======
+		behavior = BEHAVIOR.LINE;
+		speed = 0.1f;
+		isSpawningKamikaze = true;
 	}
 
 	public void update() {
@@ -75,5 +88,6 @@ public class Boss extends GameObject {
 
 	public void launchKamikazeSquad() {
 
+>>>>>>> christian/master
 	}
 }

@@ -191,8 +191,8 @@ public class Main implements ApplicationListener {
 	}
 
 	private void updatePhysics() {
-		Game.getInstance().getWorld()
-				.step(Gdx.app.getGraphics().getDeltaTime(), 8, 3);
+		Game.getInstance().getWorld().step(
+				Gdx.app.getGraphics().getDeltaTime(), 8, 3);
 	}
 
 	private void updateCamera() {
