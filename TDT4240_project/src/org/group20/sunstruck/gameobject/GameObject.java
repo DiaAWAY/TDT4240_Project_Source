@@ -19,26 +19,26 @@ public abstract class GameObject {
 		if (textureRegion != null)
 			this.height = width * textureRegion.getRegionHeight()
 					/ textureRegion.getRegionWidth();
-		
+
 		if (explosionTextures.isEmpty()) {
-			explosionTextures.add(Game.textureAtlas
-					.findRegion("explosionRed1"));
-			explosionTextures.add(Game.textureAtlas
-					.findRegion("explosionRed2"));
-			explosionTextures.add(Game.textureAtlas
-					.findRegion("explosionRed3"));
-			explosionTextures.add(Game.textureAtlas
-					.findRegion("explosionRed4"));
-			explosionTextures.add(Game.textureAtlas
-					.findRegion("explosionRed5"));
-			explosionTextures.add(Game.textureAtlas
-					.findRegion("explosionRed6"));
-			explosionTextures.add(Game.textureAtlas
-					.findRegion("explosionRed7"));
-			explosionTextures.add(Game.textureAtlas
-					.findRegion("explosionRed8"));
-			explosionTextures.add(Game.textureAtlas
-					.findRegion("explosionRed9"));
+			explosionTextures
+					.add(Game.textureAtlas.findRegion("explosionRed1"));
+			explosionTextures
+					.add(Game.textureAtlas.findRegion("explosionRed2"));
+			explosionTextures
+					.add(Game.textureAtlas.findRegion("explosionRed3"));
+			explosionTextures
+					.add(Game.textureAtlas.findRegion("explosionRed4"));
+			explosionTextures
+					.add(Game.textureAtlas.findRegion("explosionRed5"));
+			explosionTextures
+					.add(Game.textureAtlas.findRegion("explosionRed6"));
+			explosionTextures
+					.add(Game.textureAtlas.findRegion("explosionRed7"));
+			explosionTextures
+					.add(Game.textureAtlas.findRegion("explosionRed8"));
+			explosionTextures
+					.add(Game.textureAtlas.findRegion("explosionRed9"));
 			explosionTextures.add(Game.textureAtlas
 					.findRegion("explosionRed10"));
 			explosionTextures.add(Game.textureAtlas
@@ -93,24 +93,24 @@ public abstract class GameObject {
 
 	long shieldRegenTime = 500;
 	long lastShieldRegen = System.currentTimeMillis();
-	
+
 	int explosionAnimationCount = 0;
-	
-	long explosionTime = 200;
+
+	long explosionTime = 500;
 	long startExplosionTime = System.currentTimeMillis();
-	
+	boolean isExplosionSize = false;
 
 	public void update() {
 		Behavior.applyBehavior(this);
 		shieldRegeneration();
 		long time = 0;
-			
-		
+
 		if (isExploding)
 			time = System.currentTimeMillis() - startExplosionTime;
-			if(time > explosionTime)
-				explode();
-		else if (weaponType != null)
+		if (time > explosionTime) {
+			explode();
+			startExplosionTime = System.currentTimeMillis();
+		} else if (weaponType != null)
 			if (!isProjectile) {
 				time = System.currentTimeMillis() - start;
 				if (time > reloadTime) {
@@ -135,9 +135,12 @@ public abstract class GameObject {
 			return;
 		shotCount++;
 		if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
-			Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
-					GameObjectFactory.getProjectilePosition(weaponType, this),
-					this.body.getAngle());
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(
+							weaponType,
+							GameObjectFactory.getProjectilePosition(weaponType,
+									this), this.body.getAngle());
 		} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
 			return;
 		} else
@@ -150,7 +153,7 @@ public abstract class GameObject {
 		if (currentShield < 0) {
 			currentHull += currentShield;
 			currentShield = 0;
-			if (currentHull <= 0){
+			if (currentHull <= 0) {
 				dispose();
 			}
 		}
@@ -159,18 +162,25 @@ public abstract class GameObject {
 	public void dispose() {
 		if (!isDisposed) {
 			isExploding = true;
-			width*=3;
-			height = width;
 			Game.getInstance().getDestroyedBodiesList().add(body);
 		}
 	}
 
 	void explode() {
+		if (!isExplosionSize) {
+			width *= 1.5;
+			height = width;
+			isExplosionSize = true;
+		}
+		if (explosionAnimationCount == 13) {
+			isExploding = false;
+			return;
+		}
 		textureRegion = explosionTextures.get(explosionAnimationCount);
 		explosionAnimationCount++;
-		if(explosionTextures.size() == explosionAnimationCount)
+		if (explosionTextures.size() == explosionAnimationCount)
 			isExploding = false;
-		
+
 	}
 
 	TextureRegion textureRegion = null;
@@ -262,7 +272,8 @@ public abstract class GameObject {
 	public void setBehavior(BEHAVIOR behavior) {
 		this.behavior = behavior;
 	}
-	public boolean isExploding(){
+
+	public boolean isExploding() {
 		return isExploding;
 	}
 

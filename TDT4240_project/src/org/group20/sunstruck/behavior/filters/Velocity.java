@@ -25,16 +25,17 @@ public class Velocity implements Filter {
 			return;
 
 		Vector2 velocity = new Vector2();
-		float randomize = (float)Math.random();
+		float randomize = (float) Math.random();
 
 		Body body = go.getBody();
 
 		if (behavior == BEHAVIOR.BOSS_GET_IN_POSITION) {
 			Vector2 position = body.getWorldCenter();
 
-			if (position.x < Main.CAMERA_WIDTH/2+ go.getWidth()/3.5 - 0.2f)
-				velocity.set(go.getSpeed()*3, 0);
-			else if (position.x > Main.CAMERA_WIDTH/2+ go.getWidth()/3.5 + 0.2f)
+			if (position.x < Main.CAMERA_WIDTH / 2 + go.getWidth() / 3.5 - 0.2f)
+				velocity.set(go.getSpeed() * 3, 0);
+			else if (position.x > Main.CAMERA_WIDTH / 2 + go.getWidth() / 3.5
+					+ 0.2f)
 				velocity.set(-go.getSpeed(), 0);
 			else {
 				velocity.set(0, 0);
@@ -44,37 +45,38 @@ public class Velocity implements Filter {
 		}
 		if (behavior == BEHAVIOR.BOSS_ATTACK) {
 			Vector2 position = body.getWorldCenter();
-			
+
 			float scale = (float) Gdx.graphics.getHeight()
 					/ Gdx.graphics.getWidth();
-			System.out.println( Main.CAMERA_WIDTH*scale/2);
-			
+			System.out.println(Main.CAMERA_WIDTH * scale / 2);
+
 			velocity.set(body.getLinearVelocity());
-			if(velocity.len() < go.getSpeed()){
-				if(randomize <0.5)
-					velocity.set(0, go.getSpeed()*2);
+			if (velocity.len() < go.getSpeed()) {
+				if (randomize < 0.5)
+					velocity.set(0, go.getSpeed() * 2);
 				else
-					velocity.set(0, -go.getSpeed()*2);
-			}else{
-				if(position.y >= Main.CAMERA_WIDTH*scale/2||position.y <= -Main.CAMERA_WIDTH*scale/2)
+					velocity.set(0, -go.getSpeed() * 2);
+			} else {
+				if (position.y >= Main.CAMERA_WIDTH * scale / 2
+						|| position.y <= -Main.CAMERA_WIDTH * scale / 2)
 					velocity.mul(-1);
 			}
 			body.setLinearVelocity(velocity);
-			
-			if(randomize <0.001)
+
+			if (randomize < 0.001)
 				go.setBehavior(BEHAVIOR.BOSS_CHARGE);
-			
+
 		}
-		
-		if(behavior == BEHAVIOR.BOSS_CHARGE){
+
+		if (behavior == BEHAVIOR.BOSS_CHARGE) {
 			Vector2 position = body.getWorldCenter();
-			if(position.x <= -Main.CAMERA_WIDTH/2+ go.getWidth()/2)
+			if (position.x <= -Main.CAMERA_WIDTH / 2 + go.getWidth() / 2)
 				go.setBehavior(BEHAVIOR.BOSS_GET_IN_POSITION);
 			velocity.set(-1, 0);
-			velocity.mul(go.getSpeed()*5);
+			velocity.mul(go.getSpeed() * 5);
 
 			body.setLinearVelocity(velocity);
-			
+
 		}
 		if (behavior == BEHAVIOR.LINE) {
 			float angle = body.getAngle();
@@ -94,8 +96,8 @@ public class Velocity implements Filter {
 			// Get the velocity
 			randomize = (float) Math.random();
 			y = randomize * y - y / 2;
-			velocity = new Vector2(-Main.CAMERA_WIDTH / 2, y).sub(body
-					.getPosition().x, body.getPosition().y);
+			velocity = new Vector2(-Main.CAMERA_WIDTH / 2, y).sub(
+					body.getPosition().x, body.getPosition().y);
 			velocity.nor().mul(go.getSpeed());
 			body.setLinearVelocity(velocity);
 			go.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);

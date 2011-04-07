@@ -11,7 +11,8 @@ public class Boss extends GameObject {
 	GameObject weaponType2 = new SmallKamikazeShip();
 	Vector2 kamikazeSpawnPoint;
 	boolean isSpawningKamikaze;
-	public static TextureRegion shipTexture = Game.textureAtlas.findRegion("shipColossal");
+	public static TextureRegion shipTexture = Game.textureAtlas
+			.findRegion("shipColossal");
 
 	public Boss() {
 		super(shipTexture, 12);
@@ -35,7 +36,7 @@ public class Boss extends GameObject {
 				long time = System.currentTimeMillis() - start;
 				if (time > reloadTime) {
 					shoot();
-					launchSquad();
+					launchKamikazeShip();
 					start = System.currentTimeMillis();
 				}
 			}
@@ -46,9 +47,24 @@ public class Boss extends GameObject {
 			return;
 		shotCount++;
 		if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
-			Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
-					GameObjectFactory.getProjectilePosition(weaponType, this),
-					this.body.getAngle());
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(
+							weaponType,
+							GameObjectFactory.getProjectilePosition(weaponType,
+									this), this.body.getAngle());
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(
+							weaponType,
+							GameObjectFactory.getProjectilePosition(weaponType,
+									this), this.body.getAngle());
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(
+							weaponType,
+							GameObjectFactory.getProjectilePosition(weaponType,
+									this), this.body.getAngle());
 		} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
 			return;
 		} else
@@ -56,12 +72,13 @@ public class Boss extends GameObject {
 
 	}
 
-	private void launchSquad() {
+	private void launchKamikazeShip() {
 		if (isSpawningKamikaze) {
-			Game.getInstance().getGoFactory().generateWeaponShot(
-					new SmallKamikazeShip(),
-					body.getWorldPoint(kamikazeSpawnPoint),
-					this.body.getAngle());
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(new SmallKamikazeShip(),
+							body.getWorldPoint(kamikazeSpawnPoint),
+							this.body.getAngle());
 		} else
 			return;
 	}

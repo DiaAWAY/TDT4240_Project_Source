@@ -125,9 +125,9 @@ public class Game implements GameInterface, ContactListener {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
 			if (enemySpawnTime >= 3) {
 				double randomize = Math.random();
-//				spawnMediumKamikazeSquad();
-//				spawnSmallKamikazeSquad();
-//				spawnSmallLaserSquad();
+				// spawnMediumKamikazeSquad();
+				// spawnSmallKamikazeSquad();
+				// spawnSmallLaserSquad();
 				enemySpawnTime = 0;
 			}
 		}
@@ -238,7 +238,7 @@ public class Game implements GameInterface, ContactListener {
 
 	private void clearDestroyedBodiesList() {
 		Body body = null;
-		for (int i = 0; i < destroyedBodiesList.size();i++) {
+		for (int i = 0; i < destroyedBodiesList.size(); i++) {
 			body = destroyedBodiesList.get(i);
 			// System.out.println(body);
 			player.setScore(player.getScore()
@@ -250,10 +250,10 @@ public class Game implements GameInterface, ContactListener {
 				bossAlive = false;
 				enemySpawnTime = 0;
 			}
-			if(((GameObject)body.getUserData()).isExploding())
-				for(int j = 0; j < body.getFixtureList().size(); j++)
+			if (((GameObject) body.getUserData()).isExploding())
+				for (int j = 0; j < body.getFixtureList().size(); j++)
 					body.destroyFixture(body.getFixtureList().get(j));
-			else{
+			else {
 				world.destroyBody(body);
 				destroyedBodiesList.remove(i);
 			}

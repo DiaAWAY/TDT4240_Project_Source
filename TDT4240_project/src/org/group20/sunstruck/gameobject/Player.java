@@ -16,7 +16,8 @@ public class Player extends GameObject {
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
 
-	public static TextureRegion shipTexture = Game.textureAtlas.findRegion("shipPlayer");
+	public static TextureRegion shipTexture = Game.textureAtlas
+			.findRegion("shipPlayer");
 
 	public Player() {
 		super(shipTexture, 1);
@@ -32,8 +33,8 @@ public class Player extends GameObject {
 
 	@Override
 	public void update() {
-//		System.out
-//				.println("Shield: " + currentShield + " Hull: " + currentHull);
+		// System.out
+		// .println("Shield: " + currentShield + " Hull: " + currentHull);
 
 		super.shieldRegeneration();
 
@@ -99,17 +100,24 @@ public class Player extends GameObject {
 		Vector2 shotPosition = GameObjectFactory.getProjectilePosition(
 				weaponType, this);
 		// shotPosition.set(new Vector2(0,0));
-		 Game.getInstance().getGoFactory().createMediumKamikazeShip(new Vector2(0, 0), (float)
-				 Math.PI).setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
+		Game.getInstance().getGoFactory()
+				.createMediumKamikazeShip(new Vector2(0, 0), (float) Math.PI)
+				.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
 
-		Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
-				shotPosition.tmp().add(0, 0.6f),
-				(float) (this.body.getAngle() + Math.PI / 4)).isEnemy = false;
-		Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
-				shotPosition.tmp(), this.body.getAngle()).isEnemy = false;
-		Game.getInstance().getGoFactory().generateWeaponShot(weaponType,
-				shotPosition.tmp().sub(0, 0.6f),
-				(float) (this.body.getAngle() - Math.PI / 4)).isEnemy = false;
+		Game.getInstance()
+				.getGoFactory()
+				.generateWeaponShot(weaponType,
+						shotPosition.tmp().add(0, 0.6f),
+						(float) (this.body.getAngle() + Math.PI / 4)).isEnemy = false;
+		Game.getInstance()
+				.getGoFactory()
+				.generateWeaponShot(weaponType, shotPosition.tmp(),
+						this.body.getAngle()).isEnemy = false;
+		Game.getInstance()
+				.getGoFactory()
+				.generateWeaponShot(weaponType,
+						shotPosition.tmp().sub(0, 0.6f),
+						(float) (this.body.getAngle() - Math.PI / 4)).isEnemy = false;
 	}
 
 }

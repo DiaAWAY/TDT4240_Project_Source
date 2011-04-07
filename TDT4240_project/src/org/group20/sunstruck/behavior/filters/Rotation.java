@@ -16,11 +16,11 @@ public class Rotation implements Filter {
 
 		if (behavior == BEHAVIOR.KAMIKAZE_FOR)
 			return;
-		if(behavior == BEHAVIOR.BOSS_GET_IN_POSITION)
+		if (behavior == BEHAVIOR.BOSS_GET_IN_POSITION)
 			return;
-		if(behavior == BEHAVIOR.BOSS_ATTACK)
+		if (behavior == BEHAVIOR.BOSS_ATTACK)
 			return;
-		if(behavior == BEHAVIOR.BOSS_CHARGE)
+		if (behavior == BEHAVIOR.BOSS_CHARGE)
 			return;
 
 		if (behavior == BEHAVIOR.LINEAR_MOVEMENT) {

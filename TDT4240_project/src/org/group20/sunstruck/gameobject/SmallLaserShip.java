@@ -6,7 +6,8 @@ import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SmallLaserShip extends GameObject {
-	public static TextureRegion shipTexture = Game.textureAtlas.findRegion("shipSmall1");
+	public static TextureRegion shipTexture = Game.textureAtlas
+			.findRegion("shipSmall1");
 
 	public SmallLaserShip() {
 		super(shipTexture, 0.5f);
