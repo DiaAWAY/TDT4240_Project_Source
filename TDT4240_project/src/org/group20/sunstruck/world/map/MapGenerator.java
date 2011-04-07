@@ -1,12 +1,9 @@
 package org.group20.sunstruck.world.map;
 
 import java.util.ArrayList;
-
-import org.group20.sunstruck.world.map.segments.MapSegment;
+import java.util.Collection;
+import org.group20.sunstruck.world.map.segments.*;
 import org.group20.sunstruck.world.map.segments.MapSegment.MAPTYPES;
-import org.group20.sunstruck.world.map.segments.MapSegment1;
-import org.group20.sunstruck.world.map.segments.MapSegment2;
-import org.group20.sunstruck.world.map.segments.MapSegment3;
 
 public class MapGenerator {
 
@@ -23,7 +20,9 @@ public class MapGenerator {
 	private void initMapSegments() {
 		segments.add(new MapSegment1());
 		segments.add(new MapSegment2());
-		segments.add(new MapSegment3());
+		segments.add(new MapSegment3()); 
+		segments.add(new MapSegment4());
+		currentSegment = nextSegment = segments.get(0);
 	}
 
 	/**
@@ -32,58 +31,105 @@ public class MapGenerator {
 	 * @return MapSegment - the next segment
 	 */
 	public MapSegment getNext() {
-		if (!currentSegment.isTransitional() && Math.random() > 0.1) { 
+		currentSegment = nextSegment;
+		if (!currentSegment.isTransitional() && Math.random() > 1.0) { 
 			// run with the current theme.
-			currentSegment = nextSegment;
-			nextSegment = findNewSegment(nextSegment.getType());
-			return nextSegment;
-		} else { 
+			nextSegment = findRandomSegment(nextSegment.getType());
+		} else {
+			currentTheme = nextTheme;
 			// we're going to do a new theme!
-			switch (nextTheme) {
-				case DESERT:
-					break;
-				case GRASS:
-					break;
-				case LAVA:
-					break;
-				case ROCK:
-					break;
-				case WATER:
-					break;
-				case DESERT_GRASS:
-					break;
-				case GRASS_DESERT:
-					break;
-				case GRASS_ROCK:
-					break;
-				case GRASS_WATER:
-					break;
-				case LAVA_ROCK:
-					break;
-				case ROCK_GRASS:
-					break;
-				case ROCK_LAVA:
-					break;
-				case ROCK_WATER:
-					break;
-				case WATER_GRASS:
-					break;
-				case WATER_ROCK:
-					break;
-				default:
-					break;
+			if (currentSegment.isTransitional()) { 
+				System.out.println("end transition");
+				// we're already in a transition, we're going to end one!
+				nextSegment = findRandomSegment(endTransition());
+			} else {
+				System.out.println("start transition");
+				// it isn't transitional, this means we're starting a transition
+				nextSegment = findRandomSegment(startTransition());
 			}
+			
 		}
-		return null; // error! we should never get here, so something is grievously wrong! 
+		if (nextSegment == null) { // oh nose!
+			nextSegment = segments.get(0);
+			System.out.println("MapGenerator.java: "
+					+"GREVIOUS ERROR HAS OCCURED! COULD NOT FIND A SUITABLE MAP :|");
+		}
+		return nextSegment;
 	}
 	
-	private MapSegment findNewSegment(MAPTYPES desiredType) {
-		MapSegment newSegment;
-		do {
-			newSegment = segments.get((int) (Math.random()
-					* (segments.size() - 1) + 0.5));
+	@SuppressWarnings("rawtypes")
+	private int randomIndexIn(Collection c) {
+		return (int) (Math.random() * (c.size() - 1) + 0.5);
+	}
+	
+	private MapSegment findRandomSegment(MAPTYPES desiredType) {
+		ArrayList<MapSegment> segs = findSegments(desiredType);
+		return segs.get(randomIndexIn(segs));
+	}
+	
+	private MAPTYPES startTransition() {
+		ArrayList<MAPTYPES> newTypes = new ArrayList<MAPTYPES>();
+		MAPTYPES[] types = MAPTYPES.values();
+		String[] str;
+//		System.out.println("startTransition(): finding next theme");
+//		do {
+//			nextTheme = segments.get(randomIndexIn(segments)).getType();
+//			System.out.println(nextTheme);
+//		} while (!nextTheme.name().contains("_"));
+//		System.out.println("startTransition(): found="+nextTheme);
+		//add transitional types to newTypes
+		for (MAPTYPES t : types) {
+			str = t.name().split("_");
+			System.out.println("startTransition(): t="+t.name());
+			System.out.println("startTransition(): str="+str.toString());
+			if (str.length == 2 && MAPTYPES.valueOf(str[0]).equals(currentTheme.name())) {
+				System.out.println("startTransition(): found a valid transition!");
+				newTypes.add(t);
+			}
 		}
-		while (newSegment.getType() != desiredType);
-		return newSegment;
+		//ensure that we always return a valid type
+		if (newTypes.size() == 0) {
+			System.out.println("MapGenerator.java: "
+					+"GREVIOUS ERROR HAS OCCURED! COULD NOT FIND A SUITABLE TRANSITION! :|");
+			return MAPTYPES.DEFAULT;
+		}
+		//return a random type
+		return newTypes.get(randomIndexIn(newTypes));
+	}
+	
+	private MAPTYPES endTransition() {
+		ArrayList<MAPTYPES> transitions = new ArrayList<MAPTYPES>();
+		ArrayList<MAPTYPES> newTypes = new ArrayList<MAPTYPES>();
+		MAPTYPES[] types = MAPTYPES.values();
+		String[] str;
+		//add transitional types to newTypes
+		for (MAPTYPES t : types) {
+			str = t.name().split("_");
+			if (str.length == 2 && MAPTYPES.valueOf(str[0]).equals(currentTheme.name())) {
+				transitions.add(t);
+			}
+		}
+		for (MAPTYPES t : transitions) {
+			str = t.name().split("_");
+			if (str.length == 2) {
+				newTypes.add(MAPTYPES.valueOf(str[1]));
+			}
+		}
+		//ensure that we always return a valid type
+		if (newTypes.size() == 0) {
+			System.out.println("MapGenerator.java: "
+					+"GREVIOUS ERROR HAS OCCURED! COULD NOT FIND A SUITABLE TRANSITION! :|");
+			return MAPTYPES.DEFAULT;
+		}
+		//return a random type
+		return newTypes.get(randomIndexIn(newTypes));
+	}	
+	
+	private ArrayList<MapSegment> findSegments(MAPTYPES desiredType) {
+		ArrayList<MapSegment> segs = new ArrayList<MapSegment>();
+		for (MapSegment s : segments) {
+			if (s.getType() == desiredType) segs.add(s);
+		}
+		return segs;
 	}
 }
