@@ -5,11 +5,17 @@ import java.util.ArrayList;
 import org.group20.sunstruck.Game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 
 public class GUI {
+
 	TextureRegion textureUpgWeapon;
 	TextureRegion textureUpgWeaponPressed;
 	TextureRegion textureUpgHull;
@@ -20,83 +26,213 @@ public class GUI {
 	TextureRegion textureUpgSpeedPressed;
 	TextureRegion textureConfirm;
 	TextureRegion textureConfirmPressed;
-	TextureRegion textureCancel;
-	TextureRegion textureCancelPressed;
+	TextureRegion textureReset;
+	TextureRegion textureResetPressed;
 
 	Sprite weaponUpgButton;
 	Sprite hullUpgButton;
 	Sprite shieldUpgButton;
 	Sprite speedUpgButton;
-	Sprite cancelButton;
+	Sprite resetButton;
 	Sprite confirmButton;
+
+	BitmapFont f;
+
+	BitmapFontCache weaponCost;
+	BitmapFontCache hullCost;
+	BitmapFontCache shieldCost;
+	BitmapFontCache speedCost;
 
 	Sprite controlCircle;
 	Sprite fireButton;
 
+	String weaponString;
+	String hullString;
+	String shieldString;
+	String speedString;
+
+	ArrayList<BitmapFontCache> shopFontList = new ArrayList<BitmapFontCache>();
 	ArrayList<Sprite> controlSpriteList = new ArrayList<Sprite>();
 	ArrayList<Sprite> shopSpriteList = new ArrayList<Sprite>();
 
 	public GUI() {
-		Game.getInstance();
 		TextureAtlas ta = Game.textureAtlas;
-		/*
-		 * textureUpgWeapon = ta.findRegion("guiUpgradeWeapon");
-		 * textureUpgWeaponPressed = ta.findRegion("guiUpgradeWeaponPressed");
-		 * 
-		 * textureUpgHull = ta.findRegion("guiUpgradeHull");
-		 * textureUpgHullPressed = ta.findRegion("guiUpgradeHullPressed");
-		 * 
-		 * textureUpgShield = ta.findRegion("guiUpgradeShield");
-		 * textureUpgShieldPressed = ta.findRegion("guiUpgradeShieldPressed");
-		 * 
-		 * textureUpgSpeed = ta.findRegion("guiUpgradeSpeed");
-		 * textureUpgSpeedPressed = ta.findRegion("guiUpgradeSpeedPressed");
-		 * 
-		 * // textureConfirm = ta.findRegion("guiConfirm"); //
-		 * textureConfirmPressed = ta.findRegion("guiConfirmPressed");
-		 * 
-		 * // textureCancel = ta.findRegion("guiCancel"); //
-		 * textureCancelPressed = ta.findRegion("guiCancelPressed");
-		 */
+
+		f = new BitmapFont();
+		weaponCost = new BitmapFontCache(f);
+		hullCost = new BitmapFontCache(f);
+		shieldCost = new BitmapFontCache(f);
+		speedCost = new BitmapFontCache(f);
+
+		textureUpgWeapon = ta.findRegion("guiWeapons");
+		textureUpgWeaponPressed = ta.findRegion("guiWeaponsPressed");
+		textureUpgHull = ta.findRegion("guiHull");
+		textureUpgHullPressed = ta.findRegion("guiHullPressed");
+		textureUpgShield = ta.findRegion("guiShield");
+		textureUpgShieldPressed = ta.findRegion("guiShieldPressed");
+		textureUpgSpeed = ta.findRegion("guiSpeed");
+		textureUpgSpeedPressed = ta.findRegion("guiSpeedPressed");
+		textureConfirm = ta.findRegion("guiConfirm");
+		textureConfirmPressed = ta.findRegion("guiConfirmPressed");
+		textureReset = ta.findRegion("guiReset");
+		textureResetPressed = ta.findRegion("guiResetPressed");
+
 		TextureRegion textureControlCircle = ta.findRegion("controlCircle");
 		TextureRegion textureFireButton = ta.findRegion("fireButton");
-		/*
-		 * // Makes the sprites with corresponding textures. weaponUpgButton =
-		 * new Sprite(textureUpgWeapon); hullUpgButton = new
-		 * Sprite(textureUpgHull); shieldUpgButton = new
-		 * Sprite(textureUpgShield); speedUpgButton = new
-		 * Sprite(textureUpgSpeed); // confirmButton = new
-		 * Sprite(textureConfirm); // cancelButton = new Sprite(textureCancel);
-		 */
+
+		// Makes the sprites with corresponding textures.
+		weaponUpgButton = new Sprite(textureUpgWeapon);
+		hullUpgButton = new Sprite(textureUpgHull);
+		shieldUpgButton = new Sprite(textureUpgShield);
+		speedUpgButton = new Sprite(textureUpgSpeed);
+		confirmButton = new Sprite(textureConfirm);
+		resetButton = new Sprite(textureReset);
+
 		controlCircle = new Sprite(textureControlCircle);
 		fireButton = new Sprite(textureFireButton);
 
+		// Sets the positions of the control sprites.
 		controlCircle.setPosition(0,
 				Gdx.graphics.getHeight() - controlCircle.getHeight());
 		fireButton.setPosition(0, 0);
-		/*
-		 * weaponUpgButton .setPosition( Gdx.graphics.getWidth() / 2 -
-		 * weaponUpgButton.getWidth() / 2, Gdx.graphics.getHeight() - 50);
-		 * hullUpgButton.setPosition( Gdx.graphics.getWidth() / 2 -
-		 * hullUpgButton.getWidth() / 2, Gdx.graphics.getHeight() - 100);
-		 * shieldUpgButton.setPosition(Gdx.graphics.getWidth() / 2 -
-		 * shieldUpgButton.getWidth() / 2, Gdx.graphics.getHeight() - 150);
-		 * speedUpgButton.setPosition( Gdx.graphics.getWidth() / 2 -
-		 * speedUpgButton.getWidth() / 2, Gdx.graphics.getHeight() - 200); //
-		 * confirmButton.setPosition(Gdx.graphics.getWidth() / 2 - //
-		 * cancelButton.getWidth() / 2, Gdx.graphics.getHeight()-250); //
-		 * cancelButton.setPosition(Gdx.graphics.getWidth() / 2 - //
-		 * cancelButton.getWidth() / 2, Gdx.graphics.getHeight()-300);
-		 * 
-		 * shopSpriteList.add(weaponUpgButton);
-		 * shopSpriteList.add(hullUpgButton);
-		 * shopSpriteList.add(shieldUpgButton);
-		 * shopSpriteList.add(speedUpgButton); //
-		 * shopSpriteList.add(confirmButton); //
-		 * shopSpriteList.add(cancelButton);
-		 */
+
+		weaponUpgButton.setPosition(Gdx.graphics.getWidth() * 19 / 20
+				- weaponUpgButton.getWidth(),
+				(float) (Gdx.graphics.getHeight() * 6 / 7));
+		hullUpgButton.setPosition(Gdx.graphics.getWidth() * 19 / 20
+				- hullUpgButton.getWidth(),
+				(float) (Gdx.graphics.getHeight() * 5 / 7));
+		shieldUpgButton.setPosition(Gdx.graphics.getWidth() * 19 / 20
+				- shieldUpgButton.getWidth(),
+				(float) (Gdx.graphics.getHeight() * 4 / 7));
+		speedUpgButton.setPosition(Gdx.graphics.getWidth() * 19 / 20
+				- speedUpgButton.getWidth(),
+				(float) (Gdx.graphics.getHeight() * 3 / 7));
+		confirmButton.setPosition(Gdx.graphics.getWidth() * 19 / 20
+				- confirmButton.getWidth(),
+				(float) (Gdx.graphics.getHeight() * 2 / 7));
+		resetButton.setPosition(
+				Gdx.graphics.getWidth() * 19 / 20 - resetButton.getWidth(),
+				(float) (Gdx.graphics.getHeight() * 1 / 7));
+
+		weaponCost.setColor(Color.BLACK);
+		hullCost.setColor(Color.BLACK);
+		shieldCost.setColor(Color.BLACK);
+		speedCost.setColor(Color.BLACK);
+
+		weaponString = "Current weapon level: 0\n cost: 5000";
+		hullString = "Current hull level: 0\n cost: 5000";
+		shieldString = "Current shield level: 0\n cost: 5000";
+		speedString = "Current speed level: 0\n cost: 5000";
+
+		weaponCost.setMultiLineText(weaponString, 0, 0);
+		hullCost.setMultiLineText(hullString, 0, 0);
+		shieldCost.setMultiLineText(shieldString, 0, 0);
+		speedCost.setMultiLineText(speedString, 0, 0);
+
+		weaponCost.setPosition(weaponUpgButton.getX() - 165,
+				weaponUpgButton.getY() + weaponUpgButton.getHeight() * 1.25f);
+		hullCost.setPosition(hullUpgButton.getX() - 165, hullUpgButton.getY()
+				+ hullUpgButton.getHeight() * 1.25f);
+		shieldCost.setPosition(shieldUpgButton.getX() - 165,
+				shieldUpgButton.getY() + shieldUpgButton.getHeight() * 1.25f);
+		speedCost.setPosition(speedUpgButton.getX() - 165,
+				speedUpgButton.getY() + speedUpgButton.getHeight() * 1.25f);
+
+		shopFontList.add(weaponCost);
+		shopFontList.add(hullCost);
+		shopFontList.add(shieldCost);
+		shopFontList.add(speedCost);
+
+		shopSpriteList.add(weaponUpgButton);
+		shopSpriteList.add(hullUpgButton);
+		shopSpriteList.add(shieldUpgButton);
+		shopSpriteList.add(speedUpgButton);
+		shopSpriteList.add(confirmButton);
+		shopSpriteList.add(resetButton);
+		
 		controlSpriteList.add(controlCircle);
 		controlSpriteList.add(fireButton);
+	}
+
+	public String getWeaponString() {
+		return weaponString;
+	}
+
+	public void setWeaponString(String weaponString) {
+		float x = weaponCost.getX();
+		float y = weaponCost.getY();
+		this.weaponString = weaponString;
+		weaponCost.setMultiLineText(this.weaponString, 0, 0);
+		weaponCost.setPosition(x, y);
+	}
+
+	public String getHullString() {
+		return hullString;
+	}
+
+	public void setHullString(String hullString) {
+		float x = hullCost.getX();
+		float y = hullCost.getY();
+		this.hullString = hullString;
+		hullCost.setMultiLineText(this.hullString, 0, 0);
+		hullCost.setPosition(x, y);
+	}
+
+	public String getShieldString() {
+		return shieldString;
+	}
+
+	public void setShieldString(String shieldString) {
+		float x = shieldCost.getX();
+		float y = shieldCost.getY();
+		this.shieldString = shieldString;
+		shieldCost.setMultiLineText(this.shieldString, 0, 0);
+		shieldCost.setPosition(x, y);
+	}
+
+	public String getSpeedString() {
+		return speedString;
+	}
+
+	public void setSpeedString(String speedString) {
+		float x = speedCost.getX();
+		float y = speedCost.getY();
+		this.speedString = speedString;
+		speedCost.setMultiLineText(this.speedString, 0, 0);
+		speedCost.setPosition(x, y);
+	}
+
+	public BitmapFontCache getWeaponCost() {
+		return weaponCost;
+	}
+
+	public BitmapFontCache getHullCost() {
+		return hullCost;
+	}
+
+	public BitmapFontCache getShieldCost() {
+		return shieldCost;
+	}
+
+	public BitmapFontCache getSpeedCost() {
+		return speedCost;
+	}
+
+	public void setWeaponCost(BitmapFontCache weaponCost) {
+		this.weaponCost = weaponCost;
+	}
+
+	public void setHullCost(BitmapFontCache hullCost) {
+		this.hullCost = hullCost;
+	}
+
+	public void setShieldCost(BitmapFontCache shieldCost) {
+		this.shieldCost = shieldCost;
+	}
+
+	public void setSpeedCost(BitmapFontCache speedCost) {
+		this.speedCost = speedCost;
 	}
 
 	// Getters for Shop buttons
@@ -116,8 +252,8 @@ public class GUI {
 		return speedUpgButton;
 	}
 
-	public Sprite getCancelButton() {
-		return cancelButton;
+	public Sprite getResetButton() {
+		return resetButton;
 	}
 
 	public Sprite getConfirmButton() {
@@ -174,6 +310,10 @@ public class GUI {
 		this.controlSpriteList = controlSpriteList;
 	}
 
+	public ArrayList<BitmapFontCache> getShopFontList() {
+		return shopFontList;
+	}
+
 	public ArrayList<Sprite> getShopSpriteList() {
 		return shopSpriteList;
 	}
@@ -182,12 +322,12 @@ public class GUI {
 		this.shopSpriteList = shopSpriteList;
 	}
 
-	public TextureRegion getTextureCancel() {
-		return textureCancel;
+	public TextureRegion getTextureReset() {
+		return textureReset;
 	}
 
-	public TextureRegion getTextureCancelPressed() {
-		return textureCancelPressed;
+	public TextureRegion getTextureResetPressed() {
+		return textureResetPressed;
 	}
 
 	public Sprite getControlCircle() {
@@ -196,5 +336,25 @@ public class GUI {
 
 	public Sprite getFireButton() {
 		return fireButton;
+	}
+
+	public void setWeaponTexture(TextureRegion tr) {
+		weaponUpgButton.setRegion(tr);
+	}
+
+	public void setHullTexture(TextureRegion tr) {
+		hullUpgButton.setRegion(tr);
+	}
+
+	public void setShieldTexture(TextureRegion tr) {
+		shieldUpgButton.setRegion(tr);
+	}
+
+	public void setSpeedTexture(TextureRegion tr) {
+		speedUpgButton.setRegion(tr);
+	}
+
+	public void setResetTexture(TextureRegion tr) {
+		resetButton.setRegion(tr);
 	}
 }

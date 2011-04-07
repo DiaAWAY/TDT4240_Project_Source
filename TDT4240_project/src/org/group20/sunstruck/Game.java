@@ -66,6 +66,7 @@ public class Game implements GameInterface, ContactListener {
 		gui = new GUI();
 		input = new Input(gui);
 		goFactory = new GameObjectFactory(d);
+		shop = new Shop();
 	}
 
 	private static class GameHolder { // singleton holder
@@ -83,7 +84,10 @@ public class Game implements GameInterface, ContactListener {
 
 	@Override
 	public void update() {
-
+		if (Shop.isActive) {
+			input.update();
+			return;
+		}
 		clearDestroyedBodiesList();
 
 		totalTime++;
@@ -126,9 +130,9 @@ public class Game implements GameInterface, ContactListener {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
 			if (enemySpawnTime >= 3) {
 				double randomize = Math.random();
-				// spawnMediumKamikazeSquad();
-				// spawnSmallKamikazeSquad();
-				// spawnSmallLaserSquad();
+//				spawnMediumKamikazeSquad();
+//				spawnSmallKamikazeSquad();
+//				spawnSmallLaserSquad();
 				enemySpawnTime = 0;
 			}
 		}
@@ -251,7 +255,7 @@ public class Game implements GameInterface, ContactListener {
 				bossAlive = false;
 				enemySpawnTime = 0;
 			}
-//			world.destroyBody(body);
+			// world.destroyBody(body);
 			if (((GameObject) body.getUserData()).isExploding())
 				for (int j = 0; j < body.getFixtureList().size(); j++)
 					body.destroyFixture(body.getFixtureList().get(j));
@@ -260,9 +264,8 @@ public class Game implements GameInterface, ContactListener {
 				destroyedBodiesList.remove(i);
 			}
 		}
-//		destroyedBodiesList.clear();
+		// destroyedBodiesList.clear();
 	}
-	
 
 	// Getter's and setter's (No shit)
 

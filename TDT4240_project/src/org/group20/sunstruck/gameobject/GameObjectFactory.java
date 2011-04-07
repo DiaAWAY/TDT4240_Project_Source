@@ -155,13 +155,14 @@ public class GameObjectFactory {
 		bodyDef.position.set(position);
 		bodyDef.angle = angle;
 		go.body = Game.getInstance().getWorld().createBody(bodyDef);
-
+		
 		PolygonShape bodyPoly = new PolygonShape();
 		bodyPoly.setAsBox(go.width / 2, go.height / 2);
 		go.body.createFixture(bodyPoly, go.density);
 		bodyPoly.dispose();
 
 		go.body.setUserData(go);
+
 
 	}
 

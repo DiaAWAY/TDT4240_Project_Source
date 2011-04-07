@@ -2,6 +2,7 @@ package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.Main;
+import org.group20.sunstruck.Shop;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.Gdx;
@@ -15,6 +16,11 @@ public class Player extends GameObject {
 	private long reloadTimeGun = 200;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
+	
+	private int weaponLevel = 1;
+	private int hullLevel = 0;
+	private int shieldLevel = 0;
+	private int speedLevel = 0;
 
 	public static TextureRegion shipTexture = Game.textureAtlas
 			.findRegion("shipPlayer");
@@ -66,7 +72,7 @@ public class Player extends GameObject {
 		long time = System.currentTimeMillis() - startGun;
 		if (time > reloadTimeGun)
 			if (Game.getInstance().getInput().getHasFired()) {
-				shoot(8);
+				shoot(weaponLevel);
 				startGun = System.currentTimeMillis();
 			}
 
@@ -86,7 +92,7 @@ public class Player extends GameObject {
 
 	@Override
 	public void dispose() {
-		System.out.println(score);
+//		System.out.println(score);
 		// Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
 
 	}
@@ -97,7 +103,7 @@ public class Player extends GameObject {
 	}
 
 	private void shoot(int weaponLevel) {
-			
+		
 		Vector2 centerPosition = GameObjectFactory.getProjectilePosition(
 				weaponType, this);
 		centerPosition.sub(0, weaponType.height/4);
@@ -130,7 +136,42 @@ public class Player extends GameObject {
 				Game.getInstance().getGoFactory().generateWeaponShot(weaponType, centerPosition.tmp().sub(0,distance*j), body.getAngle()-angleChange*j).isEnemy = false;
 		}
 	}
-				
+	
+	public void addWeaponLevel(int weaponUpgrade) {
+		weaponLevel += weaponUpgrade;
+		// Do whatever you like.
+	}
+
+	public void addHullLevel(int hullUpgrade) {
+		hullLevel += hullUpgrade;
+		hull = 100 + hullLevel * 50;
+	}
+
+	public void addShieldLevel(int shieldUpgrade) {
+		shieldLevel += shieldUpgrade;
+		shield = 100 + shieldLevel * 50;
+	}
+
+	public void addSpeedLevel(int speedUpgrade) {
+		speedLevel += speedUpgrade;
+		speed = 15 + speedLevel * 5;
+	}
+
+	public int getWeaponLevel() {
+		return weaponLevel;
+	}
+
+	public int getHullLevel() {
+		return hullLevel;
+	}
+
+	public int getShieldLevel() {
+		return shieldLevel;
+	}
+
+	public int getSpeedLevel() {
+		return speedLevel;
+	}
 		
 
 }

@@ -15,7 +15,7 @@ public class SmallKamikazeShip extends GameObject {
 		BURST_COUNT = 0;
 		PAUSE_COUNT = 9;
 		behavior = BEHAVIOR.KAMIKAZE_VEL;
-		weaponType = new LaserTiny1();
+		weaponType = new LaserTiny2();
 		shield = 0;
 		currentShield = 0;
 	}

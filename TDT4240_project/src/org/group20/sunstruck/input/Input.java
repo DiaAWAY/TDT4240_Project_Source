@@ -17,6 +17,24 @@ public class Input {
 	// How fast the phone must accelerate to activate the bomb.
 	final float ACCELERATION_THRESHOLD = 13;
 
+	// Boolean to make only the first touch count for upgrades
+	boolean touched = false;
+
+	// Booleans to store if something was upgraded
+	boolean weaponUpgraded = false;
+	boolean hullUpgraded = false;
+	boolean shieldUpgraded = false;
+	boolean speedUpgraded = false;
+	boolean confirmUpgrades = false;
+	boolean resetUpgrades = false;
+
+	// Booleans for the pressed-down effect
+	boolean weaponPressed = false;
+	boolean hullPressed = false;
+	boolean shieldPressed = false;
+	boolean speedPressed = false;
+	boolean resetPressed = false;
+
 	// Boolean to store whether the fire button has been pressed.
 	boolean hasFired = false;
 	// Boolean to store whether the accelerometer has been activated.
@@ -46,12 +64,63 @@ public class Input {
 			updateShop();
 		else
 			updatePlayer();
-
 	}
 
 	private void updateShop() {
-		// TODO Auto-generated method stub
+		if (Gdx.input.isTouched()) {
+			if (getHitButton(Game.getInstance().getGui().getWeaponUpgButton())) {
+				if (!touched)
+					weaponUpgraded = true;
+				weaponPressed = true;
+			} else
+				weaponPressed = false;
+			if (Game.getInstance()
+					.getInput()
+					.getHitButton(
+							Game.getInstance().getGui().getHullUpgButton())) {
+				if (!touched)
+					hullUpgraded = true;
+				hullPressed = true;
+			} else
+				hullPressed = false;
+			if (Game.getInstance()
+					.getInput()
+					.getHitButton(
+							Game.getInstance().getGui().getShieldUpgButton())) {
+				if (!touched)
+					shieldUpgraded = true;
+				shieldPressed = true;
+			} else
+				shieldPressed = false;
+			if (Game.getInstance()
+					.getInput()
+					.getHitButton(
+							Game.getInstance().getGui().getSpeedUpgButton())) {
+				if (!touched)
+					speedUpgraded = true;
+				speedPressed = true;
+			} else
+				speedPressed = false;
+			if (getHitButton(Game.getInstance().getGui().getConfirmButton())) {
+				if (!touched)
+					confirmUpgrades = true;
+			}
+			if (Game.getInstance().getInput()
+					.getHitButton(Game.getInstance().getGui().getResetButton())) {
+				if (!touched)
+					resetUpgrades = true;
+				resetPressed = true;
+			}
+			touched = true;
+		} else {
+			weaponPressed = false;
+			hullPressed = false;
+			shieldPressed = false;
+			speedPressed = false;
+			resetPressed = false;
 
+			touched = false;
+		}
 	}
 
 	private void updatePlayer() {
@@ -83,6 +152,16 @@ public class Input {
 			hasFiredBomb = true;
 
 		velocityChanged = false;
+	}
+
+	private boolean hitButton(Sprite sprite) {
+		float x = Gdx.input.getX();
+		float y = Gdx.graphics.getHeight() - Gdx.input.getY();
+		if (x > sprite.getX() && x < sprite.getX() + sprite.getWidth()
+				&& y > sprite.getY() && y < sprite.getY() + sprite.getHeight()) {
+			return true;
+		}
+		return false;
 	}
 
 	private boolean hitAccelerometer() {
@@ -202,6 +281,90 @@ public class Input {
 		 * boolean temp = hasFiredBomb; hasFiredBomb = false;
 		 */
 		return hasFiredBomb;
+	}
+
+	public boolean getHitButton(Sprite sprite) {
+		return hitButton(sprite);
+	}
+
+	public boolean isWeaponUpgraded() {
+		boolean temp = weaponUpgraded;
+		weaponUpgraded = false;
+		return temp;
+	}
+
+	public boolean isHullUpgraded() {
+		boolean temp = hullUpgraded;
+		hullUpgraded = false;
+		return temp;
+	}
+
+	public boolean isShieldUpgraded() {
+		boolean temp = shieldUpgraded;
+		shieldUpgraded = false;
+		return temp;
+	}
+
+	public boolean isSpeedUpgraded() {
+		boolean temp = speedUpgraded;
+		speedUpgraded = false;
+		return temp;
+	}
+
+	public void setWeaponUpgraded(boolean weaponUpgraded) {
+		this.weaponUpgraded = weaponUpgraded;
+	}
+
+	public void setHullUpgraded(boolean hullUpgraded) {
+		this.hullUpgraded = hullUpgraded;
+	}
+
+	public void setShieldUpgraded(boolean shieldUpgraded) {
+		this.shieldUpgraded = shieldUpgraded;
+	}
+
+	public void setSpeedUpgraded(boolean speedUpgraded) {
+		this.speedUpgraded = speedUpgraded;
+	}
+
+	public boolean isConfirmUpgrades() {
+		boolean temp = confirmUpgrades;
+		confirmUpgrades = false;
+		return temp;
+	}
+
+	public void setConfirmUpgrades(boolean confirmUpgrades) {
+		this.confirmUpgrades = confirmUpgrades;
+	}
+
+	public boolean isCancelUpgrades() {
+		boolean temp = resetUpgrades;
+		resetUpgrades = false;
+		return temp;
+	}
+
+	public void setCancelUpgrades(boolean resetUpgrades) {
+		this.resetUpgrades = resetUpgrades;
+	}
+
+	public boolean isWeaponPressed() {
+		return weaponPressed;
+	}
+
+	public boolean isHullPressed() {
+		return hullPressed;
+	}
+
+	public boolean isShieldPressed() {
+		return shieldPressed;
+	}
+
+	public boolean isSpeedPressed() {
+		return speedPressed;
+	}
+
+	public boolean isResetPressed() {
+		return resetPressed;
 	}
 
 }

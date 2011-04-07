@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 
 public class LaserTiny1 extends GameObject {
 	public static TextureRegion laserTexture = Game.textureAtlas
-			.findRegion("laserTiny");
+			.findRegion("laserTiny1");
 
 	public LaserTiny1() {
 		super(laserTexture, 0.1f);

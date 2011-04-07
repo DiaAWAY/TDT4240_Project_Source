@@ -124,21 +124,22 @@ public class Main implements ApplicationListener {
 
 		// Draw background
 		drawBackground();
+		
+		if (Shop.isActive) {
+			Game.getInstance().update();
+			Game.getInstance().getShop().update();
+			drawGuiShop();
+			return;
+		}
 
 		// Draw GUI controls objects.
 		drawGuiControls();
 
-		if (Shop.isActive) {
-			drawGuiShop();
-			drawGameObjects();
-			return;
-		}
+		// Update physics
+		updatePhysics();
 
 		// Update game objects
 		Game.getInstance().update();
-
-		// Update physics
-		updatePhysics();
 
 		// Update camera
 		updateCamera();
@@ -146,7 +147,7 @@ public class Main implements ApplicationListener {
 		// Draw game objects.
 		drawGameObjects();
 
-		renderer.render(Game.getInstance().getWorld());
+		//renderer.render(Game.getInstance().getWorld());
 	}
 
 	private void drawGuiShop() {
@@ -157,6 +158,10 @@ public class Main implements ApplicationListener {
 	}
 
 	private void drawGameObjects() {
+		System.out.println("--------------");
+		System.out.println(camera.combined);
+		System.out.println("--------------");
+		
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 

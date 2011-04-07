@@ -16,9 +16,12 @@ public abstract class GameObject {
 	protected GameObject(TextureRegion textureRegion, float width) {
 		this.textureRegion = textureRegion;
 		this.width = width;
-		if (textureRegion != null)
+		if (textureRegion != null){
 			this.height = width * textureRegion.getRegionHeight()
 					/ textureRegion.getRegionWidth();
+		}else
+			System.err.println("No texture loaded into contructor when "+ this+ " was initialized.");
+			
 
 		if (explosionTextures.isEmpty()) {
 			explosionTextures
@@ -133,7 +136,6 @@ public abstract class GameObject {
 	}
 
 	void shoot() {
-		System.out.println(BURST_COUNT);
 		if (BURST_COUNT == 0)
 			return;
 		shotCount++;
@@ -187,15 +189,12 @@ public abstract class GameObject {
 	}
 
 	void explode() {
-		
 		if (!isExplosionSize) {
 			width *= 3;
 			height = width;
 			isExplosionSize = true;
 		}
 		textureRegion = explosionTextures.get(explosionAnimationCount);
-		if(this instanceof  MediumKamikazeShip)	
-			System.out.println(explosionAnimationCount);
 		explosionAnimationCount++;
 		if (explosionTextures.size() == explosionAnimationCount)
 			isExploding = false;
