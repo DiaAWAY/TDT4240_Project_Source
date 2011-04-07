@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.group20.sunstruck.behavior.Behavior;
+import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import org.group20.sunstruck.gameobject.Boss;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
@@ -54,8 +55,6 @@ public class Game implements GameInterface, ContactListener {
 
 	public void initializePlayer() {
 		player = (Player) goFactory.createPlayer(new Vector2(-3, 0), 0);
-		// goFactory.createBoss(new Vector2(Main.CAMERA_WIDTH/2, 0), (float)
-		// Math.PI);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -126,9 +125,9 @@ public class Game implements GameInterface, ContactListener {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
 			if (enemySpawnTime >= 3) {
 				double randomize = Math.random();
-				spawnMediumKamikazeSquad();
-				spawnSmallKamikazeSquad();
-				spawnSmallLaserSquad();
+//				spawnMediumKamikazeSquad();
+//				spawnSmallKamikazeSquad();
+//				spawnSmallLaserSquad();
 				enemySpawnTime = 0;
 			}
 		}
@@ -238,7 +237,9 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	private void clearDestroyedBodiesList() {
-		for (Body body : destroyedBodiesList) {
+		Body body = null;
+		for (int i = 0; i < destroyedBodiesList.size();i++) {
+			body = destroyedBodiesList.get(i);
 			// System.out.println(body);
 			player.setScore(player.getScore()
 					+ ((GameObject) body.getUserData()).getScore());
@@ -249,10 +250,14 @@ public class Game implements GameInterface, ContactListener {
 				bossAlive = false;
 				enemySpawnTime = 0;
 			}
-			// System.out.println("player score: " + player.getScore());
-			world.destroyBody(body);
+			if(((GameObject)body.getUserData()).isExploding())
+				for(int j = 0; j < body.getFixtureList().size(); j++)
+					body.destroyFixture(body.getFixtureList().get(j));
+			else{
+				world.destroyBody(body);
+				destroyedBodiesList.remove(i);
+			}
 		}
-		destroyedBodiesList.clear();
 	}
 
 	// Getter's and setter's (No shit)

@@ -7,6 +7,6 @@ public class MapSegment2 extends MapSegment {
 	public MapSegment2() {
 		// initialize texture
 		setType(MAPTYPES.DEFAULT);
-		setTextureRegion(Game.textureAtlas.findRegion("backgroundSnow"));
+		setTextureRegion(Game.textureAtlas.findRegion("desert2"));
 	}
 }

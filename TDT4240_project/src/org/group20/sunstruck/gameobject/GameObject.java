@@ -1,5 +1,7 @@
 package org.group20.sunstruck.gameobject;
 
+import java.util.ArrayList;
+
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 
 public abstract class GameObject {
+	public static ArrayList<TextureRegion> explosionTextures = new ArrayList<TextureRegion>();
 
 	protected GameObject(TextureRegion textureRegion, float width) {
 		this.textureRegion = textureRegion;
@@ -16,6 +19,39 @@ public abstract class GameObject {
 		if (textureRegion != null)
 			this.height = width * textureRegion.getRegionHeight()
 					/ textureRegion.getRegionWidth();
+		
+		if (explosionTextures.isEmpty()) {
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed1"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed2"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed3"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed4"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed5"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed6"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed7"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed8"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed9"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed10"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed11"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed12"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed13"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed14"));
+			explosionTextures.add(Game.textureAtlas
+					.findRegion("explosionRed15"));
+		}
 	}
 
 	public static enum TYPES {
@@ -26,6 +62,7 @@ public abstract class GameObject {
 
 	BEHAVIOR behavior = BEHAVIOR.LINE;
 
+	boolean isExploding = false;
 	boolean isProjectile = false;
 	boolean isDisposed = false;
 	boolean isEnemy = true;
@@ -56,13 +93,26 @@ public abstract class GameObject {
 
 	long shieldRegenTime = 500;
 	long lastShieldRegen = System.currentTimeMillis();
+	
+	int explosionAnimationCount = 0;
+	
+	long explosionTime = 200;
+	long startExplosionTime = System.currentTimeMillis();
+	
 
 	public void update() {
 		Behavior.applyBehavior(this);
 		shieldRegeneration();
-		if (weaponType != null)
+		long time = 0;
+			
+		
+		if (isExploding)
+			time = System.currentTimeMillis() - startExplosionTime;
+			if(time > explosionTime)
+				explode();
+		else if (weaponType != null)
 			if (!isProjectile) {
-				long time = System.currentTimeMillis() - start;
+				time = System.currentTimeMillis() - start;
 				if (time > reloadTime) {
 					shoot();
 					start = System.currentTimeMillis();
@@ -103,16 +153,27 @@ public abstract class GameObject {
 		if (currentShield < 0) {
 			currentHull += currentShield;
 			currentShield = 0;
-			if (currentHull <= 0)
+			if (currentHull <= 0){
 				dispose();
+			}
 		}
 	}
 
 	public void dispose() {
 		if (!isDisposed) {
+			isExploding = true;
+			width*=3;
+			height = width;
 			Game.getInstance().getDestroyedBodiesList().add(body);
-			isDisposed = true;
 		}
+	}
+
+	void explode() {
+		textureRegion = explosionTextures.get(explosionAnimationCount);
+		explosionAnimationCount++;
+		if(explosionTextures.size() == explosionAnimationCount)
+			isExploding = false;
+		
 	}
 
 	TextureRegion textureRegion = null;
@@ -203,6 +264,9 @@ public abstract class GameObject {
 
 	public void setBehavior(BEHAVIOR behavior) {
 		this.behavior = behavior;
+	}
+	public boolean isExploding(){
+		return isExploding;
 	}
 
 }

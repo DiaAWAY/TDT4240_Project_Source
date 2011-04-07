@@ -3,261 +3,205 @@ Textures1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-seaworldBGPlaceholder2
+backgroundOcean
   rotate: false
   xy: 0, 0
-  size: 512, 1024
-  orig: 512, 1024
+  size: 1000, 500
+  orig: 1000, 500
   offset: 0, 0
   index: -1
-stars3
+waterToRock
   rotate: false
-  xy: 513, 0
-  size: 320, 480
-  orig: 320, 480
-  offset: 0, 0
-  index: -1
-stars2
-  rotate: false
-  xy: 513, 481
-  size: 320, 480
-  orig: 320, 480
+  xy: 0, 501
+  size: 800, 480
+  orig: 800, 480
   offset: 0, 0
   index: -1
 controlCircleTransparent
   rotate: false
-  xy: 834, 0
+  xy: 801, 501
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 controlCircle
   rotate: false
-  xy: 834, 129
+  xy: 801, 630
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 enemy1
   rotate: false
-  xy: 834, 258
+  xy: 801, 759
   size: 124, 123
   orig: 124, 124
   offset: 0, 0
   index: -1
 shipHuge3
   rotate: false
-  xy: 834, 382
+  xy: 801, 883
   size: 175, 78
   orig: 176, 80
   offset: 0, 1
   index: -1
-shipHuge4
+explosionStandard10
   rotate: false
-  xy: 834, 481
-  size: 160, 77
-  orig: 161, 78
-  offset: 1, 1
+  xy: 926, 759
+  size: 98, 109
+  orig: 126, 126
+  offset: 14, 8
   index: -1
-shipHuge1
+explosionStandard12
   rotate: false
-  xy: 834, 559
-  size: 160, 76
-  orig: 161, 77
-  offset: 1, 1
+  xy: 930, 501
+  size: 93, 96
+  orig: 126, 126
+  offset: 17, 18
   index: -1
-shipHuge2
+explosionStandard5
   rotate: false
-  xy: 834, 636
-  size: 160, 71
-  orig: 161, 71
-  offset: 0, 0
-  index: -1
-shipFat
-  rotate: false
-  xy: 834, 708
-  size: 105, 85
-  orig: 106, 87
-  offset: 0, 1
-  index: -1
-shipLarge2
-  rotate: false
-  xy: 834, 794
-  size: 123, 63
-  orig: 125, 65
-  offset: 1, 1
+  xy: 930, 630
+  size: 87, 89
+  orig: 126, 126
+  offset: 20, 18
   index: -1
 shipLarge3
   rotate: false
-  xy: 513, 962
+  xy: 801, 962
   size: 129, 56
   orig: 131, 58
   offset: 1, 1
   index: -1
-shipLarge1
-  rotate: false
-  xy: 643, 962
-  size: 125, 53
-  orig: 127, 55
-  offset: 1, 1
-  index: -1
 guiUpgradeWeaponPressed
   rotate: false
-  xy: 834, 858
+  xy: 0, 982
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeWeapon
   rotate: false
-  xy: 834, 891
+  xy: 129, 982
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeSpeedPressed
   rotate: false
-  xy: 834, 924
+  xy: 258, 982
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeSpeed
   rotate: false
-  xy: 834, 957
+  xy: 387, 982
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeShieldPressed
   rotate: false
-  xy: 834, 990
+  xy: 516, 982
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
-TIEBomber
+guiUpgradeShield
   rotate: false
-  xy: 959, 258
-  size: 64, 64
-  orig: 64, 64
+  xy: 645, 982
+  size: 128, 32
+  orig: 128, 32
   offset: 0, 0
   index: -1
-fireButtonTransparent
+explosionStandard2
   rotate: false
-  xy: 940, 708
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-asteroidHuge
-  rotate: false
-  xy: 963, 0
+  xy: 931, 962
   size: 56, 58
-  orig: 56, 58
-  offset: 0, 0
+  orig: 126, 126
+  offset: 36, 34
   index: -1
-shipSmall3
+shipSmall1
   rotate: false
-  xy: 963, 59
-  size: 58, 39
-  orig: 60, 41
+  xy: 930, 598
+  size: 71, 27
+  orig: 72, 29
+  offset: 0, 1
+  index: -1
+shipSmall2
+  rotate: false
+  xy: 930, 720
+  size: 70, 26
+  orig: 73, 28
   offset: 1, 1
   index: -1
-asteroidLarge
+explosionStandard1
   rotate: false
-  xy: 963, 129
-  size: 37, 44
-  orig: 37, 44
-  offset: 0, 0
+  xy: 977, 883
+  size: 42, 43
+  orig: 126, 126
+  offset: 43, 42
   index: -1
 laserBlue3
   rotate: false
-  xy: 963, 174
+  xy: 977, 927
   size: 44, 31
   orig: 44, 31
   offset: 0, 0
   index: -1
-laserBlue2
+explosionStandard15
   rotate: false
-  xy: 963, 99
-  size: 37, 27
-  orig: 44, 31
-  offset: 7, 2
-  index: -1
-laserBlue1
-  rotate: false
-  xy: 963, 206
-  size: 41, 23
-  orig: 44, 31
-  offset: 3, 4
+  xy: 988, 962
+  size: 33, 31
+  orig: 126, 126
+  offset: 47, 50
   index: -1
 laserGreen2
   rotate: false
-  xy: 963, 230
+  xy: 988, 994
   size: 36, 21
   orig: 40, 21
   offset: 2, 0
   index: -1
-asteroidMedium
-  rotate: false
-  xy: 959, 323
-  size: 27, 27
-  orig: 27, 27
-  offset: 0, 0
-  index: -1
-laserGreen3
-  rotate: false
-  xy: 834, 461
-  size: 40, 17
-  orig: 40, 21
-  offset: 0, 2
-  index: -1
-laserGreen1
-  rotate: false
-  xy: 875, 461
-  size: 40, 15
-  orig: 40, 21
-  offset: 0, 3
-  index: -1
 asteroidSmall
   rotate: false
-  xy: 1001, 99
+  xy: 1001, 0
   size: 15, 15
   orig: 15, 15
   offset: 0, 0
   index: -1
 laserTiny2
   rotate: false
-  xy: 1001, 115
+  xy: 1001, 16
   size: 13, 8
   orig: 13, 8
   offset: 0, 0
   index: -1
 laserTiny
   rotate: false
-  xy: 1015, 115
+  xy: 1015, 16
   size: 8, 6
   orig: 8, 6
   offset: 0, 0
   index: -1
 yellowLaser
   rotate: false
-  xy: 1020, 0
+  xy: 1017, 0
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 redLaser
   rotate: false
-  xy: 1022, 0
+  xy: 1019, 0
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 blueLaser
   rotate: false
-  xy: 1020, 2
+  xy: 1021, 0
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -267,170 +211,338 @@ Textures2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-seaworldBGPlaceholder
+LavaToRock
   rotate: false
   xy: 0, 0
-  size: 512, 1024
-  orig: 512, 1024
+  size: 800, 480
+  orig: 800, 480
   offset: 0, 0
   index: -1
-stars1
+desertToRock
   rotate: false
-  xy: 513, 0
-  size: 320, 480
-  orig: 320, 480
+  xy: 0, 481
+  size: 800, 480
+  orig: 800, 480
   offset: 0, 0
   index: -1
-shipPlayer
+shipHuge4
   rotate: false
-  xy: 513, 481
-  size: 351, 270
-  orig: 353, 275
-  offset: 1, 2
+  xy: 801, 0
+  size: 160, 77
+  orig: 161, 78
+  offset: 1, 1
   index: -1
-shipColossal
+shipHuge1
   rotate: false
-  xy: 513, 752
-  size: 288, 216
-  orig: 290, 218
-  offset: 2, 1
+  xy: 801, 78
+  size: 160, 76
+  orig: 161, 77
+  offset: 1, 1
   index: -1
-guiUpgradeShield
+shipHuge2
   rotate: false
-  xy: 834, 0
-  size: 128, 32
-  orig: 128, 32
+  xy: 801, 155
+  size: 160, 71
+  orig: 161, 71
   offset: 0, 0
+  index: -1
+explosionStandard9
+  rotate: false
+  xy: 801, 227
+  size: 104, 108
+  orig: 126, 126
+  offset: 12, 11
+  index: -1
+explosionStandard8
+  rotate: false
+  xy: 906, 227
+  size: 102, 106
+  orig: 126, 126
+  offset: 13, 12
+  index: -1
+explosionStandard7
+  rotate: false
+  xy: 801, 336
+  size: 101, 107
+  orig: 126, 126
+  offset: 14, 11
+  index: -1
+explosionStandard11
+  rotate: false
+  xy: 903, 336
+  size: 96, 102
+  orig: 126, 126
+  offset: 17, 17
+  index: -1
+explosionStandard6
+  rotate: false
+  xy: 801, 481
+  size: 96, 98
+  orig: 126, 126
+  offset: 16, 14
+  index: -1
+shipFat
+  rotate: false
+  xy: 898, 481
+  size: 105, 85
+  orig: 106, 87
+  offset: 0, 1
+  index: -1
+shipLarge2
+  rotate: false
+  xy: 801, 580
+  size: 123, 63
+  orig: 125, 65
+  offset: 1, 1
+  index: -1
+explosionStandard13
+  rotate: false
+  xy: 801, 644
+  size: 86, 88
+  orig: 126, 126
+  offset: 17, 23
+  index: -1
+shipLarge1
+  rotate: false
+  xy: 0, 962
+  size: 125, 53
+  orig: 127, 55
+  offset: 1, 1
+  index: -1
+explosionStandard4
+  rotate: false
+  xy: 888, 644
+  size: 78, 80
+  orig: 126, 126
+  offset: 25, 23
+  index: -1
+explosionStandard3
+  rotate: false
+  xy: 801, 733
+  size: 67, 69
+  orig: 126, 126
+  offset: 30, 28
   index: -1
 guiUpgradeHullPressed
   rotate: false
-  xy: 834, 33
+  xy: 126, 962
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 guiUpgradeHull
   rotate: false
-  xy: 834, 66
+  xy: 255, 962
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiConfirmPressed
+  rotate: false
+  xy: 384, 962
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiConfirm
+  rotate: false
+  xy: 513, 962
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiCancelPressed
+  rotate: false
+  xy: 642, 962
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+guiCancel
+  rotate: false
+  xy: 869, 733
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 buttonWeaponPressedGreen
   rotate: false
-  xy: 834, 99
+  xy: 869, 766
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 buttonWeaponPressed
   rotate: false
-  xy: 834, 132
+  xy: 801, 803
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 buttonWeapon
   rotate: false
-  xy: 834, 165
+  xy: 801, 836
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 buttonSpeedPressed
   rotate: false
-  xy: 834, 198
+  xy: 801, 869
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 buttonSpeed
   rotate: false
-  xy: 834, 231
+  xy: 801, 902
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 buttonShieldPressed
   rotate: false
-  xy: 834, 264
+  xy: 801, 935
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 buttonShield
   rotate: false
-  xy: 834, 297
+  xy: 801, 968
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
-buttonHullPressed
+TIEBomber
   rotate: false
-  xy: 834, 330
-  size: 128, 32
-  orig: 128, 32
-  offset: 0, 0
-  index: -1
-buttonHull
-  rotate: false
-  xy: 834, 363
-  size: 128, 32
-  orig: 128, 32
-  offset: 0, 0
-  index: -1
-fireButton
-  rotate: false
-  xy: 834, 396
+  xy: 930, 902
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-enemy2
+asteroidHuge
   rotate: false
-  xy: 899, 396
-  size: 64, 64
-  orig: 64, 64
+  xy: 962, 0
+  size: 56, 58
+  orig: 56, 58
   offset: 0, 0
   index: -1
-shipSmall1
+explosionStandard14
   rotate: false
-  xy: 865, 481
-  size: 71, 27
-  orig: 72, 29
-  offset: 0, 1
+  xy: 925, 580
+  size: 66, 43
+  orig: 126, 126
+  offset: 18, 42
   index: -1
-shipSmall2
+shipSmall3
   rotate: false
-  xy: 937, 481
-  size: 70, 26
-  orig: 73, 28
+  xy: 962, 78
+  size: 58, 39
+  orig: 60, 41
   offset: 1, 1
   index: -1
 shipSmall4
   rotate: false
-  xy: 865, 509
+  xy: 801, 444
   size: 70, 25
   orig: 72, 27
   offset: 1, 1
+  index: -1
+asteroidLarge
+  rotate: false
+  xy: 962, 155
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+laserBlue2
+  rotate: false
+  xy: 962, 118
+  size: 37, 27
+  orig: 44, 31
+  offset: 7, 2
+  index: -1
+laserBlue1
+  rotate: false
+  xy: 962, 200
+  size: 41, 23
+  orig: 44, 31
+  offset: 3, 4
+  index: -1
+asteroidMedium
+  rotate: false
+  xy: 872, 444
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+laserGreen3
+  rotate: false
+  xy: 962, 59
+  size: 40, 17
+  orig: 40, 21
+  offset: 0, 2
+  index: -1
+laserGreen1
+  rotate: false
+  xy: 903, 439
+  size: 40, 15
+  orig: 40, 21
+  offset: 0, 3
   index: -1
 
 Textures3.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-backgroundOcean
+desertToGrass
   rotate: false
   xy: 0, 0
-  size: 1000, 500
-  orig: 1000, 500
+  size: 800, 480
+  orig: 800, 480
   offset: 0, 0
   index: -1
 desert3
   rotate: false
-  xy: 0, 501
+  xy: 0, 481
   size: 800, 480
   orig: 800, 480
+  offset: 0, 0
+  index: -1
+buttonHullPressed
+  rotate: false
+  xy: 801, 0
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+buttonHull
+  rotate: false
+  xy: 801, 33
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+fireButtonTransparent
+  rotate: false
+  xy: 801, 66
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireButton
+  rotate: false
+  xy: 866, 66
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+enemy2
+  rotate: false
+  xy: 931, 66
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 
@@ -470,6 +582,20 @@ backgroundDesert
   size: 640, 480
   orig: 640, 480
   offset: 0, 0
+  index: -1
+shipPlayer
+  rotate: false
+  xy: 641, 0
+  size: 351, 270
+  orig: 353, 275
+  offset: 1, 2
+  index: -1
+shipColossal
+  rotate: false
+  xy: 641, 481
+  size: 288, 216
+  orig: 290, 218
+  offset: 2, 1
   index: -1
 
 Textures6.png

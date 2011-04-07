@@ -1,5 +1,6 @@
 package org.group20.sunstruck.behavior.filters;
 
+
 import org.group20.sunstruck.gameobject.GameObject;
 
 /**

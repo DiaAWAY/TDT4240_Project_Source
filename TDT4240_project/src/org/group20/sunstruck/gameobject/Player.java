@@ -5,6 +5,7 @@ import org.group20.sunstruck.Main;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 
@@ -15,8 +16,10 @@ public class Player extends GameObject {
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
 
+	public static TextureRegion shipTexture = Game.textureAtlas.findRegion("shipPlayer");
+
 	public Player() {
-		super(Game.textureAtlas.findRegion("shipPlayer"), 1);
+		super(shipTexture, 1);
 		isEnemy = false;
 		type = TYPES.PLAYER;
 		weaponType = new LaserTiny1();
@@ -29,8 +32,8 @@ public class Player extends GameObject {
 
 	@Override
 	public void update() {
-		System.out
-				.println("Shield: " + currentShield + " Hull: " + currentHull);
+//		System.out
+//				.println("Shield: " + currentShield + " Hull: " + currentHull);
 
 		super.shieldRegeneration();
 
@@ -96,6 +99,8 @@ public class Player extends GameObject {
 		Vector2 shotPosition = GameObjectFactory.getProjectilePosition(
 				weaponType, this);
 		// shotPosition.set(new Vector2(0,0));
+		 Game.getInstance().getGoFactory().createMediumKamikazeShip(new Vector2(0, 0), (float)
+				 Math.PI).setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
 
 		Game.getInstance()
 				.getGoFactory()
