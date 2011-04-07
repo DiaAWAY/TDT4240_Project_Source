@@ -43,8 +43,9 @@ public class Game implements GameInterface, ContactListener {
 	private boolean bossAlive = false;
 	private float bossTimer = 0;
 	private int bossCount = 1;
-	private int bossInterval = Integer.MAX_VALUE; // playerScore > bossInterval*bossCount =>
-									// spawn boss
+	private int bossInterval = Integer.MAX_VALUE; // playerScore >
+													// bossInterval*bossCount =>
+	// spawn boss
 	private float enemySpawnTime = 0;
 
 	private Game() {
@@ -52,8 +53,9 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	public void initializePlayer() {
-		player = (Player) goFactory.createPlayer(new Vector2(-3,0), 0);
-		//goFactory.createBoss(new Vector2(Main.CAMERA_WIDTH/2, 0), (float) Math.PI);
+		player = (Player) goFactory.createPlayer(new Vector2(-3, 0), 0);
+		// goFactory.createBoss(new Vector2(Main.CAMERA_WIDTH/2, 0), (float)
+		// Math.PI);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -131,44 +133,48 @@ public class Game implements GameInterface, ContactListener {
 			}
 		}
 	}
-	private void spawnMediumKamikazeSquad(){
-		int numberOfShips = (int)(Math.random()*5+1);
-		while(numberOfShips-- > 0)
+
+	private void spawnMediumKamikazeSquad() {
+		int numberOfShips = (int) (Math.random() * 5 + 1);
+		while (numberOfShips-- > 0)
 			goFactory.createMediumKamikazeShip(getNewEnemyPosition(), 0);
 	}
-	
+
 	private void spawnSmallLaserSquad() {
-		int numberOfShips = (int)(Math.random()*5+1);
-		while(numberOfShips-- > 0){
-			goFactory.createSmallLaserShip(getNewEnemyPosition(), (float) Math.PI);
+		int numberOfShips = (int) (Math.random() * 5 + 1);
+		while (numberOfShips-- > 0) {
+			goFactory.createSmallLaserShip(getNewEnemyPosition(),
+					(float) Math.PI);
 		}
-		
+
 	}
-	
+
 	private void spawnSmallKamikazeSquad() {
-		int numberOfShips = (int)(Math.random()*5+1);
-		while(numberOfShips-- > 0){
+		int numberOfShips = (int) (Math.random() * 5 + 1);
+		while (numberOfShips-- > 0) {
 			goFactory.createSmallKamikazeShip(getNewEnemyPosition(), 0);
 		}
-		
+
 	}
 
 	private Vector2 getNewEnemyPosition() {
 		float x_min, x_max, y_min, y_max, scale, widthClearnce, heightClearance, x, y;
-		
-		scale = (float)Gdx.graphics.getHeight()/ Gdx.graphics.getWidth();
+
+		scale = (float) Gdx.graphics.getHeight() / Gdx.graphics.getWidth();
 		x_min = Main.CAMERA_WIDTH;
-		x_max = Main.CAMERA_WIDTH*2;
-		y_min = -Main.CAMERA_WIDTH*scale;
-		y_max = Main.CAMERA_WIDTH*scale;
-		
+		x_max = Main.CAMERA_WIDTH * 2;
+		y_min = -Main.CAMERA_WIDTH * scale;
+		y_max = Main.CAMERA_WIDTH * scale;
+
 		widthClearnce = 3f;
 		heightClearance = 3f;
-		
-		x = (float) ((x_min+widthClearnce/2) + (x_max-x_min-widthClearnce)*Math.random());
-		y = (float) ((y_min+heightClearance/2) + (y_max -y_min -heightClearance)*Math.random());
-		
-		return new Vector2(x,y);
+
+		x = (float) ((x_min + widthClearnce / 2) + (x_max - x_min - widthClearnce)
+				* Math.random());
+		y = (float) ((y_min + heightClearance / 2) + (y_max - y_min - heightClearance)
+				* Math.random());
+
+		return new Vector2(x, y);
 	}
 
 	private void spawnBoss() {

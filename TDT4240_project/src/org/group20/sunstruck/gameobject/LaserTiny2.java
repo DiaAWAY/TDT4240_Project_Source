@@ -13,7 +13,7 @@ public class LaserTiny2 extends GameObject {
 		density = 0.01f;
 		impactDamage = 2;
 		type = TYPES.BULLET;
-		
+
 	}
 
 	@Override

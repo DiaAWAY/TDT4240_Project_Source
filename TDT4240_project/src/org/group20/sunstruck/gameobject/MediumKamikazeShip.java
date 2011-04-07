@@ -3,7 +3,6 @@ package org.group20.sunstruck.gameobject;
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
-
 public class MediumKamikazeShip extends GameObject {
 
 	public MediumKamikazeShip() {
