@@ -39,69 +39,62 @@ public class GUI {
 	public GUI() {
 		Game.getInstance();
 		TextureAtlas ta = Game.textureAtlas;
-
-		textureUpgWeapon = ta.findRegion("buttonWeapon");
-		textureUpgWeaponPressed = ta.findRegion("buttonWeaponPressed");
-
-		textureUpgHull = ta.findRegion("buttonHull");
-		textureUpgHullPressed = ta.findRegion("buttonPressed");
-
-		textureUpgShield = ta.findRegion("buttonShield");
-		textureUpgShieldPressed = ta.findRegion("buttonShieldPressed");
-
-		textureUpgSpeed = ta.findRegion("buttonSpeed");
-		textureUpgSpeedPressed = ta.findRegion("buttonSpeedPressed");
-
-		// textureConfirm = ta.findRegion("guiConfirm");
-		// textureConfirmPressed = ta.findRegion("guiConfirmPressed");
-
-		// textureCancel = ta.findRegion("guiCancel");
-		// textureCancelPressed = ta.findRegion("guiCancelPressed");
-
+		/*
+		 * textureUpgWeapon = ta.findRegion("guiUpgradeWeapon");
+		 * textureUpgWeaponPressed = ta.findRegion("guiUpgradeWeaponPressed");
+		 * 
+		 * textureUpgHull = ta.findRegion("guiUpgradeHull");
+		 * textureUpgHullPressed = ta.findRegion("guiUpgradeHullPressed");
+		 * 
+		 * textureUpgShield = ta.findRegion("guiUpgradeShield");
+		 * textureUpgShieldPressed = ta.findRegion("guiUpgradeShieldPressed");
+		 * 
+		 * textureUpgSpeed = ta.findRegion("guiUpgradeSpeed");
+		 * textureUpgSpeedPressed = ta.findRegion("guiUpgradeSpeedPressed");
+		 * 
+		 * // textureConfirm = ta.findRegion("guiConfirm"); //
+		 * textureConfirmPressed = ta.findRegion("guiConfirmPressed");
+		 * 
+		 * // textureCancel = ta.findRegion("guiCancel"); //
+		 * textureCancelPressed = ta.findRegion("guiCancelPressed");
+		 */
 		TextureRegion textureControlCircle = ta.findRegion("controlCircle");
 		TextureRegion textureFireButton = ta.findRegion("fireButton");
-
-		// Makes the sprites with corresponding textures.
-		weaponUpgButton = new Sprite(textureUpgWeapon);
-		hullUpgButton = new Sprite(textureUpgHull);
-		shieldUpgButton = new Sprite(textureUpgShield);
-		speedUpgButton = new Sprite(textureUpgSpeed);
-		// confirmButton = new Sprite(textureConfirm);
-		// cancelButton = new Sprite(textureCancel);
-
+		/*
+		 * // Makes the sprites with corresponding textures. weaponUpgButton =
+		 * new Sprite(textureUpgWeapon); hullUpgButton = new
+		 * Sprite(textureUpgHull); shieldUpgButton = new
+		 * Sprite(textureUpgShield); speedUpgButton = new
+		 * Sprite(textureUpgSpeed); // confirmButton = new
+		 * Sprite(textureConfirm); // cancelButton = new Sprite(textureCancel);
+		 */
 		controlCircle = new Sprite(textureControlCircle);
 		fireButton = new Sprite(textureFireButton);
 
-		// Sets the positions of the control sprites.
 		controlCircle.setPosition(0,
 				Gdx.graphics.getHeight() - controlCircle.getHeight());
 		fireButton.setPosition(0, 0);
-		weaponUpgButton
-				.setPosition(
-						Gdx.graphics.getWidth() / 2
-								- weaponUpgButton.getWidth() / 2,
-						Gdx.graphics.getHeight() - 50);
-		hullUpgButton.setPosition(
-				Gdx.graphics.getWidth() / 2 - hullUpgButton.getWidth() / 2,
-				Gdx.graphics.getHeight() - 100);
-		shieldUpgButton.setPosition(Gdx.graphics.getWidth() / 2
-				- shieldUpgButton.getWidth() / 2,
-				Gdx.graphics.getHeight() - 150);
-		speedUpgButton.setPosition(
-				Gdx.graphics.getWidth() / 2 - speedUpgButton.getWidth() / 2,
-				Gdx.graphics.getHeight() - 200);
-		// confirmButton.setPosition(Gdx.graphics.getWidth() / 2 -
-		// cancelButton.getWidth() / 2, Gdx.graphics.getHeight()-250);
-		// cancelButton.setPosition(Gdx.graphics.getWidth() / 2 -
-		// cancelButton.getWidth() / 2, Gdx.graphics.getHeight()-300);
-
-		shopSpriteList.add(weaponUpgButton);
-		shopSpriteList.add(hullUpgButton);
-		shopSpriteList.add(shieldUpgButton);
-		shopSpriteList.add(speedUpgButton);
-		// shopSpriteList.add(confirmButton);
-		// shopSpriteList.add(cancelButton);
-
+		/*
+		 * weaponUpgButton .setPosition( Gdx.graphics.getWidth() / 2 -
+		 * weaponUpgButton.getWidth() / 2, Gdx.graphics.getHeight() - 50);
+		 * hullUpgButton.setPosition( Gdx.graphics.getWidth() / 2 -
+		 * hullUpgButton.getWidth() / 2, Gdx.graphics.getHeight() - 100);
+		 * shieldUpgButton.setPosition(Gdx.graphics.getWidth() / 2 -
+		 * shieldUpgButton.getWidth() / 2, Gdx.graphics.getHeight() - 150);
+		 * speedUpgButton.setPosition( Gdx.graphics.getWidth() / 2 -
+		 * speedUpgButton.getWidth() / 2, Gdx.graphics.getHeight() - 200); //
+		 * confirmButton.setPosition(Gdx.graphics.getWidth() / 2 - //
+		 * cancelButton.getWidth() / 2, Gdx.graphics.getHeight()-250); //
+		 * cancelButton.setPosition(Gdx.graphics.getWidth() / 2 - //
+		 * cancelButton.getWidth() / 2, Gdx.graphics.getHeight()-300);
+		 * 
+		 * shopSpriteList.add(weaponUpgButton);
+		 * shopSpriteList.add(hullUpgButton);
+		 * shopSpriteList.add(shieldUpgButton);
+		 * shopSpriteList.add(speedUpgButton); //
+		 * shopSpriteList.add(confirmButton); //
+		 * shopSpriteList.add(cancelButton);
+		 */
 		controlSpriteList.add(controlCircle);
 		controlSpriteList.add(fireButton);
 	}

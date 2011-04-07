@@ -1,262 +1,172 @@
 package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
-import org.group20.sunstruck.gameobject.GameObject.TYPES;
+import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import org.group20.sunstruck.interfaces.GameInterface.DIFFICULTIES;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class GameObjectFactory {
-	private final float PLAYER_SIZE = 1;
-	private final float PLAYER_DENSITY = 10;
-	private final GameObject PLAYER_START_WEAPON_TYPE = new Laser();
-	private final float PLAYER_START_SPEED = 10;
-	private final float PLAYER_START_HULL = 100;
-	private final float PLAYER_START_WEAPON = 10;
-	private final float PLAYER_START_SHIELD = 50;
-	private final float PLAYER_START_IMPACT_DAMAGE = 10;
-	private final TextureRegion PLAYER_START_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("shipHuge4");
-
-	private final float LASER_DENSITY = 1;
-	private final float LASER_START_WIDTH = 1;
-	private final float LASER_START_HEIGHT = 0.1f;
-	private final float LASER_START_SPEED = 10;
-	private final TextureRegion LASER_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("redLaser");
-
-	private final float ENEMY1_DENSITY = 10;
-	private final float ENEMY1_SIZE = 2;
-	private final GameObject ENEMY1_START_WEAPON_TYPE = new Laser();
-	private final float ENEMY1_START_SPEED = 1;
-	private final float ENEMY1_START_WEAPON = 10;
-	private final float ENEMY1_START_HULL = 30;
-	private final float ENEMY1_START_SHIELD = 20;
-	private final float ENEMY1_START_IMPACT_DAMAGE = 10;
-	private final int ENEMY1_SCORE = 10;
-	private final TextureRegion ENEMY1_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("shipSmall3");
-
-	private final float BOSS_DENSITY = 100;
-	private final float BOSS_SIZE = 5;
-	private final float BOSS_START_SPEED = 1;
-	private final float BOSS_START_WEAPON = 10;
-	private final float BOSS_START_HULL = 30;
-	private final float BOSS_START_SHIELD = 20;
-	private final float BOSS_START_IMPACT_DAMAGE = 10;
-	private final int BOSS_SCORE = 10;
-	private final TextureRegion BOSS_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("shipColossal");
-
-	private final float METEORITE_DENSITY = 100;
-	private final float METEORITE_START_SPEED = 0;
-	private final float METEORITE_START_HULL = 10;
-	private final float METEORITE_START_IMPACT_DAMAGE = 30;
-	private final int METEORITE_SCORE = 5;
-	private final TextureRegion METEORITE_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("asteroidHuge");
 
 	private DIFFICULTIES difficulty;
 
 	public GameObjectFactory(DIFFICULTIES difficulty) {
 		this.difficulty = difficulty;
 	}
+	
+	public GameObject createBoss(Vector2 position, float angle){
+		GameObject go = new Boss();
+		generateBoxBody(go, position, angle);
+		return go;
+	}
 
-	public GameObject createPlayer() {
+	public GameObject createPlayer(Vector2 position, float angle) {
 		GameObject player = new Player();
-
-		// Defines the body and creates it
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.DynamicBody;
-		bodyDef.position.x = 0;
-		bodyDef.position.y = 0;
-		player.body = Game.getInstance().getWorld().createBody(bodyDef);
-		player.body.setUserData(player);
-
-		// Creates the box used for collision, and attaches it to the body.
-		// Disposes of the shape to free memory.
-		PolygonShape bodyPoly = new PolygonShape();
-		bodyPoly.setAsBox(PLAYER_SIZE / 2, PLAYER_SIZE / 2);
-		player.body.createFixture(bodyPoly, PLAYER_DENSITY);
-		bodyPoly.dispose();
-
+		generateBoxBody(player, position, angle);
 		player.body.setFixedRotation(true);
-
-		player.weaponType = PLAYER_START_WEAPON_TYPE;
-		player.type = TYPES.PLAYER;
-		player.textureRegion = PLAYER_START_TEXTURE_REGION;
-		player.height = PLAYER_SIZE;
-		player.width = PLAYER_SIZE;
-		player.speed = PLAYER_START_SPEED;
-		player.hull = PLAYER_START_HULL;
-		player.weapon = PLAYER_START_WEAPON;
-		player.shield = PLAYER_START_SHIELD;
-		player.impactDamage = PLAYER_START_IMPACT_DAMAGE;
-
 		return player;
 	}
+	public GameObject createSmallKamikazeShip(Vector2 position, float angle){
+		GameObject go = new SmallKamikazeShip();
+		generateBoxBody(go, position, angle);
+		return go;
+	}
+	public GameObject createSmallLaserShip(Vector2 position, float angle){
+		GameObject go = new SmallLaserShip();
+		generateBoxBody(go, position, angle);
+		return go;
+	}
+	public GameObject createAsteroid(Vector2 position, float angle, int size){
+		GameObject go = new Asteroid(size);
+		generateCircleBody(go, position, angle);
+		go.body.setAngularVelocity((float) Math.random());
+		return go;
+	}	
+	public GameObject createLaserTiny1(Vector2 position, float angle){
+		GameObject go = new LaserTiny1();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
+	}
+	public GameObject createLaserTiny2(Vector2 position, float angle){
+		GameObject go = new LaserTiny2();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
+	}
+	public GameObject  createMediumKamikazeShip(Vector2 position, float angle){
+		GameObject go = new MediumKamikazeShip();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
+	}
+	
 
-	public GameObject createLaser(GameObject shooter) {
-		GameObject laser = new Laser();
 
-		laser.type = TYPES.BULLET;
-		laser.textureRegion = LASER_TEXTURE_REGION;
-		laser.width = LASER_START_WIDTH;
-		laser.height = LASER_START_HEIGHT;
-		laser.isProjectile = true;
-		laser.speed = LASER_START_SPEED;
+	public GameObject generateWeaponShot(GameObject weaponType, Vector2 position, float angle) {
+		GameObject go = null;
+		if (weaponType instanceof LaserTiny1)
+			go = createLaserTiny1(position, angle);
+		if (weaponType instanceof LaserTiny2)
+			go = createLaserTiny2(position, angle);
+		if(weaponType instanceof SmallKamikazeShip)
+			go = createSmallKamikazeShip(position, angle);
+		
+		return go;
+	}
 
-		float angle = shooter.getBody().getAngle();
+	public void createSmallerAsteroids(GameObject shooter) {
+		GameObject asteroid1 = new Asteroid(((Asteroid) shooter).size - 1);
+		GameObject asteroid2 = new Asteroid(((Asteroid) shooter).size - 1);
+		GameObject asteroid3 = new Asteroid(((Asteroid) shooter).size - 1);
+		GameObject asteroid4 = new Asteroid(((Asteroid) shooter).size - 1);
+
+		Vector2 position1 = new Vector2(0,0);
+		Vector2 position2 = new Vector2(0,0);
+		Vector2 position3 = new Vector2(0,0);
+		Vector2 position4 = new Vector2(0,0);
+		
+		position1.set(shooter.body.getWorldCenter().tmp()).add(shooter.width/8, shooter.width/8);
+		position2.set(shooter.body.getWorldCenter().tmp()).add(-shooter.width/8, shooter.width/8);
+		position3.set(shooter.body.getWorldCenter().tmp()).add(shooter.width/8, -shooter.width/8);
+		position4.set(shooter.body.getWorldCenter().tmp()).add(-shooter.width/8, -shooter.width/8);
+		
+		generateCircleBody(asteroid1, position1, 0);
+		generateCircleBody(asteroid2, position2, 0);
+		generateCircleBody(asteroid3, position3, 0);
+		generateCircleBody(asteroid4, position4, 0);
+		
+		Vector2 velocity1 = new Vector2(1, 1).nor().mul(shooter.speed);
+		Vector2 velocity2= new Vector2(-1, 1).nor().mul(shooter.speed);
+		Vector2 velocity3 = new Vector2(1, -1).nor().mul(shooter.speed);
+		Vector2 velocity4 = new Vector2(-1, -1).nor().mul(shooter.speed);
+		
+		asteroid1.body.setLinearVelocity(velocity1);
+		asteroid2.body.setLinearVelocity(velocity2);
+		asteroid3.body.setLinearVelocity(velocity3);
+		asteroid4.body.setLinearVelocity(velocity4);
+		
+		asteroid1.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		asteroid2.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		asteroid3.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		asteroid4.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		
+
+	}
+
+	private void generateCircleBody(GameObject go, Vector2 position, float angle) {
+		// Defines the body and creates it
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(position);
+		bodyDef.angle = angle;
+		go.body = Game.getInstance().getWorld().createBody(bodyDef);
+
+		CircleShape circleShape = new CircleShape();
+		circleShape.setRadius(go.width / 2);
+		go.body.createFixture(circleShape, go.density);
+		circleShape.dispose();
+
+		go.body.setUserData(go);
+
+	}
+
+	private void generateBoxBody(GameObject go, Vector2 position, float angle) {
+		// Defines the body and creates it
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(position);
+		bodyDef.angle = angle;
+		go.body = Game.getInstance().getWorld().createBody(bodyDef);
+
+		PolygonShape bodyPoly = new PolygonShape();
+		bodyPoly.setAsBox(go.width / 2, go.height / 2);
+		go.body.createFixture(bodyPoly, go.density);
+		bodyPoly.dispose();
+
+		go.body.setUserData(go);
+
+	}
+	
+	public static Vector2 getProjectilePosition(GameObject projectile,
+			GameObject shooter) {
 		Vector2 direction = new Vector2(0, 0);
+		float angle = shooter.body.getAngle();
+		float x = (float) Math.cos(angle);
+		float y = (float) Math.sin(angle);
+		direction.set(x, y);
+		
+		Vector2 position = new Vector2(0, 0);
+		float len = shooter.width / 2 + projectile.width / 2 + 0.1f;
+		position.set(shooter.getBody().getWorldCenter());
+		position.add(direction.tmp().mul(len));
+		
+		position.add(0.05f, 0.05f);
 
-		// Defines the body and creates it
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.DynamicBody;
-		if (shooter instanceof Player) {
-			bodyDef.position.x = shooter.body.getWorldCenter().x
-					+ shooter.width / 2 + laser.width / 2 + 0.1f;
-			bodyDef.position.y = shooter.body.getWorldCenter().y;
-		} else {
-			float len = shooter.width / 2 + laser.width / 2 + 0.1f;
-			float x = (float) Math.cos(angle);
-			float y = (float) Math.sin(angle);
-			direction.set(x, y).mul(-1);
-
-			bodyDef.position.set(shooter.getBody().getWorldCenter());
-			bodyDef.position.add(direction.tmp().mul(len));
-
-			bodyDef.angle = (angle);
-		}
-		laser.body = Game.getInstance().getWorld().createBody(bodyDef);
-		laser.body.setUserData(laser);
-
-		// Creates the box used for collision, and attaches it to the body.
-		// Disposes of the shape to free memory.
-		PolygonShape bodyPoly = new PolygonShape();
-		bodyPoly.setAsBox(LASER_START_WIDTH / 2, LASER_START_HEIGHT / 2);
-		laser.body.createFixture(bodyPoly, LASER_DENSITY);
-		bodyPoly.dispose();
-
-		if (shooter instanceof Player)
-			laser.body.setLinearVelocity(new Vector2(1, 0));
-		else
-			laser.body.setLinearVelocity(direction);
-
-		laser.body.setLinearVelocity(laser.body.getLinearVelocity().tmp()
-				.mul(laser.speed));
-		laser.impactDamage = shooter.weapon;
-		laser.body.setFixedRotation(true);
-		return laser;
-	}
-
-	public GameObject createEnemy1(Vector2 position) {
-		GameObject enemy1 = new Enemy1();
-
-		enemy1.type = TYPES.ENEMY;
-		enemy1.textureRegion = ENEMY1_TEXTURE_REGION;
-		enemy1.width = ENEMY1_SIZE;
-		enemy1.height = ENEMY1_SIZE;
-		enemy1.speed = ENEMY1_START_SPEED;
-		enemy1.hull = ENEMY1_START_HULL;
-		enemy1.weapon = ENEMY1_START_WEAPON;
-		enemy1.shield = ENEMY1_START_SHIELD;
-		enemy1.impactDamage = ENEMY1_START_IMPACT_DAMAGE;
-		enemy1.score = ENEMY1_SCORE;
-		enemy1.weaponType = ENEMY1_START_WEAPON_TYPE;
-
-		// Defines the body and creates it
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.DynamicBody;
-		bodyDef.position.x = position.x;
-		bodyDef.position.y = position.y;
-		enemy1.body = Game.getInstance().getWorld().createBody(bodyDef);
-		enemy1.body.setUserData(enemy1);
-
-		// Creates the box used for collision, and attaches it to the body.
-		// Disposes of the shape to free memory.
-		PolygonShape bodyPoly = new PolygonShape();
-		bodyPoly.setAsBox(ENEMY1_SIZE / 2, ENEMY1_SIZE / 2);
-		enemy1.body.createFixture(bodyPoly, ENEMY1_DENSITY);
-		enemy1.body.setLinearVelocity(new Vector2(-1, 0).mul(enemy1.speed));
-		bodyPoly.dispose();
-
-		return enemy1;
-	}
-
-	public GameObject createBoss(Vector2 position) {
-		GameObject boss = new Boss();
-
-		boss.type = TYPES.ENEMY;
-		boss.textureRegion = BOSS_TEXTURE_REGION;
-		boss.width = BOSS_SIZE;
-		boss.height = BOSS_SIZE;
-		boss.speed = BOSS_START_SPEED;
-		boss.hull = BOSS_START_HULL;
-		boss.weapon = BOSS_START_WEAPON;
-		boss.shield = BOSS_START_SHIELD;
-		boss.impactDamage = BOSS_START_IMPACT_DAMAGE;
-		boss.score = BOSS_SCORE;
-
-		// Defines the body and creates it
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.DynamicBody;
-		bodyDef.position.x = position.x;
-		bodyDef.position.y = position.y;
-		boss.body = Game.getInstance().getWorld().createBody(bodyDef);
-		boss.body.setUserData(boss);
-
-		// Creates the box used for collision, and attaches it to the body.
-		// Disposes of the shape to free memory.
-		PolygonShape bodyPoly = new PolygonShape();
-		bodyPoly.setAsBox(BOSS_SIZE / 2, BOSS_SIZE / 2);
-		boss.body.createFixture(bodyPoly, BOSS_DENSITY);
-		boss.body.setLinearVelocity(new Vector2(-1, 0).mul(boss.speed));
-		bodyPoly.dispose();
-
-		return boss;
-	}
-
-	public GameObject createMeteorite(Vector2 position, float size) {
-		GameObject meteorite = new Meteorite();
-
-		meteorite.hull = METEORITE_START_HULL;
-		meteorite.width = size;
-		meteorite.height = size;
-		meteorite.score = METEORITE_SCORE;
-		meteorite.impactDamage = METEORITE_START_IMPACT_DAMAGE;
-		meteorite.speed = METEORITE_START_SPEED;
-		meteorite.textureRegion = METEORITE_TEXTURE_REGION;
-
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.DynamicBody;
-		bodyDef.position.x = position.x;
-		bodyDef.position.y = position.y;
-		meteorite.body = Game.getInstance().getWorld().createBody(bodyDef);
-		meteorite.body.setUserData(meteorite);
-
-		PolygonShape bodyPoly = new PolygonShape();
-		bodyPoly.setAsBox(size / 2, size / 2);
-		meteorite.body.createFixture(bodyPoly, METEORITE_DENSITY);
-		meteorite.body.setLinearVelocity(new Vector2(-1, 0)
-				.mul(meteorite.speed));
-		bodyPoly.dispose();
-
-		return meteorite;
-	}
-
-	public void generateWeaponShot(GameObject weaponType, GameObject shooter) {
-		GameObject shot = null;
-		if (weaponType instanceof Laser)
-			shot = createLaser(shooter);
-		if (shot != null) {
-			if (shooter.isEnemy())
-				shot.isEnemy = true;
-			else
-				shot.isEnemy = false;
-		}
+		return position;
 	}
 }

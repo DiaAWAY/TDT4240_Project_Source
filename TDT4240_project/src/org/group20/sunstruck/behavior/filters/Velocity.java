@@ -6,7 +6,6 @@ import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import org.group20.sunstruck.behavior.Behavior.FILTERS;
 import org.group20.sunstruck.gameobject.GameObject;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -31,6 +30,14 @@ public class Velocity implements Filter {
 		Body body = go.getBody();
 
 		if (behavior == BEHAVIOR.LINE) {
+			float angle = body.getAngle();
+			float x = (float) Math.cos(angle);
+			float y = (float) Math.sin(angle);
+			
+			velocity.set(x, y);
+			velocity.nor();
+			velocity.mul(go.getSpeed());
+			body.setLinearVelocity(velocity);
 			go.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
 		}
 

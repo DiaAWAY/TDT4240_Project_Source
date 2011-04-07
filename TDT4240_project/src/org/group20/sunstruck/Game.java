@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.group20.sunstruck.behavior.Behavior;
-import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import org.group20.sunstruck.gameobject.Boss;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;
@@ -44,7 +43,7 @@ public class Game implements GameInterface, ContactListener {
 	private boolean bossAlive = false;
 	private float bossTimer = 0;
 	private int bossCount = 1;
-	private int bossInterval = 20; // playerScore > bossInterval*bossCount =>
+	private int bossInterval = Integer.MAX_VALUE; // playerScore > bossInterval*bossCount =>
 									// spawn boss
 	private float enemySpawnTime = 0;
 
@@ -53,7 +52,8 @@ public class Game implements GameInterface, ContactListener {
 	}
 
 	public void initializePlayer() {
-		player = (Player) goFactory.createPlayer();
+		player = (Player) goFactory.createPlayer(new Vector2(-3,0), 0);
+		//goFactory.createBoss(new Vector2(Main.CAMERA_WIDTH/2, 0), (float) Math.PI);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -81,6 +81,7 @@ public class Game implements GameInterface, ContactListener {
 
 	@Override
 	public void update() {
+
 		clearDestroyedBodiesList();
 
 		totalTime++;
@@ -108,7 +109,7 @@ public class Game implements GameInterface, ContactListener {
 		// SPAWNING ENEMIES
 		if (!bossMode) {
 			if (player.getScore() >= bossInterval * bossCount) {
-				System.out.println("Boss mode activated");
+				// System.out.println("Boss mode activated");
 				bossMode = true;
 			} else {
 				spawnEnemy();
@@ -121,23 +122,63 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 10.0) {
-				System.out.println("Spawning enemy!");
-				goFactory.createEnemy1(new Vector2(7, (int) Math.random() * 7))
-						.setBehavior(BEHAVIOR.SPRAY);
+			if (enemySpawnTime >= 3) {
+				double randomize = Math.random();
+					spawnMediumKamikazeSquad();
+					spawnSmallKamikazeSquad();
+					spawnSmallLaserSquad();
 				enemySpawnTime = 0;
 			}
 		}
+	}
+	private void spawnMediumKamikazeSquad(){
+		int numberOfShips = (int)(Math.random()*5+1);
+		while(numberOfShips-- > 0)
+			goFactory.createMediumKamikazeShip(getNewEnemyPosition(), 0);
+	}
+	
+	private void spawnSmallLaserSquad() {
+		int numberOfShips = (int)(Math.random()*5+1);
+		while(numberOfShips-- > 0){
+			goFactory.createSmallLaserShip(getNewEnemyPosition(), (float) Math.PI);
+		}
+		
+	}
+	
+	private void spawnSmallKamikazeSquad() {
+		int numberOfShips = (int)(Math.random()*5+1);
+		while(numberOfShips-- > 0){
+			goFactory.createSmallKamikazeShip(getNewEnemyPosition(), 0);
+		}
+		
+	}
+
+	private Vector2 getNewEnemyPosition() {
+		float x_min, x_max, y_min, y_max, scale, widthClearnce, heightClearance, x, y;
+		
+		scale = (float)Gdx.graphics.getHeight()/ Gdx.graphics.getWidth();
+		x_min = Main.CAMERA_WIDTH;
+		x_max = Main.CAMERA_WIDTH*2;
+		y_min = -Main.CAMERA_WIDTH*scale;
+		y_max = Main.CAMERA_WIDTH*scale;
+		
+		widthClearnce = 3f;
+		heightClearance = 3f;
+		
+		x = (float) ((x_min+widthClearnce/2) + (x_max-x_min-widthClearnce)*Math.random());
+		y = (float) ((y_min+heightClearance/2) + (y_max -y_min -heightClearance)*Math.random());
+		
+		return new Vector2(x,y);
 	}
 
 	private void spawnBoss() {
 		if (!bossAlive) {
 			bossTimer += Gdx.graphics.getDeltaTime();
-			System.out.println("Trying to spawn boss{alive:" + bossAlive
-					+ "}, remaining time:" + bossTimer + "/5.0");
+			// System.out.println("Trying to spawn boss{alive:" + bossAlive
+			// + "}, remaining time:" + bossTimer + "/5.0");
 			if (bossTimer >= 5.0) {
-				System.out.println("Spawning boss!");
-				goFactory.createBoss(new Vector2(7, 0));
+				// System.out.println("Spawning boss!");
+				// goFactory.createBoss(new Vector2(7, 0));
 				bossAlive = true;
 				bossTimer = 0;
 			}
@@ -160,28 +201,29 @@ public class Game implements GameInterface, ContactListener {
 		// --- check if bodies are hitting the wall and act accordingly ---
 		if (goA == null && goB != null) {
 			goB.setScore(0); // player won't get any score for this
-			goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			goB.contact(contact, Float.MAX_VALUE);
 			return;
 		} else if (goA != null && goB == null) {
 			goA.setScore(0); // player won't get any score for this
-			goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+			goA.contact(contact, Float.MAX_VALUE);
 			return;
 		}
-		
+
 		// --- let's check if enemies are shooting at each other! ---
-		if (goB.isEnemy() && goA.isEnemy()) { // enemy objects hitting each other
+		if (goB.isEnemy() && goA.isEnemy()) { // enemy objects hitting each
+												// other
 			if (goB.isProjectile()) {
-				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+				goB.contact(contact, Float.MAX_VALUE);
 			}
 			if (goA.isProjectile()) {
-				goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
+				goA.contact(contact, Float.MAX_VALUE);
 			}
 			return;
 		}
-		
+
 		// okay, now we're talking! enemy or player damage!
-		goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
-		goB.contact(contact.GetWorldManifold(), goA.getImpactDamage());
+		goA.contact(contact, goB.getImpactDamage());
+		goB.contact(contact, goA.getImpactDamage());
 	}
 
 	@Override
@@ -195,13 +237,13 @@ public class Game implements GameInterface, ContactListener {
 			player.setScore(player.getScore()
 					+ ((GameObject) body.getUserData()).getScore());
 			if (((GameObject) body.getUserData()) instanceof Boss) {
-				System.out.println("Boss Dead!");
+				// System.out.println("Boss Dead!");
 				bossCount++;
 				bossMode = false;
 				bossAlive = false;
 				enemySpawnTime = 0;
 			}
-			System.out.println("player score: " + player.getScore());
+			// System.out.println("player score: " + player.getScore());
 			world.destroyBody(body);
 		}
 		destroyedBodiesList.clear();
@@ -314,5 +356,10 @@ public class Game implements GameInterface, ContactListener {
 	 */
 	public void setBossInterval(int i) {
 		this.bossInterval = i;
+	}
+
+	public void derp() {
+		getMap().derp();
+
 	}
 }

@@ -32,4 +32,10 @@ public class MapGenerator {
 				* (segments.size() - 1) + 0.5));
 		return currentSegment; // place holder
 	}
+
+	public void derp() {
+		// TODO Auto-generated method stub
+		segments.clear();
+		initMapSegments();
+	}
 }

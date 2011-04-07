@@ -2,26 +2,39 @@ package org.group20.sunstruck.gameobject;
 
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.Main;
+import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.physics.box2d.Contact;
 
 public class Player extends GameObject {
 
 	private long startGun = System.currentTimeMillis();
-	private long reloadTimeGun = 100;
+	private long reloadTimeGun = 200;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
-
+	
+	
+	
 	public Player() {
-		super();
+		super(Game.textureAtlas.findRegion("shipPlayer"), 1);
 		isEnemy = false;
+		type = TYPES.PLAYER;
+		weaponType = new LaserTiny1();
+		hull = 100;
+		currentHull = hull;
+		shield = 100;
+		currentShield = shield;
+		speed = 15;
 	}
 
 	@Override
 	public void update() {
-
+		System.out.println("Shield: "+currentShield + " Hull: "+currentHull);
+		
+		super.shieldRegeneration();
+		
 		boolean setXSpeedToZero = false;
 		boolean setYSpeedToZero = false;
 
@@ -70,6 +83,7 @@ public class Player extends GameObject {
 
 	@Override
 	public void dispose() {
+		System.out.println(score);
 		// Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
 
 	}
@@ -78,21 +92,15 @@ public class Player extends GameObject {
 	public String toString() {
 		return "Player";
 	}
-
+	
 	private void shoot() {
-		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, this);
+		Vector2 shotPosition = GameObjectFactory.getProjectilePosition(weaponType, this);
+//		shotPosition.set(new Vector2(0,0));
+
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, shotPosition.tmp().add(0, 0.6f), (float) (this.body.getAngle()+Math.PI/4)).isEnemy = false;
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, shotPosition.tmp(), this.body.getAngle()).isEnemy = false;
+		Game.getInstance().getGoFactory().generateWeaponShot(weaponType, shotPosition.tmp().sub(0,0.6f), (float) (this.body.getAngle()-Math.PI/4)).isEnemy = false;
 	}
 
-	@Override
-	public void contact(WorldManifold worldManifold, float impactDamage) {
-		shield -= impactDamage;
-		if (shield < 0) {
-			hull += shield;
-			shield = 0;
-			if (hull < 0)
-				dispose();
-		}
-		System.out.println("Shield: " + shield + " Hull: " + hull);
-	}
 
 }
