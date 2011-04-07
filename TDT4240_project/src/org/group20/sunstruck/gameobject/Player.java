@@ -29,8 +29,8 @@ public class Player extends GameObject {
 
 	@Override
 	public void update() {
-		System.out
-				.println("Shield: " + currentShield + " Hull: " + currentHull);
+//		System.out
+//				.println("Shield: " + currentShield + " Hull: " + currentHull);
 
 		super.shieldRegeneration();
 

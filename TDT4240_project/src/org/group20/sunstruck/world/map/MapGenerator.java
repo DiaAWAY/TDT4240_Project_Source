@@ -2,134 +2,190 @@ package org.group20.sunstruck.world.map;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.group20.sunstruck.world.map.segments.*;
-import org.group20.sunstruck.world.map.segments.MapSegment.MAPTYPES;
+import org.group20.sunstruck.world.map.segments.Theme.MapTypes;
 
 public class MapGenerator {
-
-	private MapSegment currentSegment = null;
-	private MapSegment nextSegment = null;
-	private MAPTYPES currentTheme = MapSegment.MAPTYPES.DEFAULT;
-	private MAPTYPES nextTheme = MapSegment.MAPTYPES.DEFAULT;
-	private ArrayList<MapSegment> segments = new ArrayList<MapSegment>();
+	private Theme currentTheme;
+	private Theme nextTheme;
+	private HashMap<MapTypes, Theme> themes = new HashMap<MapTypes, Theme>();
+	private ArrayList<Theme> availableThemes = new ArrayList<Theme>();
+	private double changeThreshold = 0.2; // the percentile chance of change
 
 	public MapGenerator() {
 		initMapSegments();
 	}
 
 	private void initMapSegments() {
-		segments.add(new MapSegment1());
-		segments.add(new MapSegment2());
-		segments.add(new MapSegment3()); 
-		segments.add(new MapSegment4());
-		currentSegment = nextSegment = segments.get(0);
+		Grass g = new Grass();
+		Water w = new Water();
+		Rock r = new Rock();
+		Lava l = new Lava();
+		Desert d = new Desert(); 
+		themes.put(g.getType(), g);
+		themes.put(w.getType(), w);
+		themes.put(r.getType(), r);
+		themes.put(l.getType(), l);
+		themes.put(d.getType(), d);
+		currentTheme = nextTheme = g;
+		changeCurrentTheme(g);
+		changeNextTheme(g);
 	}
+	
+	private void changeCurrentTheme(Theme t) {
+		availableThemes.clear();
+		Theme tt;
+		while (themes.values().iterator().hasNext()) {
+			tt = themes.values().iterator().next();
+			
+		}
+	}
+	
+	private void changeNextTheme(Theme t) {
+		
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unused" })
+	private int randomIndexIn(Collection c) {
+		return (int) (Math.random() * (c.size() - 1) + 0.5);
+	}
+	
+	private int randomIndexIn(Object[] o) {
+		return (int) (Math.random() * (o.length - 1) + 0.5);
+	}		
 
 	/**
 	 * returns the next segment
 	 * 
 	 * @return MapSegment - the next segment
 	 */
-	public MapSegment getNext() {
-		currentSegment = nextSegment;
-		if (!currentSegment.isTransitional() && Math.random() > 1.0) { 
-			// run with the current theme.
-			nextSegment = findRandomSegment(nextSegment.getType());
-		} else {
+	public TextureRegion getNext() {
+		if (Math.random() < changeThreshold) {
+			System.out.println("--- TRANSITION BEGINS ---");
+			TextureRegion next = null;
+			do {
+				MapTypes t = MapTypes.values()[randomIndexIn(MapTypes.values())];
+				nextTheme = themes.get(t);
+				System.out.println("t="+ currentTheme + ", " + t.toString());
+				System.out.println("nextTheme="+ nextTheme);
+				System.out.println("currentTheme="+ currentTheme);
+				next  = currentTheme.transitionTo(nextTheme.getType());
+			} while (next == null);
 			currentTheme = nextTheme;
-			// we're going to do a new theme!
-			if (currentSegment.isTransitional()) { 
-				System.out.println("end transition");
-				// we're already in a transition, we're going to end one!
-				nextSegment = findRandomSegment(endTransition());
-			} else {
-				System.out.println("start transition");
-				// it isn't transitional, this means we're starting a transition
-				nextSegment = findRandomSegment(startTransition());
-			}
-			
+			System.out.println("--- TRANSITION ENDS ---");
+			return next;
 		}
-		if (nextSegment == null) { // oh nose!
-			nextSegment = segments.get(0);
-			System.out.println("MapGenerator.java: "
-					+"GREVIOUS ERROR HAS OCCURED! COULD NOT FIND A SUITABLE MAP :|");
-		}
-		return nextSegment;
+		return currentTheme.next();
+//		if (!currentSegment.isTransitional() && Math.random() > 1.0) { 
+//			// run with the current theme.
+//			nextSegment = findRandomSegment(nextSegment.getType());
+//		} else {
+//			currentTheme = nextTheme;
+//			// we're going to do a new theme!
+//			if (currentSegment.isTransitional()) { 
+//				System.out.println("end transition");
+//				// we're already in a transition, we're going to end one!
+//				nextSegment = findRandomSegment(endTransition());
+//			} else {
+//				System.out.println("start transition");
+//				// it isn't transitional, this means we're starting a transition
+//				nextSegment = findRandomSegment(startTransition());
+//			}
+//			
+//		}
+//		if (nextSegment == null) { // oh nose!
+//			nextSegment = themes.get(0);
+//			System.out.println("MapGenerator.java: "
+//					+"GREVIOUS ERROR HAS OCCURED! COULD NOT FIND A SUITABLE MAP :|");
+//		}
+//		return nextSegment.getTextureRegion();
 	}
 	
-	@SuppressWarnings("rawtypes")
-	private int randomIndexIn(Collection c) {
-		return (int) (Math.random() * (c.size() - 1) + 0.5);
-	}
-	
-	private MapSegment findRandomSegment(MAPTYPES desiredType) {
-		ArrayList<MapSegment> segs = findSegments(desiredType);
-		return segs.get(randomIndexIn(segs));
-	}
-	
-	private MAPTYPES startTransition() {
-		ArrayList<MAPTYPES> newTypes = new ArrayList<MAPTYPES>();
-		MAPTYPES[] types = MAPTYPES.values();
-		String[] str;
-//		System.out.println("startTransition(): finding next theme");
-//		do {
-//			nextTheme = segments.get(randomIndexIn(segments)).getType();
-//			System.out.println(nextTheme);
-//		} while (!nextTheme.name().contains("_"));
-//		System.out.println("startTransition(): found="+nextTheme);
-		//add transitional types to newTypes
-		for (MAPTYPES t : types) {
-			str = t.name().split("_");
-			System.out.println("startTransition(): t="+t.name());
-			System.out.println("startTransition(): str="+str.toString());
-			if (str.length == 2 && MAPTYPES.valueOf(str[0]).equals(currentTheme.name())) {
-				System.out.println("startTransition(): found a valid transition!");
-				newTypes.add(t);
-			}
-		}
-		//ensure that we always return a valid type
-		if (newTypes.size() == 0) {
-			System.out.println("MapGenerator.java: "
-					+"GREVIOUS ERROR HAS OCCURED! COULD NOT FIND A SUITABLE TRANSITION! :|");
-			return MAPTYPES.DEFAULT;
-		}
-		//return a random type
-		return newTypes.get(randomIndexIn(newTypes));
-	}
-	
-	private MAPTYPES endTransition() {
-		ArrayList<MAPTYPES> transitions = new ArrayList<MAPTYPES>();
-		ArrayList<MAPTYPES> newTypes = new ArrayList<MAPTYPES>();
-		MAPTYPES[] types = MAPTYPES.values();
-		String[] str;
-		//add transitional types to newTypes
-		for (MAPTYPES t : types) {
-			str = t.name().split("_");
-			if (str.length == 2 && MAPTYPES.valueOf(str[0]).equals(currentTheme.name())) {
-				transitions.add(t);
-			}
-		}
-		for (MAPTYPES t : transitions) {
-			str = t.name().split("_");
-			if (str.length == 2) {
-				newTypes.add(MAPTYPES.valueOf(str[1]));
-			}
-		}
-		//ensure that we always return a valid type
-		if (newTypes.size() == 0) {
-			System.out.println("MapGenerator.java: "
-					+"GREVIOUS ERROR HAS OCCURED! COULD NOT FIND A SUITABLE TRANSITION! :|");
-			return MAPTYPES.DEFAULT;
-		}
-		//return a random type
-		return newTypes.get(randomIndexIn(newTypes));
-	}	
-	
-	private ArrayList<MapSegment> findSegments(MAPTYPES desiredType) {
-		ArrayList<MapSegment> segs = new ArrayList<MapSegment>();
-		for (MapSegment s : segments) {
-			if (s.getType() == desiredType) segs.add(s);
-		}
-		return segs;
-	}
+//	@SuppressWarnings("rawtypes")
+//	private int randomIndexIn(Collection c) {
+//		return (int) (Math.random() * (c.size() - 1) + 0.5);
+//	}
+//	
+//	private MapSegment findRandomSegment(MapTypes desiredType) {
+//		ArrayList<MapSegment> segs = findSegments(desiredType);
+//		if (segs.size() != 0) {
+//			return segs.get(randomIndexIn(segs));
+//		} else {
+//			return themes.get(0);
+//		}
+//	}
+//	
+//	private MapTypes startTransition() {
+//		ArrayList<MapTypes> newTypes = new ArrayList<MapTypes>();
+//		MapTypes[] types = MapTypes.values();
+//		String[] str;
+////		System.out.println("startTransition(): finding next theme");
+////		do {
+////			nextTheme = segments.get(randomIndexIn(segments)).getType();
+////			System.out.println(nextTheme);
+////		} while (!nextTheme.name().contains("_"));
+////		System.out.println("startTransition(): found="+nextTheme);
+//		//add transitional types to newTypes
+//		for (MapTypes t : types) {
+//			str = t.name().split("_");
+//			System.out.println("startTransition(): t="+t.name());
+//			System.out.println("startTransition(): str="+str.length);
+//			if (str.length == 2) {
+//				System.out.println(str[0] + " " + str[1] + " " + currentTheme.name());
+//				if (str.length == 2 && MapTypes.valueOf(str[0]).equals(currentTheme)) {
+//					System.out.println("startTransition(): found a valid transition!");
+//					newTypes.add(t);
+//				}
+//			}
+//		}
+//		//ensure that we always return a valid type
+//		if (newTypes.size() == 0) {
+//			System.out.println("MapGenerator.java: "
+//					+"GREVIOUS ERROR HAS OCCURED! COULD NOT FIND A SUITABLE TRANSITION! :|");
+//			return MapTypes.DEFAULT;
+//		}
+//		//return a random type
+//		MapTypes t = newTypes.get(randomIndexIn(newTypes));
+//		System.out.println(t);
+//		return t;
+//	}
+//	
+//	private MapTypes endTransition() {
+//		ArrayList<MapTypes> transitions = new ArrayList<MapTypes>();
+//		ArrayList<MapTypes> newTypes = new ArrayList<MapTypes>();
+//		MapTypes[] types = MapTypes.values();
+//		String[] str;
+//		//add transitional types to newTypes
+//		for (MapTypes t : types) {
+//			str = t.name().split("_");
+//			if (str.length == 2 && MapTypes.valueOf(str[0]).equals(currentTheme.name())) {
+//				transitions.add(t);
+//			}
+//		}
+//		for (MapTypes t : transitions) {
+//			str = t.name().split("_");
+//			if (str.length == 2) {
+//				newTypes.add(MapTypes.valueOf(str[1]));
+//			}
+//		}
+//		//ensure that we always return a valid type
+//		if (newTypes.size() == 0) {
+//			System.out.println("MapGenerator.java: "
+//					+"GREVIOUS ERROR HAS OCCURED! COULD NOT FIND A SUITABLE TRANSITION! :|");
+//			return MapTypes.DEFAULT;
+//		}
+//		//return a random type
+//		return newTypes.get(randomIndexIn(newTypes));
+//	}	
+//	
+//	private ArrayList<MapSegment> findSegments(MapTypes desiredType) {
+//		ArrayList<MapSegment> segs = new ArrayList<MapSegment>();
+//		for (MapSegment s : themes) {
+//			if (s.getType() == desiredType) segs.add(s);
+//		}
+//		return segs;
+//	}
 }
