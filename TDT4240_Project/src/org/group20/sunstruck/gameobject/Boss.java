@@ -15,7 +15,7 @@ public class Boss extends GameObject {
 			.findRegion("shipColossal");
 
 	public Boss() {
-		super(shipTexture, 12);
+		super(shipTexture, 10);
 		shield = 100;
 		currentShield = shield;
 		hull = 500;

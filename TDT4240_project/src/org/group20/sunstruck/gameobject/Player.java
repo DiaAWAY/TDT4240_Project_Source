@@ -100,9 +100,9 @@ public class Player extends GameObject {
 		Vector2 shotPosition = GameObjectFactory.getProjectilePosition(
 				weaponType, this);
 		// shotPosition.set(new Vector2(0,0));
-		Game.getInstance().getGoFactory()
-				.createMediumKamikazeShip(new Vector2(0, 0), (float) Math.PI)
-				.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
+//		Game.getInstance().getGoFactory()
+//				.createMediumKamikazeShip(new Vector2(0, 0), (float) Math.PI)
+//				.setBehavior(BEHAVIOR.LINEAR_MOVEMENT);
 
 		Game.getInstance()
 				.getGoFactory()

@@ -10,6 +10,7 @@ public class SpritePackager {
         settings.maxWidth = 1024;
         settings.maxHeight = 1024;
         settings.incremental = true;
+        settings.stripWhitespace = false;
         TexturePacker.process(settings, "Textures", "../TDT4240_Project/data");
     }
 }

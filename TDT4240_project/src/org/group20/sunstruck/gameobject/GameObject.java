@@ -96,7 +96,7 @@ public abstract class GameObject {
 
 	int explosionAnimationCount = 0;
 
-	long explosionTime = 500;
+	long explosionTime = 67;
 	long startExplosionTime = System.currentTimeMillis();
 	boolean isExplosionSize = false;
 
@@ -105,12 +105,14 @@ public abstract class GameObject {
 		shieldRegeneration();
 		long time = 0;
 
-		if (isExploding)
-			time = System.currentTimeMillis() - startExplosionTime;
-		if (time > explosionTime) {
-			explode();
-			startExplosionTime = System.currentTimeMillis();
-		} else if (weaponType != null)
+//		if (isExploding)
+//			time = System.currentTimeMillis() - startExplosionTime;
+//		if (time > explosionTime) {
+//			explode();
+//			startExplosionTime = System.currentTimeMillis();
+//		} else 
+			
+		if (weaponType != null)
 			if (!isProjectile) {
 				time = System.currentTimeMillis() - start;
 				if (time > reloadTime) {
@@ -161,22 +163,22 @@ public abstract class GameObject {
 
 	public void dispose() {
 		if (!isDisposed) {
-			isExploding = true;
+			//isExploding = true;
+			isDisposed = true;
 			Game.getInstance().getDestroyedBodiesList().add(body);
 		}
 	}
 
 	void explode() {
+		
 		if (!isExplosionSize) {
-			width *= 1.5;
+			width *= 3;
 			height = width;
 			isExplosionSize = true;
 		}
-		if (explosionAnimationCount == 13) {
-			isExploding = false;
-			return;
-		}
 		textureRegion = explosionTextures.get(explosionAnimationCount);
+		if(this instanceof  MediumKamikazeShip)	
+			System.out.println(explosionAnimationCount);
 		explosionAnimationCount++;
 		if (explosionTextures.size() == explosionAnimationCount)
 			isExploding = false;

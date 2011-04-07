@@ -55,6 +55,7 @@ public class Game implements GameInterface, ContactListener {
 
 	public void initializePlayer() {
 		player = (Player) goFactory.createPlayer(new Vector2(-3, 0), 0);
+		goFactory.createBoss(new Vector2(12,0), (float)Math.PI);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -250,15 +251,18 @@ public class Game implements GameInterface, ContactListener {
 				bossAlive = false;
 				enemySpawnTime = 0;
 			}
-			if (((GameObject) body.getUserData()).isExploding())
-				for (int j = 0; j < body.getFixtureList().size(); j++)
-					body.destroyFixture(body.getFixtureList().get(j));
-			else {
-				world.destroyBody(body);
-				destroyedBodiesList.remove(i);
-			}
+			world.destroyBody(body);
+//			if (((GameObject) body.getUserData()).isExploding())
+//				for (int j = 0; j < body.getFixtureList().size(); j++)
+//					body.destroyFixture(body.getFixtureList().get(j));
+//			else {
+//				world.destroyBody(body);
+//				destroyedBodiesList.remove(i);
+//			}
 		}
+		destroyedBodiesList.clear();
 	}
+	
 
 	// Getter's and setter's (No shit)
 
