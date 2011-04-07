@@ -40,17 +40,17 @@ public class GUI {
 		Game.getInstance();
 		TextureAtlas ta = Game.textureAtlas;
 
-		textureUpgWeapon = ta.findRegion("guiUpgradeWeapon");
-		textureUpgWeaponPressed = ta.findRegion("guiUpgradeWeaponPressed");
+		textureUpgWeapon = ta.findRegion("buttonWeapon");
+		textureUpgWeaponPressed = ta.findRegion("buttonWeaponPressed");
 
-		textureUpgHull = ta.findRegion("guiUpgradeHull");
-		textureUpgHullPressed = ta.findRegion("guiUpgradeHullPressed");
+		textureUpgHull = ta.findRegion("buttonHull");
+		textureUpgHullPressed = ta.findRegion("buttonPressed");
 
-		textureUpgShield = ta.findRegion("guiUpgradeShield");
-		textureUpgShieldPressed = ta.findRegion("guiUpgradeShieldPressed");
+		textureUpgShield = ta.findRegion("buttonShield");
+		textureUpgShieldPressed = ta.findRegion("buttonShieldPressed");
 
-		textureUpgSpeed = ta.findRegion("guiUpgradeSpeed");
-		textureUpgSpeedPressed = ta.findRegion("guiUpgradeSpeedPressed");
+		textureUpgSpeed = ta.findRegion("buttonSpeed");
+		textureUpgSpeedPressed = ta.findRegion("buttonSpeedPressed");
 
 		// textureConfirm = ta.findRegion("guiConfirm");
 		// textureConfirmPressed = ta.findRegion("guiConfirmPressed");

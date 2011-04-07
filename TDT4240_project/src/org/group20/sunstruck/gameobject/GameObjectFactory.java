@@ -20,7 +20,7 @@ public class GameObjectFactory {
 	private final float PLAYER_START_SHIELD = 50;
 	private final float PLAYER_START_IMPACT_DAMAGE = 10;
 	private final TextureRegion PLAYER_START_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("TIEBomber");
+			.findRegion("shipHuge4");
 
 	private final float LASER_DENSITY = 1;
 	private final float LASER_START_WIDTH = 1;
@@ -39,10 +39,10 @@ public class GameObjectFactory {
 	private final float ENEMY1_START_IMPACT_DAMAGE = 10;
 	private final int ENEMY1_SCORE = 10;
 	private final TextureRegion ENEMY1_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("enemy1");
+			.findRegion("shipSmall3");
 
 	private final float BOSS_DENSITY = 100;
-	private final float BOSS_SIZE = 2;
+	private final float BOSS_SIZE = 5;
 	private final float BOSS_START_SPEED = 1;
 	private final float BOSS_START_WEAPON = 10;
 	private final float BOSS_START_HULL = 30;
@@ -50,7 +50,7 @@ public class GameObjectFactory {
 	private final float BOSS_START_IMPACT_DAMAGE = 10;
 	private final int BOSS_SCORE = 10;
 	private final TextureRegion BOSS_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("enemy2");
+			.findRegion("shipColossal");
 
 	private final float METEORITE_DENSITY = 100;
 	private final float METEORITE_START_SPEED = 0;
@@ -58,7 +58,7 @@ public class GameObjectFactory {
 	private final float METEORITE_START_IMPACT_DAMAGE = 30;
 	private final int METEORITE_SCORE = 5;
 	private final TextureRegion METEORITE_TEXTURE_REGION = Game.textureAtlas
-			.findRegion("enemy1");
+			.findRegion("asteroidHuge");
 
 	private DIFFICULTIES difficulty;
 
