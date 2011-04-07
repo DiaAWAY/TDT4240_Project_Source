@@ -167,9 +167,10 @@ public class Game implements GameInterface, ContactListener {
 			goA.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 			return;
 		}
-		
+
 		// --- let's check if enemies are shooting at each other! ---
-		if (goB.isEnemy() && goA.isEnemy()) { // enemy objects hitting each other
+		if (goB.isEnemy() && goA.isEnemy()) { // enemy objects hitting each
+												// other
 			if (goB.isProjectile()) {
 				goB.contact(contact.GetWorldManifold(), Float.MAX_VALUE);
 			}
@@ -178,7 +179,7 @@ public class Game implements GameInterface, ContactListener {
 			}
 			return;
 		}
-		
+
 		// okay, now we're talking! enemy or player damage!
 		goA.contact(contact.GetWorldManifold(), goB.getImpactDamage());
 		goB.contact(contact.GetWorldManifold(), goA.getImpactDamage());
@@ -318,6 +319,6 @@ public class Game implements GameInterface, ContactListener {
 
 	public void derp() {
 		getMap().derp();
-		
+
 	}
 }

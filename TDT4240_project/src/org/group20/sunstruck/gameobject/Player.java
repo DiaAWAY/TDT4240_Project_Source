@@ -14,8 +14,9 @@ public class Player extends GameObject {
 	private long reloadTimeGun = 100;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
-	public static Sound pew = Gdx.audio.newSound(Gdx.files.internal("data/pew.wav"));
-	
+	public static Sound pew = Gdx.audio.newSound(Gdx.files
+			.internal("data/pew.wav"));
+
 	public Player() {
 		super();
 		isEnemy = false;

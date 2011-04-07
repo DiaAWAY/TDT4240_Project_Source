@@ -119,7 +119,7 @@ public class Main implements ApplicationListener {
 		if (!run)
 			return;
 
-		Gdx.gl.glClearColor((float)Math.random(), 1, 1, 1);
+		Gdx.gl.glClearColor((float) Math.random(), 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		// Draw background
@@ -254,7 +254,8 @@ public class Main implements ApplicationListener {
 
 	@Override
 	public void resume() {
-//		Game.textureAtlas = new TextureAtlas(Gdx.files.internal("data/pack"));
+		// Game.textureAtlas = new
+		// TextureAtlas(Gdx.files.internal("data/pack"));
 		run = true;
 	}
 
