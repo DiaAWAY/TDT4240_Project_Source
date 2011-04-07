@@ -1,0 +1,121 @@
+package org.group20.sunstruck.gameobject;
+
+import org.group20.sunstruck.Game;
+import org.group20.sunstruck.Main;
+import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Contact;
+
+public class Player extends GameObject {
+
+	private long startGun = System.currentTimeMillis();
+	private long reloadTimeGun = 200;
+	private long startBomb = System.currentTimeMillis();
+	private long reloadTimeBomb = 1000;
+<<<<<<< HEAD
+=======
+	public static Sound pew = Gdx.audio.newSound(Gdx.files
+			.internal("data/pew.wav"));
+>>>>>>> upstream/master
+
+	public Player() {
+		super(Game.textureAtlas.findRegion("shipPlayer"), 1);
+		isEnemy = false;
+		type = TYPES.PLAYER;
+		weaponType = new LaserTiny1();
+		hull = 100;
+		currentHull = hull;
+		shield = 100;
+		currentShield = shield;
+		speed = 15;
+	}
+
+	@Override
+	public void update() {
+		System.out
+				.println("Shield: " + currentShield + " Hull: " + currentHull);
+
+		super.shieldRegeneration();
+
+		boolean setXSpeedToZero = false;
+		boolean setYSpeedToZero = false;
+
+		body.setLinearVelocity(Game.getInstance().getInput().getNewVelocity());
+
+		if (body.getWorldCenter().x < -Main.CAMERA_WIDTH / 2
+				&& body.getLinearVelocity().x < 0)
+			setXSpeedToZero = true;
+		if (body.getWorldCenter().x > Main.CAMERA_WIDTH / 2
+				&& body.getLinearVelocity().x > 0)
+			setXSpeedToZero = true;
+		if (body.getWorldCenter().y < -Main.CAMERA_WIDTH
+				* Gdx.graphics.getHeight() / (2 * Gdx.graphics.getWidth())
+				&& body.getLinearVelocity().y < 0)
+			setYSpeedToZero = true;
+		if (body.getWorldCenter().y > Main.CAMERA_WIDTH
+				* Gdx.graphics.getHeight() / (2 * Gdx.graphics.getWidth())
+				&& body.getLinearVelocity().y > 0)
+			setYSpeedToZero = true;
+
+		if (setXSpeedToZero)
+			body.setLinearVelocity(new Vector2(0, body.getLinearVelocity().y));
+		if (setYSpeedToZero)
+			body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 0));
+
+		long time = System.currentTimeMillis() - startGun;
+		if (time > reloadTimeGun)
+			if (Game.getInstance().getInput().getHasFired()) {
+				shoot();
+				startGun = System.currentTimeMillis();
+			}
+
+		time = System.currentTimeMillis() - startBomb;
+		if (time > reloadTimeBomb)
+			if (Game.getInstance().getInput().getHasFiredBomb()) {
+				fireBomb();
+				startBomb = System.currentTimeMillis();
+			}
+
+	}
+
+	private void fireBomb() {
+		// laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
+		// Game.getInstance().getGameObjectList().add(laser);
+	}
+
+	@Override
+	public void dispose() {
+		System.out.println(score);
+		// Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
+
+	}
+
+	@Override
+	public String toString() {
+		return "Player";
+	}
+
+	private void shoot() {
+		Vector2 shotPosition = GameObjectFactory.getProjectilePosition(
+				weaponType, this);
+		// shotPosition.set(new Vector2(0,0));
+
+		Game.getInstance()
+				.getGoFactory()
+				.generateWeaponShot(weaponType,
+						shotPosition.tmp().add(0, 0.6f),
+						(float) (this.body.getAngle() + Math.PI / 4)).isEnemy = false;
+		Game.getInstance()
+				.getGoFactory()
+				.generateWeaponShot(weaponType, shotPosition.tmp(),
+						this.body.getAngle()).isEnemy = false;
+		Game.getInstance()
+				.getGoFactory()
+				.generateWeaponShot(weaponType,
+						shotPosition.tmp().sub(0, 0.6f),
+						(float) (this.body.getAngle() - Math.PI / 4)).isEnemy = false;
+	}
+
+}
