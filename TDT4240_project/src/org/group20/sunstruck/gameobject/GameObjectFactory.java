@@ -58,6 +58,12 @@ public class GameObjectFactory {
 		go.body.setFixedRotation(true);
 		return go;
 	}
+	public GameObject  createMediumKamikazeShip(Vector2 position, float angle){
+		GameObject go = new MediumKamikazeShip();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
+	}
 	
 
 

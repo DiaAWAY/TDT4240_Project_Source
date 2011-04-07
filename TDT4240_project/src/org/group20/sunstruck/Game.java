@@ -53,7 +53,7 @@ public class Game implements GameInterface, ContactListener {
 
 	public void initializePlayer() {
 		player = (Player) goFactory.createPlayer(new Vector2(-3,0), 0);
-		goFactory.createBoss(new Vector2(Main.CAMERA_WIDTH/2, 0), (float) Math.PI);
+		//goFactory.createBoss(new Vector2(Main.CAMERA_WIDTH/2, 0), (float) Math.PI);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -122,14 +122,21 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 1) {
+			if (enemySpawnTime >= 3) {
 				double randomize = Math.random();
-					//spawnSmallKamikazeSquad();
-//				spawnSmallLaserSquad();
+					spawnMediumKamikazeSquad();
+					spawnSmallKamikazeSquad();
+					spawnSmallLaserSquad();
 				enemySpawnTime = 0;
 			}
 		}
 	}
+	private void spawnMediumKamikazeSquad(){
+		int numberOfShips = (int)(Math.random()*5+1);
+		while(numberOfShips-- > 0)
+			goFactory.createMediumKamikazeShip(getNewEnemyPosition(), 0);
+	}
+	
 	private void spawnSmallLaserSquad() {
 		int numberOfShips = (int)(Math.random()*5+1);
 		while(numberOfShips-- > 0){
