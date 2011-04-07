@@ -19,9 +19,10 @@ public class GameObjectFactory {
 	}
 
 	public GameObject createBoss(Vector2 position, float angle) {
-		GameObject go = new Boss();
-		generateBoxBody(go, position, angle);
-		return go;
+		Boss bo = new Boss();
+		generateBossBody(bo, position, angle);
+		bo.setKamikazeSpawnPoint(new Vector2(bo.width*0.3193f,-bo.height*0.3456f));
+		return bo;
 	}
 
 	public GameObject createPlayer(Vector2 position, float angle) {
@@ -80,6 +81,8 @@ public class GameObjectFactory {
 			go = createLaserTiny2(position, angle);
 		if (weaponType instanceof SmallKamikazeShip)
 			go = createSmallKamikazeShip(position, angle);
+		if (weaponType instanceof MediumKamikazeShip)
+			go = createMediumKamikazeShip(position, angle);
 
 		return go;
 	}
@@ -159,6 +162,33 @@ public class GameObjectFactory {
 		go.body.setUserData(go);
 
 	}
+	
+	private void generateBossBody(Boss bo, Vector2 position, float angle) {
+		// Defines the body and creates it
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(position);
+		bodyDef.angle = angle;
+		bo.body = Game.getInstance().getWorld().createBody(bodyDef);
+		
+		CircleShape circleShape = new CircleShape();
+		
+		circleShape.setRadius(bo.width * 0.1107f);
+		circleShape.setPosition(new Vector2(bo.width * 0.3875f, 0));
+		bo.body.createFixture(circleShape, bo.density);
+		circleShape.dispose();
+		
+		PolygonShape bodyPoly = new PolygonShape();
+		
+		bodyPoly.setAsBox( (bo.width/2) * 0.6298f, (bo.height/2) * 0.8203f, new Vector2(-bo.width * 0.1868f, bo.height * 0.0875f), 0);
+		bo.body.createFixture(bodyPoly, bo.density);
+
+		bodyPoly.setAsBox( (bo.width/2) * 0.1592f, (bo.height/2) * 0.7051f, new Vector2(bo.width * 0.2076f, -bo.height * 0.0253f), 0);
+		bo.body.createFixture(bodyPoly, bo.density);
+		bodyPoly.dispose();
+
+		bo.body.setUserData(bo);
+	}
 
 	public static Vector2 getProjectilePosition(GameObject projectile,
 			GameObject shooter) {
@@ -170,7 +200,7 @@ public class GameObjectFactory {
 
 		Vector2 position = new Vector2(0, 0);
 		float len = shooter.width / 2 + projectile.width / 2 + 0.1f;
-		position.set(shooter.getBody().getWorldCenter());
+		position.set(shooter.getBody().getWorldPoint(new Vector2(0, 0)));
 		position.add(direction.tmp().mul(len));
 
 		position.add(0.05f, 0.05f);
