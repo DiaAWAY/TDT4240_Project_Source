@@ -13,7 +13,7 @@ public class MapGenerator {
 	private Theme nextTheme;
 	private HashMap<MapTypes, Theme> themes = new HashMap<MapTypes, Theme>();
 	private ArrayList<Theme> availableThemes = new ArrayList<Theme>();
-	private double changeThreshold = 0.2; // the percentile chance of change
+	public double changeThreshold = 0.2; // the percentile chance of change
 
 	public MapGenerator() {
 		initMapSegments();
@@ -31,21 +31,23 @@ public class MapGenerator {
 		themes.put(l.getType(), l);
 		themes.put(d.getType(), d);
 		currentTheme = nextTheme = g;
-		changeCurrentTheme(g);
-		changeNextTheme(g);
+		populateAvailableThemes();
 	}
 	
-	private void changeCurrentTheme(Theme t) {
+	private void populateAvailableThemes() {
 		availableThemes.clear();
-		Theme tt;
-		while (themes.values().iterator().hasNext()) {
-			tt = themes.values().iterator().next();
-			
+		java.util.Iterator<MapTypes> i = currentTheme.getTransitions().keySet().iterator();
+		MapTypes m;
+		while(i.hasNext()) {
+			m = i.next();
+			for (Theme t : themes.values()) {
+				if (t.getType().equals(m)) availableThemes.add(t);
+			}
 		}
 	}
 	
 	private void changeNextTheme(Theme t) {
-		
+		nextTheme = t;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unused" })
