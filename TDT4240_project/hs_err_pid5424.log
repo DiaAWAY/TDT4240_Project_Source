@@ -1,0 +1,264 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x6e6c4e02, pid=5424, tid=5984
+#
+# JRE version: 6.0_23-b05
+# Java VM: Java HotSpot(TM) Client VM (19.0-b09 mixed mode, sharing windows-x86 )
+# Problematic frame:
+# C  [gdx.dll+0x4e02]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x035a6000):  JavaThread "AWT-EventQueue-0" [_thread_in_native, id=5984, stack(0x039d0000,0x03a20000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x00000002
+
+Registers:
+EAX=0x00000005, EBX=0x03ae1c98, ECX=0x00000005, EDX=0x00000002
+ESP=0x03a1f510, EBP=0x03a1f538, ESI=0x03ae1c98, EDI=0x035a6000
+EIP=0x6e6c4e02, EFLAGS=0x00210202
+
+Register to memory mapping:
+
+EAX=0x00000005
+0x00000005 is pointing to unknown location
+
+EBX=0x03ae1c98
+0x03ae1c98 is pointing to unknown location
+
+ECX=0x00000005
+0x00000005 is pointing to unknown location
+
+EDX=0x00000002
+0x00000002 is pointing to unknown location
+
+ESP=0x03a1f510
+0x03a1f510 is pointing into the stack for thread: 0x035a6000
+"AWT-EventQueue-0" prio=6 tid=0x035a6000 nid=0x1760 runnable [0x03a1f000]
+   java.lang.Thread.State: RUNNABLE
+
+EBP=0x03a1f538
+0x03a1f538 is pointing into the stack for thread: 0x035a6000
+"AWT-EventQueue-0" prio=6 tid=0x035a6000 nid=0x1760 runnable [0x03a1f000]
+   java.lang.Thread.State: RUNNABLE
+
+ESI=0x03ae1c98
+0x03ae1c98 is pointing to unknown location
+
+EDI=0x035a6000
+"AWT-EventQueue-0" prio=6 tid=0x035a6000 nid=0x1760 runnable [0x03a1f000]
+   java.lang.Thread.State: RUNNABLE
+
+
+Top of Stack: (sp=0x03a1f510)
+0x03a1f510:   77852054 00380130 77852033 03a1e3dd
+0x03a1f520:   00000000 00000005 0038fed0 3351a200
+0x03a1f530:   03ae1c98 035a6000 03a1f598 6e6dbf7d
+0x03a1f540:   03ae1c98 00000098 00000000 00000000
+0x03a1f550:   00380000 00380148 00000000 ffffffff
+0x03a1f560:   00380148 02000002 03a1f5c8 03a1f584
+0x03a1f570:   6e70f980 6e70ff5e 03a1f58c 6e6dc011
+0x03a1f580:   03a1f550 03a1f5b0 03a1f5b0 3351a200 
+
+Instructions: (pc=0x6e6c4e02)
+0x6e6c4df2:   00 00 8b 4d ec 8b 5d 08 8b 54 8b 0c 85 d2 74 10
+0x6e6c4e02:   8b 02 89 44 8b 0c 89 d0 8d 65 f4 5b 5e 5f 5d c3 
+
+
+Stack: [0x039d0000,0x03a20000],  sp=0x03a1f510,  free space=317k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [gdx.dll+0x4e02]
+C  [gdx.dll+0x1bf7d]
+C  [gdx.dll+0x46e6]
+j  com.badlogic.gdx.physics.box2d.World.jniCreateBody(JIFFFFFFFFZZZZZF)J+0
+j  com.badlogic.gdx.physics.box2d.World.createBody(Lcom/badlogic/gdx/physics/box2d/BodyDef;)Lcom/badlogic/gdx/physics/box2d/Body;+85
+j  org.group20.sunstruck.gameobject.GameObjectFactory.generateBoxBody(Lorg/group20/sunstruck/gameobject/GameObject;Lcom/badlogic/gdx/math/Vector2;F)V+42
+j  org.group20.sunstruck.gameobject.GameObjectFactory.createLaserTiny1(Lcom/badlogic/gdx/math/Vector2;F)Lorg/group20/sunstruck/gameobject/GameObject;+12
+j  org.group20.sunstruck.gameobject.GameObjectFactory.generateWeaponShot(Lorg/group20/sunstruck/gameobject/GameObject;Lcom/badlogic/gdx/math/Vector2;F)Lorg/group20/sunstruck/gameobject/GameObject;+13
+j  org.group20.sunstruck.gameobject.Player.shoot()V+110
+j  org.group20.sunstruck.gameobject.Player.update()V+289
+J  org.group20.sunstruck.Game.update()V
+j  com.badlogic.gdx.backends.jogl.JoglGraphics.display(Ljavax/media/opengl/GLAutoDrawable;)V+28
+j  com.sun.opengl.impl.GLDrawableHelper.display(Ljavax/media/opengl/GLAutoDrawable;)V+29
+j  javax.media.opengl.GLCanvas$DisplayAction.run()V+80
+j  com.sun.opengl.impl.GLDrawableHelper.invokeGL(Ljavax/media/opengl/GLDrawable;Ljavax/media/opengl/GLContext;Ljava/lang/Runnable;Ljava/lang/Runnable;)V+418
+j  javax.media.opengl.GLCanvas$DisplayOnEventDispatchThreadAction.run()V+35
+j  java.awt.event.InvocationEvent.dispatch()V+11
+j  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V+26
+j  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z+204
+j  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V+30
+j  java.awt.EventDispatchThread.pumpEventsForHierarchy(ILjava/awt/Conditional;Ljava/awt/Component;)V+11
+j  java.awt.EventDispatchThread.pumpEvents(ILjava/awt/Conditional;)V+4
+j  java.awt.EventDispatchThread.pumpEvents(Ljava/awt/Conditional;)V+3
+j  java.awt.EventDispatchThread.run()V+9
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xf33c9]
+V  [jvm.dll+0x188a91]
+V  [jvm.dll+0xf3587]
+V  [jvm.dll+0xf35eb]
+V  [jvm.dll+0x11e780]
+V  [jvm.dll+0x1ea6c4]
+V  [jvm.dll+0x18843c]
+C  [msvcr71.dll+0x9565]
+C  [kernel32.dll+0x43823]
+C  [ntdll.dll+0x3a9bd]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.badlogic.gdx.physics.box2d.World.jniCreateBody(JIFFFFFFFFZZZZZF)J+0
+j  com.badlogic.gdx.physics.box2d.World.createBody(Lcom/badlogic/gdx/physics/box2d/BodyDef;)Lcom/badlogic/gdx/physics/box2d/Body;+85
+j  org.group20.sunstruck.gameobject.GameObjectFactory.generateBoxBody(Lorg/group20/sunstruck/gameobject/GameObject;Lcom/badlogic/gdx/math/Vector2;F)V+42
+j  org.group20.sunstruck.gameobject.GameObjectFactory.createLaserTiny1(Lcom/badlogic/gdx/math/Vector2;F)Lorg/group20/sunstruck/gameobject/GameObject;+12
+j  org.group20.sunstruck.gameobject.GameObjectFactory.generateWeaponShot(Lorg/group20/sunstruck/gameobject/GameObject;Lcom/badlogic/gdx/math/Vector2;F)Lorg/group20/sunstruck/gameobject/GameObject;+13
+j  org.group20.sunstruck.gameobject.Player.shoot()V+110
+j  org.group20.sunstruck.gameobject.Player.update()V+289
+J  org.group20.sunstruck.Game.update()V
+j  org.group20.sunstruck.Main.render()V+60
+j  com.badlogic.gdx.backends.jogl.JoglGraphics.display(Ljavax/media/opengl/GLAutoDrawable;)V+28
+j  com.sun.opengl.impl.GLDrawableHelper.display(Ljavax/media/opengl/GLAutoDrawable;)V+29
+j  javax.media.opengl.GLCanvas$DisplayAction.run()V+80
+j  com.sun.opengl.impl.GLDrawableHelper.invokeGL(Ljavax/media/opengl/GLDrawable;Ljavax/media/opengl/GLContext;Ljava/lang/Runnable;Ljava/lang/Runnable;)V+418
+j  javax.media.opengl.GLCanvas$DisplayOnEventDispatchThreadAction.run()V+35
+j  java.awt.event.InvocationEvent.dispatch()V+11
+j  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V+26
+j  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z+204
+j  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V+30
+j  java.awt.EventDispatchThread.pumpEventsForHierarchy(ILjava/awt/Conditional;Ljava/awt/Component;)V+11
+j  java.awt.EventDispatchThread.pumpEvents(ILjava/awt/Conditional;)V+4
+j  java.awt.EventDispatchThread.pumpEvents(Ljava/awt/Conditional;)V+3
+j  java.awt.EventDispatchThread.run()V+9
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x06f3f400 JavaThread "D3D Screen Updater" daemon [_thread_blocked, id=5364, stack(0x08000000,0x08050000)]
+  0x002b9c00 JavaThread "DestroyJavaVM" [_thread_blocked, id=604, stack(0x002c0000,0x00310000)]
+  0x06da3400 JavaThread "Thread-3" [_thread_blocked, id=4236, stack(0x07c50000,0x07ca0000)]
+=>0x035a6000 JavaThread "AWT-EventQueue-0" [_thread_in_native, id=5984, stack(0x039d0000,0x03a20000)]
+  0x035a5400 JavaThread "AWT-Windows" daemon [_thread_in_native, id=5432, stack(0x03980000,0x039d0000)]
+  0x035a5000 JavaThread "AWT-Shutdown" [_thread_blocked, id=4940, stack(0x03930000,0x03980000)]
+  0x035a2800 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=3408, stack(0x03730000,0x03780000)]
+  0x0117c400 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=1136, stack(0x03490000,0x034e0000)]
+  0x01169400 JavaThread "CompilerThread0" daemon [_thread_blocked, id=4868, stack(0x03440000,0x03490000)]
+  0x0115c000 JavaThread "Attach Listener" daemon [_thread_blocked, id=4408, stack(0x033f0000,0x03440000)]
+  0x0115b000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=4428, stack(0x033a0000,0x033f0000)]
+  0x01156000 JavaThread "Finalizer" daemon [_thread_blocked, id=4212, stack(0x03350000,0x033a0000)]
+  0x01151400 JavaThread "Reference Handler" daemon [_thread_blocked, id=4356, stack(0x00d40000,0x00d90000)]
+
+Other Threads:
+  0x01150000 VMThread [stack: 0x00cc0000,0x00d10000] [id=6120]
+  0x01187800 WatcherThread [stack: 0x034e0000,0x03530000] [id=4208]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 4928K, used 1597K [0x23200000, 0x23750000, 0x28750000)
+  eden space 4416K,  34% used [0x23200000, 0x233814a0, 0x23650000)
+  from space 512K,  10% used [0x236d0000, 0x236de000, 0x23750000)
+  to   space 512K,   0% used [0x23650000, 0x23650000, 0x236d0000)
+ tenured generation   total 10944K, used 2322K [0x28750000, 0x29200000, 0x33200000)
+   the space 10944K,  21% used [0x28750000, 0x28994aa8, 0x28994c00, 0x29200000)
+ compacting perm gen  total 12288K, used 3559K [0x33200000, 0x33e00000, 0x37200000)
+   the space 12288K,  28% used [0x33200000, 0x33579d48, 0x33579e00, 0x33e00000)
+    ro space 10240K,  51% used [0x37200000, 0x3772bd20, 0x3772be00, 0x37c00000)
+    rw space 12288K,  54% used [0x37c00000, 0x38297d58, 0x38297e00, 0x38800000)
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Program Files\Java\jre6\bin\javaw.exe
+0x777f0000 - 0x7790e000 	C:\Windows\system32\ntdll.dll
+0x76fd0000 - 0x770a8000 	C:\Windows\system32\kernel32.dll
+0x76b70000 - 0x76c2f000 	C:\Windows\system32\ADVAPI32.dll
+0x774f0000 - 0x775b3000 	C:\Windows\system32\RPCRT4.dll
+0x77750000 - 0x777ee000 	C:\Windows\system32\USER32.dll
+0x77290000 - 0x772db000 	C:\Windows\system32\GDI32.dll
+0x77390000 - 0x773ae000 	C:\Windows\system32\IMM32.DLL
+0x771c0000 - 0x77287000 	C:\Windows\system32\MSCTF.dll
+0x77440000 - 0x774ea000 	C:\Windows\system32\msvcrt.dll
+0x77990000 - 0x77999000 	C:\Windows\system32\LPK.DLL
+0x77910000 - 0x7798d000 	C:\Windows\system32\USP10.dll
+0x7c340000 - 0x7c396000 	C:\Program Files\Java\jre6\bin\msvcr71.dll
+0x6d7f0000 - 0x6da9c000 	C:\Program Files\Java\jre6\bin\client\jvm.dll
+0x747f0000 - 0x74823000 	C:\Windows\system32\WINMM.dll
+0x76c30000 - 0x76d74000 	C:\Windows\system32\ole32.dll
+0x779a0000 - 0x77a2c000 	C:\Windows\system32\OLEAUT32.dll
+0x745f0000 - 0x74628000 	C:\Windows\system32\OLEACC.dll
+0x75ed0000 - 0x75efc000 	C:\Windows\system32\apphelp.dll
+0x6d7a0000 - 0x6d7ac000 	C:\Program Files\Java\jre6\bin\verify.dll
+0x6d320000 - 0x6d33f000 	C:\Program Files\Java\jre6\bin\java.dll
+0x6d280000 - 0x6d288000 	C:\Program Files\Java\jre6\bin\hpi.dll
+0x76090000 - 0x76097000 	C:\Windows\system32\PSAPI.DLL
+0x6d7e0000 - 0x6d7ef000 	C:\Program Files\Java\jre6\bin\zip.dll
+0x6d000000 - 0x6d14a000 	C:\Program Files\Java\jre6\bin\awt.dll
+0x73290000 - 0x732d1000 	C:\Windows\system32\WINSPOOL.DRV
+0x74d60000 - 0x74ef4000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.6000.16386_none_5d07289e07e1d100\COMCTL32.dll
+0x77110000 - 0x77165000 	C:\Windows\system32\SHLWAPI.dll
+0x71840000 - 0x7184c000 	C:\Windows\system32\DWMAPI.DLL
+0x74f10000 - 0x74f4f000 	C:\Windows\system32\uxtheme.dll
+0x6e6c0000 - 0x6e738000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\gdx.dll
+0x6d350000 - 0x6d356000 	C:\Program Files\Java\jre6\bin\jawt.dll
+0x10000000 - 0x10005000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\gluegen-rt-win32.dll
+0x00d10000 - 0x00d15000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\jogl_awt-win32.dll
+0x03a80000 - 0x03acd000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\jogl-win32.dll
+0x6c1e0000 - 0x6c2ab000 	C:\Windows\system32\OPENGL32.dll
+0x72c50000 - 0x72c73000 	C:\Windows\system32\GLU32.dll
+0x6c880000 - 0x6c966000 	C:\Windows\system32\DDRAW.dll
+0x6d3a0000 - 0x6d3a6000 	C:\Windows\system32\DCIMAN32.dll
+0x775c0000 - 0x77749000 	C:\Windows\system32\SETUPAPI.dll
+0x6d230000 - 0x6d27f000 	C:\Program Files\Java\jre6\bin\fontmanager.dll
+0x6efa0000 - 0x6f15a000 	C:\Windows\system32\d3d9.dll
+0x757a0000 - 0x757a8000 	C:\Windows\system32\VERSION.dll
+0x70720000 - 0x70726000 	C:\Windows\system32\d3d8thk.dll
+0x03c90000 - 0x041dc000 	C:\Windows\system32\nvd3dum.dll
+0x07070000 - 0x070e2000 	C:\Users\Knut Esten\AppData\Local\Temp\libgdx\3089703099\lwjgl.dll
+0x07120000 - 0x07170000 	C:\Users\KNUTES~1\AppData\Local\Temp\libgdx\3089703099\OpenAL32.dll
+0x760a0000 - 0x76b6e000 	C:\Windows\system32\SHELL32.dll
+0x6d4e0000 - 0x6d551000 	C:\Windows\system32\dsound.dll
+0x753f0000 - 0x7540a000 	C:\Windows\system32\POWRPROF.dll
+0x773b0000 - 0x77434000 	C:\Windows\system32\CLBCatQ.DLL
+0x75070000 - 0x75097000 	C:\Windows\System32\MMDevApi.dll
+0x750a0000 - 0x750cd000 	C:\Windows\system32\WINTRUST.dll
+0x75a20000 - 0x75b11000 	C:\Windows\system32\CRYPT32.dll
+0x75b70000 - 0x75b82000 	C:\Windows\system32\MSASN1.dll
+0x75f50000 - 0x75f6e000 	C:\Windows\system32\USERENV.dll
+0x75f30000 - 0x75f44000 	C:\Windows\system32\Secur32.dll
+0x772e0000 - 0x77309000 	C:\Windows\system32\imagehlp.dll
+0x742b0000 - 0x742d1000 	C:\Windows\System32\audioses.dll
+0x74240000 - 0x742a6000 	C:\Windows\System32\audioeng.dll
+0x75310000 - 0x75317000 	C:\Windows\System32\AVRT.dll
+0x69500000 - 0x69d99000 	C:\Windows\system32\nvoglv32.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=Cp1252 
+java_command: org.group20.sunstruck.MainDesktop
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:/Program Files/Java/jre6/bin/client;C:/Program Files/Java/jre6/bin;C:/Program Files/Java/jre6/lib/i386;C:\Program Files\MiKTeX 2.9\miktex\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\emacs-23.1\bin;C:\Program Files\Mozart\bin;C:\Program Files\Graphviz2.26.3\bin;C:\Program Files\Git\cmd
+USERNAME=Knut Esten
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 15 Stepping 6, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows Vista Build 6000 
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 15 stepping 6, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3
+
+Memory: 4k page, physical 2094948k(783356k free), swap 4415224k(2156408k free)
+
+vm_info: Java HotSpot(TM) Client VM (19.0-b09) for windows-x86 JRE (1.6.0_23-b05), built on Nov 12 2010 15:00:43 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Thu Apr 07 19:01:23 2011
+elapsed time: 4 seconds
+
