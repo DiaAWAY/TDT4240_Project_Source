@@ -11,13 +11,13 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Main implements ApplicationListener {
 	// The width and height of the orthographical, camera
@@ -30,14 +30,13 @@ public class Main implements ApplicationListener {
 	public static Body southBorder;
 	private MapSegment last;
 	private MapSegment first;
-	private SpriteBatch guiBatch;
 	private SpriteBatch spriteBatch;
-	private SpriteBatch backgroundBatch;
 	private OrthographicCamera camera;
 	private Box2DDebugRenderer renderer;
 	private int bgIteration = 0;
 	private float time = 0;
 	private boolean run = true;
+	private Matrix4 normalProjectionMatrix = new Matrix4();;
 
 	@Override
 	public void create() {
@@ -105,15 +104,13 @@ public class Main implements ApplicationListener {
 		southBorderPoly.dispose();
 
 		spriteBatch = new SpriteBatch();
-		backgroundBatch = new SpriteBatch();
-		guiBatch = new SpriteBatch();
+		normalProjectionMatrix.set(spriteBatch.getProjectionMatrix());
 		renderer = new Box2DDebugRenderer();
 
 		Game.getInstance().start();
 		first = Game.getInstance().getMap().getNext();
 		last = Game.getInstance().getMap().getNext();
 	}
-
 	@Override
 	public void render() {
 		if (!run)
@@ -121,17 +118,20 @@ public class Main implements ApplicationListener {
 
 		Gdx.gl.glClearColor((float) Math.random(), 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
+		
+		spriteBatch.setProjectionMatrix(normalProjectionMatrix);
+		spriteBatch.begin();
 		// Draw background
 		drawBackground();
-		
+	
 		if (Shop.isActive) {
 			Game.getInstance().update();
 			Game.getInstance().getShop().update();
 			drawGuiShop();
 			return;
 		}
-
+		//I have no idea why I have to do this:
+		Game.getInstance().getGui().getControlSpriteList().get(1).draw(spriteBatch);
 		// Draw GUI controls objects.
 		drawGuiControls();
 
@@ -143,24 +143,21 @@ public class Main implements ApplicationListener {
 
 		// Update camera
 		updateCamera();
-
+		spriteBatch.end();
 		// Draw game objects.
 		drawGameObjects();
 
 		//renderer.render(Game.getInstance().getWorld());
+		
 	}
 
 	private void drawGuiShop() {
-		guiBatch.begin();
-		for (Sprite sprite : Game.getInstance().getGui().getShopSpriteList())
-			sprite.draw(guiBatch);
-		guiBatch.end();
+		for (Sprite sprite : Game.getInstance().getGui().getShopSpriteList()){
+			sprite.draw(spriteBatch);
+		}
 	}
 
 	private void drawGameObjects() {
-		System.out.println("--------------");
-		System.out.println(camera.combined);
-		System.out.println("--------------");
 		
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
@@ -207,11 +204,14 @@ public class Main implements ApplicationListener {
 	}
 
 	private void drawGuiControls() {
-		guiBatch.begin();
-		for (Sprite sprite : Game.getInstance().getGui().getControlSpriteList())
-			sprite.draw(guiBatch);
-		guiBatch.end();
-
+		for (Sprite sprite : Game.getInstance().getGui().getControlSpriteList()){
+			sprite.draw(spriteBatch);
+//			spriteBatch.draw(sprite.getTexture(), sprite.getX(), sprite.getY());
+		}
+//		Sprite sprite = Game.getInstance().getGui().getControlSpriteList().get(1);
+//		sprite.draw(spriteBatch);
+//		sprite = Game.getInstance().getGui().getControlSpriteList().get(0);
+//		sprite.draw(spriteBatch);
 	}
 
 	/**
@@ -222,12 +222,10 @@ public class Main implements ApplicationListener {
 		TextureRegion rl = last.getTextureRegion();
 		float bgPosition = bgIteration * bgSpeed;
 		if (rf != null && rl != null) {
-			backgroundBatch.begin();
-			backgroundBatch.draw(rf, -bgPosition, 0, Gdx.graphics.getWidth(),
+			spriteBatch.draw(rf, -bgPosition, 0, Gdx.graphics.getWidth(),
 					Gdx.graphics.getHeight());
-			backgroundBatch.draw(rl, -bgPosition + Gdx.graphics.getWidth(), 0,
+			spriteBatch.draw(rl, -bgPosition + Gdx.graphics.getWidth(), 0,
 					Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			backgroundBatch.end();
 		} else {
 			System.out.println("drawBackground(): rf is:" + rf + ", rl is:"
 					+ rl);
@@ -242,7 +240,7 @@ public class Main implements ApplicationListener {
 			last = Game.getInstance().getMap().getNext();
 			bgIteration = 0;
 		}
-
+		
 	}
 
 	@Override
