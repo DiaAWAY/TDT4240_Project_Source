@@ -19,11 +19,11 @@ public class LaserGreen1 extends GameObject {
 		density = 5;
 
 	}
+
 	@Override
 	public void contact(Contact contact, float impactDamage) {
 		dispose();
 
 	}
-
 
 }

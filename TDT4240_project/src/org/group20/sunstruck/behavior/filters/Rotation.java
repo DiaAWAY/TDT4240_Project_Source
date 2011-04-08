@@ -22,7 +22,7 @@ public class Rotation implements Filter {
 			return;
 		if (behavior == BEHAVIOR.BOSS_CHARGE)
 			return;
-		if(behavior == BEHAVIOR.LAUNCHED)
+		if (behavior == BEHAVIOR.LAUNCHED)
 			return;
 
 		if (behavior == BEHAVIOR.LINEAR_MOVEMENT) {

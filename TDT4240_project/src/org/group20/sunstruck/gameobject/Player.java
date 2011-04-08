@@ -16,7 +16,7 @@ public class Player extends GameObject {
 	private long reloadTimeGun = 200;
 	private long startBomb = System.currentTimeMillis();
 	private long reloadTimeBomb = 1000;
-	
+
 	private int weaponLevel = 1;
 	private int hullLevel = 0;
 	private int shieldLevel = 0;
@@ -93,7 +93,7 @@ public class Player extends GameObject {
 
 	@Override
 	public void dispose() {
-//		System.out.println(score);
+		// System.out.println(score);
 		// Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
 
 	}
@@ -107,37 +107,68 @@ public class Player extends GameObject {
 
 		Vector2 centerPosition = GameObjectFactory.getProjectilePosition(
 				weaponType, this);
-		centerPosition.sub(0, weaponType.height/4);
+		centerPosition.sub(0, weaponType.height / 4);
 
-		if(weaponLevel == 1){
-			Game.getInstance().getGoFactory().generateWeaponShot(weaponType, centerPosition, body.getAngle()).isEnemy = false;
+		if (weaponLevel == 1) {
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(weaponType, centerPosition,
+							body.getAngle()).isEnemy = false;
 			return;
 		}
-			
-		float distance = (height-weaponType.height)/(weaponLevel);
-		float angleChange = (float)Math.PI/4;
-		if(weaponLevel % 2 == 0)
-			angleChange = 2*angleChange/(weaponLevel-2);
+
+		float distance = (height - weaponType.height) / (weaponLevel);
+		float angleChange = (float) Math.PI / 4;
+		if (weaponLevel % 2 == 0)
+			angleChange = 2 * angleChange / (weaponLevel - 2);
 		else
-			angleChange = 2*angleChange/(weaponLevel-1);
-		
-		
-		if(weaponLevel % 2 == 0){
-			Game.getInstance().getGoFactory().generateWeaponShot(weaponType, centerPosition.tmp().add(0,distance), body.getAngle()).isEnemy = false;
-			Game.getInstance().getGoFactory().generateWeaponShot(weaponType, centerPosition.tmp().sub(0,distance), body.getAngle()).isEnemy = false;
-			for(int j = 1; j < weaponLevel/2; j++)
-				Game.getInstance().getGoFactory().generateWeaponShot(weaponType, centerPosition.tmp().add(0,distance*(j+1)), body.getAngle()+angleChange*j).isEnemy = false;
-			for(int j = 1; j < weaponLevel/2; j++)
-				Game.getInstance().getGoFactory().generateWeaponShot(weaponType, centerPosition.tmp().sub(0,distance*(j+1)), body.getAngle()-angleChange*j).isEnemy = false;
-		}else{
-			Game.getInstance().getGoFactory().generateWeaponShot(weaponType, centerPosition.tmp(),body.getAngle()).isEnemy = false;
-			for(int j = 1; j <= weaponLevel/2; j++)				
-				Game.getInstance().getGoFactory().generateWeaponShot(weaponType, centerPosition.tmp().add(0,distance*j), body.getAngle()+angleChange*j).isEnemy = false;
-			for(int j = 1; j <= weaponLevel/2; j++)
-				Game.getInstance().getGoFactory().generateWeaponShot(weaponType, centerPosition.tmp().sub(0,distance*j), body.getAngle()-angleChange*j).isEnemy = false;
+			angleChange = 2 * angleChange / (weaponLevel - 1);
+
+		if (weaponLevel % 2 == 0) {
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(weaponType,
+							centerPosition.tmp().add(0, distance),
+							body.getAngle()).isEnemy = false;
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(weaponType,
+							centerPosition.tmp().sub(0, distance),
+							body.getAngle()).isEnemy = false;
+			for (int j = 1; j < weaponLevel / 2; j++)
+				Game.getInstance()
+						.getGoFactory()
+						.generateWeaponShot(
+								weaponType,
+								centerPosition.tmp().add(0, distance * (j + 1)),
+								body.getAngle() + angleChange * j).isEnemy = false;
+			for (int j = 1; j < weaponLevel / 2; j++)
+				Game.getInstance()
+						.getGoFactory()
+						.generateWeaponShot(
+								weaponType,
+								centerPosition.tmp().sub(0, distance * (j + 1)),
+								body.getAngle() - angleChange * j).isEnemy = false;
+		} else {
+			Game.getInstance()
+					.getGoFactory()
+					.generateWeaponShot(weaponType, centerPosition.tmp(),
+							body.getAngle()).isEnemy = false;
+			for (int j = 1; j <= weaponLevel / 2; j++)
+				Game.getInstance()
+						.getGoFactory()
+						.generateWeaponShot(weaponType,
+								centerPosition.tmp().add(0, distance * j),
+								body.getAngle() + angleChange * j).isEnemy = false;
+			for (int j = 1; j <= weaponLevel / 2; j++)
+				Game.getInstance()
+						.getGoFactory()
+						.generateWeaponShot(weaponType,
+								centerPosition.tmp().sub(0, distance * j),
+								body.getAngle() - angleChange * j).isEnemy = false;
 		}
 	}
-	
+
 	public void addWeaponLevel(int weaponUpgrade) {
 		weaponLevel += weaponUpgrade;
 		// Do whatever you like.
@@ -173,6 +204,5 @@ public class Player extends GameObject {
 	public int getSpeedLevel() {
 		return speedLevel;
 	}
-		
 
 }

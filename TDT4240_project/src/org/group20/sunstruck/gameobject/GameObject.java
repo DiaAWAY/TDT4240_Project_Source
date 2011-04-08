@@ -16,12 +16,12 @@ public abstract class GameObject {
 	protected GameObject(TextureRegion textureRegion, float width) {
 		this.textureRegion = textureRegion;
 		this.width = width;
-		if (textureRegion != null){
+		if (textureRegion != null) {
 			this.height = width * textureRegion.getRegionHeight()
 					/ textureRegion.getRegionWidth();
-		}else
-			System.err.println("No texture loaded into contructor when "+ this+ " was initialized.");
-			
+		} else
+			System.err.println("No texture loaded into contructor when " + this
+					+ " was initialized.");
 
 		if (explosionTextures.isEmpty()) {
 			explosionTextures
@@ -113,8 +113,8 @@ public abstract class GameObject {
 		if (time > explosionTime) {
 			explode();
 			startExplosionTime = System.currentTimeMillis();
-		} else 
-			
+		} else
+
 		if (weaponType != null)
 			if (!isProjectile) {
 				time = System.currentTimeMillis() - start;

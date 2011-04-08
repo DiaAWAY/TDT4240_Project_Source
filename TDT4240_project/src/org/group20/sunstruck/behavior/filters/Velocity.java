@@ -30,23 +30,23 @@ public class Velocity implements Filter {
 		float randomize = (float) Math.random();
 
 		Body body = go.getBody();
-		if(behavior == BEHAVIOR.LAUNCHED){				
-			float x = (float)Math.cos(body.getAngle());
-			float y = (float)Math.sin(body.getAngle());
-			velocity.set(x,y);
-			velocity.mul(go.getSpeed()*2);
+		if (behavior == BEHAVIOR.LAUNCHED) {
+			float x = (float) Math.cos(body.getAngle());
+			float y = (float) Math.sin(body.getAngle());
+			velocity.set(x, y);
+			velocity.mul(go.getSpeed() * 2);
 			body.setLinearVelocity(velocity);
-			
-			if(body.getWorldPoint(new Vector2(0,0)).x <= 0){
+
+			if (body.getWorldPoint(new Vector2(0, 0)).x <= 0) {
 				go.setBURST_COUNT(3);
 				go.setBehavior(BEHAVIOR.PLAYER_GRAVITY);
 			}
-			
+
 		}
-		
+
 		if (behavior == BEHAVIOR.BOSS_GET_IN_POSITION) {
 			Vector2 position = body.getWorldCenter();
-			
+
 			if (position.x < Main.CAMERA_WIDTH / 2 + go.getWidth() / 3.5 - 0.2f)
 				velocity.set(go.getSpeed() * 3, 0);
 			else if (position.x > Main.CAMERA_WIDTH / 2 + go.getWidth() / 3.5
@@ -77,10 +77,10 @@ public class Velocity implements Filter {
 					velocity.mul(-1);
 			}
 			body.setLinearVelocity(velocity);
-			
-			if (randomize < 0.001){
-//				((Boss) go).setCanShoot(false);
-//				go.setBehavior(BEHAVIOR.BOSS_CHARGE);
+
+			if (randomize < 0.001) {
+				// ((Boss) go).setCanShoot(false);
+				// go.setBehavior(BEHAVIOR.BOSS_CHARGE);
 			}
 
 		}

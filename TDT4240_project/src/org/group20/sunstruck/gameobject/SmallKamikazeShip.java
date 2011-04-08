@@ -19,6 +19,7 @@ public class SmallKamikazeShip extends GameObject {
 		shield = 0;
 		currentShield = 0;
 	}
+
 	@Override
 	public void update() {
 		Behavior.applyBehavior(this);
@@ -30,14 +31,14 @@ public class SmallKamikazeShip extends GameObject {
 		if (time > explosionTime) {
 			explode();
 			startExplosionTime = System.currentTimeMillis();
-		} else 
-			
+		} else
+
 		if (weaponType != null)
-				time = System.currentTimeMillis() - start;
-				if (time > reloadTime) {
-					shoot();
-					start = System.currentTimeMillis();
-				}
+			time = System.currentTimeMillis() - start;
+		if (time > reloadTime) {
+			shoot();
+			start = System.currentTimeMillis();
+		}
 	}
 
 }

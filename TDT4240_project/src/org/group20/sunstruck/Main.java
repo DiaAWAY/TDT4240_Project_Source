@@ -109,19 +109,20 @@ public class Main implements ApplicationListener {
 
 		spriteBatch = new SpriteBatch();
 		normalProjectionMatrix.set(spriteBatch.getProjectionMatrix());
-		
+
 		notRotatedMatrix.set(spriteBatch.getTransformMatrix());
-		
+
 		rotatedMatrix.set(notRotatedMatrix.getValues());
-		rotatedMatrix.setToRotation(new Vector3(0,0,1), -3);
+		rotatedMatrix.setToRotation(new Vector3(0, 0, 1), -3);
 		System.out.println(rotatedMatrix);
-		
+
 		renderer = new Box2DDebugRenderer();
 
 		Game.getInstance().start();
 		first = Game.getInstance().getMap().getNext();
 		last = Game.getInstance().getMap().getNext();
 	}
+
 	@Override
 	public void render() {
 		if (!run)
@@ -133,10 +134,10 @@ public class Main implements ApplicationListener {
 		spriteBatch.begin();
 		// Draw background
 		drawBackground();
-		//I have no idea why I have to do this:
-		Game.getInstance().getGui().getControlSpriteList().get(1).draw(spriteBatch);
-		
-	
+		// I have no idea why I have to do this:
+		Game.getInstance().getGui().getControlSpriteList().get(1)
+				.draw(spriteBatch);
+
 		if (Shop.isActive) {
 			Game.getInstance().update();
 			Game.getInstance().getShop().update();
@@ -162,41 +163,43 @@ public class Main implements ApplicationListener {
 		// Draw Stats
 		drawGuiStats();
 
-		//renderer.render(Game.getInstance().getWorld());
-		
-	}
-		private void drawGuiStats() {
+		// renderer.render(Game.getInstance().getWorld());
 
-			spriteBatch.setTransformMatrix(rotatedMatrix);
-			spriteBatch.begin();
-			
-			Game.getInstance().getGui().updateStats();
-			
-			for (BitmapFontCache stats : Game.getInstance().getGui()
-					.getStatsFontList()) {
-				stats.draw(spriteBatch);
-			}
-			
-			spriteBatch.end();
-			spriteBatch.setTransformMatrix(notRotatedMatrix);
+	}
+
+	private void drawGuiStats() {
+
+		spriteBatch.setTransformMatrix(rotatedMatrix);
+		spriteBatch.begin();
+
+		Game.getInstance().getGui().updateStats();
+
+		for (BitmapFontCache stats : Game.getInstance().getGui()
+				.getStatsFontList()) {
+			stats.draw(spriteBatch);
 		}
+
+		spriteBatch.end();
+		spriteBatch.setTransformMatrix(notRotatedMatrix);
+	}
 
 	private void drawGuiShop() {
 		spriteBatch.end();
 		spriteBatch.begin();
-		for (BitmapFontCache text : Game.getInstance().getGui().getShopFontList()){
+		for (BitmapFontCache text : Game.getInstance().getGui()
+				.getShopFontList()) {
 			text.draw(spriteBatch);
 		}
 		spriteBatch.end();
 		spriteBatch.begin();
-		for (Sprite sprite : Game.getInstance().getGui().getShopSpriteList()){
+		for (Sprite sprite : Game.getInstance().getGui().getShopSpriteList()) {
 			sprite.draw(spriteBatch);
 		}
 		spriteBatch.end();
 	}
 
 	private void drawGameObjects() {
-		
+
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 
@@ -242,14 +245,16 @@ public class Main implements ApplicationListener {
 	}
 
 	private void drawGuiControls() {
-		for (Sprite sprite : Game.getInstance().getGui().getControlSpriteList()){
+		for (Sprite sprite : Game.getInstance().getGui().getControlSpriteList()) {
 			sprite.draw(spriteBatch);
-//			spriteBatch.draw(sprite.getTexture(), sprite.getX(), sprite.getY());
+			// spriteBatch.draw(sprite.getTexture(), sprite.getX(),
+			// sprite.getY());
 		}
-//		Sprite sprite = Game.getInstance().getGui().getControlSpriteList().get(1);
-//		sprite.draw(spriteBatch);
-//		sprite = Game.getInstance().getGui().getControlSpriteList().get(0);
-//		sprite.draw(spriteBatch);
+		// Sprite sprite =
+		// Game.getInstance().getGui().getControlSpriteList().get(1);
+		// sprite.draw(spriteBatch);
+		// sprite = Game.getInstance().getGui().getControlSpriteList().get(0);
+		// sprite.draw(spriteBatch);
 	}
 
 	/**
@@ -278,7 +283,7 @@ public class Main implements ApplicationListener {
 			last = Game.getInstance().getMap().getNext();
 			bgIteration = 0;
 		}
-		
+
 	}
 
 	@Override

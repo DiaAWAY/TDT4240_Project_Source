@@ -55,7 +55,7 @@ public class Game implements GameInterface, ContactListener {
 
 	public void initializePlayer() {
 		player = (Player) goFactory.createPlayer(new Vector2(0, 0), 0);
-		goFactory.createBoss(new Vector2(12,0), (float)Math.PI);
+		goFactory.createBoss(new Vector2(12, 0), (float) Math.PI);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -130,9 +130,9 @@ public class Game implements GameInterface, ContactListener {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
 			if (enemySpawnTime >= 3) {
 				double randomize = Math.random();
-//				spawnMediumKamikazeSquad();
-//				spawnSmallKamikazeSquad();
-//				spawnSmallLaserSquad();
+				// spawnMediumKamikazeSquad();
+				// spawnSmallKamikazeSquad();
+				// spawnSmallLaserSquad();
 				enemySpawnTime = 0;
 			}
 		}
