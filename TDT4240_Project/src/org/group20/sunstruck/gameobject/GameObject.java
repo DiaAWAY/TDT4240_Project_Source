@@ -102,6 +102,7 @@ public abstract class GameObject {
 	long explosionTime = 67;
 	long startExplosionTime = System.currentTimeMillis();
 	boolean isExplosionSize = false;
+	float explosionSizeFactor = 2;
 
 	public void update() {
 		Behavior.applyBehavior(this);
@@ -190,7 +191,7 @@ public abstract class GameObject {
 
 	void explode() {
 		if (!isExplosionSize) {
-			width *= 3;
+			width *= explosionSizeFactor;
 			height = width;
 			isExplosionSize = true;
 		}
