@@ -82,7 +82,6 @@ public class Shop {
 
 		if (Game.getInstance().getInput().isWeaponUpgraded()
 				&& Game.getInstance().getPlayer().getScore() >= weaponUpgradeCost) {
-			System.out.println("test5");
 			weaponUpgrade++;
 
 			if (weaponUpgrade == 1)
@@ -93,7 +92,8 @@ public class Shop {
 							Game.getInstance().getPlayer().getScore()
 									- weaponUpgradeCost);
 			weaponUpgradeCost = 5000 + 5000 * (Game.getInstance().getPlayer()
-					.getWeaponLevel() + weaponUpgrade);
+					.getWeaponLevel()
+					+ weaponUpgrade - 1);
 
 			float x = weaponCost.getX();
 			float y = weaponCost.getY();
@@ -263,8 +263,6 @@ public class Shop {
 					.setResetTexture(
 							Game.getInstance().getGui().getTextureReset());
 		}
-
-		System.out.println(Game.getInstance().getPlayer().getScore());
 
 	}
 
