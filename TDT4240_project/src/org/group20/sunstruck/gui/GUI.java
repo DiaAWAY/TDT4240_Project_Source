@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 
 public class GUI {
+	public static boolean isHelpActive = false;
 
 	TextureRegion textureUpgWeapon;
 	TextureRegion textureUpgWeaponPressed;
@@ -29,12 +30,28 @@ public class GUI {
 	TextureRegion textureReset;
 	TextureRegion textureResetPressed;
 
+	TextureRegion texturePlay;
+
+	TextureRegion texturePlayPressed;
+	TextureRegion textureHelp;
+	TextureRegion textureHelpPressed;
+	TextureRegion textureQuit;
+	TextureRegion textureQuitPressed;
+	TextureRegion textureMenuScreen;
+	TextureRegion textureHelpScreen;
+
 	Sprite weaponUpgButton;
 	Sprite hullUpgButton;
 	Sprite shieldUpgButton;
 	Sprite speedUpgButton;
 	Sprite resetButton;
 	Sprite confirmButton;
+
+	Sprite playSprite;
+
+	Sprite helpSprite;
+	Sprite quitSprite;
+	Sprite menuBackground;
 
 	BitmapFont f;
 
@@ -46,6 +63,7 @@ public class GUI {
 	BitmapFontCache scoreFont;
 	BitmapFontCache shieldFont;
 	BitmapFontCache hullFont;
+	BitmapFontCache scoreShopFont;
 
 	Sprite controlCircle;
 	Sprite fireButton;
@@ -57,6 +75,7 @@ public class GUI {
 
 	ArrayList<BitmapFontCache> shopFontList = new ArrayList<BitmapFontCache>();
 	ArrayList<BitmapFontCache> statsFontList = new ArrayList<BitmapFontCache>();
+	ArrayList<Sprite> menuSpriteList = new ArrayList<Sprite>();
 	ArrayList<Sprite> controlSpriteList = new ArrayList<Sprite>();
 	ArrayList<Sprite> shopSpriteList = new ArrayList<Sprite>();
 
@@ -78,6 +97,15 @@ public class GUI {
 		textureReset = ta.findRegion("guiReset");
 		textureResetPressed = ta.findRegion("guiResetPressed");
 
+		texturePlay = ta.findRegion("guiPlay");
+		texturePlayPressed = ta.findRegion("guiPlayPressed");
+		textureHelp = ta.findRegion("guiHelp");
+		textureHelpPressed = ta.findRegion("guiHelpPressed");
+		textureQuit = ta.findRegion("guiQuit");
+		textureQuitPressed = ta.findRegion("guiQuitPressed");
+		textureMenuScreen = ta.findRegion("screenMain");
+		textureHelpScreen = ta.findRegion("screenHelp");
+
 		TextureRegion textureControlCircle = ta.findRegion("controlCircle");
 		TextureRegion textureFireButton = ta.findRegion("fireButton");
 
@@ -88,6 +116,24 @@ public class GUI {
 		speedUpgButton = new Sprite(textureUpgSpeed);
 		confirmButton = new Sprite(textureConfirm);
 		resetButton = new Sprite(textureReset);
+
+		playSprite = new Sprite(texturePlay);
+		helpSprite = new Sprite(textureHelp);
+		quitSprite = new Sprite(textureQuit);
+
+		playSprite.setPosition(
+				Gdx.graphics.getWidth() / 2 - playSprite.getWidth() / 2,
+				Gdx.graphics.getHeight() * 5 / 8);
+		helpSprite.setPosition(
+				Gdx.graphics.getWidth() / 2 - playSprite.getWidth() / 2,
+				Gdx.graphics.getHeight() * 4 / 8);
+		quitSprite.setPosition(
+				Gdx.graphics.getWidth() / 2 - playSprite.getWidth() / 2,
+				Gdx.graphics.getHeight() * 3 / 8);
+
+		menuSpriteList.add(playSprite);
+		menuSpriteList.add(helpSprite);
+		menuSpriteList.add(quitSprite);
 
 		controlCircle = new Sprite(textureControlCircle);
 		fireButton = new Sprite(textureFireButton);
@@ -163,21 +209,12 @@ public class GUI {
 		scoreFont = new BitmapFontCache(f);
 		hullFont = new BitmapFontCache(f);
 		shieldFont = new BitmapFontCache(f);
-
-		scoreFont.setText("SCORE: 0", 0, 0);
-		hullFont.setText("Hull: 100", 0, 0);
-		shieldFont.setText("Shield: 100", 0, 0);
+		scoreShopFont = new BitmapFontCache(f);
 
 		scoreFont.setColor(Color.BLACK);
 		hullFont.setColor(Color.BLACK);
 		shieldFont.setColor(Color.BLACK);
-
-		scoreFont.setPosition(-Gdx.graphics.getHeight(),
-				Gdx.graphics.getWidth() - 100);
-		hullFont.setPosition(Gdx.graphics.getWidth() - 190,
-				Gdx.graphics.getHeight());
-		shieldFont.setPosition(Gdx.graphics.getWidth() - 190,
-				Gdx.graphics.getHeight() - 15);
+		scoreShopFont.setColor(Color.BLACK);
 
 		statsFontList.add(scoreFont);
 		statsFontList.add(hullFont);
@@ -187,24 +224,38 @@ public class GUI {
 
 	public void updateStats() {
 		scoreFont.setText(
-				"SCORE:"
+				"SCORE: "
 						+ Integer.toString((int) Game.getInstance().getPlayer()
 								.getScore()), 0, 0);
 		hullFont.setText(
-				"Hull:   "
+				"Hull: "
 						+ Integer.toString((int) Game.getInstance().getPlayer()
 								.getHull()), 0, 0);
 		shieldFont.setText(
 				"Shield: "
 						+ Integer.toString((int) Game.getInstance().getPlayer()
 								.getShield()), 0, 0);
+		scoreShopFont.setText(
+				"SCORE: "
+						+ Integer.toString((int) Game.getInstance().getPlayer()
+								.getScore()), 0, 0);
 
-		scoreFont.setPosition(Gdx.graphics.getWidth() - 100,
-				Gdx.graphics.getHeight());
-		hullFont.setPosition(Gdx.graphics.getWidth() - 190,
-				Gdx.graphics.getHeight());
-		shieldFont.setPosition(Gdx.graphics.getWidth() - 190,
-				Gdx.graphics.getHeight() - 15);
+		// scoreFont.setPosition(Gdx.graphics.getWidth() - 100,
+		// Gdx.graphics.getHeight());
+		// hullFont.setPosition(Gdx.graphics.getWidth() - 190,
+		// Gdx.graphics.getHeight());
+		// shieldFont.setPosition(Gdx.graphics.getWidth() - 190,
+		// Gdx.graphics.getHeight() - 15);
+
+		scoreFont.setPosition(-Gdx.graphics.getHeight(),
+				Gdx.graphics.getWidth());
+		hullFont.setPosition(-Gdx.graphics.getHeight(),
+				Gdx.graphics.getWidth() - 15);
+		shieldFont.setPosition(-Gdx.graphics.getHeight(),
+				Gdx.graphics.getWidth() - 30);
+		scoreShopFont.setPosition(
+				Gdx.graphics.getWidth() / 2 - scoreShopFont.getBounds().width
+						/ 2, Gdx.graphics.getHeight());
 	}
 
 	public String getWeaponString() {
@@ -378,6 +429,10 @@ public class GUI {
 		this.shopSpriteList = shopSpriteList;
 	}
 
+	public ArrayList<Sprite> getMenuSpriteList() {
+		return menuSpriteList;
+	}
+
 	public TextureRegion getTextureReset() {
 		return textureReset;
 	}
@@ -412,5 +467,97 @@ public class GUI {
 
 	public void setResetTexture(TextureRegion tr) {
 		resetButton.setRegion(tr);
+	}
+
+	public BitmapFontCache getScoreShopFont() {
+		return scoreShopFont;
+	}
+
+	public TextureRegion getTexturePlay() {
+		return texturePlay;
+	}
+
+	public void setTexturePlay(TextureRegion texturePlay) {
+		this.texturePlay = texturePlay;
+	}
+
+	public TextureRegion getTexturePlayPressed() {
+		return texturePlayPressed;
+	}
+
+	public void setTexturePlayPressed(TextureRegion texturePlayPressed) {
+		this.texturePlayPressed = texturePlayPressed;
+	}
+
+	public TextureRegion getTextureHelp() {
+		return textureHelp;
+	}
+
+	public void setTextureHelp(TextureRegion textureHelp) {
+		this.textureHelp = textureHelp;
+	}
+
+	public TextureRegion getTextureHelpPressed() {
+		return textureHelpPressed;
+	}
+
+	public void setTextureHelpPressed(TextureRegion textureHelpPressed) {
+		this.textureHelpPressed = textureHelpPressed;
+	}
+
+	public TextureRegion getTextureQuit() {
+		return textureQuit;
+	}
+
+	public void setTextureQuit(TextureRegion textureQuit) {
+		this.textureQuit = textureQuit;
+	}
+
+	public TextureRegion getTextureQuitPressed() {
+		return textureQuitPressed;
+	}
+
+	public void setTextureQuitPressed(TextureRegion textureQuitPressed) {
+		this.textureQuitPressed = textureQuitPressed;
+	}
+
+	public TextureRegion getTextureMenuScreen() {
+		return textureMenuScreen;
+	}
+
+	public void setTextureMenuScreen(TextureRegion textureMenuScreen) {
+		this.textureMenuScreen = textureMenuScreen;
+	}
+
+	public TextureRegion getTextureHelpScreen() {
+		return textureHelpScreen;
+	}
+
+	public void setTextureHelpScreen(TextureRegion textureHelpScreen) {
+		this.textureHelpScreen = textureHelpScreen;
+	}
+
+	public Sprite getPlaySprite() {
+		return playSprite;
+	}
+
+	public void setPlayTexture(TextureRegion tr) {
+		playSprite.setRegion(tr);
+	}
+
+	public Sprite getHelpSprite() {
+		return helpSprite;
+	}
+
+	public void setHelpTexture(TextureRegion tr) {
+		helpSprite.setRegion(tr);
+	}
+
+	public Sprite getQuitSprite() {
+		return quitSprite;
+	}
+
+	public void setQuitTexture(TextureRegion tr) {
+		quitSprite.setRegion(tr);
 	}
 }
