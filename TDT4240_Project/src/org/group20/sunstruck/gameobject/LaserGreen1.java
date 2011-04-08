@@ -28,3 +28,4 @@ public class LaserGreen1 extends GameObject {
 	}
 
 }
+ 
