@@ -41,7 +41,6 @@ public class Velocity implements Filter {
 				go.setBURST_COUNT(3);
 				go.setBehavior(BEHAVIOR.PLAYER_GRAVITY);
 			}
-
 		}
 
 		if (behavior == BEHAVIOR.BOSS_GET_IN_POSITION) {
@@ -78,9 +77,9 @@ public class Velocity implements Filter {
 			}
 			body.setLinearVelocity(velocity);
 
-			if (randomize < 0.001) {
-				// ((Boss) go).setCanShoot(false);
-				// go.setBehavior(BEHAVIOR.BOSS_CHARGE);
+			if (randomize < 0.005) {
+				((Boss) go).setCanShoot(false);
+				go.setBehavior(BEHAVIOR.BOSS_CHARGE);
 			}
 
 		}

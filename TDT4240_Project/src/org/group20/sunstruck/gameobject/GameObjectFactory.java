@@ -89,12 +89,16 @@ public class GameObjectFactory {
 			go = createLaserTiny1(position, angle);
 		if (weaponType instanceof LaserTiny2)
 			go = createLaserTiny2(position, angle);
-		if (weaponType instanceof SmallKamikazeShip)
+		if (weaponType instanceof SmallKamikazeShip) {
 			go = createSmallKamikazeShip(position, angle);
+			go.score = 0;
+		}
 		if (weaponType instanceof MediumKamikazeShip)
 			go = createMediumKamikazeShip(position, angle);
 		if (weaponType instanceof LaserGreen1)
 			go = createLaserGreen1(position, angle);
+
+		go.isProjectile = true;
 
 		return go;
 	}

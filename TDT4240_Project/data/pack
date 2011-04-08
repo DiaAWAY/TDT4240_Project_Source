@@ -356,14 +356,14 @@ Textures3.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-rockToWater
+screenMain
   rotate: false
   xy: 0, 0
   size: 480, 800
   orig: 480, 800
   offset: 0, 0
   index: -1
-rockToLava
+screenHelp
   rotate: false
   xy: 481, 0
   size: 480, 800
@@ -557,14 +557,14 @@ Textures4.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-rockToGrass
+rockToWater
   rotate: false
   xy: 0, 0
   size: 480, 800
   orig: 480, 800
   offset: 0, 0
   index: -1
-rockToDesert
+rockToLava
   rotate: false
   xy: 481, 0
   size: 480, 800
@@ -660,6 +660,25 @@ Textures5.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+rockToGrass
+  rotate: false
+  xy: 0, 0
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+rockToDesert
+  rotate: false
+  xy: 481, 0
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+
+Textures6.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 rock3
   rotate: false
   xy: 0, 0
@@ -675,7 +694,7 @@ rock2
   offset: 0, 0
   index: -1
 
-Textures6.png
+Textures7.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -694,7 +713,7 @@ lavaToRock
   offset: 0, 0
   index: -1
 
-Textures7.png
+Textures8.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -713,7 +732,7 @@ lava1
   offset: 0, 0
   index: -1
 
-Textures8.png
+Textures9.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -732,7 +751,7 @@ grassToDesert
   offset: 0, 0
   index: -1
 
-Textures9.png
+Textures10.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -751,7 +770,7 @@ grass2
   offset: 0, 0
   index: -1
 
-Textures10.png
+Textures11.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -770,7 +789,7 @@ desertToRock
   offset: 0, 0
   index: -1
 
-Textures11.png
+Textures12.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -789,7 +808,7 @@ desert3
   offset: 0, 0
   index: -1
 
-Textures12.png
+Textures13.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -808,7 +827,7 @@ desert1
   offset: 0, 0
   index: -1
 
-Textures13.png
+Textures14.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none

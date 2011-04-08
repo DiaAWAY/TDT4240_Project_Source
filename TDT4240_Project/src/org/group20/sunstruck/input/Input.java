@@ -1,6 +1,7 @@
 package org.group20.sunstruck.input;
 
 import org.group20.sunstruck.Game;
+import org.group20.sunstruck.Menu;
 import org.group20.sunstruck.Shop;
 import org.group20.sunstruck.gui.GUI;
 
@@ -27,6 +28,13 @@ public class Input {
 	boolean speedUpgraded = false;
 	boolean confirmUpgrades = false;
 	boolean resetUpgrades = false;
+
+	boolean play = false;
+	boolean help = false;
+	boolean quit = false;
+	boolean playPressed = false;
+	boolean helpPressed = false;
+	boolean quitPressed = false;
 
 	// Booleans for the pressed-down effect
 	boolean weaponPressed = false;
@@ -60,10 +68,58 @@ public class Input {
 	 * button has been pressed, and if the accelerometer has been activated.
 	 */
 	public void update() {
-		if (Shop.isActive)
-			updateShop();
-		else
-			updatePlayer();
+		if (Menu.isActive) {
+			updateMenu();
+		} else {
+			if (Shop.isActive)
+				updateShop();
+			else
+				updatePlayer();
+		}
+	}
+
+	private void updateMenu() {
+		if (Gdx.input.isTouched()) {
+			if (GUI.isHelpActive) {
+				if (!touched) {
+					GUI.isHelpActive = false;
+					help = false;
+					touched = true;
+				}
+			} else {
+				if (getHitButton(Game.getInstance().getGui().getPlaySprite())) {
+					if (!touched)
+						play = true;
+					playPressed = true;
+				} else
+					playPressed = false;
+				if (Game.getInstance()
+						.getInput()
+						.getHitButton(
+								Game.getInstance().getGui().getHelpSprite())) {
+					if (!touched)
+						help = true;
+					helpPressed = true;
+				} else
+					helpPressed = false;
+				if (Game.getInstance()
+						.getInput()
+						.getHitButton(
+								Game.getInstance().getGui().getQuitSprite())) {
+					if (!touched)
+						quit = true;
+					quitPressed = true;
+				} else
+					quitPressed = false;
+				touched = true;
+			}
+		} else {
+			playPressed = false;
+			helpPressed = false;
+			quitPressed = false;
+
+			touched = false;
+		}
 	}
 
 	private void updateShop() {
@@ -365,6 +421,54 @@ public class Input {
 
 	public boolean isResetPressed() {
 		return resetPressed;
+	}
+
+	public boolean isPlay() {
+		return play;
+	}
+
+	public void setPlay(boolean play) {
+		this.play = play;
+	}
+
+	public boolean isHelp() {
+		return help;
+	}
+
+	public void setHelp(boolean help) {
+		this.help = help;
+	}
+
+	public boolean isQuit() {
+		return quit;
+	}
+
+	public void setQuit(boolean quit) {
+		this.quit = quit;
+	}
+
+	public boolean isPlayPressed() {
+		return playPressed;
+	}
+
+	public void setPlayPressed(boolean playPressed) {
+		this.playPressed = playPressed;
+	}
+
+	public boolean isHelpPressed() {
+		return helpPressed;
+	}
+
+	public void setHelpPressed(boolean helpPressed) {
+		this.helpPressed = helpPressed;
+	}
+
+	public boolean isQuitPressed() {
+		return quitPressed;
+	}
+
+	public void setQuitPressed(boolean quitPressed) {
+		this.quitPressed = quitPressed;
 	}
 
 }

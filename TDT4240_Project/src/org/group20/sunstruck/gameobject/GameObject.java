@@ -102,17 +102,19 @@ public abstract class GameObject {
 	long explosionTime = 67;
 	long startExplosionTime = System.currentTimeMillis();
 	boolean isExplosionSize = false;
+	float explosionSizeFactor = 2;
 
 	public void update() {
 		Behavior.applyBehavior(this);
 		shieldRegeneration();
 		long time = 0;
 
-		if (isExploding)
+		if (isExploding) {
 			time = System.currentTimeMillis() - startExplosionTime;
-		if (time > explosionTime) {
-			explode();
-			startExplosionTime = System.currentTimeMillis();
+			if (time > explosionTime) {
+				explode();
+				startExplosionTime = System.currentTimeMillis();
+			}
 		} else
 
 		if (weaponType != null)
@@ -190,7 +192,7 @@ public abstract class GameObject {
 
 	void explode() {
 		if (!isExplosionSize) {
-			width *= 3;
+			width *= explosionSizeFactor;
 			height = width;
 			isExplosionSize = true;
 		}

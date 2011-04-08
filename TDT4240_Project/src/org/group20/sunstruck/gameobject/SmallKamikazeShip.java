@@ -40,5 +40,4 @@ public class SmallKamikazeShip extends GameObject {
 			start = System.currentTimeMillis();
 		}
 	}
-
 }

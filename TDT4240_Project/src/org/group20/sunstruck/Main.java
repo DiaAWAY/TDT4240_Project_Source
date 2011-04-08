@@ -3,6 +3,7 @@ package org.group20.sunstruck;
 import java.util.Iterator;
 
 import org.group20.sunstruck.gameobject.GameObject;
+import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.world.map.segments.Theme;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -114,7 +115,7 @@ public class Main implements ApplicationListener {
 		notRotatedMatrix.set(spriteBatch.getTransformMatrix());
 
 		rotatedMatrix.set(notRotatedMatrix.getValues());
-		rotatedMatrix.setToRotation(new Vector3(0, 0, 1), -3);
+		rotatedMatrix.setToRotation(new Vector3(0, 0, 1), -90);
 		System.out.println(rotatedMatrix);
 
 		renderer = new Box2DDebugRenderer();
@@ -133,6 +134,20 @@ public class Main implements ApplicationListener {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		spriteBatch.begin();
+
+		// Update game objects
+		Game.getInstance().update();
+
+		if (Menu.isActive) {
+			Game.getInstance().getMenu().update();
+			drawMenu();
+			if (GUI.isHelpActive) {
+				drawHelp();
+			}
+			spriteBatch.end();
+			return;
+		}
+
 		// Draw background
 		drawBackground();
 		// I have no idea why I have to do this:
@@ -140,9 +155,9 @@ public class Main implements ApplicationListener {
 				.draw(spriteBatch);
 
 		if (Shop.isActive) {
-			Game.getInstance().update();
 			Game.getInstance().getShop().update();
 			drawGuiShop();
+			drawGuiScore();
 			return;
 		}
 		// Draw GUI controls objects.
@@ -150,9 +165,6 @@ public class Main implements ApplicationListener {
 
 		// Update physics
 		updatePhysics();
-
-		// Update game objects
-		Game.getInstance().update();
 
 		// Update camera
 		updateCamera();
@@ -168,20 +180,38 @@ public class Main implements ApplicationListener {
 
 	}
 
-	private void drawGuiStats() {
+	private void drawMenu() {
+		spriteBatch.draw(Game.getInstance().getGui().getTextureMenuScreen(), 0,
+				0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		for (Sprite sprite : Game.getInstance().getGui().getMenuSpriteList()) {
+			sprite.draw(spriteBatch);
+		}
+	}
 
+	private void drawHelp() {
+		spriteBatch.draw(Game.getInstance().getGui().getTextureHelpScreen(), 0,
+				0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
+
+	private void drawGuiStats() {
+		Game.getInstance().getGui().updateStats();
 		spriteBatch.setTransformMatrix(rotatedMatrix);
 		spriteBatch.begin();
-
-		Game.getInstance().getGui().updateStats();
-
-		for (BitmapFontCache stats : Game.getInstance().getGui()
-				.getStatsFontList()) {
-			stats.draw(spriteBatch);
+		for (int i = 0; i < Game.getInstance().getGui().getStatsFontList()
+				.size(); i++) {
+			Game.getInstance().getGui().getStatsFontList().get(i)
+					.draw(spriteBatch);
 		}
 
 		spriteBatch.end();
 		spriteBatch.setTransformMatrix(notRotatedMatrix);
+	}
+
+	private void drawGuiScore() {
+		Game.getInstance().getGui().updateStats();
+		spriteBatch.begin();
+		Game.getInstance().getGui().getScoreShopFont().draw(spriteBatch);
+		spriteBatch.end();
 	}
 
 	private void drawGuiShop() {
@@ -191,8 +221,6 @@ public class Main implements ApplicationListener {
 				.getShopFontList()) {
 			text.draw(spriteBatch);
 		}
-		spriteBatch.end();
-		spriteBatch.begin();
 		for (Sprite sprite : Game.getInstance().getGui().getShopSpriteList()) {
 			sprite.draw(spriteBatch);
 		}
