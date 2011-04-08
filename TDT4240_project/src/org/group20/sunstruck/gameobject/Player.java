@@ -26,7 +26,7 @@ public class Player extends GameObject {
 			.findRegion("shipPlayer");
 
 	public Player() {
-		super(shipTexture, 1.5f);
+		super(shipTexture, 2f);
 		isEnemy = false;
 		type = TYPES.PLAYER;
 		weaponType = new LaserTiny1();
@@ -35,6 +35,7 @@ public class Player extends GameObject {
 		shield = 100;
 		currentShield = shield;
 		speed = 7;
+		score = 0;
 	}
 
 	@Override
@@ -103,7 +104,7 @@ public class Player extends GameObject {
 	}
 
 	private void shoot(int weaponLevel) {
-		
+
 		Vector2 centerPosition = GameObjectFactory.getProjectilePosition(
 				weaponType, this);
 		centerPosition.sub(0, weaponType.height/4);

@@ -11,7 +11,7 @@ public class SmallKamikazeShip extends GameObject {
 			.findRegion("shipSmall3");
 
 	public SmallKamikazeShip() {
-		super(shipTexture, 0.5f);
+		super(shipTexture, 0.9f);
 		BURST_COUNT = 0;
 		PAUSE_COUNT = 9;
 		behavior = BEHAVIOR.KAMIKAZE_VEL;

@@ -11,7 +11,7 @@ public class LaserTiny2 extends GameObject {
 			.findRegion("laserTiny2");
 
 	public LaserTiny2() {
-		super(laserTexture, 0.1f);
+		super(laserTexture, 0.2f);
 		isProjectile = true;
 		speed = 6;
 		density = 0.01f;

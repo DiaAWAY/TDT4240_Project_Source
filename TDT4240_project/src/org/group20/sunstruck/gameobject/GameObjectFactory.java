@@ -22,7 +22,8 @@ public class GameObjectFactory {
 		Boss bo = new Boss();
 		generateBossBody(bo, position, angle);
 		bo.setKamikazeSpawnPoint(new Vector2(bo.width * 0.3193f,
-				-bo.height * 0.3456f));
+				-bo.height * 0.3456f).add(0, -0.7f));
+		
 		bo.body.setFixedRotation(true);
 		return bo;
 	}
@@ -58,6 +59,12 @@ public class GameObjectFactory {
 		generateBoxBody(go, position, angle);
 		go.body.setFixedRotation(true);
 		return go;
+		
+	}	public GameObject createLaserGreen1(Vector2 position, float angle) {
+		GameObject go = new LaserGreen1();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
 	}
 
 	public GameObject createLaserTiny2(Vector2 position, float angle) {
@@ -85,6 +92,8 @@ public class GameObjectFactory {
 			go = createSmallKamikazeShip(position, angle);
 		if (weaponType instanceof MediumKamikazeShip)
 			go = createMediumKamikazeShip(position, angle);
+		if(weaponType instanceof LaserGreen1)
+			go = createLaserGreen1(position, angle);
 
 		return go;
 	}

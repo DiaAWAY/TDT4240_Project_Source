@@ -27,7 +27,7 @@ public class Boss extends GameObject {
 		hull = 500;
 		currentHull = hull;
 		type = TYPES.UNKNOWN;
-		weaponType = new LaserTiny1();
+		weaponType = new LaserGreen1();
 		density = 100000;
 		impactDamage = 100;
 		behavior = BEHAVIOR.BOSS_GET_IN_POSITION;
@@ -45,65 +45,67 @@ public class Boss extends GameObject {
 			startExplosionTime = System.currentTimeMillis();
 		} else {
 			shieldRegeneration();
-			if (canShoot) {
-				time = System.currentTimeMillis() - start;
-				if (time > reloadTime) {
-					shoot();
-					start = System.currentTimeMillis();
-				}
-				time = System.currentTimeMillis() - start2;
-				if (time > spawnTime) {
-					launchKamikazeShip();
-					start2 = System.currentTimeMillis();
-				}
+			time = System.currentTimeMillis() - start;
+			if (time > reloadTime) {
+				shoot();
+				start = System.currentTimeMillis();
+			}
+			time = System.currentTimeMillis() - start2;
+			if (time > spawnTime) {
+				launchKamikazeShip();
+				start2 = System.currentTimeMillis();
 			}
 		}
 	}
 
 	@Override
 	void shoot() {
-		if (BURST_COUNT == 0)
-			return;
-		shotCount++;
-		if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
-			Vector2 shotPosition = GameObjectFactory.getProjectilePosition(
-					weaponType, this);
-			Game.getInstance()
-					.getGoFactory()
-					.generateWeaponShot(weaponType,
-							shotPosition.tmp().add(0, 0.6f),
-							this.body.getAngle());
-			Game.getInstance()
-					.getGoFactory()
-					.generateWeaponShot(weaponType, shotPosition.tmp(),
-							this.body.getAngle());
-			Game.getInstance()
-					.getGoFactory()
-					.generateWeaponShot(weaponType,
-							shotPosition.tmp().sub(0, 0.6f),
-							this.body.getAngle());
-		} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
-			return;
-		} else
-			shotCount = 0;
+		if (canShoot) {
+			if (BURST_COUNT == 0)
+				return;
+			shotCount++;
+			if (shotCount <= BURST_COUNT || PAUSE_COUNT == 0) {
+				Vector2 shotPosition = GameObjectFactory.getProjectilePosition(
+						weaponType, this);
+				Game.getInstance()
+						.getGoFactory()
+						.generateWeaponShot(weaponType,
+								shotPosition.tmp().add(0, 0.6f),
+								this.body.getAngle());
+				Game.getInstance()
+						.getGoFactory()
+						.generateWeaponShot(weaponType, shotPosition.tmp(),
+								this.body.getAngle());
+				Game.getInstance()
+						.getGoFactory()
+						.generateWeaponShot(weaponType,
+								shotPosition.tmp().sub(0, 0.6f),
+								this.body.getAngle());
+			} else if (shotCount < BURST_COUNT + PAUSE_COUNT) {
+				return;
+			} else
+				shotCount = 0;
+		}
 
 	}
 
 	private void launchKamikazeShip() {
-		if (SPAWNBURST_COUNT == 0)
-			return;
-		spawnCount++;
-		if (spawnCount <= SPAWNBURST_COUNT || SPAWNPAUSE_COUNT == 0) {
-			Game.getInstance()
-					.getGoFactory()
-					.generateWeaponShot(new SmallKamikazeShip(),
-							body.getWorldPoint(kamikazeSpawnPoint),
-							(float) (this.body.getAngle() - Math.PI / 4))
-					.setBehavior(BEHAVIOR.LAUNCHED);
-		} else if (spawnCount < SPAWNBURST_COUNT + SPAWNPAUSE_COUNT) {
-			return;
-		} else
-			spawnCount = 0;
+		if (canShoot) {
+			if (SPAWNBURST_COUNT == 0)
+				return;
+			spawnCount++;
+			if (spawnCount <= SPAWNBURST_COUNT || SPAWNPAUSE_COUNT == 0) {
+				Game.getInstance()
+						.getGoFactory()
+						.generateWeaponShot(new SmallKamikazeShip(),
+								body.getWorldPoint(kamikazeSpawnPoint),
+								(float) (this.body.getAngle() - Math.PI / 4))
+						.setBehavior(BEHAVIOR.LAUNCHED);
+			} else if (spawnCount < SPAWNBURST_COUNT + SPAWNPAUSE_COUNT) {
+				return;
+			} else
+				spawnCount = 0;
+		}
 	}
 
 	public Vector2 getKamikazeSpawnPoint() {

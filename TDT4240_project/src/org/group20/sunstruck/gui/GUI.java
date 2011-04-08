@@ -42,7 +42,11 @@ public class GUI {
 	BitmapFontCache hullCost;
 	BitmapFontCache shieldCost;
 	BitmapFontCache speedCost;
-
+	
+	BitmapFontCache scoreFont;
+	BitmapFontCache shieldFont;
+	BitmapFontCache hullFont;
+	
 	Sprite controlCircle;
 	Sprite fireButton;
 
@@ -52,6 +56,7 @@ public class GUI {
 	String speedString;
 
 	ArrayList<BitmapFontCache> shopFontList = new ArrayList<BitmapFontCache>();
+	ArrayList<BitmapFontCache> statsFontList = new ArrayList<BitmapFontCache>();
 	ArrayList<Sprite> controlSpriteList = new ArrayList<Sprite>();
 	ArrayList<Sprite> shopSpriteList = new ArrayList<Sprite>();
 
@@ -59,10 +64,6 @@ public class GUI {
 		TextureAtlas ta = Game.textureAtlas;
 
 		f = new BitmapFont();
-		weaponCost = new BitmapFontCache(f);
-		hullCost = new BitmapFontCache(f);
-		shieldCost = new BitmapFontCache(f);
-		speedCost = new BitmapFontCache(f);
 
 		textureUpgWeapon = ta.findRegion("guiWeapons");
 		textureUpgWeaponPressed = ta.findRegion("guiWeaponsPressed");
@@ -95,6 +96,9 @@ public class GUI {
 		controlCircle.setPosition(0,
 				Gdx.graphics.getHeight() - controlCircle.getHeight());
 		fireButton.setPosition(0, 0);
+		
+		controlSpriteList.add(controlCircle);
+		controlSpriteList.add(fireButton);
 
 		weaponUpgButton.setPosition(Gdx.graphics.getWidth() * 19 / 20
 				- weaponUpgButton.getWidth(),
@@ -114,21 +118,33 @@ public class GUI {
 		resetButton.setPosition(
 				Gdx.graphics.getWidth() * 19 / 20 - resetButton.getWidth(),
 				(float) (Gdx.graphics.getHeight() * 1 / 7));
+		
+		shopSpriteList.add(weaponUpgButton);
+		shopSpriteList.add(hullUpgButton);
+		shopSpriteList.add(shieldUpgButton);
+		shopSpriteList.add(speedUpgButton);
+		shopSpriteList.add(confirmButton);
+		shopSpriteList.add(resetButton);
 
-		weaponCost.setColor(Color.BLACK);
-		hullCost.setColor(Color.BLACK);
-		shieldCost.setColor(Color.BLACK);
-		speedCost.setColor(Color.BLACK);
-
-		weaponString = "Current weapon level: 0\n cost: 5000";
-		hullString = "Current hull level: 0\n cost: 5000";
-		shieldString = "Current shield level: 0\n cost: 5000";
-		speedString = "Current speed level: 0\n cost: 5000";
+		weaponString = "Current weapon level: 0\nUpgrade cost: 5000";
+		hullString = "Current hull level: 0\nUpgrade cost: 5000";
+		shieldString = "Current shield level: 0\nUpgrade cost: 5000";
+		speedString = "Current speed level: 0\nUpgrade cost: 5000";
+		
+		weaponCost = new BitmapFontCache(f);
+		hullCost = new BitmapFontCache(f);
+		shieldCost = new BitmapFontCache(f);
+		speedCost = new BitmapFontCache(f);
 
 		weaponCost.setMultiLineText(weaponString, 0, 0);
 		hullCost.setMultiLineText(hullString, 0, 0);
 		shieldCost.setMultiLineText(shieldString, 0, 0);
 		speedCost.setMultiLineText(speedString, 0, 0);
+		
+		weaponCost.setColor(Color.BLACK);
+		hullCost.setColor(Color.BLACK);
+		shieldCost.setColor(Color.BLACK);
+		speedCost.setColor(Color.BLACK);
 
 		weaponCost.setPosition(weaponUpgButton.getX() - 165,
 				weaponUpgButton.getY() + weaponUpgButton.getHeight() * 1.25f);
@@ -143,16 +159,41 @@ public class GUI {
 		shopFontList.add(hullCost);
 		shopFontList.add(shieldCost);
 		shopFontList.add(speedCost);
-
-		shopSpriteList.add(weaponUpgButton);
-		shopSpriteList.add(hullUpgButton);
-		shopSpriteList.add(shieldUpgButton);
-		shopSpriteList.add(speedUpgButton);
-		shopSpriteList.add(confirmButton);
-		shopSpriteList.add(resetButton);
 		
-		controlSpriteList.add(controlCircle);
-		controlSpriteList.add(fireButton);
+		scoreFont = new BitmapFontCache(f);
+		hullFont = new BitmapFontCache(f);
+		shieldFont = new BitmapFontCache(f);
+		
+		
+		
+		scoreFont.setText("SCORE: 0", 0, 0);
+		hullFont.setText("Hull: 100", 0, 0);
+		shieldFont.setText("Shield: 100", 0, 0);
+		
+		scoreFont.setColor(Color.BLACK);
+		hullFont.setColor(Color.BLACK);
+		shieldFont.setColor(Color.BLACK);
+		
+		scoreFont.setPosition(Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight());
+		hullFont.setPosition(Gdx.graphics.getWidth() - 190, Gdx.graphics.getHeight());
+		shieldFont.setPosition(Gdx.graphics.getWidth() - 190, Gdx.graphics.getHeight() - 15);
+		
+		statsFontList.add(scoreFont);
+		statsFontList.add(hullFont);
+		statsFontList.add(shieldFont);
+		
+		
+
+	}
+	
+	public void updateStats() {
+		scoreFont.setText("SCORE: "	+ Integer.toString((int)Game.getInstance().getPlayer().getScore()), 0, 0);
+		hullFont.setText("Hull: " + Integer.toString((int)Game.getInstance().getPlayer().getHull()), 0, 0);
+		shieldFont.setText("Shield: " + Integer.toString((int)Game.getInstance().getPlayer().getShield()), 0, 0);
+		
+		scoreFont.setPosition(Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight());
+		hullFont.setPosition(Gdx.graphics.getWidth() - 190, Gdx.graphics.getHeight());
+		shieldFont.setPosition(Gdx.graphics.getWidth() - 190, Gdx.graphics.getHeight() - 15);
 	}
 
 	public String getWeaponString() {
@@ -312,6 +353,10 @@ public class GUI {
 
 	public ArrayList<BitmapFontCache> getShopFontList() {
 		return shopFontList;
+	}
+
+	public ArrayList<BitmapFontCache> getStatsFontList() {
+		return statsFontList;
 	}
 
 	public ArrayList<Sprite> getShopSpriteList() {

@@ -34,7 +34,7 @@ public class Velocity implements Filter {
 			float x = (float)Math.cos(body.getAngle());
 			float y = (float)Math.sin(body.getAngle());
 			velocity.set(x,y);
-			velocity.mul(go.getSpeed());
+			velocity.mul(go.getSpeed()*2);
 			body.setLinearVelocity(velocity);
 			
 			if(body.getWorldPoint(new Vector2(0,0)).x <= 0){
@@ -77,10 +77,10 @@ public class Velocity implements Filter {
 					velocity.mul(-1);
 			}
 			body.setLinearVelocity(velocity);
-
+			
 			if (randomize < 0.001){
-				((Boss) go).setCanShoot(true);
-				go.setBehavior(BEHAVIOR.BOSS_CHARGE);
+//				((Boss) go).setCanShoot(false);
+//				go.setBehavior(BEHAVIOR.BOSS_CHARGE);
 			}
 
 		}
