@@ -48,6 +48,6 @@ public abstract class Theme {
 	}
 
 	private int randomIndexIn(Object[] o) {
-		return (int) (Math.random() * (o.length - 1) + 0.5);
+		return (int) (Math.random() * (o.length + 1));
 	}
 }
