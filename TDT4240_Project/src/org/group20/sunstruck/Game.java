@@ -131,7 +131,6 @@ public class Game implements GameInterface, ContactListener {
 			if (enemySpawnTime > enemySpawnInterval) {
 				// 2 = n-1. n=3, the number of enemies available in the switch
 				int random = randomNumber(0, 2);
-				System.out.println(random);
 				switch (random) {
 				case 0:
 					spawnSmallLaserSquad();
