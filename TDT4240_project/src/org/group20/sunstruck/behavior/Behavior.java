@@ -1,31 +1,43 @@
 package org.group20.sunstruck.behavior;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
-import org.group20.sunstruck.behavior.filters.*;
+import org.group20.sunstruck.behavior.filters.Filter;
+import org.group20.sunstruck.behavior.filters.Force;
+import org.group20.sunstruck.behavior.filters.Rotation;
+import org.group20.sunstruck.behavior.filters.Velocity;
 import org.group20.sunstruck.gameobject.GameObject;
 
 /**
- * Behavior handler for GameObjects.
- * This class will apply behaviors to GameObjects, various filters (Filter) will be used to
- * determine what kinds of behaviors to use.
- * @author DiaAWAY
- *
+ * Behavior handler for GameObjects. This class will apply behaviors to
+ * GameObjects, various filters (Filter) will be used to determine what kinds of
+ * behaviors to use.
+ * 
+ * @author Knut Esten
+ * 
  */
 public class Behavior {
-	
-	private static ArrayList<Filter> filters = new ArrayList<Filter>();
-	
+	public static enum BEHAVIOR {
+		LINEAR_MOVEMENT, KAMIKAZE_FOR, KAMIKAZE_VEL, SIN_VEL, SIN_FOR, LINE, SPRAY, PLAYER_GRAVITY, KAMIKAZE_FOR_ANGLE, BOSS_GET_IN_POSITION, BOSS_ATTACK, BOSS_CHARGE, LAUNCHED
+	}
+
+	public static enum FILTERS {
+		FORCE, VELOCITY, ROTATION
+	}
+
+	public static HashMap<FILTERS, Filter> filters = new HashMap<FILTERS, Filter>();
+
 	public static void initFilters() {
-		filters.add(new Filter1()); // TODO remove example code
-		filters.add(new Filter2()); // TODO remove example code
+		filters.put(FILTERS.FORCE, new Force());
+		filters.put(FILTERS.VELOCITY, new Velocity());
+		filters.put(FILTERS.ROTATION, new Rotation());
 	}
-	
-	public static boolean applyBehavior(GameObject go) {
-		// TODO implement methods and variables that enables us to select behavior depending on gamestates
-		filters.get((int)(Math.random()*(filters.size()-1))).applyFilter(go); // lol
-		// TODO add implementation
-		return false;
+
+	public static void applyBehavior(GameObject go) {
+		if (go.getBehavior() == null)
+			go.setBehavior(BEHAVIOR.LINE);
+
+		filters.get(FILTERS.VELOCITY).applyFilter(go);
+
 	}
-	
 }

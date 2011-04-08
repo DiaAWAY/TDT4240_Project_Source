@@ -1,30 +1,225 @@
 package org.group20.sunstruck.gameobject;
 
-import org.group20.sunstruck.gameobject.GameObject.TYPES;
+import org.group20.sunstruck.Game;
+import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
+import org.group20.sunstruck.interfaces.GameInterface.DIFFICULTIES;
+
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class GameObjectFactory {
 
-	public GameObjectFactory() {
+	private DIFFICULTIES difficulty;
+
+	public GameObjectFactory(DIFFICULTIES difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public GameObject createBoss(Vector2 position, float angle) {
+		Boss bo = new Boss();
+		generateBossBody(bo, position, angle);
+		bo.setKamikazeSpawnPoint(new Vector2(bo.width * 0.3193f,
+				-bo.height * 0.3456f).add(0, -0.7f));
+
+		bo.body.setFixedRotation(true);
+		return bo;
+	}
+
+	public GameObject createPlayer(Vector2 position, float angle) {
+		GameObject player = new Player();
+		generateBoxBody(player, position, angle);
+		player.body.setFixedRotation(true);
+		return player;
+	}
+
+	public GameObject createSmallKamikazeShip(Vector2 position, float angle) {
+		GameObject go = new SmallKamikazeShip();
+		generateBoxBody(go, position, angle);
+		return go;
+	}
+
+	public GameObject createSmallLaserShip(Vector2 position, float angle) {
+		GameObject go = new SmallLaserShip();
+		generateBoxBody(go, position, angle);
+		return go;
+	}
+
+	public GameObject createAsteroid(Vector2 position, float angle, int size) {
+		GameObject go = new Asteroid(size);
+		generateCircleBody(go, position, angle);
+		go.body.setAngularVelocity((float) Math.random());
+		return go;
+	}
+
+	public GameObject createLaserTiny1(Vector2 position, float angle) {
+		GameObject go = new LaserTiny1();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
 
 	}
-	
-	public GameObject getProductA() {// TODO remove test method
-		System.out.println("PRODUCING PRODUCT A");
-		GameObject o = new ProductA();
-		o.setType(TYPES.ENTITY1);
-		o.setArmour(10);
-		return o;
+
+	public GameObject createLaserGreen1(Vector2 position, float angle) {
+		GameObject go = new LaserGreen1();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
 	}
-	
-	public GameObject getProductA(String str) { // TODO remove test method
-		System.out.println("PRODUCING PRODUCT A");
-		return new ProductA(str);
+
+	public GameObject createLaserTiny2(Vector2 position, float angle) {
+		GameObject go = new LaserTiny2();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
 	}
-	
-	public GameObject getProductB() { // TODO remove test method
-		System.out.println("PRODUCING PRODUCT B");
-		GameObject o = new ProductB();
-		o.setType(TYPES.ENTITY2);
-		return o;
+
+	public GameObject createMediumKamikazeShip(Vector2 position, float angle) {
+		GameObject go = new MediumKamikazeShip();
+		generateBoxBody(go, position, angle);
+		go.body.setFixedRotation(true);
+		return go;
+	}
+
+	public GameObject generateWeaponShot(GameObject weaponType,
+			Vector2 position, float angle) {
+		GameObject go = null;
+		if (weaponType instanceof LaserTiny1)
+			go = createLaserTiny1(position, angle);
+		if (weaponType instanceof LaserTiny2)
+			go = createLaserTiny2(position, angle);
+		if (weaponType instanceof SmallKamikazeShip)
+			go = createSmallKamikazeShip(position, angle);
+		if (weaponType instanceof MediumKamikazeShip)
+			go = createMediumKamikazeShip(position, angle);
+		if (weaponType instanceof LaserGreen1)
+			go = createLaserGreen1(position, angle);
+
+		return go;
+	}
+
+	public void createSmallerAsteroids(GameObject shooter) {
+		GameObject asteroid1 = new Asteroid(((Asteroid) shooter).size - 1);
+		GameObject asteroid2 = new Asteroid(((Asteroid) shooter).size - 1);
+		GameObject asteroid3 = new Asteroid(((Asteroid) shooter).size - 1);
+		GameObject asteroid4 = new Asteroid(((Asteroid) shooter).size - 1);
+
+		Vector2 position1 = new Vector2(0, 0);
+		Vector2 position2 = new Vector2(0, 0);
+		Vector2 position3 = new Vector2(0, 0);
+		Vector2 position4 = new Vector2(0, 0);
+
+		position1.set(shooter.body.getWorldCenter().tmp()).add(
+				shooter.width / 8, shooter.width / 8);
+		position2.set(shooter.body.getWorldCenter().tmp()).add(
+				-shooter.width / 8, shooter.width / 8);
+		position3.set(shooter.body.getWorldCenter().tmp()).add(
+				shooter.width / 8, -shooter.width / 8);
+		position4.set(shooter.body.getWorldCenter().tmp()).add(
+				-shooter.width / 8, -shooter.width / 8);
+
+		generateCircleBody(asteroid1, position1, 0);
+		generateCircleBody(asteroid2, position2, 0);
+		generateCircleBody(asteroid3, position3, 0);
+		generateCircleBody(asteroid4, position4, 0);
+
+		Vector2 velocity1 = new Vector2(1, 1).nor().mul(shooter.speed);
+		Vector2 velocity2 = new Vector2(-1, 1).nor().mul(shooter.speed);
+		Vector2 velocity3 = new Vector2(1, -1).nor().mul(shooter.speed);
+		Vector2 velocity4 = new Vector2(-1, -1).nor().mul(shooter.speed);
+
+		asteroid1.body.setLinearVelocity(velocity1);
+		asteroid2.body.setLinearVelocity(velocity2);
+		asteroid3.body.setLinearVelocity(velocity3);
+		asteroid4.body.setLinearVelocity(velocity4);
+
+		asteroid1.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		asteroid2.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		asteroid3.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+		asteroid4.behavior = BEHAVIOR.LINEAR_MOVEMENT;
+
+	}
+
+	private void generateCircleBody(GameObject go, Vector2 position, float angle) {
+		// Defines the body and creates it
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(position);
+		bodyDef.angle = angle;
+		go.body = Game.getInstance().getWorld().createBody(bodyDef);
+
+		CircleShape circleShape = new CircleShape();
+		circleShape.setRadius(go.width / 2);
+		go.body.createFixture(circleShape, go.density);
+		circleShape.dispose();
+
+		go.body.setUserData(go);
+
+	}
+
+	private void generateBoxBody(GameObject go, Vector2 position, float angle) {
+		// Defines the body and creates it
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(position);
+		bodyDef.angle = angle;
+		go.body = Game.getInstance().getWorld().createBody(bodyDef);
+
+		PolygonShape bodyPoly = new PolygonShape();
+		bodyPoly.setAsBox(go.width / 2, go.height / 2);
+		go.body.createFixture(bodyPoly, go.density);
+		bodyPoly.dispose();
+
+		go.body.setUserData(go);
+
+	}
+
+	private void generateBossBody(Boss bo, Vector2 position, float angle) {
+		// Defines the body and creates it
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(position);
+		bodyDef.angle = angle;
+		bo.body = Game.getInstance().getWorld().createBody(bodyDef);
+
+		CircleShape circleShape = new CircleShape();
+
+		circleShape.setRadius(bo.width * 0.1107f);
+		circleShape.setPosition(new Vector2(bo.width * 0.3875f, 0));
+		bo.body.createFixture(circleShape, bo.density);
+		circleShape.dispose();
+
+		PolygonShape bodyPoly = new PolygonShape();
+
+		bodyPoly.setAsBox((bo.width / 2) * 0.6298f, (bo.height / 2) * 0.8203f,
+				new Vector2(-bo.width * 0.1868f, bo.height * 0.0875f), 0);
+		bo.body.createFixture(bodyPoly, bo.density);
+
+		bodyPoly.setAsBox((bo.width / 2) * 0.1592f, (bo.height / 2) * 0.7051f,
+				new Vector2(bo.width * 0.2076f, -bo.height * 0.0253f), 0);
+		bo.body.createFixture(bodyPoly, bo.density);
+		bodyPoly.dispose();
+
+		bo.body.setUserData(bo);
+	}
+
+	public static Vector2 getProjectilePosition(GameObject projectile,
+			GameObject shooter) {
+		Vector2 direction = new Vector2(0, 0);
+		float angle = shooter.body.getAngle();
+		float x = (float) Math.cos(angle);
+		float y = (float) Math.sin(angle);
+		direction.set(x, y);
+
+		Vector2 position = new Vector2(0, 0);
+		float len = shooter.width / 2 + projectile.width / 2 + 0.1f;
+		position.set(shooter.getBody().getWorldPoint(new Vector2(0, 0)));
+		position.add(direction.tmp().mul(len));
+
+		position.add(0.05f, 0.05f);
+
+		return position;
 	}
 }
