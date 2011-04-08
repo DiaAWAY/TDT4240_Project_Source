@@ -44,8 +44,8 @@ public class Game implements GameInterface, ContactListener {
 	private boolean bossAlive = false;
 	private float bossTimer = 0;
 	private int bossCount = 1;
-	private int bossInterval = Integer.MAX_VALUE; // playerScore >
-													// bossInterval*bossCount =>
+	private int bossInterval = 50000; // playerScore >
+										// bossInterval*bossCount =>
 	// spawn boss
 	private float enemySpawnTime = 0;
 
@@ -55,12 +55,10 @@ public class Game implements GameInterface, ContactListener {
 
 	public void initializePlayer() {
 		player = (Player) goFactory.createPlayer(new Vector2(0, 0), 0);
-		goFactory.createBoss(new Vector2(12, 0), (float) Math.PI);
 	}
 
 	private Game(DIFFICULTIES d) {
 		setDifficulty(d);
-
 		world = new World(initGravity, true);
 		world.setContactListener(this);
 		gui = new GUI();
@@ -128,12 +126,40 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 3) {
-				double randomize = Math.random();
-				// spawnMediumKamikazeSquad();
-				// spawnSmallKamikazeSquad();
-				// spawnSmallLaserSquad();
+			if (enemySpawnTime >= 0) {
+				// double randomize = Math.random();
+				int random = (int) (Math.random() * 3); // 3 is the number of
+														// types of enemies to
+														// spawn
+				System.out.println(random);
+				switch (random) {
+				case 0:
+					spawnSmallLaserSquad();
+					break;
+				case 1:
+					spawnMediumKamikazeSquad();
+					break;
+				case 2:
+					spawnSmallKamikazeSquad();
+					break;
+				default:
+					break;
+				}
 				enemySpawnTime = 0;
+			}
+		}
+	}
+
+	private void spawnBoss() {
+		if (!bossAlive) {
+			bossTimer += Gdx.graphics.getDeltaTime();
+			// System.out.println("Trying to spawn boss{alive:" + bossAlive
+			// + "}, remaining time:" + bossTimer + "/5.0");
+			if (bossTimer >= 10.0) {
+				// System.out.println("Spawning boss!");
+				goFactory.createBoss(new Vector2(12, 0), (float) Math.PI);
+				bossAlive = true;
+				bossTimer = 0;
 			}
 		}
 	}
@@ -179,20 +205,6 @@ public class Game implements GameInterface, ContactListener {
 				* Math.random());
 
 		return new Vector2(x, y);
-	}
-
-	private void spawnBoss() {
-		if (!bossAlive) {
-			bossTimer += Gdx.graphics.getDeltaTime();
-			// System.out.println("Trying to spawn boss{alive:" + bossAlive
-			// + "}, remaining time:" + bossTimer + "/5.0");
-			if (bossTimer >= 5.0) {
-				// System.out.println("Spawning boss!");
-				// goFactory.createBoss(new Vector2(7, 0));
-				bossAlive = true;
-				bossTimer = 0;
-			}
-		}
 	}
 
 	@Override
