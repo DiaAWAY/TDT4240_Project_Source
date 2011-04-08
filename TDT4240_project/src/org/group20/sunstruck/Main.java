@@ -3,7 +3,7 @@ package org.group20.sunstruck;
 import java.util.Iterator;
 
 import org.group20.sunstruck.gameobject.GameObject;
-import org.group20.sunstruck.world.map.segments.MapSegment;
+import org.group20.sunstruck.world.map.segments.Theme;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -30,8 +30,9 @@ public class Main implements ApplicationListener {
 	public static Body northBorder;
 	public static Body westBorder;
 	public static Body southBorder;
-	private MapSegment last;
-	private MapSegment first;
+	private TextureRegion lastBg;
+	private TextureRegion firstBg;
+	private SpriteBatch guiBatch;
 	private SpriteBatch spriteBatch;
 	private OrthographicCamera camera;
 	private Box2DDebugRenderer renderer;
@@ -119,8 +120,8 @@ public class Main implements ApplicationListener {
 		renderer = new Box2DDebugRenderer();
 
 		Game.getInstance().start();
-		first = Game.getInstance().getMap().getNext();
-		last = Game.getInstance().getMap().getNext();
+		firstBg = Game.getInstance().getMap().getNext();
+		lastBg = Game.getInstance().getMap().getNext();
 	}
 
 	@Override
@@ -261,26 +262,29 @@ public class Main implements ApplicationListener {
 	 * pushes the current matrix, draws the backgrounds then pops the matrix.
 	 */
 	private void drawBackground() {
-		TextureRegion rf = first.getTextureRegion();
-		TextureRegion rl = last.getTextureRegion();
 		float bgPosition = bgIteration * bgSpeed;
-		if (rf != null && rl != null) {
-			spriteBatch.draw(rf, -bgPosition, 0, Gdx.graphics.getWidth(),
-					Gdx.graphics.getHeight());
-			spriteBatch.draw(rl, -bgPosition + Gdx.graphics.getWidth(), 0,
+		backgroundBatch.begin();
+		if (firstBg != null) {
+			backgroundBatch.draw(firstBg, -bgPosition, 0,
 					Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		} else {
-			System.out.println("drawBackground(): rf is:" + rf + ", rl is:"
-					+ rl);
+			System.err.println("drawBackground(): firstBg=" + firstBg);
 		}
+		if (lastBg != null) {
+			backgroundBatch.draw(lastBg, -bgPosition + Gdx.graphics.getWidth(),
+					0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		} else {
+			System.err.println("drawBackground(): lastBg=" + lastBg);
+		}
+		backgroundBatch.end();
 		time += Gdx.app.getGraphics().getDeltaTime();
 		if (time > 0.01f) {
 			time = 0;
 			bgIteration++;
 		}
 		if (bgPosition > Gdx.graphics.getWidth() - 1) {
-			first = last;
-			last = Game.getInstance().getMap().getNext();
+			firstBg = lastBg;
+			lastBg = Game.getInstance().getMap().getNext();
 			bgIteration = 0;
 		}
 
