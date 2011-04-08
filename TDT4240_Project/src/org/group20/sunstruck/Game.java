@@ -84,7 +84,7 @@ public class Game implements GameInterface, ContactListener {
 
 	@Override
 	public void update() {
-		if (Shop.isActive) {
+		if (Shop.isActive || Menu.isActive) {
 			input.update();
 			return;
 		}

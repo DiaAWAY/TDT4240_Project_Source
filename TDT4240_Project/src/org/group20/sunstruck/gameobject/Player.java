@@ -305,4 +305,12 @@ public class Player extends GameObject implements Serializable {
 		return speedLevel;
 	}
 
+	public float getCurrentHull() {
+		return currentHull;
+	}
+
+	public float getCurrentShield() {
+		return currentShield;
+	}
+
 }

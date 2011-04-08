@@ -230,11 +230,11 @@ public class GUI {
 		hullFont.setText(
 				"Hull: "
 						+ Integer.toString((int) Game.getInstance().getPlayer()
-								.getHull()), 0, 0);
+								.getCurrentHull()), 0, 0);
 		shieldFont.setText(
 				"Shield: "
 						+ Integer.toString((int) Game.getInstance().getPlayer()
-								.getShield()), 0, 0);
+								.getCurrentShield()), 0, 0);
 		scoreShopFont.setText(
 				"SCORE: "
 						+ Integer.toString((int) Game.getInstance().getPlayer()

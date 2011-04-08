@@ -3,6 +3,7 @@ package org.group20.sunstruck;
 import java.util.Iterator;
 
 import org.group20.sunstruck.gameobject.GameObject;
+import org.group20.sunstruck.gui.GUI;
 import org.group20.sunstruck.world.map.segments.Theme;
 
 import com.badlogic.gdx.ApplicationListener;
