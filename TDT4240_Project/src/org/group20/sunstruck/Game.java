@@ -38,6 +38,7 @@ public class Game implements GameInterface, ContactListener {
 	private World world;
 	private Input input;
 	private GUI gui;
+	private Menu menu;
 	private ArrayList<Body> destroyedBodiesList = new ArrayList<Body>();
 	private float time;
 	private boolean bossMode = false;
@@ -65,6 +66,7 @@ public class Game implements GameInterface, ContactListener {
 		input = new Input(gui);
 		goFactory = new GameObjectFactory(d);
 		shop = new Shop();
+		menu = new Menu();
 	}
 
 	private static class GameHolder { // singleton holder
@@ -309,6 +311,10 @@ public class Game implements GameInterface, ContactListener {
 	@Override
 	public Shop getShop() {
 		return shop;
+	}
+
+	public Menu getMenu() {
+		return menu;
 	}
 
 	@Override
