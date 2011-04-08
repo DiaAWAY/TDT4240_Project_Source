@@ -1,26 +1,44 @@
 package org.group20.sunstruck.gameobject;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.Main;
-import org.group20.sunstruck.Shop;
-import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.Body;
 
 public class Player extends GameObject {
+	public static ArrayList<TextureRegion> bombExplosionTextures = new ArrayList<TextureRegion>();
 
 	private long startGun = System.currentTimeMillis();
 	private long reloadTimeGun = 200;
 	private long startBomb = System.currentTimeMillis();
-	private long reloadTimeBomb = 1000;
+	private long reloadTimeBomb = 60 * 1000;
 
 	private int weaponLevel = 1;
 	private int hullLevel = 0;
 	private int shieldLevel = 0;
 	private int speedLevel = 0;
+
+	private boolean isBombExplosionSize = false;
+
+	private float bombExplosionSizeFactor = 10;
+
+	private int bombExplosionAnimationCount = 0;
+
+	private boolean isBombExploding = false;
+
+	private long startBombExplosionTime = System.currentTimeMillis();
+
+	private long bombExplosionTime = 67;
+
+	private float widthTemp;
+
+	private float heightTemp;
 
 	public static TextureRegion shipTexture = Game.textureAtlas
 			.findRegion("shipPlayer");
@@ -36,59 +54,139 @@ public class Player extends GameObject {
 		currentShield = shield;
 		speed = 7;
 		score = 0;
+		if (bombExplosionTextures.isEmpty()) {
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue1"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue2"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue3"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue4"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue5"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue6"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue7"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue8"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue9"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue10"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue11"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue12"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue13"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue14"));
+			bombExplosionTextures.add(Game.textureAtlas
+					.findRegion("explosionBlue15"));
+		}
 	}
 
 	@Override
 	public void update() {
 		// System.out
 		// .println("Shield: " + currentShield + " Hull: " + currentHull);
-
-		super.shieldRegeneration();
-
-		boolean setXSpeedToZero = false;
-		boolean setYSpeedToZero = false;
-
-		body.setLinearVelocity(Game.getInstance().getInput().getNewVelocity());
-
-		if (body.getWorldCenter().x < -Main.CAMERA_WIDTH / 2
-				&& body.getLinearVelocity().x < 0)
-			setXSpeedToZero = true;
-		if (body.getWorldCenter().x > Main.CAMERA_WIDTH / 2
-				&& body.getLinearVelocity().x > 0)
-			setXSpeedToZero = true;
-		if (body.getWorldCenter().y < -Main.CAMERA_WIDTH
-				* Gdx.graphics.getHeight() / (2 * Gdx.graphics.getWidth())
-				&& body.getLinearVelocity().y < 0)
-			setYSpeedToZero = true;
-		if (body.getWorldCenter().y > Main.CAMERA_WIDTH
-				* Gdx.graphics.getHeight() / (2 * Gdx.graphics.getWidth())
-				&& body.getLinearVelocity().y > 0)
-			setYSpeedToZero = true;
-
-		if (setXSpeedToZero)
-			body.setLinearVelocity(new Vector2(0, body.getLinearVelocity().y));
-		if (setYSpeedToZero)
-			body.setLinearVelocity(new Vector2(body.getLinearVelocity().x, 0));
-
-		long time = System.currentTimeMillis() - startGun;
-		if (time > reloadTimeGun)
-			if (Game.getInstance().getInput().getHasFired()) {
-				shoot(weaponLevel);
-				startGun = System.currentTimeMillis();
+		long time = 0;
+		if (isExploding) {
+			time = System.currentTimeMillis() - startExplosionTime;
+			if (time > explosionTime) {
+				explode();
+				startExplosionTime = System.currentTimeMillis();
 			}
-
-		time = System.currentTimeMillis() - startBomb;
-		if (time > reloadTimeBomb)
-			if (Game.getInstance().getInput().getHasFiredBomb()) {
-				fireBomb();
-				startBomb = System.currentTimeMillis();
+		} else if (isBombExploding) {
+			time = System.currentTimeMillis() - startBombExplosionTime;
+			if (time > bombExplosionTime) {
+				generateBombExplosion();
+				startBombExplosionTime = System.currentTimeMillis();
 			}
+		} else {
+			super.shieldRegeneration();
+
+			boolean setXSpeedToZero = false;
+			boolean setYSpeedToZero = false;
+
+			body.setLinearVelocity(Game.getInstance().getInput()
+					.getNewVelocity());
+
+			if (body.getWorldCenter().x < -Main.CAMERA_WIDTH / 2
+					&& body.getLinearVelocity().x < 0)
+				setXSpeedToZero = true;
+			if (body.getWorldCenter().x > Main.CAMERA_WIDTH / 2
+					&& body.getLinearVelocity().x > 0)
+				setXSpeedToZero = true;
+			if (body.getWorldCenter().y < -Main.CAMERA_WIDTH
+					* Gdx.graphics.getHeight() / (2 * Gdx.graphics.getWidth())
+					&& body.getLinearVelocity().y < 0)
+				setYSpeedToZero = true;
+			if (body.getWorldCenter().y > Main.CAMERA_WIDTH
+					* Gdx.graphics.getHeight() / (2 * Gdx.graphics.getWidth())
+					&& body.getLinearVelocity().y > 0)
+				setYSpeedToZero = true;
+
+			if (setXSpeedToZero)
+				body.setLinearVelocity(new Vector2(0,
+						body.getLinearVelocity().y));
+			if (setYSpeedToZero)
+				body.setLinearVelocity(new Vector2(body.getLinearVelocity().x,
+						0));
+
+			time = System.currentTimeMillis() - startGun;
+			if (time > reloadTimeGun)
+				if (Game.getInstance().getInput().getHasFired()) {
+					shoot(weaponLevel);
+					startGun = System.currentTimeMillis();
+				}
+
+			time = System.currentTimeMillis() - startBomb;
+			if (time > reloadTimeBomb)
+				if (Game.getInstance().getInput().getHasFiredBomb()) {
+					fireBomb();
+					startBomb = System.currentTimeMillis();
+				}
+		}
 
 	}
 
 	private void fireBomb() {
-		// laser.getBody().setAngularVelocity((float) (Math.random()*100-5));
-		// Game.getInstance().getGameObjectList().add(laser);
+		generateBombExplosion();
+		Iterator<Body> it = Game.getInstance().getWorld().getBodies();
+		Body body = null;
+		while (it.hasNext()) {
+			body = it.next();
+			if (body.getUserData() instanceof Boss
+					|| body.getUserData() instanceof Player)
+				continue;
+			if (body.getUserData() != null)
+				((GameObject) body.getUserData()).dispose();
+		}
+	}
+
+	private void generateBombExplosion() {
+		if (!isBombExplosionSize) {
+			widthTemp = width;
+			heightTemp = height;
+			width *= bombExplosionSizeFactor;
+			height = width;
+			isBombExplosionSize = true;
+			isBombExploding = true;
+		}
+		textureRegion = bombExplosionTextures.get(bombExplosionAnimationCount);
+		bombExplosionAnimationCount++;
+		if (bombExplosionTextures.size() == bombExplosionAnimationCount) {
+			isBombExploding = false;
+			isBombExplosionSize = false;
+			bombExplosionAnimationCount = 0;
+			textureRegion = shipTexture;
+			width = widthTemp;
+			height = heightTemp;
+		}
+
 	}
 
 	@Override

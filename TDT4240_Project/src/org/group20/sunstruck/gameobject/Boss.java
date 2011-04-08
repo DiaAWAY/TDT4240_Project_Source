@@ -33,7 +33,6 @@ public class Boss extends GameObject {
 		impactDamage = 100;
 		behavior = BEHAVIOR.BOSS_GET_IN_POSITION;
 		speed = 1f;
-		isEnemy = false;
 		explosionSizeFactor = 1.2f;
 	}
 

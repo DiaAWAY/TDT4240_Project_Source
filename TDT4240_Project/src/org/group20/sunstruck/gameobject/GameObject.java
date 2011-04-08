@@ -109,11 +109,12 @@ public abstract class GameObject {
 		shieldRegeneration();
 		long time = 0;
 
-		if (isExploding)
+		if (isExploding) {
 			time = System.currentTimeMillis() - startExplosionTime;
-		if (time > explosionTime) {
-			explode();
-			startExplosionTime = System.currentTimeMillis();
+			if (time > explosionTime) {
+				explode();
+				startExplosionTime = System.currentTimeMillis();
+			}
 		} else
 
 		if (weaponType != null)
