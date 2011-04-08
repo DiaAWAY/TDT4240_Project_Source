@@ -45,7 +45,7 @@ public class Game implements GameInterface, ContactListener {
 	private boolean bossAlive = false;
 	private float bossTimer = 0;
 	private int bossCount = 1;
-	private int bossInterval = 500; // playerScore >
+	private int bossInterval = 50000; // playerScore >
 										// bossInterval*bossCount =>
 	// spawn boss
 	private float enemySpawnTime = 0;

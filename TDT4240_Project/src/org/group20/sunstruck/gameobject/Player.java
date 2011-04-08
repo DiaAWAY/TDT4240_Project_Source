@@ -94,8 +94,7 @@ public class Player extends GameObject {
 	@Override
 	public void dispose() {
 		// System.out.println(score);
-		// Game.getInstance().getGameObjectsToBeDestroyed().add((GameObject)this);
-
+		Game.getInstance().getDestroyedBodiesList().add(body);
 	}
 
 	@Override
