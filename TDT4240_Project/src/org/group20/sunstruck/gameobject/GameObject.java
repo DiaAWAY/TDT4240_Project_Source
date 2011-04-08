@@ -25,34 +25,34 @@ public abstract class GameObject {
 
 		if (explosionTextures.isEmpty()) {
 			explosionTextures
-					.add(Game.TextureAtlas.findRegion("explosionRed1"));
+					.add(Game.textureAtlas.findRegion("explosionRed1"));
 			explosionTextures
-					.add(Game.TextureAtlas.findRegion("explosionRed2"));
+					.add(Game.textureAtlas.findRegion("explosionRed2"));
 			explosionTextures
-					.add(Game.TextureAtlas.findRegion("explosionRed3"));
+					.add(Game.textureAtlas.findRegion("explosionRed3"));
 			explosionTextures
-					.add(Game.TextureAtlas.findRegion("explosionRed4"));
+					.add(Game.textureAtlas.findRegion("explosionRed4"));
 			explosionTextures
-					.add(Game.TextureAtlas.findRegion("explosionRed5"));
+					.add(Game.textureAtlas.findRegion("explosionRed5"));
 			explosionTextures
-					.add(Game.TextureAtlas.findRegion("explosionRed6"));
+					.add(Game.textureAtlas.findRegion("explosionRed6"));
 			explosionTextures
-					.add(Game.TextureAtlas.findRegion("explosionRed7"));
+					.add(Game.textureAtlas.findRegion("explosionRed7"));
 			explosionTextures
-					.add(Game.TextureAtlas.findRegion("explosionRed8"));
+					.add(Game.textureAtlas.findRegion("explosionRed8"));
 			explosionTextures
-					.add(Game.TextureAtlas.findRegion("explosionRed9"));
-			explosionTextures.add(Game.TextureAtlas
+					.add(Game.textureAtlas.findRegion("explosionRed9"));
+			explosionTextures.add(Game.textureAtlas
 					.findRegion("explosionRed10"));
-			explosionTextures.add(Game.TextureAtlas
+			explosionTextures.add(Game.textureAtlas
 					.findRegion("explosionRed11"));
-			explosionTextures.add(Game.TextureAtlas
+			explosionTextures.add(Game.textureAtlas
 					.findRegion("explosionRed12"));
-			explosionTextures.add(Game.TextureAtlas
+			explosionTextures.add(Game.textureAtlas
 					.findRegion("explosionRed13"));
-			explosionTextures.add(Game.TextureAtlas
+			explosionTextures.add(Game.textureAtlas
 					.findRegion("explosionRed14"));
-			explosionTextures.add(Game.TextureAtlas
+			explosionTextures.add(Game.textureAtlas
 					.findRegion("explosionRed15"));
 		}
 	}

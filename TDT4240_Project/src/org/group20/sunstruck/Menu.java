@@ -1,17 +1,25 @@
 package org.group20.sunstruck;
 
+import javax.print.attribute.standard.Finishings;
+
 import org.group20.sunstruck.gui.GUI;
 
 public class Menu {
 
 	public static boolean isActive = true;
-
 	public Menu() {
 	}
 
 	public void update() {
 		if (Game.getInstance().getInput().isPlay()) {
-			isActive = false;
+			//TODO: this is just  fucked up!
+				System.out.println("pressed");
+				isActive = false;
+				Game.getInstance().getInput().setPlay(false);
+				if(Game.getInstance().getPlayer().isDisposed()){
+					Game.getInstance().reset();
+					Game.getInstance().initializePlayer();
+				}
 		}
 		if (Game.getInstance().getInput().isHelp()) {
 			GUI.isHelpActive = true;

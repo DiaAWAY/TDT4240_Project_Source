@@ -28,10 +28,10 @@ public class Asteroid extends GameObject { // TODO remove test class
 	public Asteroid(int size) {
 		super(null, 0);
 		if (asteroidTexture.isEmpty()) {
-			asteroidTexture.add(Game.TextureAtlas.findRegion("asteroidSmall"));
-			asteroidTexture.add(Game.TextureAtlas.findRegion("asteroidMedium"));
-			asteroidTexture.add(Game.TextureAtlas.findRegion("asteroidLarge"));
-			asteroidTexture.add(Game.TextureAtlas.findRegion("asteroidHuge"));
+			asteroidTexture.add(Game.textureAtlas.findRegion("asteroidSmall"));
+			asteroidTexture.add(Game.textureAtlas.findRegion("asteroidMedium"));
+			asteroidTexture.add(Game.textureAtlas.findRegion("asteroidLarge"));
+			asteroidTexture.add(Game.textureAtlas.findRegion("asteroidHuge"));
 		}
 
 		this.size = size;

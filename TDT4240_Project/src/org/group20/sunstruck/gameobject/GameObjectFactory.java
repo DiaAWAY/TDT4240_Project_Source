@@ -35,13 +35,15 @@ public class GameObjectFactory {
 		return player;
 	}
 
-	public SmallKamikazeShip createSmallKamikazeShip(Vector2 position, float angle) {
+	public SmallKamikazeShip createSmallKamikazeShip(Vector2 position,
+			float angle) {
 		SmallKamikazeShip go = new SmallKamikazeShip();
 		generateBoxBody(go, position, angle);
 		return go;
 	}
-	
-	public MediumKamikazeShip createMediumKamikazeShip(Vector2 position, float angle) {
+
+	public MediumKamikazeShip createMediumKamikazeShip(Vector2 position,
+			float angle) {
 		MediumKamikazeShip go = new MediumKamikazeShip();
 		generateBoxBody(go, position, angle);
 		return go;

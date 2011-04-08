@@ -6,11 +6,11 @@ import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SmallLaserShip extends GameObject {
-	public static TextureRegion shipTexture = Game.TextureAtlas
+	public static TextureRegion shipTexture = Game.textureAtlas
 			.findRegion("shipSmall1");
 
 	public SmallLaserShip() {
-		super(shipTexture, 0.5f);
+		super(shipTexture, 1f);
 		behavior = BEHAVIOR.LINE;
 		hull = 5;
 		currentHull = hull;

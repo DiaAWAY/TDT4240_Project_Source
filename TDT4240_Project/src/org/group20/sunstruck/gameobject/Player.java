@@ -6,6 +6,8 @@ import java.util.Iterator;
 
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.Main;
+import org.group20.sunstruck.Menu;
+import org.group20.sunstruck.Shop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -42,7 +44,8 @@ public class Player extends GameObject implements Serializable {
 
 	private float heightTemp;
 
-	public static TextureRegion shipTexture = Game.TextureAtlas
+	public static TextureRegion shipTexture = Game.textureAtlas
+>>>>>>> Temporary merge branch 2
 			.findRegion("shipPlayer");
 
 	public Player() {
@@ -50,9 +53,9 @@ public class Player extends GameObject implements Serializable {
 		isEnemy = false;
 		type = TYPES.PLAYER;
 		weaponType = new LaserTiny1();
-		hull = 100;
+		hull = 70;
 		currentHull = hull;
-		shield = 100;
+		shield = 50;
 		currentShield = shield;
 		speed = 7;
 		score = 0;
@@ -75,7 +78,7 @@ public class Player extends GameObject implements Serializable {
 					.findRegion("explosionBlue8"));
 			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue9"));
-			bombExplosionTextures.add(Game.TextureAtlas
+			bombExplosionTextures.add(Game.textureAtlas
 					.findRegion("explosionBlue10"));
 			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue11"));
@@ -92,6 +95,8 @@ public class Player extends GameObject implements Serializable {
 
 	@Override
 	public void update() {
+		if(isDisposed && !isExploding)
+			 Menu.isActive = true;
 		// System.out
 		// .println("Shield: " + currentShield + " Hull: " + currentHull);
 		long time = 0;
@@ -193,8 +198,10 @@ public class Player extends GameObject implements Serializable {
 
 	@Override
 	public void dispose() {
-		// System.out.println(score);
-		Game.getInstance().getDestroyedBodiesList().add(body);
+		 if (!isDisposed) {
+			 isExploding = true;
+			 isDisposed = true;
+		 }
 	}
 
 	@Override
@@ -310,6 +317,9 @@ public class Player extends GameObject implements Serializable {
 
 	public float getCurrentShield() {
 		return currentShield;
+	}
+	public boolean isDisposed(){
+		return isDisposed;
 	}
 
 }
