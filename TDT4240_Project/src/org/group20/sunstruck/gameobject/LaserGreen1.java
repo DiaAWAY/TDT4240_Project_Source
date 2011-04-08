@@ -17,6 +17,7 @@ public class LaserGreen1 extends GameObject {
 		impactDamage = 15;
 		type = TYPES.BULLET;
 		density = 5;
+		score = 0;
 
 	}
 

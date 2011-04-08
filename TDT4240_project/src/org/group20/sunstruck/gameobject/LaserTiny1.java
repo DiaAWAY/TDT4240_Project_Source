@@ -17,6 +17,7 @@ public class LaserTiny1 extends GameObject {
 		impactDamage = 15;
 		type = TYPES.BULLET;
 		density = 1;
+		score = 0;
 
 	}
 

@@ -686,7 +686,7 @@ rock1
   orig: 480, 800
   offset: 0, 0
   index: -1
-LavaToRock
+lavaToRock
   rotate: false
   xy: 481, 0
   size: 480, 800

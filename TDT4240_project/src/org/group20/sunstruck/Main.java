@@ -263,20 +263,18 @@ public class Main implements ApplicationListener {
 	 */
 	private void drawBackground() {
 		float bgPosition = bgIteration * bgSpeed;
-		backgroundBatch.begin();
 		if (firstBg != null) {
-			backgroundBatch.draw(firstBg, -bgPosition, 0,
-					Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			spriteBatch.draw(firstBg, -bgPosition, 0, Gdx.graphics.getWidth(),
+					Gdx.graphics.getHeight());
 		} else {
 			System.err.println("drawBackground(): firstBg=" + firstBg);
 		}
 		if (lastBg != null) {
-			backgroundBatch.draw(lastBg, -bgPosition + Gdx.graphics.getWidth(),
-					0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			spriteBatch.draw(lastBg, -bgPosition + Gdx.graphics.getWidth(), 0,
+					Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		} else {
 			System.err.println("drawBackground(): lastBg=" + lastBg);
 		}
-		backgroundBatch.end();
 		time += Gdx.app.getGraphics().getDeltaTime();
 		if (time > 0.01f) {
 			time = 0;
