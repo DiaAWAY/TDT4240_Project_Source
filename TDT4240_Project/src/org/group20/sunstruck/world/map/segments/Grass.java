@@ -1,6 +1,5 @@
 package org.group20.sunstruck.world.map.segments;
 
-
 import java.util.HashMap;
 
 import org.group20.sunstruck.Game;
@@ -17,8 +16,10 @@ public class Grass extends Theme {
 	public Grass() {
 		setType(MapTypes.GRASS);
 		setTextures(textures);
-		transitions.put(MapTypes.DESERT, Game.textureAtlas.findRegion("grassToDesert"));
-		transitions.put(MapTypes.ROCK, Game.textureAtlas.findRegion("grassToRock"));
+		transitions.put(MapTypes.DESERT,
+				Game.textureAtlas.findRegion("grassToDesert"));
+		transitions.put(MapTypes.ROCK,
+				Game.textureAtlas.findRegion("grassToRock"));
 		setTransitions(transitions);
 	}
 }

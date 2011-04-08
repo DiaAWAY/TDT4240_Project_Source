@@ -15,8 +15,10 @@ public class Desert extends Theme {
 	public Desert() {
 		setType(MapTypes.DESERT);
 		setTextures(textures);
-		transitions.put(MapTypes.GRASS, Game.textureAtlas.findRegion("desertToGrass"));
-		transitions.put(MapTypes.ROCK, Game.textureAtlas.findRegion("desertToRock"));
+		transitions.put(MapTypes.GRASS,
+				Game.textureAtlas.findRegion("desertToGrass"));
+		transitions.put(MapTypes.ROCK,
+				Game.textureAtlas.findRegion("desertToRock"));
 		setTransitions(transitions);
 	}
 }

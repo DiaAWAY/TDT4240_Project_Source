@@ -34,7 +34,7 @@ public class Main implements ApplicationListener {
 	private SpriteBatch spriteBatch;
 	private SpriteBatch backgroundBatch;
 	private OrthographicCamera camera;
-	//private Box2DDebugRenderer renderer;
+	// private Box2DDebugRenderer renderer;
 	private int bgIteration = 0;
 	private float time = 0;
 	private boolean run = true;
@@ -107,7 +107,7 @@ public class Main implements ApplicationListener {
 		spriteBatch = new SpriteBatch();
 		backgroundBatch = new SpriteBatch();
 		guiBatch = new SpriteBatch();
-		//renderer = new Box2DDebugRenderer();
+		// renderer = new Box2DDebugRenderer();
 
 		Game.getInstance().start();
 		firstBg = Game.getInstance().getMap().getNext();
@@ -146,7 +146,7 @@ public class Main implements ApplicationListener {
 		// Draw game objects.
 		drawGameObjects();
 
-		//renderer.render(Game.getInstance().getWorld());
+		// renderer.render(Game.getInstance().getWorld());
 	}
 
 	private void drawGuiShop() {

@@ -16,10 +16,14 @@ public class Rock extends Theme {
 	public Rock() {
 		setType(MapTypes.ROCK);
 		setTextures(textures);
-		transitions.put(MapTypes.DESERT, Game.textureAtlas.findRegion("rockToDesert"));
-		transitions.put(MapTypes.GRASS, Game.textureAtlas.findRegion("rockToGrass"));
-	    transitions.put(MapTypes.LAVA, Game.textureAtlas.findRegion("rockToLava"));
-	    transitions.put(MapTypes.WATER, Game.textureAtlas.findRegion("rockToWater"));
-	    setTransitions(transitions);
+		transitions.put(MapTypes.DESERT,
+				Game.textureAtlas.findRegion("rockToDesert"));
+		transitions.put(MapTypes.GRASS,
+				Game.textureAtlas.findRegion("rockToGrass"));
+		transitions.put(MapTypes.LAVA,
+				Game.textureAtlas.findRegion("rockToLava"));
+		transitions.put(MapTypes.WATER,
+				Game.textureAtlas.findRegion("rockToWater"));
+		setTransitions(transitions);
 	}
 }
