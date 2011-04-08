@@ -18,7 +18,7 @@ public class GameObjectFactory {
 		this.difficulty = difficulty;
 	}
 
-	public GameObject createBoss(Vector2 position, float angle) {
+	public Boss createBoss(Vector2 position, float angle) {
 		Boss bo = new Boss();
 		generateBossBody(bo, position, angle);
 		bo.setKamikazeSpawnPoint(new Vector2(bo.width * 0.3193f,
@@ -28,56 +28,55 @@ public class GameObjectFactory {
 		return bo;
 	}
 
-	public GameObject createPlayer(Vector2 position, float angle) {
-		GameObject player = new Player();
+	public Player createPlayer(Vector2 position, float angle) {
+		Player player = new Player();
 		generateBoxBody(player, position, angle);
 		player.body.setFixedRotation(true);
 		return player;
 	}
 
-	public GameObject createSmallKamikazeShip(Vector2 position, float angle) {
-		GameObject go = new SmallKamikazeShip();
+	public SmallKamikazeShip createSmallKamikazeShip(Vector2 position, float angle) {
+		SmallKamikazeShip go = new SmallKamikazeShip();
+		generateBoxBody(go, position, angle);
+		return go;
+	}
+	
+	public MediumKamikazeShip createMediumKamikazeShip(Vector2 position, float angle) {
+		MediumKamikazeShip go = new MediumKamikazeShip();
 		generateBoxBody(go, position, angle);
 		return go;
 	}
 
-	public GameObject createSmallLaserShip(Vector2 position, float angle) {
-		GameObject go = new SmallLaserShip();
+	public SmallLaserShip createSmallLaserShip(Vector2 position, float angle) {
+		SmallLaserShip go = new SmallLaserShip();
 		generateBoxBody(go, position, angle);
 		return go;
 	}
 
-	public GameObject createAsteroid(Vector2 position, float angle, int size) {
-		GameObject go = new Asteroid(size);
+	public Asteroid createAsteroid(Vector2 position, float angle, int size) {
+		Asteroid go = new Asteroid(size);
 		generateCircleBody(go, position, angle);
 		go.body.setAngularVelocity((float) Math.random());
 		return go;
 	}
 
-	public GameObject createLaserTiny1(Vector2 position, float angle) {
-		GameObject go = new LaserTiny1();
+	public LaserTiny1 createLaserTiny1(Vector2 position, float angle) {
+		LaserTiny1 go = new LaserTiny1();
 		generateBoxBody(go, position, angle);
 		go.body.setFixedRotation(true);
 		return go;
 
 	}
 
-	public GameObject createLaserGreen1(Vector2 position, float angle) {
-		GameObject go = new LaserGreen1();
+	public LaserGreen1 createLaserGreen1(Vector2 position, float angle) {
+		LaserGreen1 go = new LaserGreen1();
 		generateBoxBody(go, position, angle);
 		go.body.setFixedRotation(true);
 		return go;
 	}
 
-	public GameObject createLaserTiny2(Vector2 position, float angle) {
-		GameObject go = new LaserTiny2();
-		generateBoxBody(go, position, angle);
-		go.body.setFixedRotation(true);
-		return go;
-	}
-
-	public GameObject createMediumKamikazeShip(Vector2 position, float angle) {
-		GameObject go = new MediumKamikazeShip();
+	public LaserTiny2 createLaserTiny2(Vector2 position, float angle) {
+		LaserTiny2 go = new LaserTiny2();
 		generateBoxBody(go, position, angle);
 		go.body.setFixedRotation(true);
 		return go;
@@ -105,10 +104,10 @@ public class GameObjectFactory {
 	}
 
 	public void createSmallerAsteroids(GameObject shooter) {
-		GameObject asteroid1 = new Asteroid(((Asteroid) shooter).size - 1);
-		GameObject asteroid2 = new Asteroid(((Asteroid) shooter).size - 1);
-		GameObject asteroid3 = new Asteroid(((Asteroid) shooter).size - 1);
-		GameObject asteroid4 = new Asteroid(((Asteroid) shooter).size - 1);
+		Asteroid asteroid1 = new Asteroid(((Asteroid) shooter).size - 1);
+		Asteroid asteroid2 = new Asteroid(((Asteroid) shooter).size - 1);
+		Asteroid asteroid3 = new Asteroid(((Asteroid) shooter).size - 1);
+		Asteroid asteroid4 = new Asteroid(((Asteroid) shooter).size - 1);
 
 		Vector2 position1 = new Vector2(0, 0);
 		Vector2 position2 = new Vector2(0, 0);

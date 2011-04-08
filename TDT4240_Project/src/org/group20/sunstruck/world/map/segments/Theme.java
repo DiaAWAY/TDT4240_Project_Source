@@ -1,6 +1,10 @@
 package org.group20.sunstruck.world.map.segments;
 
+import java.util.Collection;
 import java.util.HashMap;
+
+import org.group20.sunstruck.Game;
+import org.group20.sunstruck.world.map.MapGenerator;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -19,7 +23,7 @@ public abstract class Theme {
 	}
 
 	public TextureRegion transitionTo(MapTypes t) {
-		System.out.println("transitions=" + transitions);
+		// System.out.println("transitions=" + transitions);
 		return transitions.get(t);
 	}
 
@@ -48,6 +52,6 @@ public abstract class Theme {
 	}
 
 	private int randomIndexIn(Object[] o) {
-		return (int) (Math.random() * (o.length - 1) + 0.5);
+		return Game.getInstance().randomNumber(0, o.length - 1);
 	}
 }

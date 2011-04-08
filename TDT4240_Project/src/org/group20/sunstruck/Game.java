@@ -2,6 +2,7 @@ package org.group20.sunstruck;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
@@ -25,7 +26,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Game implements GameInterface, ContactListener {
 	public static boolean DEBUG = false;
-	public static TextureAtlas textureAtlas = new TextureAtlas(
+	public static TextureAtlas TextureAtlas = new TextureAtlas(
 			Gdx.files.internal("data/pack"));
 	private float updateRate = 1.0f; // physics update rate
 	private float totalTime;
@@ -49,13 +50,14 @@ public class Game implements GameInterface, ContactListener {
 										// bossInterval*bossCount =>
 	// spawn boss
 	private float enemySpawnTime = 0;
+	private float enemySpawnInterval = 2;
 
 	private Game() {
 		this(DIFFICULTIES.MEDIUM);
 	}
 
 	public void initializePlayer() {
-		player = (Player) goFactory.createPlayer(new Vector2(0, 0), 0);
+		player = goFactory.createPlayer(new Vector2(0, 0), 0);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -128,21 +130,19 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 0) {
-				// double randomize = Math.random();
-				int random = (int) (Math.random() * 3); // 3 is the number of
-														// types of enemies to
-														// spawn
+			if (enemySpawnTime > enemySpawnInterval) {
+				// 2 = n-1. n=3, the number of enemies available in the switch
+				int random = randomNumber(0, 2);
 				System.out.println(random);
 				switch (random) {
 				case 0:
 					spawnSmallLaserSquad();
 					break;
 				case 1:
-					spawnMediumKamikazeSquad();
+					spawnSmallKamikazeSquad();
 					break;
 				case 2:
-					spawnSmallKamikazeSquad();
+					spawnMediumKamikazeSquad();
 					break;
 				default:
 					break;
@@ -165,6 +165,13 @@ public class Game implements GameInterface, ContactListener {
 			}
 		}
 	}
+	
+	private void spawnSmallKamikazeSquad() {
+		int numberOfShips = (int) (Math.random() * 5 + 1);
+		while (numberOfShips-- > 0) {
+			goFactory.createSmallKamikazeShip(getNewEnemyPosition(), 0);
+		}
+	}	
 
 	private void spawnMediumKamikazeSquad() {
 		int numberOfShips = (int) (Math.random() * 5 + 1);
@@ -177,14 +184,6 @@ public class Game implements GameInterface, ContactListener {
 		while (numberOfShips-- > 0) {
 			goFactory.createSmallLaserShip(getNewEnemyPosition(),
 					(float) Math.PI);
-		}
-
-	}
-
-	private void spawnSmallKamikazeSquad() {
-		int numberOfShips = (int) (Math.random() * 5 + 1);
-		while (numberOfShips-- > 0) {
-			goFactory.createSmallKamikazeShip(getNewEnemyPosition(), 0);
 		}
 
 	}
@@ -262,23 +261,21 @@ public class Game implements GameInterface, ContactListener {
 			// System.out.println(body);
 			player.setScore(player.getScore()
 					+ ((GameObject) body.getUserData()).getScore());
-			if (((GameObject) body.getUserData()) instanceof Boss) {
-				// System.out.println("Boss Dead!");
-				bossCount++;
-				bossMode = false;
-				bossAlive = false;
-				enemySpawnTime = 0;
-			}
-			// world.destroyBody(body);
 			if (((GameObject) body.getUserData()).isExploding())
 				for (int j = 0; j < body.getFixtureList().size(); j++)
 					body.destroyFixture(body.getFixtureList().get(j));
 			else {
+				if ((bossMode && (GameObject) body.getUserData() instanceof Boss)) {
+					bossCount++;
+					bossMode = false;
+					bossAlive = false;
+					enemySpawnTime = 0;
+					enemySpawnInterval -= enemySpawnInterval * 0.1;
+				}				
 				world.destroyBody(body);
 				destroyedBodiesList.remove(i);
 			}
 		}
-		// destroyedBodiesList.clear();
 	}
 
 	// Getter's and setter's (No shit)
@@ -392,5 +389,18 @@ public class Game implements GameInterface, ContactListener {
 	 */
 	public void setBossInterval(int i) {
 		this.bossInterval = i;
+	}
+
+	/**
+	 * gets a random number between inclusive min and inclusive max
+	 * 
+	 * @param min
+	 *            - the minimum value
+	 * @param max
+	 *            - the maximum value
+	 * @return
+	 */
+	public int randomNumber(int min, int max) {
+		return min + (int) Math.round((Math.random() * (max - min)));
 	}
 }

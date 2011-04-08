@@ -7,7 +7,7 @@ import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SmallKamikazeShip extends GameObject {
-	public static TextureRegion shipTexture = Game.textureAtlas
+	public static TextureRegion shipTexture = Game.TextureAtlas
 			.findRegion("shipSmall3");
 
 	public SmallKamikazeShip() {

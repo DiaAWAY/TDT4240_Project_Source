@@ -6,13 +6,13 @@ import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MediumKamikazeShip extends GameObject {
-	public static TextureRegion shipTexture = Game.textureAtlas
+	public static TextureRegion shipTexture = Game.TextureAtlas
 			.findRegion("shipSmall2");
 
 	public MediumKamikazeShip() {
 		super(shipTexture, 0.7f);
 		BURST_COUNT = 0;
-		behavior = BEHAVIOR.KAMIKAZE_FOR;
+		behavior = BEHAVIOR.KAMIKAZE_FOR_ANGLE;
 		impactDamage = 12;
 		hull = 5;
 		currentHull = hull;
