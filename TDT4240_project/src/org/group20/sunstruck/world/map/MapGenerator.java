@@ -69,16 +69,21 @@ public class MapGenerator {
 	public TextureRegion getNext() {
 		if (Math.random() < changeThreshold) {
 			System.out.println("--- TRANSITION BEGINS ---");
-			TextureRegion next = null;
-			do {
-				MapTypes t = MapTypes.values()[randomIndexIn(MapTypes.values())];
-				nextTheme = themes.get(t);
-				System.out.println("t=" + currentTheme + ", " + t.toString());
-				System.out.println("nextTheme=" + nextTheme);
-				System.out.println("currentTheme=" + currentTheme);
-				next = currentTheme.transitionTo(nextTheme.getType());
-			} while (next == null);
+			System.out.println("currenTheme="+currentTheme+", nextTheme="+nextTheme);
+//			TextureRegion next = null;
+//			do {
+//				MapTypes t = MapTypes.values()[randomIndexIn(MapTypes.values())];
+//				nextTheme = themes.get(t);
+//				System.out.println("t=" + currentTheme + ", " + t.toString());
+//				System.out.println("nextTheme=" + nextTheme);
+//				System.out.println("currentTheme=" + currentTheme);
+//				next = currentTheme.transitionTo(nextTheme.getType());
+//			} while (next == null);
+			nextTheme = availableThemes.get(randomIndexIn(availableThemes));
+			TextureRegion next = currentTheme.transitionTo(nextTheme.getType());
 			currentTheme = nextTheme;
+			populateAvailableThemes();
+			System.out.println("currenTheme="+currentTheme+", nextTheme="+nextTheme);
 			System.out.println("--- TRANSITION ENDS ---");
 			return next;
 		}
