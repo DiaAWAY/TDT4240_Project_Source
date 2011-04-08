@@ -7,18 +7,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Desert extends Theme {
 
 	private TextureRegion[] textures = {
-			Game.textureAtlas.findRegion("desert1"),
-			Game.textureAtlas.findRegion("desert2"),
-			Game.textureAtlas.findRegion("desert3") };
+			Game.TextureAtlas.findRegion("desert1"),
+			Game.TextureAtlas.findRegion("desert2"),
+			Game.TextureAtlas.findRegion("desert3") };
 	private HashMap<MapTypes, TextureRegion> transitions = new HashMap<MapTypes, TextureRegion>();
 
 	public Desert() {
 		setType(MapTypes.DESERT);
 		setTextures(textures);
 		transitions.put(MapTypes.GRASS,
-				Game.textureAtlas.findRegion("desertToGrass"));
+				Game.TextureAtlas.findRegion("desertToGrass"));
 		transitions.put(MapTypes.ROCK,
-				Game.textureAtlas.findRegion("desertToRock"));
+				Game.TextureAtlas.findRegion("desertToRock"));
 		setTransitions(transitions);
 	}
 }

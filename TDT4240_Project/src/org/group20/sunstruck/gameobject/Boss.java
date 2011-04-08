@@ -17,7 +17,7 @@ public class Boss extends GameObject {
 	int SPAWNBURST_COUNT = 3;
 	int SPAWNPAUSE_COUNT = 24;
 	int spawnCount = 0;
-	public static TextureRegion shipTexture = Game.textureAtlas
+	public static TextureRegion shipTexture = Game.TextureAtlas
 			.findRegion("shipColossal");
 
 	public Boss() {

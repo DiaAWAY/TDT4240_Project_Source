@@ -8,22 +8,22 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Rock extends Theme {
 
-	private TextureRegion[] textures = { Game.textureAtlas.findRegion("rock1"),
-			Game.textureAtlas.findRegion("rock2"),
-			Game.textureAtlas.findRegion("rock3") };
+	private TextureRegion[] textures = { Game.TextureAtlas.findRegion("rock1"),
+			Game.TextureAtlas.findRegion("rock2"),
+			Game.TextureAtlas.findRegion("rock3") };
 	private HashMap<MapTypes, TextureRegion> transitions = new HashMap<MapTypes, TextureRegion>();
 
 	public Rock() {
 		setType(MapTypes.ROCK);
 		setTextures(textures);
 		transitions.put(MapTypes.DESERT,
-				Game.textureAtlas.findRegion("rockToDesert"));
+				Game.TextureAtlas.findRegion("rockToDesert"));
 		transitions.put(MapTypes.GRASS,
-				Game.textureAtlas.findRegion("rockToGrass"));
+				Game.TextureAtlas.findRegion("rockToGrass"));
 		transitions.put(MapTypes.LAVA,
-				Game.textureAtlas.findRegion("rockToLava"));
+				Game.TextureAtlas.findRegion("rockToLava"));
 		transitions.put(MapTypes.WATER,
-				Game.textureAtlas.findRegion("rockToWater"));
+				Game.TextureAtlas.findRegion("rockToWater"));
 		setTransitions(transitions);
 	}
 }

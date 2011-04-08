@@ -22,7 +22,7 @@ public class Player extends GameObject {
 	private int shieldLevel = 0;
 	private int speedLevel = 0;
 
-	public static TextureRegion shipTexture = Game.textureAtlas
+	public static TextureRegion shipTexture = Game.TextureAtlas
 			.findRegion("shipPlayer");
 
 	public Player() {

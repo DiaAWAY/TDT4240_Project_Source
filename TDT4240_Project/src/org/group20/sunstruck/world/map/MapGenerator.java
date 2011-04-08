@@ -4,9 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import org.group20.sunstruck.world.map.segments.*;
+import org.group20.sunstruck.Game;
+import org.group20.sunstruck.world.map.segments.Desert;
+import org.group20.sunstruck.world.map.segments.Grass;
+import org.group20.sunstruck.world.map.segments.Lava;
+import org.group20.sunstruck.world.map.segments.Rock;
+import org.group20.sunstruck.world.map.segments.Theme;
 import org.group20.sunstruck.world.map.segments.Theme.MapTypes;
+import org.group20.sunstruck.world.map.segments.Water;
+
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MapGenerator {
 	private Theme currentTheme;
@@ -14,6 +21,7 @@ public class MapGenerator {
 	private HashMap<MapTypes, Theme> themes = new HashMap<MapTypes, Theme>();
 	private ArrayList<Theme> availableThemes = new ArrayList<Theme>();
 	public double changeThreshold = 0.2; // the percentile chance of change
+
 
 	public MapGenerator() {
 		initMapSegments();
@@ -66,6 +74,6 @@ public class MapGenerator {
 
 	@SuppressWarnings({ "rawtypes" })
 	private int randomIndexIn(Collection c) {
-		return (int) (Math.random() * (c.size() + 1));
+		return Game.getInstance().randomNumber(0, c.size() -1);
 	}
 }

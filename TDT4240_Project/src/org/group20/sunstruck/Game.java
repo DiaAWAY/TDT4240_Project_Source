@@ -2,6 +2,7 @@ package org.group20.sunstruck;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import org.group20.sunstruck.behavior.Behavior;
 import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
@@ -25,7 +26,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Game implements GameInterface, ContactListener {
 	public static boolean DEBUG = false;
-	public static TextureAtlas textureAtlas = new TextureAtlas(
+	public static TextureAtlas TextureAtlas = new TextureAtlas(
 			Gdx.files.internal("data/pack"));
 	private float updateRate = 1.0f; // physics update rate
 	private float totalTime;
@@ -127,11 +128,7 @@ public class Game implements GameInterface, ContactListener {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
 			if (enemySpawnTime >= 0) {
-				// double randomize = Math.random();
-				int random = (int) (Math.random() * 3); // 3 is the number of
-														// types of enemies to
-														// spawn
-				System.out.println(random);
+				int random = randomNumber(0, 2); // 2 = n-1. 3 is the number of enemies available
 				switch (random) {
 				case 0:
 					spawnSmallLaserSquad();
@@ -386,5 +383,15 @@ public class Game implements GameInterface, ContactListener {
 	 */
 	public void setBossInterval(int i) {
 		this.bossInterval = i;
+	}
+	
+	/**
+	 * gets a random number between inclusive min and inclusive max
+	 * @param min - the minimum value
+	 * @param max - the maximum value
+	 * @return
+	 */
+	public int randomNumber(int min, int max) {
+		return min + (int) Math.round((Math.random() * (max - min)));
 	}
 }

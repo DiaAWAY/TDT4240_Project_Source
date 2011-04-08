@@ -61,7 +61,7 @@ public class GUI {
 	ArrayList<Sprite> shopSpriteList = new ArrayList<Sprite>();
 
 	public GUI() {
-		TextureAtlas ta = Game.textureAtlas;
+		TextureAtlas ta = Game.TextureAtlas;
 
 		f = new BitmapFont();
 
