@@ -70,6 +70,7 @@ public class Input {
 	public void update() {
 		if (Menu.isActive) {
 			updateMenu();
+			
 		} else {
 			if (Shop.isActive)
 				updateShop();

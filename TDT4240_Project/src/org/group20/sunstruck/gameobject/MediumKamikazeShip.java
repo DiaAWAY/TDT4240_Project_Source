@@ -11,6 +11,8 @@ public class MediumKamikazeShip extends GameObject {
 
 	public MediumKamikazeShip() {
 		super(shipTexture, 0.7f);
+		weaponType = new LaserTiny1();
+		reloadTime = 300;
 		BURST_COUNT = 2;
 		behavior = BEHAVIOR.KAMIKAZE_VEL;
 		impactDamage = 12;
