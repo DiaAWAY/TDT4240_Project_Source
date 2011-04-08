@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Contact;
 
 public class LaserGreen1 extends GameObject {
-	public static TextureRegion laserTexture = Game.TextureAtlas
+	public static TextureRegion laserTexture = Game.textureAtlas
 			.findRegion("laserGreen1");
 
 	public LaserGreen1() {

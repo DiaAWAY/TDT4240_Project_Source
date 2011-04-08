@@ -26,7 +26,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Game implements GameInterface, ContactListener {
 	public static boolean DEBUG = false;
-	public static TextureAtlas TextureAtlas = new TextureAtlas(
+	public static TextureAtlas textureAtlas = new TextureAtlas(
 			Gdx.files.internal("data/pack"));
 	private float updateRate = 1.0f; // physics update rate
 	private float totalTime;
@@ -165,13 +165,13 @@ public class Game implements GameInterface, ContactListener {
 			}
 		}
 	}
-	
+
 	private void spawnSmallKamikazeSquad() {
 		int numberOfShips = (int) (Math.random() * 5 + 1);
 		while (numberOfShips-- > 0) {
 			goFactory.createSmallKamikazeShip(getNewEnemyPosition(), 0);
 		}
-	}	
+	}
 
 	private void spawnMediumKamikazeSquad() {
 		int numberOfShips = (int) (Math.random() * 5 + 1);
@@ -271,7 +271,7 @@ public class Game implements GameInterface, ContactListener {
 					bossAlive = false;
 					enemySpawnTime = 0;
 					enemySpawnInterval -= enemySpawnInterval * 0.1;
-				}				
+				}
 				world.destroyBody(body);
 				destroyedBodiesList.remove(i);
 			}

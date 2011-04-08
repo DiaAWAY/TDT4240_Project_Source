@@ -80,7 +80,7 @@ public class GUI {
 	ArrayList<Sprite> shopSpriteList = new ArrayList<Sprite>();
 
 	public GUI() {
-		TextureAtlas ta = Game.TextureAtlas;
+		TextureAtlas ta = Game.textureAtlas;
 
 		f = new BitmapFont();
 

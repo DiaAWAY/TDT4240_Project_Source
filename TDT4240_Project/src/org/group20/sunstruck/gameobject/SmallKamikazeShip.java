@@ -7,7 +7,7 @@ import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SmallKamikazeShip extends GameObject {
-	public static TextureRegion shipTexture = Game.TextureAtlas
+	public static TextureRegion shipTexture = Game.textureAtlas
 			.findRegion("shipSmall3");
 
 	public SmallKamikazeShip() {
@@ -18,6 +18,7 @@ public class SmallKamikazeShip extends GameObject {
 		weaponType = new LaserTiny2();
 		shield = 0;
 		currentShield = 0;
+		speed = 10;
 	}
 
 	@Override

@@ -6,15 +6,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Lava extends Theme {
 
-	private TextureRegion[] textures = { Game.TextureAtlas.findRegion("lava1"),
-			Game.TextureAtlas.findRegion("lava2") };
+	private TextureRegion[] textures = { Game.textureAtlas.findRegion("lava1"),
+			Game.textureAtlas.findRegion("lava2") };
 	private HashMap<MapTypes, TextureRegion> transitions = new HashMap<MapTypes, TextureRegion>();
 
 	public Lava() {
 		setType(MapTypes.LAVA);
 		setTextures(textures);
 		transitions.put(MapTypes.ROCK,
-				Game.TextureAtlas.findRegion("lavaToRock"));
+				Game.textureAtlas.findRegion("lavaToRock"));
 		setTransitions(transitions);
 	}
 }
