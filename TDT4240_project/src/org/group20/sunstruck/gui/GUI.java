@@ -174,7 +174,7 @@ public class GUI {
 		hullFont.setColor(Color.BLACK);
 		shieldFont.setColor(Color.BLACK);
 		
-		scoreFont.setPosition(Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight());
+		scoreFont.setPosition( -Gdx.graphics.getHeight(),Gdx.graphics.getWidth() - 100);
 		hullFont.setPosition(Gdx.graphics.getWidth() - 190, Gdx.graphics.getHeight());
 		shieldFont.setPosition(Gdx.graphics.getWidth() - 190, Gdx.graphics.getHeight() - 15);
 		
@@ -187,9 +187,9 @@ public class GUI {
 	}
 	
 	public void updateStats() {
-		scoreFont.setText("SCORE: "	+ Integer.toString((int)Game.getInstance().getPlayer().getScore()), 0, 0);
-		hullFont.setText("Hull: " + Integer.toString((int)Game.getInstance().getPlayer().getHull()), 0, 0);
-		shieldFont.setText("Shield: " + Integer.toString((int)Game.getInstance().getPlayer().getShield()), 0, 0);
+		scoreFont.setText("SCORE:"	+ Integer.toString((int)Game.getInstance().getPlayer().getScore()), 0, 0);
+		hullFont.setText(	"Hull:   " + Integer.toString((int)Game.getInstance().getPlayer().getHull()), 0, 0);
+		shieldFont.setText(	"Shield: " + Integer.toString((int)Game.getInstance().getPlayer().getShield()), 0, 0);
 		
 		scoreFont.setPosition(Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight());
 		hullFont.setPosition(Gdx.graphics.getWidth() - 190, Gdx.graphics.getHeight());

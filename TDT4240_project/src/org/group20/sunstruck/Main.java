@@ -113,7 +113,7 @@ public class Main implements ApplicationListener {
 		notRotatedMatrix.set(spriteBatch.getTransformMatrix());
 		
 		rotatedMatrix.set(notRotatedMatrix.getValues());
-		//rotatedMatrix.setToRotation(new Vector3(1,0,0), 45);
+		rotatedMatrix.setToRotation(new Vector3(0,0,1), -3);
 		System.out.println(rotatedMatrix);
 		
 		renderer = new Box2DDebugRenderer();
