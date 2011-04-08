@@ -12,5 +12,6 @@ public class SpritePackager {
         settings.incremental = true;
         settings.stripWhitespace = false;
         TexturePacker.process(settings, "Textures", "../TDT4240_Project/data");
+        TexturePacker.process(settings, "Textures", "../TDT4240_Project_Android/assets/data");
     }
 }

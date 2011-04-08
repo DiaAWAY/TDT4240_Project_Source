@@ -1,10 +1,6 @@
 package org.group20.sunstruck;
 
-import javax.print.attribute.standard.Finishings;
-
 import org.group20.sunstruck.gui.GUI;
-
-import com.badlogic.gdx.Gdx;
 
 public class Menu {
 

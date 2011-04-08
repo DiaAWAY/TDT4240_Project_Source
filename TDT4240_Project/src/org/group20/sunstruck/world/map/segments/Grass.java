@@ -3,6 +3,7 @@ package org.group20.sunstruck.world.map.segments;
 import java.util.HashMap;
 
 import org.group20.sunstruck.Game;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Grass extends Theme {

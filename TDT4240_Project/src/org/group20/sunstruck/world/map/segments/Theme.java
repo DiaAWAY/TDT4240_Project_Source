@@ -1,10 +1,8 @@
 package org.group20.sunstruck.world.map.segments;
 
-import java.util.Collection;
 import java.util.HashMap;
 
 import org.group20.sunstruck.Game;
-import org.group20.sunstruck.world.map.MapGenerator;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

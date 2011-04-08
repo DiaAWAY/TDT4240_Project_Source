@@ -42,7 +42,7 @@ public class Player extends GameObject implements Serializable {
 
 	private float heightTemp;
 
-	public static TextureRegion shipTexture = Game.textureAtlas
+	public static TextureRegion shipTexture = Game.TextureAtlas
 			.findRegion("shipPlayer");
 
 	public Player() {
@@ -57,35 +57,35 @@ public class Player extends GameObject implements Serializable {
 		speed = 7;
 		score = 0;
 		if (bombExplosionTextures.isEmpty()) {
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue1"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue2"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue3"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue4"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue5"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue6"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue7"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue8"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue9"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue10"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue11"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue12"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue13"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue14"));
-			bombExplosionTextures.add(Game.textureAtlas
+			bombExplosionTextures.add(Game.TextureAtlas
 					.findRegion("explosionBlue15"));
 		}
 	}

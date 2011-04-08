@@ -2,10 +2,8 @@ package org.group20.sunstruck;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
 import org.group20.sunstruck.behavior.Behavior;
-import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 import org.group20.sunstruck.gameobject.Boss;
 import org.group20.sunstruck.gameobject.GameObject;
 import org.group20.sunstruck.gameobject.GameObjectFactory;

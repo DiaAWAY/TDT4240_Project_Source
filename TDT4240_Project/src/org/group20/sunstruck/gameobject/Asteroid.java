@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.group20.sunstruck.Game;
 import org.group20.sunstruck.behavior.Behavior;
-import org.group20.sunstruck.behavior.Behavior.BEHAVIOR;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Contact;
