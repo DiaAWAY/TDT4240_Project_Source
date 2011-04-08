@@ -127,10 +127,9 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 0) {
-				int random = randomNumber(0, 2); // 2 = n-1. 3 is the number of
-													// enemies available
-				switch (random) {
+			if (enemySpawnTime >= 5) {
+				// 2 = n-1. 3 is the number of enemies available
+				switch (randomNumber(0, 2)) {
 				case 0:
 					spawnSmallLaserSquad();
 					break;
