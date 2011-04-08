@@ -12,7 +12,7 @@ public class MediumKamikazeShip extends GameObject {
 	public MediumKamikazeShip() {
 		super(shipTexture, 0.7f);
 		BURST_COUNT = 0;
-		behavior = BEHAVIOR.KAMIKAZE_FOR;
+		behavior = BEHAVIOR.KAMIKAZE_FOR_ANGLE;
 		impactDamage = 12;
 		hull = 5;
 		currentHull = hull;

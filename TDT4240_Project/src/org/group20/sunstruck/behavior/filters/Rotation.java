@@ -13,7 +13,8 @@ public class Rotation implements Filter {
 	public void applyFilter(GameObject go) {
 		BEHAVIOR behavior = go.getBehavior();
 		Body body = go.getBody();
-
+		if (behavior == BEHAVIOR.KAMIKAZE_FOR)
+			return;
 		if (behavior == BEHAVIOR.KAMIKAZE_FOR)
 			return;
 		if (behavior == BEHAVIOR.BOSS_GET_IN_POSITION)

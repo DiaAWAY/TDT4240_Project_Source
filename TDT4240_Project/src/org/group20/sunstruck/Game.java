@@ -45,17 +45,18 @@ public class Game implements GameInterface, ContactListener {
 	private boolean bossAlive = false;
 	private float bossTimer = 0;
 	private int bossCount = 1;
-	private int bossInterval = 50000; // playerScore >
+	private int bossInterval = 500; // playerScore >
 										// bossInterval*bossCount =>
 	// spawn boss
 	private float enemySpawnTime = 0;
+	private float enemySpawnInterval = 2;
 
 	private Game() {
 		this(DIFFICULTIES.MEDIUM);
 	}
 
 	public void initializePlayer() {
-		player = (Player) goFactory.createPlayer(new Vector2(0, 0), 0);
+		player = goFactory.createPlayer(new Vector2(0, 0), 0);
 	}
 
 	private Game(DIFFICULTIES d) {
@@ -127,17 +128,19 @@ public class Game implements GameInterface, ContactListener {
 	private void spawnEnemy() {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
-			if (enemySpawnTime >= 5) {
-				// 2 = n-1. 3 is the number of enemies available
-				switch (randomNumber(0, 2)) {
+			if (enemySpawnTime > enemySpawnInterval) {
+				// 2 = n-1. n=3, the number of enemies available in the switch
+				int random = randomNumber(0, 2);
+				System.out.println(random);
+				switch (random) {
 				case 0:
 					spawnSmallLaserSquad();
 					break;
 				case 1:
-					spawnMediumKamikazeSquad();
+					spawnSmallKamikazeSquad();
 					break;
 				case 2:
-					spawnSmallKamikazeSquad();
+					spawnMediumKamikazeSquad();
 					break;
 				default:
 					break;
@@ -160,6 +163,13 @@ public class Game implements GameInterface, ContactListener {
 			}
 		}
 	}
+	
+	private void spawnSmallKamikazeSquad() {
+		int numberOfShips = (int) (Math.random() * 5 + 1);
+		while (numberOfShips-- > 0) {
+			goFactory.createSmallKamikazeShip(getNewEnemyPosition(), 0);
+		}
+	}	
 
 	private void spawnMediumKamikazeSquad() {
 		int numberOfShips = (int) (Math.random() * 5 + 1);
@@ -172,14 +182,6 @@ public class Game implements GameInterface, ContactListener {
 		while (numberOfShips-- > 0) {
 			goFactory.createSmallLaserShip(getNewEnemyPosition(),
 					(float) Math.PI);
-		}
-
-	}
-
-	private void spawnSmallKamikazeSquad() {
-		int numberOfShips = (int) (Math.random() * 5 + 1);
-		while (numberOfShips-- > 0) {
-			goFactory.createSmallKamikazeShip(getNewEnemyPosition(), 0);
 		}
 
 	}
@@ -257,23 +259,21 @@ public class Game implements GameInterface, ContactListener {
 			// System.out.println(body);
 			player.setScore(player.getScore()
 					+ ((GameObject) body.getUserData()).getScore());
-			if (((GameObject) body.getUserData()) instanceof Boss) {
-				// System.out.println("Boss Dead!");
-				bossCount++;
-				bossMode = false;
-				bossAlive = false;
-				enemySpawnTime = 0;
-			}
-			// world.destroyBody(body);
 			if (((GameObject) body.getUserData()).isExploding())
 				for (int j = 0; j < body.getFixtureList().size(); j++)
 					body.destroyFixture(body.getFixtureList().get(j));
 			else {
+				if ((bossMode && (GameObject) body.getUserData() instanceof Boss)) {
+					bossCount++;
+					bossMode = false;
+					bossAlive = false;
+					enemySpawnTime = 0;
+					enemySpawnInterval -= enemySpawnInterval * 0.1;
+				}				
 				world.destroyBody(body);
 				destroyedBodiesList.remove(i);
 			}
 		}
-		// destroyedBodiesList.clear();
 	}
 
 	// Getter's and setter's (No shit)
