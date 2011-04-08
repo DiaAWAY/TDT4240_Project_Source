@@ -141,7 +141,7 @@ public class Main implements ApplicationListener {
 			System.out.println("I render: " + Menu.isActive);
 			Game.getInstance().getMenu().update();
 			drawMenu();
-			
+
 			if (GUI.isHelpActive) {
 				drawHelp();
 			}
