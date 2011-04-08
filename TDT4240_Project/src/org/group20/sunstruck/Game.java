@@ -128,7 +128,8 @@ public class Game implements GameInterface, ContactListener {
 		if (!bossMode) {
 			enemySpawnTime += Gdx.graphics.getDeltaTime();
 			if (enemySpawnTime >= 0) {
-				int random = randomNumber(0, 2); // 2 = n-1. 3 is the number of enemies available
+				int random = randomNumber(0, 2); // 2 = n-1. 3 is the number of
+													// enemies available
 				switch (random) {
 				case 0:
 					spawnSmallLaserSquad();
@@ -384,11 +385,14 @@ public class Game implements GameInterface, ContactListener {
 	public void setBossInterval(int i) {
 		this.bossInterval = i;
 	}
-	
+
 	/**
 	 * gets a random number between inclusive min and inclusive max
-	 * @param min - the minimum value
-	 * @param max - the maximum value
+	 * 
+	 * @param min
+	 *            - the minimum value
+	 * @param max
+	 *            - the maximum value
 	 * @return
 	 */
 	public int randomNumber(int min, int max) {

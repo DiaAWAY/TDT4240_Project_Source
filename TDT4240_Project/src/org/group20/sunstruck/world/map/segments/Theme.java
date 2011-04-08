@@ -23,7 +23,7 @@ public abstract class Theme {
 	}
 
 	public TextureRegion transitionTo(MapTypes t) {
-		//System.out.println("transitions=" + transitions);
+		// System.out.println("transitions=" + transitions);
 		return transitions.get(t);
 	}
 

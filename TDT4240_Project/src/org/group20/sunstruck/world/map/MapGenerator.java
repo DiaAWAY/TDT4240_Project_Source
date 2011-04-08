@@ -22,7 +22,6 @@ public class MapGenerator {
 	private ArrayList<Theme> availableThemes = new ArrayList<Theme>();
 	public double changeThreshold = 0.2; // the percentile chance of change
 
-
 	public MapGenerator() {
 		initMapSegments();
 	}
@@ -74,6 +73,6 @@ public class MapGenerator {
 
 	@SuppressWarnings({ "rawtypes" })
 	private int randomIndexIn(Collection c) {
-		return Game.getInstance().randomNumber(0, c.size() -1);
+		return Game.getInstance().randomNumber(0, c.size() - 1);
 	}
 }
